@@ -149,7 +149,7 @@ export const tooltipItems = [
     id: 1,
     name: "Zahwa",
     designation: "Bagus Banget",
-    image: "/imgs/avatars/Zahwa",
+    image: "/imgs/avatars/Zahwa.jpg",
   },
   {
     id: 2,
