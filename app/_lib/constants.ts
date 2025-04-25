@@ -144,7 +144,7 @@ export const portfolioProjects = [
     sourceCodeUrl: "#",
   },
   {
-    id: "#",
+    id: "spottosee",
     heading: "SpotToSee",
     subheading: "Download ur fav spotify music or album here!",
     description:
