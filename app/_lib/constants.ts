@@ -111,6 +111,22 @@ export const portfolioProjects = [
     liveDemoUrl: "https://qrquicks.vercel.app/",
     sourceCodeUrl: "https://github.com/xFalzz/QRQuick",
   },
+    {
+    id: "xiimm2",
+    heading: "XII MM 2",
+    subheading: "Class website featuring memories!",
+    description:
+      "",
+    imageUrl: "/imgs/projects/WebsiteKenangan.jpg",
+    techStack: [
+      "ReactJS",
+      "TailwindCSS",
+      "Firebase",
+      "Bootstrap",
+    ],
+    liveDemoUrl: "https://emem-2.vercel.app/",
+    sourceCodeUrl: "https://github.com/xFalzz/EMEM2",
+  },
   {
     id: "moveihub",
     heading: "MoveiHub",
