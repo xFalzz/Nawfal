@@ -116,13 +116,13 @@ export const portfolioProjects = [
     heading: "XII MM 2",
     subheading: "Class website featuring memories!",
     description:
-      "",
+      "XII MM 2 is a modern and responsive class website designed for the 12th-grade Multimedia students at a vocational high school. The site serves as a digital hub for student profiles, showcasing their work, documenting class activities, and sharing important updates or announcements. This project reflects not only web development skills but also the creative spirit of the class, offering a professional and engaging way to present their identity online.",
     imageUrl: "/imgs/projects/WebsiteKenangan.jpg",
     techStack: [
-      "ReactJS",
+      "React",
+      "NextJs",
       "TailwindCSS",
       "Firebase",
-      "Bootstrap",
     ],
     liveDemoUrl: "https://emem-2.vercel.app/",
     sourceCodeUrl: "https://github.com/xFalzz/EMEM2",
