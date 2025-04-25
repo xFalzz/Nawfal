@@ -128,7 +128,7 @@ export const portfolioProjects = [
     sourceCodeUrl: "https://github.com/xFalzz/EMEM2",
   },
   {
-    id: "moveihub",
+    id: "",
     heading: "MoveiHub",
     subheading: "your ultimate online movie streaming destination!",
     description:
@@ -144,7 +144,7 @@ export const portfolioProjects = [
     sourceCodeUrl: "#",
   },
   {
-    id: "spottosee",
+    id: "",
     heading: "SpotToSee",
     subheading: "Download ur fav spotify music or album here!",
     description:
