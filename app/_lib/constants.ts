@@ -63,22 +63,6 @@ export const techCardsItems = [
 
 export const portfolioProjects = [
   {
-    id: "dusevoscho-MM2",
-    heading: "Dusevoscho-MM2",
-    subheading: "a modern e-commerce website",
-    description:
-      "Dusevoscho-MM2 is a sleek, modern classroom platform designed to redefine the learning experience. With a minimalist and futuristic interface, Dusevoscho-MM2 enhances classroom interactions, making it easy to manage courses, assignments, and communications in a streamlined digital space. Perfect for both students and educators, this platform offers a seamless, user-friendly experience tailored to modern educational needs.",
-    imageUrl: "/imgs/projects/SMKN 2 Sewon.png",
-    techStack: [
-      "React",
-      "Javascript",
-      "Firebase",
-      "TailwindCSS",
-    ],
-    liveDemoUrl: "#",
-    sourceCodeUrl: "https://github.com/xFalzz/DuseMM2",
-  },
-  {
     id: "snake's",
     heading: "Snake's",
     subheading: "connect with your friends online",
