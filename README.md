@@ -1,6 +1,6 @@
 # Nawfal - Frontend Web Developer
 
-<img src="https://your-image-link-here.com" alt="Nawfal - Portfolio" width="100%" />
+<img src="public/imgs/projects/Screenshot (413).png" alt="Nawfal - Portfolio" width="100%" />
 
 ## 🧩 Introduction
 
