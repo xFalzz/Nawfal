@@ -2,8 +2,6 @@
 
 <img src="https://your-image-link-here.com" alt="Nawfal - Portfolio" width="100%" />
 
-> **Catatan:** Ganti URL gambar di atas dengan link foto/gambar profil portofolio kamu.
-
 ## 🧩 Introduction
 
 Selamat datang di website portofolio saya!  
