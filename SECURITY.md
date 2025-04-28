@@ -14,7 +14,7 @@ The following versions of Nawfal Portofolio are currently being supported with s
 We take the security of Nawfal Portofolio seriously. If you discover a vulnerability, please follow the steps below:
 
 1. **Contact Us**  
-   Email the details of the vulnerability to: [nawfalirfan005@gmail.com](mailto:nawfalirfan005@gmail.com).  
+   Email the details of the vulnerability to: [nawfalirfan052@gmail.com](mailto:nawfalirfan052@gmail.com).  
    Please include as much detail as possible, such as:  
    - A description of the issue.  
    - Steps to reproduce the vulnerability.  
