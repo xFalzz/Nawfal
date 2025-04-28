@@ -30,7 +30,7 @@ Project ini menggunakan berbagai teknologi modern, di antaranya:
   - PostCSS
   - ESLint
   - Prettier
-  - Husky (optional setup di repo kamu)
+  - Husky
 
 ---
 
