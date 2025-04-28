@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import { ThemeProvider } from "./_components/ThemeProvider";
 import ScrollMouseIcon from "./_components/ScrollMouseIcon";
+import Preloader from "./_components/Preloader"; // ✅ Import Preloader
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -31,8 +32,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Preloader /> {/* ✅ Tambahkan di atas children */}
           {children}
-          <ScrollMouseIcon /> {/* Tambahkan komponen ini */}
+          <ScrollMouseIcon />
         </ThemeProvider>
       </body>
     </html>
