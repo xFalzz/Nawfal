@@ -1,25 +1,25 @@
 export const techCardsItems = [
   {
     name: "Figma",
-    description: "Design Tool",
+    description: "UI/UX Design Tool",
     imageUrl: "/imgs/logos/figma-logo.svg",
     bgColor: "bg-[#0ACF83]/20",
   },
   {
     name: "Photoshop",
-    description: "Design tool",
+    description: "Graphic Design Tool",
     imageUrl: "/imgs/logos/photoshop.svg",
     bgColor: "bg-[#024CAA]/20",
   },
   {
-    name: "Javascript",
-    description: "Javascript",
+    name: "JavaScript",
+    description: "Programming Language",
     imageUrl: "/imgs/logos/javascript.svg",
     bgColor: "bg-[#FEEC37]/20",
   },
   {
     name: "TypeScript",
-    description: "JavaScript but better",
+    description: "Typed JavaScript",
     imageUrl: "/imgs/logos/typescript.svg",
     bgColor: "bg-[#3178C6]/20",
   },
@@ -31,33 +31,39 @@ export const techCardsItems = [
   },
   {
     name: "Tailwind",
-    description: "CSS framework",
+    description: "CSS Framework",
     imageUrl: "/imgs/logos/tailwind.svg",
     bgColor: "bg-[#0EA5E9]/20",
   },
   {
     name: "Bootstrap",
-    description: "CSS and JavaScript Utilities",
+    description: "Frontend Toolkit",
     imageUrl: "/imgs/logos/bootstrap.svg",
     bgColor: "bg-[#7E60BF]/20",
   },
   {
     name: "PHP",
-    description: "Database Interaction",
+    description: "Programming Language",
     imageUrl: "/imgs/logos/php.svg",
-    bgColor: "bg-[#87A2FF]/20",
+    bgColor: "bg-[#8892BF]/20",
+  },
+  {
+    name: "Laravel",
+    description: "Backend Framework",
+    imageUrl: "/imgs/logos/laravel.svg",
+    bgColor: "bg-[#FF2D20]/20",
   },
   {
     name: "Supabase",
-    description: "Backend tool",
+    description: "Backend as a Service",
     imageUrl: "/imgs/logos/supabase.svg",
     bgColor: "bg-[#3ECF8E]/20",
   },
   {
     name: "Firebase",
-    description: "Backend tool",
+    description: "Backend as a Service",
     imageUrl: "/imgs/logos/firebase.svg",
-    bgColor: "bg-[#E8B86D]/20",
+    bgColor: "bg-[#FFCB2B]/20",
   },
 ];
 
