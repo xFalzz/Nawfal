@@ -16,7 +16,7 @@ export default function Preloader() {
         isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
     >
-      <h1 className="text-white text-4xl font-bold animate-pulse">LOADING</h1>
+      <h1 className="text-white text-4xl font-bold animate-pulse">Nawfal</h1>
     </div>
   );
 }
