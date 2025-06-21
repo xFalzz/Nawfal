@@ -44,7 +44,7 @@ export default function Chatbot() {
       }
       
       if (q.includes('hello') || q.includes('hi') || q.includes('about') || q.includes('who')) {
-        return "👋 **Hello! I'm Nawfal AI**\n\nYour intelligent virtual assistant for Nawfal Irfan - a passionate Full-stack Developer and Photographer from Indonesia.\n\n**I can help you with:**\n• Portfolio & project information\n• Technical skills & expertise\n• Available services & pricing\n• Photography showcase\n• Contact information\n• General inquiries\n\n**About Nawfal:**\nWith 3+ years of experience in modern web development, Nawfal specializes in creating innovative, user-friendly digital solutions using cutting-edge technologies.\n\nWhat would you like to know? 😊";
+        return "👋 **Hello! I'm Nawfal Ai**\n\nYour intelligent virtual assistant for Nawfal Irfan - a passionate Full-stack Developer and Photographer from Indonesia.\n\n**I can help you with:**\n• Portfolio & project information\n• Technical skills & expertise\n• Available services & pricing\n• Photography showcase\n• Contact information\n• General inquiries\n\n**About Nawfal:**\nWith 3+ years of experience in modern web development, Nawfal specializes in creating innovative, user-friendly digital solutions using cutting-edge technologies.\n\nWhat would you like to know? 😊";
       }
     } else {
       // Indonesian responses
@@ -69,7 +69,7 @@ export default function Chatbot() {
       }
       
       if (q.includes('halo') || q.includes('hai') || q.includes('hello') || q.includes('tentang') || q.includes('siapa')) {
-        return "👋 **Halo! Saya Nawfal AI**\n\nAsisten virtual cerdas untuk Nawfal Irfan - seorang Full-stack Developer dan Fotografer yang passionate dari Indonesia.\n\n**Saya bisa membantu dengan:**\n• Informasi portfolio & proyek\n• Keahlian teknis & expertise\n• Layanan yang tersedia & harga\n• Showcase fotografi\n• Informasi kontak\n• Pertanyaan umum\n\n**Tentang Nawfal:**\nDengan pengalaman 3+ tahun dalam web development modern, Nawfal mengkhususkan diri dalam menciptakan solusi digital yang inovatif dan user-friendly menggunakan teknologi terdepan.\n\nAda yang bisa saya bantu? 😊";
+        return "👋 **Halo! Saya Nawfal Ai**\n\nAsisten virtual cerdas untuk Nawfal Irfan - seorang Full-stack Developer dan Fotografer yang passionate dari Indonesia.\n\n**Saya bisa membantu dengan:**\n• Informasi portfolio & proyek\n• Keahlian teknis & expertise\n• Layanan yang tersedia & harga\n• Showcase fotografi\n• Informasi kontak\n• Pertanyaan umum\n\n**Tentang Nawfal:**\nDengan pengalaman 3+ tahun dalam web development modern, Nawfal mengkhususkan diri dalam menciptakan solusi digital yang inovatif dan user-friendly menggunakan teknologi terdepan.\n\nAda yang bisa saya bantu? 😊";
       }
     }
     
@@ -179,7 +179,7 @@ export default function Chatbot() {
       <MessageSquare size={20} className="text-white" />
       {isHovered && (
         <span className="text-white text-sm font-medium">
-          Nawfal AI
+          Nawfal Ai
         </span>
       )}
     </div>
@@ -199,7 +199,7 @@ export default function Chatbot() {
                 <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
               </div>
               <div>
-                <h2 className={`font-semibold ${themeClasses.primaryText}`}>Nawfal AI</h2>
+                <h2 className={`font-semibold ${themeClasses.primaryText}`}>Nawfal Ai</h2>
                 <p className={`text-xs ${themeClasses.secondaryText}`}>Always ready to help • Online</p>
               </div>
             </div>
@@ -238,7 +238,7 @@ export default function Chatbot() {
                   <Bot className="text-blue-500" size={24} />
                 </div>
                 <h3 className={`text-lg font-semibold mb-2 ${themeClasses.primaryText}`}>
-                  Hi! I'm Nawfal AI 👋
+                  Hi! I'm Nawfal Ai 👋
                 </h3>
                 <p className={`text-sm ${themeClasses.secondaryText} leading-relaxed mb-3`}>
                   Your intelligent assistant for all things about Nawfal's expertise in web development and photography.
