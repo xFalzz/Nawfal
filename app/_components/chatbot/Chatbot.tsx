@@ -1,8 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { MessageSquare, X, Send, Trash2, Sun, Moon, User, Bot } from "lucide-react";
-import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -99,7 +98,7 @@ export default function Chatbot() {
     return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
   };
 
-  const handleSend = async () => {
+  const handleSend = () => {
     if (!input.trim()) return;
     
     const userMessage = { role: "user", content: input };
@@ -119,7 +118,11 @@ export default function Chatbot() {
   };
 
   const clearChat = () => setMessages([]);
-  const closeChat = () => setIsOpen(false);
+  const closeChat = () => {
+    setIsOpen(false);
+    setMessages([]);
+    setInput("");
+  };
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
   // Handle Enter key press
@@ -162,175 +165,186 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      {/* Enhanced Floating Chat Button */}
-{!isOpen && (
-  <motion.button
-    onClick={() => setIsOpen(true)}
-    onMouseEnter={() => setIsHovered(true)}
-    onMouseLeave={() => setIsHovered(false)}
-    whileTap={{ scale: 0.92, rotate: -5 }}
-    whileHover={{ scale: 1.05 }}
-    className={`bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 h-14 rounded-full shadow-lg flex items-center justify-center overflow-hidden transition-all duration-300 transform ${
-      isHovered ? 'w-48' : 'w-14'
-    }`}
-  >
-    <div className="flex items-center gap-2 px-4 whitespace-nowrap">
-      <MessageSquare size={20} className="text-white" />
-      {isHovered && (
-        <span className="text-white text-sm font-medium">
-          Nawfal Ai
-        </span>
-      )}
-    </div>
-  </motion.button>
-)}
-
-      {/* Enhanced Chat Window */}
-      {isOpen && (
-        <div className={`absolute bottom-0 right-0 w-96 h-[500px] rounded-2xl overflow-hidden border flex flex-col ${themeClasses.chatWindow}`}>
-          {/* Header with improved design */}
-          <div className={`p-4 border-b flex justify-between items-center ${themeClasses.header}`}>
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDarkMode ? 'bg-gradient-to-r from-blue-600 to-blue-700' : 'bg-gradient-to-r from-blue-100 to-blue-200'}`}>
-                  <Bot className={isDarkMode ? 'text-white' : 'text-blue-600'} size={18} />
-                </div>
-                <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
-              </div>
-              <div>
-                <h2 className={`font-semibold ${themeClasses.primaryText}`}>Nawfal Ai</h2>
-                <p className={`text-xs ${themeClasses.secondaryText}`}>Always ready to help • Online</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-1">
-              <button
-                onClick={toggleTheme}
-                className={themeClasses.iconButton}
-                title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-              >
-                {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
-              </button>
-              {messages.length > 0 && (
-                <button
-                  onClick={clearChat}
-                  className={themeClasses.iconButton}
-                  title="Clear Chat History"
-                >
-                  <Trash2 size={16} />
-                </button>
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end">
+      {/* Floating Chat Button */}
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button
+            key="chatbot-btn"
+            onClick={() => setIsOpen(true)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            whileTap={{ scale: 0.92, rotate: -5 }}
+            whileHover={{ scale: 1.05 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className={`bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 h-14 rounded-full shadow-lg flex items-center justify-center overflow-hidden transition-all duration-300 transform ${
+              isHovered ? 'w-44' : 'w-14'
+            }`}
+          >
+            <div className="flex items-center gap-2 px-4 whitespace-nowrap">
+              <MessageSquare size={20} className="text-white" />
+              {isHovered && (
+                <span className="text-white text-sm font-medium">
+                  Nawfal Ai
+                </span>
               )}
-              <button
-                onClick={closeChat}
-                className={themeClasses.iconButton}
-                title="Close Chat"
-              >
-                <X size={18} />
-              </button>
             </div>
-          </div>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
-          {/* Chat Body */}
-          <div className={`flex-1 overflow-y-auto ${themeClasses.chatBody}`}>
-            {messages.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center p-6 text-center">
-                <div className={`w-16 h-16 rounded-full border-2 flex items-center justify-center mb-4 ${themeClasses.emptyState}`}>
-                  <Bot className="text-blue-500" size={24} />
+      {/* Chat Window */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            key="chatbot-window"
+            initial={{ opacity: 0, y: 40, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 40, scale: 0.96 }}
+            transition={{ type: "spring", stiffness: 260, damping: 22 }}
+            className={`absolute bottom-0 right-0 w-[calc(100vw-2rem)] max-w-[400px] sm:max-w-[360px] md:max-w-[400px] h-[80vh] max-h-[600px] min-h-[400px] rounded-2xl overflow-hidden border flex flex-col ${themeClasses.chatWindow} shadow-2xl mx-2 sm:mx-0`}
+          >
+            {/* Header */}
+            <div className={`p-4 border-b flex justify-between items-center ${themeClasses.header}`}>
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDarkMode ? 'bg-gradient-to-r from-blue-600 to-blue-700' : 'bg-gradient-to-r from-blue-100 to-blue-200'}`}>
+                    <Bot className={isDarkMode ? 'text-white' : 'text-blue-600'} size={18} />
+                  </div>
+                  <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
                 </div>
-                <h3 className={`text-lg font-semibold mb-2 ${themeClasses.primaryText}`}>
-                  Hi! I'm Nawfal Ai 👋
-                </h3>
-                <p className={`text-sm ${themeClasses.secondaryText} leading-relaxed mb-3`}>
-                  Your intelligent assistant for all things about Nawfal's expertise in web development and photography.
-                </p>
-                <div className={`text-xs ${themeClasses.secondaryText} space-y-1`}>
-                  <p>Ask me about:</p>
-                  <p>• Portfolio & Projects • Technical Skills</p>
-                  <p>• Services & Pricing • Photography</p>
+                <div>
+                  <h2 className={`font-semibold ${themeClasses.primaryText}`}>Nawfal Ai</h2>
+                  <p className={`text-xs ${themeClasses.secondaryText}`}>Always ready to help • Online</p>
                 </div>
               </div>
-            ) : (
-              <div className="p-4 space-y-4">
-                {messages.map((msg, idx) => (
-                  <div
-                    key={idx}
-                    className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={toggleTheme}
+                  className={themeClasses.iconButton}
+                  title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                >
+                  {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
+                </button>
+                {messages.length > 0 && (
+                  <button
+                    onClick={clearChat}
+                    className={themeClasses.iconButton}
+                    title="Clear Chat History"
                   >
-                    {msg.role === "assistant" && (
+                    <Trash2 size={16} />
+                  </button>
+                )}
+                <button
+                  onClick={closeChat}
+                  className={themeClasses.iconButton}
+                  title="Close Chat"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            </div>
+
+            {/* Chat Body */}
+            <div className={`flex-1 overflow-y-auto chat-scrollbar ${themeClasses.chatBody}`} style={{ minHeight: 0 }}>
+              {messages.length === 0 ? (
+                <div className="h-full flex flex-col items-center justify-center p-6 text-center">
+                  <div className={`w-16 h-16 rounded-full border-2 flex items-center justify-center mb-4 ${themeClasses.emptyState}`}>
+                    <Bot className="text-blue-500" size={24} />
+                  </div>
+                  <h3 className={`text-lg font-semibold mb-2 ${themeClasses.primaryText}`}>Hi! I'm Nawfal Ai 👋</h3>
+                  <p className={`text-sm ${themeClasses.secondaryText} leading-relaxed mb-3`}>Your intelligent assistant for all things about Nawfal's expertise in web development and photography.</p>
+                  <div className={`text-xs ${themeClasses.secondaryText} space-y-1`}>
+                    <p>Ask me about:</p>
+                    <p>• Portfolio & Projects • Technical Skills</p>
+                    <p>• Services & Pricing • Photography</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-4 space-y-4">
+                  {messages.map((msg, idx) => (
+                    <div
+                      key={idx}
+                      className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                    >
+                      {msg.role === "assistant" && (
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${isDarkMode ? 'bg-gradient-to-r from-blue-600 to-blue-700' : 'bg-gradient-to-r from-blue-100 to-blue-200'}`}>
+                          <Bot className={isDarkMode ? 'text-white' : 'text-blue-600'} size={14} />
+                        </div>
+                      )}
+                      <div
+                        className={`max-w-[75%] rounded-2xl px-4 py-3 ${
+                          msg.role === "user"
+                            ? themeClasses.userMessage
+                            : `${themeClasses.assistantMessage} border`
+                        }`}
+                      >
+                        <div className="text-sm whitespace-pre-wrap leading-relaxed">
+                          {msg.content}
+                        </div>
+                      </div>
+                      {msg.role === "user" && (
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 flex items-center justify-center flex-shrink-0">
+                          <User className="text-white" size={14} />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  {isTyping && (
+                    <div className="flex gap-3 justify-start">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${isDarkMode ? 'bg-gradient-to-r from-blue-600 to-blue-700' : 'bg-gradient-to-r from-blue-100 to-blue-200'}`}>
                         <Bot className={isDarkMode ? 'text-white' : 'text-blue-600'} size={14} />
                       </div>
-                    )}
-                    <div
-                      className={`max-w-[75%] rounded-2xl px-4 py-3 ${
-                        msg.role === "user"
-                          ? themeClasses.userMessage
-                          : `${themeClasses.assistantMessage} border`
-                      }`}
-                    >
-                      <div className="text-sm whitespace-pre-wrap leading-relaxed">
-                        {msg.content}
+                      <div className={`border rounded-2xl px-4 py-3 ${themeClasses.assistantMessage}`}>
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        </div>
                       </div>
                     </div>
-                    {msg.role === "user" && (
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 flex items-center justify-center flex-shrink-0">
-                        <User className="text-white" size={14} />
-                      </div>
-                    )}
-                  </div>
-                ))}
-                
-                {isTyping && (
-                  <div className="flex gap-3 justify-start">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${isDarkMode ? 'bg-gradient-to-r from-blue-600 to-blue-700' : 'bg-gradient-to-r from-blue-100 to-blue-200'}`}>
-                      <Bot className={isDarkMode ? 'text-white' : 'text-blue-600'} size={14} />
-                    </div>
-                    <div className={`border rounded-2xl px-4 py-3 ${themeClasses.assistantMessage}`}>
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-            )}
-          </div>
-
-          {/* Enhanced Input Area */}
-          <div className={`p-4 border-t ${themeClasses.inputArea}`}>
-            <div className="flex gap-2 items-end">
-              <textarea
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Type your message here..."
-                className={`flex-1 px-4 py-3 rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 resize-none min-h-[48px] max-h-[120px] ${themeClasses.inputField}`}
-                disabled={isTyping}
-                rows={1}
-                style={{ height: 'auto' }}
-                onInput={(e) => {
-                  const target = e.target as HTMLTextAreaElement;
-                  target.style.height = 'auto';
-                  target.style.height = `${Math.min(target.scrollHeight, 120)}px`;
-                }}
-              />
-              <button
-                onClick={handleSend}
-                disabled={!input.trim() || isTyping}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 text-white p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:cursor-not-allowed transform hover:scale-105 disabled:hover:scale-100"
-              >
-                <Send size={18} />
-              </button>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
+              )}
             </div>
-            <p className={`text-xs mt-2 text-center ${themeClasses.secondaryText}`}>
-              Press Enter to send • Shift+Enter for new line
-            </p>
-          </div>
-        </div>
-      )}
+
+            {/* Input Area */}
+            <div className={`p-4 border-t ${themeClasses.inputArea}`}>
+              <div className="flex gap-2 items-end">
+                <textarea
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Type your message here..."
+                  className={`flex-1 px-4 py-3 rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 resize-none min-h-[48px] max-h-[120px] ${themeClasses.inputField}`}
+                  disabled={isTyping}
+                  rows={1}
+                  style={{ height: 'auto' }}
+                  onInput={(e) => {
+                    const target = e.target as HTMLTextAreaElement;
+                    target.style.height = 'auto';
+                    target.style.height = `${Math.min(target.scrollHeight, 120)}px`;
+                  }}
+                />
+                <button
+                  onClick={handleSend}
+                  disabled={!input.trim() || isTyping}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 text-white p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:cursor-not-allowed transform hover:scale-105 disabled:hover:scale-100"
+                >
+                  <Send size={18} />
+                </button>
+              </div>
+              <p className={`text-xs mt-2 text-center ${themeClasses.secondaryText}`}>
+                Press Enter to send • Shift+Enter for new line
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
