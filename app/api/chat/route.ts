@@ -28,7 +28,7 @@ function getEnhancedManualResponse(question: string): string {
     }
     
     if (q.includes('hello') || q.includes('hi') || q.includes('about')) {
-      return "👋 Hello! I'm Nawfal AI, virtual assistant for Nawfal Irfan - a Frontend Web Developer from Indonesia.\n\nI can help you with:\n• Portfolio & Projects info\n• Technical skills & services\n• Photography work\n• Contact information\n\nWhat would you like to know? 😊";
+      return "👋 Hello! I'm Nawfal Ai, virtual assistant for Nawfal Irfan - a Frontend Web Developer from Indonesia.\n\nI can help you with:\n• Portfolio & Projects info\n• Technical skills & services\n• Photography work\n• Contact information\n\nWhat would you like to know? 😊";
     }
 
     if (q.includes('service') || q.includes('work') || q.includes('hire')) {
@@ -57,7 +57,7 @@ function getEnhancedManualResponse(question: string): string {
     }
     
     if (q.includes('halo') || q.includes('hai') || q.includes('hello') || q.includes('tentang')) {
-      return "👋 Halo! Saya Nawfal AI, asisten virtual untuk Nawfal Irfan - Frontend Web Developer dari Indonesia.\n\nSaya bisa membantu dengan informasi tentang:\n• Portfolio & proyek-proyek\n• Keahlian teknis & layanan\n• Karya fotografi\n• Informasi kontak\n\nAda yang bisa saya bantu? 😊";
+      return "👋 Halo! Saya Nawfal Ai, asisten virtual untuk Nawfal Irfan - Frontend Web Developer dari Indonesia.\n\nSaya bisa membantu dengan informasi tentang:\n• Portfolio & proyek-proyek\n• Keahlian teknis & layanan\n• Karya fotografi\n• Informasi kontak\n\nAda yang bisa saya bantu? 😊";
     }
   }
   
@@ -94,7 +94,7 @@ export async function POST(req: Request) {
       messages: [
         {
           role: "system",
-          content: `Anda adalah Nawfal AI, asisten virtual profesional untuk Nawfal Irfan, seorang Frontend Web Developer berbasis di Indonesia. 
+          content: `Anda adalah Nawfal Ai, asisten virtual profesional untuk Nawfal Irfan, seorang Frontend Web Developer berbasis di Indonesia. 
 
 🔍 INFORMASI LENGKAP NAWFAL:
 👤 PROFIL:
