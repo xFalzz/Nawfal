@@ -32,7 +32,7 @@ const Footer = () => {
               <Link href="/">Nawfal</Link>
             </h3>
             <p className="text-dark-200/70 dark:text-stone-200/70 relative z-10 text-sm sm:text-base">
-              &copy; 2024 | All rights reserved.
+              &copy; 2025 | All rights reserved.
             </p>
           </div>
 
