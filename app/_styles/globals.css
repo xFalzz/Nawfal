@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    
+    /* Tambahan untuk scrolling yang lebih halus */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Untuk iOS */
+  }
+  
+  html::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+
+  /* Tambahan untuk konten yang di-scroll */
+  body {
+    @apply overflow-x-hidden; /* Mencegah horizontal scroll */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Optional: Menambahkan efek smooth pada elemen yang bisa di-scroll */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  
+  .fade-out {
+    animation: fadeOut 1s ease forwards;
+  }
+
+  /* Tambahan untuk scrollbar chat body */
+.chat-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #3b82f6, #2563eb);
+  border-radius: 4px;
+}
+.chat-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Hilangkan scrollbar pada input textarea */
+textarea::-webkit-scrollbar {
+  display: none;
+}
+}
