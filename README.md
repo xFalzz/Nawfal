@@ -29,6 +29,7 @@ Project ini menggunakan berbagai teknologi modern, di antaranya:
   - ESLint
   - Prettier
   - Husky
+  - OpenAi
 
 ---
 
