@@ -1,11 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Profile = ({
-  name = "Msaf",
-  email = "m@example.com",
-  src = "https://github.com/msafdev.png",
-  alt = "@msafdev",
-  fallback = "MS",
+  name = "Nawfal",
+  email = "n@example.com",
+  src = "https://github.com/xFalzz.png",
+  alt = "@xFalzz",
+  fallback = "NI",
 }: {
   name: string;
   email: string;

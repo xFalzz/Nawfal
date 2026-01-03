@@ -23,11 +23,11 @@ const ProfileButton = ({ children }: { children: React.ReactNode }) => {
 };
 
 const ProfileCard = ({
-  name = "Msaf",
+  name = "Nawfal",
   sub = "Software Engineer",
-  src = "https://github.com/msafdev.png",
-  alt = "@msafdev",
-  fallback = "MS",
+  src = "https://github.com/xFalzz.png",
+  alt = "@xFalzz",
+  fallback = "NI",
 }: {
   name: string;
   sub: string;

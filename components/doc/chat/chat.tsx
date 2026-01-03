@@ -40,9 +40,9 @@ const Receiver = ({
 
 const Sender = ({
   children = "Chat message here...",
-  avatar = "https://github.com/msafdev.png",
-  fallback = "MS",
-  name = "Msaf",
+  avatar = "https://github.com/xFalzz.png",
+  fallback = "NI",
+  name = "Nawfal",
 }: {
   children?: React.ReactNode;
   avatar?: string;
@@ -80,7 +80,7 @@ const Chat = () => {
   return (
     <div className="flex w-full flex-col gap-y-1">
       <Receiver>
-        <Bubble>Hi Msaf, how are you?</Bubble>
+        <Bubble>Hi Nawfal, how are you?</Bubble>
       </Receiver>
       <Sender>
         <Bubble>Hi Shad, I&apos;m good.</Bubble>
