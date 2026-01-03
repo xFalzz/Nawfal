@@ -23,48 +23,10 @@ export default function IntroPage({ onComplete }: IntroPageProps) {
   const progressBarRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLDivElement>(null);
 
-  // Check if intro should be shown based on navigation type
+  // No longer needed to check skipping here as it's handled in ClientLayout
   useEffect(() => {
-    // Check if this is a refresh or back/forward navigation
-    const navigationType =
-      (window.performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming)?.type;
-
-    // Check if coming from same domain (internal navigation)
-    const currentDomain = window.location.hostname;
-    const referrerDomain = document.referrer ? new URL(document.referrer).hostname : null;
-    const isInternalNavigation = referrerDomain === currentDomain;
-
-    // Check for performance bots / SEO crawlers to avoid LCP/Speed Index issues
-    const isBot = /Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse/i.test(navigator.userAgent);
-
-    // Mark internal navigation in sessionStorage
-    if (isInternalNavigation) {
-      sessionStorage.setItem("nawfal_from_internal", "true");
-    }
-
-    // Check if previously navigated from internal page
-    const wasFromInternal = sessionStorage.getItem("nawfal_from_internal") === "true";
-
-    // Don't show intro if:
-    // 1. It's a refresh (reload)
-    // 2. It's back/forward navigation
-    // 3. It's internal navigation from same domain
-    // 4. Previously came from internal page in this session
-    // 5. It's a performance bot (Lighthouse/PageSpeed)
-    const shouldSkipIntro =
-      navigationType === "reload" ||
-      navigationType === "back_forward" ||
-      isInternalNavigation ||
-      wasFromInternal ||
-      isBot;
-
-    if (!shouldSkipIntro) {
-      setShouldShowIntro(true);
-    } else {
-      // Skip intro and call onComplete immediately
-      onComplete();
-    }
-  }, [onComplete]);
+    setShouldShowIntro(true);
+  }, []);
 
   // Get user's timezone and location
   useEffect(() => {

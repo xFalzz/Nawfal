@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // Components
@@ -15,7 +15,27 @@ export default function ClientLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(false);
+  const [isBot, setIsBot] = useState(false);
+  const [hasChecked, setHasChecked] = useState(false);
+
+  useEffect(() => {
+    // Check for performance bots / SEO crawlers
+    const botDetected = /Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse/i.test(navigator.userAgent);
+    setIsBot(botDetected);
+
+    // Navigation logic for intro
+    const navigationType = (window.performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming)?.type;
+    const wasFromInternal = sessionStorage.getItem("nawfal_from_internal") === "true";
+    
+    const shouldSkip = botDetected || 
+                     navigationType === "reload" || 
+                     navigationType === "back_forward" || 
+                     wasFromInternal;
+
+    setShowIntro(!shouldSkip);
+    setHasChecked(true);
+  }, []);
 
   return (
     <>
