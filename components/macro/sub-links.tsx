@@ -10,7 +10,7 @@ import {
 
 const SubLinks = () => {
   return (
-    <div className="anim mt-4 grid h-fit w-full grid-cols-2 grid-rows-3 items-center justify-between border-y md:mt-8 md:flex md:grid-rows-1 lg:mt-12">
+    <div className="anim mt-4 grid h-fit w-full grid-cols-2 items-center justify-between border-y md:mt-8 md:flex lg:mt-12">
       <Link
         href={"https://github.com/xFalzz?tab=repositories"}
         target="_blank"
@@ -42,7 +42,7 @@ const SubLinks = () => {
       <Link
         href={"https://github.com/xFalzz/"}
         target="_blank"
-        className="anim group col-span-1 flex h-fit w-full items-center justify-center gap-x-2 border-l-0 border-t py-4 font-medium transition-all duration-200 ease-in-out hover:w-full hover:bg-muted md:w-1/2 md:border-l md:border-t-0"
+        className="anim group col-span-1 flex h-fit w-full items-center justify-center gap-x-2 border-t py-4 font-medium transition-all duration-200 ease-in-out hover:w-full hover:bg-muted md:w-1/2 md:border-l md:border-t-0"
       >
         <MonitorSmartphone
           size={14}
@@ -52,7 +52,7 @@ const SubLinks = () => {
       </Link>
       <Link
         href={"https://nawfal.site/"}
-        className="md:pad-r anim group col-span-2 flex h-fit w-full items-center justify-center gap-x-2 border-t py-4 font-medium transition-all duration-200 ease-in-out hover:w-full hover:bg-muted md:w-1/2 md:border-l md:border-t-0"
+        className="md:pad-r anim group col-span-1 flex h-fit w-full items-center justify-center gap-x-2 border-l border-t py-4 font-medium transition-all duration-200 ease-in-out hover:w-full hover:bg-muted md:w-1/2 md:border-t-0"
       >
         <Link2
           size={14}
