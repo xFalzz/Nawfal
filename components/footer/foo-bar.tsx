@@ -99,8 +99,8 @@ const Footer = () => {
             My Contacts
           </p>
           <p className="anim mb-8 mt-4 w-full max-w-sm text-balance text-left text-base font-medium text-foreground md:max-w-xs">
-            Hit me up and pitch me your <span className="italic">craziest</span>{" "}
-            ideas. Let&apos;s collaborate and make it happens.
+            Got an idea in mind? Let&apos;s connect and turn it into something
+            impactful.
           </p>
           <Email />
         </div>
