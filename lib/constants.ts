@@ -42,38 +42,43 @@ const Experience = [
 
 const Inspiration = [
   {
-    twitter: "peachyloeyy",
-  },
-  {
-    twitter: "shadcn",
-  },
-  {
-    twitter: "zakiego",
-  },
-  {
-    twitter: "gadingnstn",
-  },
-  {
-    twitter: "ilyamiskov",
-  },
-  {
-    twitter: "dsgnverse",
-  },
-  {
-    twitter: "ozanoz",
-  },
-  {
-    twitter: "maulanafikri455",
-  },
-  {
-    twitter: "samdape",
-  },
-  {
-    twitter: "fonsmans",
-  },
-  {
+    name: "WPU (Pak Sandhika Galih)",
     twitter: "sandhikagalih",
+    youtube: "@sandhikagalihWPU",
   },
+  {
+    name: "Kelas Terbuka",
+    youtube: "@KelasTerbuka",
+  },
+  {
+    name: "Sekolah Koding",
+    youtube: "@sekolahkoding",
+    twitter: "sekolahkoding",
+  },
+  {
+    name: "Petani Kode",
+    youtube: "@petanikode",
+    twitter: "petanikode",
+  },
+  {
+    name: "FreeCodeCamp.org",
+    youtube: "@freecodecamp",
+  },
+  {
+    name: "CodeWithChris",
+    youtube: "@CodeWithChris",
+  },
+  {
+    name: "Theodevoid",
+    youtube: "@theodevoid",
+    twitter: "theodevoid",
+  },
+  {
+    name: "dea.afrizal",
+    youtube: "@deaafrizal",
+    instagram: "dea.afrizal",
+  },
+
 ];
 
 export { NavItems, Experience, Inspiration };

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { TbBrandTwitter, TbBrandInstagram, TbBrandYoutube } from "react-icons/tb";
 
 // Assets
 import BTKP from "@/public/images/logos/BTKP.jpeg";
@@ -133,16 +134,49 @@ const Page = () => {
             </p>
             <div className="flex w-full flex-wrap items-center gap-2">
               {Inspiration.map((inspo, index) => (
-                <Link
+                <div
                   key={index}
-                  href={`https://twitter.com/${inspo.twitter}`}
-                  target="_blank"
-                  className="rounded-sm border bg-popover px-2 py-0.5 text-popover-foreground"
+                  className="flex items-center gap-x-2 rounded-sm border bg-popover px-2 py-0.5 text-popover-foreground"
                 >
-                  <code className="text-xs font-medium md:text-sm">
-                    {inspo.twitter}
-                  </code>
-                </Link>
+                  <span className="text-xs font-medium md:text-sm">
+                    {inspo.name}
+                  </span>
+                  <div className="flex items-center gap-x-1.5 border-l border-border/50 pl-2">
+                    {inspo.twitter && (
+                      <Link
+                        href={`https://twitter.com/${inspo.twitter}`}
+                        target="_blank"
+                      >
+                        <TbBrandTwitter
+                          size={14}
+                          className="text-muted-foreground transition-colors hover:text-foreground"
+                        />
+                      </Link>
+                    )}
+                    {inspo.youtube && (
+                      <Link
+                        href={`https://youtube.com/${inspo.youtube}`}
+                        target="_blank"
+                      >
+                        <TbBrandYoutube
+                          size={14}
+                          className="text-muted-foreground transition-colors hover:text-foreground"
+                        />
+                      </Link>
+                    )}
+                    {inspo.instagram && (
+                      <Link
+                        href={`https://instagram.com/${inspo.instagram}`}
+                        target="_blank"
+                      >
+                        <TbBrandInstagram
+                          size={14}
+                          className="text-muted-foreground transition-colors hover:text-foreground"
+                        />
+                      </Link>
+                    )}
+                  </div>
+                </div>
               ))}
               <div className="rounded-sm bg-transparent px-1 py-0.5 text-popover-foreground">
                 <code className="text-xs font-medium md:text-sm">...</code>
