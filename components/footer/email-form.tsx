@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 
 // Icons
-import { CheckCheck, LoaderCircle, X } from "lucide-react";
+import { CheckCheck, LoaderCircle, Mail, X } from "lucide-react";
 
 // Lib
 import { sendEmail } from "@/lib/email";
@@ -57,6 +57,19 @@ const Email = () => {
           name="name"
           className="anim border"
           placeholder="Name"
+        />
+      </div>
+      <div className="flex w-full items-center gap-x-2 md:max-w-xs">
+        <div className="flex aspect-square h-full items-center justify-center rounded-md bg-muted">
+          <Mail className="h-4 w-4 text-muted-foreground" />
+        </div>
+        <Input
+          required
+          type="email"
+          id="gmail"
+          name="gmail"
+          className="anim border"
+          placeholder="@gmail.com;"
         />
       </div>
       <div className="flex w-full flex-col gap-y-3 md:max-w-xs">

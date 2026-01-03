@@ -96,7 +96,7 @@ const Footer = () => {
 
         <div className="row-start-1 mx-auto flex h-full w-full flex-col justify-center px-4 py-6 md:row-span-2 md:px-12 lg:px-24">
           <p className="anim w-full text-left text-sm font-medium uppercase text-muted-foreground">
-            Contact me
+            My Contacts
           </p>
           <p className="anim mb-8 mt-4 w-full max-w-sm text-balance text-left text-base font-medium text-foreground md:max-w-xs">
             Hit me up and pitch me your <span className="italic">craziest</span>{" "}
