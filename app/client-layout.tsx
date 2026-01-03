@@ -20,7 +20,7 @@ export default function ClientLayout({
   return (
     <>
       {showIntro && <IntroPage onComplete={() => setShowIntro(false)} />}
-      <div className={`${showIntro ? "opacity-0" : "opacity-100"} transition-opacity duration-500`}>
+      <div className="transition-opacity duration-500">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

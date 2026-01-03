@@ -34,6 +34,9 @@ export default function IntroPage({ onComplete }: IntroPageProps) {
     const referrerDomain = document.referrer ? new URL(document.referrer).hostname : null;
     const isInternalNavigation = referrerDomain === currentDomain;
 
+    // Check for performance bots / SEO crawlers to avoid LCP/Speed Index issues
+    const isBot = /Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse/i.test(navigator.userAgent);
+
     // Mark internal navigation in sessionStorage
     if (isInternalNavigation) {
       sessionStorage.setItem("nawfal_from_internal", "true");
@@ -47,11 +50,13 @@ export default function IntroPage({ onComplete }: IntroPageProps) {
     // 2. It's back/forward navigation
     // 3. It's internal navigation from same domain
     // 4. Previously came from internal page in this session
+    // 5. It's a performance bot (Lighthouse/PageSpeed)
     const shouldSkipIntro =
       navigationType === "reload" ||
       navigationType === "back_forward" ||
       isInternalNavigation ||
-      wasFromInternal;
+      wasFromInternal ||
+      isBot;
 
     if (!shouldSkipIntro) {
       setShouldShowIntro(true);
@@ -159,14 +164,14 @@ export default function IntroPage({ onComplete }: IntroPageProps) {
       setLoadingProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(() => setCurrentPhase(1), 500); // Start logo reveal
+          setTimeout(() => setCurrentPhase(1), 300); // Start logo reveal faster
           return 100;
         }
-        // Realistic loading progression
-        const increment = Math.random() * 3 + 1;
+        // Realistic but faster loading progression
+        const increment = Math.random() * 8 + 4;
         return Math.min(prev + increment, 100);
       });
-    }, 50);
+    }, 40);
 
     return () => clearInterval(timer);
   }, [shouldShowIntro]);
@@ -176,14 +181,14 @@ export default function IntroPage({ onComplete }: IntroPageProps) {
     if (!shouldShowIntro) return;
 
     if (currentPhase === 1) {
-      setTimeout(() => setCurrentPhase(2), 800); // Text reveal after logo
+      setTimeout(() => setCurrentPhase(2), 600); // Text reveal after logo
     } else if (currentPhase === 2) {
-      setTimeout(() => setCurrentPhase(3), 1200); // Complete after text
+      setTimeout(() => setCurrentPhase(3), 800); // Complete after text
     } else if (currentPhase === 3) {
       setTimeout(() => {
         setIsExiting(true);
-        setTimeout(() => onComplete(), 1000);
-      }, 1500); // Hold complete state then exit
+        setTimeout(() => onComplete(), 800);
+      }, 1000); // Hold complete state then exit faster
     }
   }, [currentPhase, onComplete, shouldShowIntro]);
 

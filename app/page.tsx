@@ -21,7 +21,7 @@ export default function Page() {
       >
         <ProfileHeader />
         <div className="pad-x relative w-full">
-          <h1 className="text-balance text-left text-2xl font-medium leading-tight xs:text-3xl md:w-[60%] lg:text-4xl">
+          <h1 className="text-balance text-left text-3xl font-semibold leading-[1.1] tracking-tight xs:text-4xl md:w-[60%] lg:text-5xl">
             Frontend Developer
             <br />
             UI/UX Designer
@@ -61,7 +61,7 @@ export default function Page() {
                 development, and product management. Feel free to surf around 👋
               </p>
 
-              <h2 className="ml-auto mt-8 text-sm font-semibold uppercase text-foreground md:ml-0 md:text-base">
+              <h2 className="mt-8 text-sm font-semibold uppercase text-foreground md:text-base">
                 Featured Projects
               </h2>
             </div>
