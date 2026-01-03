@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 // Fonts
 import { GeistSans } from "geist/font/sans";
@@ -72,6 +73,7 @@ export default function RootLayout({
     <html lang="en" className="no-scrollbar">
       <body className={GeistSans.className}>
         <ClientLayout>{children}</ClientLayout>
+        <Analytics />
       </body>
     </html>
   );
