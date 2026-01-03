@@ -55,10 +55,10 @@ export default function Page() {
                 I create intuitive, visually stunning and highly functional Web.
               </h2>
               <p className="text-balance text-base text-muted-foreground md:max-w-sm md:text-lg lg:max-w-lg">
-                Halo! My name is{" "}
-                <span className="font-medium text-foreground">Nawfal</span>, a
-                very funny-looking visual design enthusiast. I do web design,
-                web development, product management, project manager. Feel free to surf around 👋
+                Ciao, I&apos;m{" "}
+                <span className="font-medium text-foreground">Nawfal</span>. I
+                design and build digital products, focusing on web design, web
+                development, and product management. Feel free to surf around 👋
               </p>
 
               <h2 className="ml-auto mt-8 text-sm font-semibold uppercase text-foreground md:ml-0 md:text-base">

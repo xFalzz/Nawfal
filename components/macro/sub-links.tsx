@@ -12,7 +12,7 @@ const SubLinks = () => {
   return (
     <div className="anim mt-4 grid h-fit w-full grid-cols-2 items-center justify-between border-y md:mt-8 md:flex lg:mt-12">
       <Link
-        href={"https://github.com/xFalzz?tab=repositories"}
+        href={"https://github.com/xFalzz"}
         target="_blank"
         className="md:pad-l anim group col-span-1 flex h-fit w-full items-center justify-center gap-x-2 py-4 font-medium transition-all duration-200 ease-in-out hover:w-full hover:bg-muted md:w-1/2"
       >
@@ -40,7 +40,7 @@ const SubLinks = () => {
         </p>
       </Link>
       <Link
-        href={"https://github.com/xFalzz/"}
+        href={"https://discord.gg/v6dgnKCpuM"}
         target="_blank"
         className="anim group col-span-1 flex h-fit w-full items-center justify-center gap-x-2 border-t py-4 font-medium transition-all duration-200 ease-in-out hover:w-full hover:bg-muted md:w-1/2 md:border-l md:border-t-0"
       >
