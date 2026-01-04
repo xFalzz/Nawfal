@@ -4,8 +4,8 @@ import {
   FileText,
   Link2,
   Heart,
-  MonitorSmartphone,
   Sparkles,
+  MessageSquare,
 } from "lucide-react";
 
 const SubLinks = () => {
@@ -40,15 +40,14 @@ const SubLinks = () => {
         </p>
       </Link>
       <Link
-        href={"https://discord.gg/v6dgnKCpuM"}
-        target="_blank"
+        href={"/chat"}
         className="anim group col-span-1 flex h-fit w-full items-center justify-center gap-x-2 border-t py-4 font-medium transition-all duration-200 ease-in-out hover:w-full hover:bg-muted md:w-1/2 md:border-l md:border-t-0"
       >
-        <MonitorSmartphone
+        <MessageSquare
           size={14}
           className="anim delay-100 text-muted-foreground fill-transparent group-hover:text-foreground"
         />
-        <p className="text-center text-xs font-medium text-muted-foreground anim group-hover:text-foreground">Setup</p>
+        <p className="text-center text-xs font-medium text-muted-foreground anim group-hover:text-foreground">Chat</p>
       </Link>
       <Link
         href={"https://nawfal.site/"}
