@@ -2,8 +2,10 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 import {
+  TbBrandDiscord,
   TbBrandGithub,
   TbBrandInstagram,
+  TbBrandLinkedin,
   TbBrandTwitter,
 } from "react-icons/tb";
 
@@ -21,9 +23,9 @@ import { Command } from "@/components/macro/command-dialog";
 const Footer = () => {
   return (
     <footer className="z-40 flex h-fit min-h-[100svh] w-full flex-col bg-background text-foreground">
-      <div className="grid grid-cols-3 border-t sm:grid-cols-3 lg:grid-cols-7 xl:grid-cols-9">
+      <div className="grid grid-cols-5 border-t lg:grid-cols-7 xl:grid-cols-9">
         {/* Footer */}
-        <div className="col-span-3 flex items-center justify-center border-b px-4 py-8 sm:col-span-3 md:border-r lg:col-span-4 lg:border-b-0 lg:py-4 xl:col-span-6">
+        <div className="col-span-5 flex items-center justify-center border-b px-4 py-4 md:border-r lg:col-span-2 lg:border-b-0 lg:py-4 xl:col-span-4">
           <p className="text-center text-sm font-semibold uppercase text-foreground">
             Follow me
           </p>
@@ -36,19 +38,29 @@ const Footer = () => {
         </div>
 
         {/* Social Icons */}
-        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-6 hover:bg-primary sm:aspect-video sm:py-8">
+        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8">
           <Link href="https://x.com/xFalzs" target="_blank">
             <TbBrandTwitter className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
           </Link>
         </div>
-        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-6 hover:bg-primary sm:aspect-video sm:py-8">
+        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8">
           <Link href="https://www.instagram.com/nawfaljr__" target="_blank">
             <TbBrandInstagram className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:-rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
           </Link>
         </div>
-        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-6 hover:bg-primary sm:aspect-video sm:py-8">
+        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8">
           <Link href="https://github.com/xFalzz" target="_blank">
              <TbBrandGithub className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:rotate-6 group-hover:scale-125 group-hover:text-primary-foreground" />
+          </Link>
+        </div>
+        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8">
+          <Link href="https://www.linkedin.com/in/nawfal-irfan/" target="_blank">
+            <TbBrandLinkedin className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
+          </Link>
+        </div>
+        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8">
+          <Link href="https://discord.gg/v6dgnKCpuM" target="_blank">
+            <TbBrandDiscord className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:-rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
           </Link>
         </div>
       </div>
