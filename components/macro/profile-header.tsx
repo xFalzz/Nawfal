@@ -8,7 +8,7 @@ const ProfileHeader = () => {
     <div className="pad-x flex items-center gap-x-3 pb-6">
       <div className="relative h-20 w-20 flex-shrink-0">
         <Image
-          src="/images/Falz.jpg"
+          src="/images/Falzz.jpeg"
           alt="Nawfal Irfan Ramadhan"
           fill
           className="rounded-2xl object-cover"
