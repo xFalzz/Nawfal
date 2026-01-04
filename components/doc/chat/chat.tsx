@@ -77,7 +77,7 @@ const Bubble = ({
         </div>
       )}
       <div
-        className={`rounded-2xl px-4 py-2 text-sm shadow-sm leading-relaxed break-words w-fit ${
+        className={`rounded-2xl px-4 py-1.5 sm:py-2 text-sm shadow-sm leading-snug break-words w-fit ${
           isSender
             ? "bg-primary text-primary-foreground rounded-tr-none"
             : isOwner
@@ -113,13 +113,13 @@ const ChatMessage = ({
   const isOnRight = isSender || isOwner;
 
   return (
-    <div className={`group flex w-full gap-x-3 mb-6 ${isOnRight ? "flex-row-reverse" : "flex-row"}`}>
+    <div className={`group flex w-full gap-x-3 mb-3.5 ${isOnRight ? "flex-row-reverse" : "flex-row"}`}>
       <Avatar className="h-9 w-9 border border-border/50 shrink-0 shadow-sm mt-1">
         <AvatarImage src={message.photoURL} alt={message.displayName} />
         <AvatarFallback className="bg-primary/10 text-primary uppercase font-bold text-xs">{message.displayName?.[0] || "?"}</AvatarFallback>
       </Avatar>
       
-      <div className={`flex flex-col gap-y-1 ${isOnRight ? "items-end text-right" : "items-start text-left"} max-w-[calc(100%-48px)]`}>
+      <div className={`flex flex-col flex-1 gap-y-1 ${isOnRight ? "items-end text-right" : "items-start text-left"} max-w-[calc(100%-48px)]`}>
         <div className="flex items-center gap-x-2">
           {!isOnRight && (
             <button onClick={() => onTag(message.displayName)} className="flex items-center gap-x-1 hover:opacity-70 transition-opacity">
