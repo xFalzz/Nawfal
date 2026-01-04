@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { getCalApi } from "@calcom/embed-react";
 
 // Components
 import Navbar from "@/components/navbar/nav-bar";
@@ -35,6 +36,13 @@ export default function ClientLayout({
 
     setShowIntro(!shouldSkip);
     setHasChecked(true);
+  }, []);
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: "20-min-meeting" });
+      cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+    })();
   }, []);
 
   return (

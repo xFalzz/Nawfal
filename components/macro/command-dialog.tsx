@@ -112,15 +112,15 @@ export function Command() {
 
 const BookButton = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <a
-      href="https://cal.com/nawfal-irfan"
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      data-cal-namespace="20-min-meeting"
+      data-cal-link="nawfal-irfan/20-min-meeting"
+      data-cal-config='{"layout":"month_view"}'
       onClick={onClick}
       className="w-full px-3 text-left font-medium text-muted-foreground group-hover:text-foreground"
     >
       <span className="inline">Book a meet</span>
-    </a>
+    </button>
   );
 };
 
