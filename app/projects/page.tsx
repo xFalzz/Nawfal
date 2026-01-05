@@ -12,9 +12,13 @@ import ParticleFlowSquashImage from "@/public/images/projects/particleflowsquash
 export const metadata: Metadata = {
   title: "My Projects",
   description: "Explore Nawfal's portfolio of personal projects including MacOS clone, QRQuick, and Particle Flow Squash. Built with Next.js, TypeScript, and modern web technologies.",
+  alternates: {
+    canonical: "/projects",
+  },
   openGraph: {
-    title: "My Projects - Nawfal",
+    title: "My Projects | Nawfal Irfan Ramadhan",
     description: "Explore my portfolio of personal projects built with Next.js, TypeScript, Tailwind CSS, and modern web technologies.",
+    url: "https://nawfal.site/projects",
   },
 };
 

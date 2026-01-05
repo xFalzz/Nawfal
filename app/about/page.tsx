@@ -17,9 +17,13 @@ import { Inspiration } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "About",
   description: "Learn more about Nawfal, a Front-End Specialist and TypeScript Developer based in Yogyakarta. Undergraduate Informatics Student building responsive, type-safe web applications.",
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
-    title: "About Nawfal",
+    title: "About Nawfal | Frontend Developer",
     description: "Front-End Specialist | Next.js & TypeScript Developer | UI/UX Enthusiast | AI Enthusiast building modern web applications.",
+    url: "https://nawfal.site/about",
   },
 };
 

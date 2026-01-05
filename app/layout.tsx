@@ -29,6 +29,12 @@ export const metadata: Metadata = {
   keywords: ["Nawfal", "Frontend Developer", "UI/UX Designer", "Web Developer", "Portfolio", "Next.js", "React", "TypeScript", "Tailwind CSS"],
   authors: [{ name: "Nawfal Irfan", url: "https://nawfal.site" }],
   creator: "Nawfal Irfan",
+  alternates: {
+    canonical: "/",
+  },
+  verification: {
+    // google: "your-google-verification-token",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
