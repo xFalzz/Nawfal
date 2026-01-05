@@ -138,10 +138,15 @@
     border-radius: 10px;
     background: rgba(72, 77, 100, 1);
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.4);
+  .dark ::-webkit-scrollbar-thumb:active {
+    background: rgba(100, 105, 130, 1);
   }
-  ::-webkit-scrollbar-thumb:active {
-    background: rgba(0, 0, 0, 0.9);
+
+  /* Cal.com Mobile Scroll Fix */
+  .Cal_modal,
+  [class*="Cal_modal"],
+  .calcom-modal {
+    -webkit-overflow-scrolling: touch !important;
+    overflow-y: auto !important;
   }
 }

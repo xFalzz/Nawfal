@@ -82,9 +82,12 @@ export function Command() {
             </p>
           </CommandEmpty>
           <CommandGroup heading="Suggestions">
-            <CommandItem className="anim group cursor-pointer hover:bg-muted">
-              <TbCalendar className="anim h-4 w-4 text-muted-foreground group-hover:text-foreground" />
-              <BookButton />
+            <CommandItem 
+              onSelect={() => setOpen(false)}
+              className="anim group cursor-pointer hover:bg-muted ml-0 px-0"
+            >
+              <TbCalendar className="anim ml-4 h-4 w-4 text-muted-foreground group-hover:text-foreground" />
+              <BookButton onClick={() => setOpen(false)} />
             </CommandItem>
             <CommandItem className="anim group cursor-pointer hover:bg-muted">
               <TbMail
