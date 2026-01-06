@@ -21,7 +21,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 export const metadata: Metadata = {
   metadataBase: new URL('https://nawfal.site'),
   title: {
-    default: "Nawfal - Frontend Web Developer",
+    default: "Nawfal | Frontend Developer",
     template: "%s | Nawfal"
   },
   description:
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://nawfal.site",
-    title: "Nawfal - Frontend Web Developer",
+    title: "Nawfal | Frontend Developer",
     description: "Frontend Developer & UI/UX Designer creating intuitive, visually stunning and highly functional web experiences.",
     siteName: "Nawfal Portfolio",
     images: [
@@ -47,13 +47,13 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Nawfal - Frontend Web Developer"
+        alt: "Nawfal | Frontend Developer"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nawfal - Frontend Web Developer",
+    title: "Nawfal | Frontend Developer",
     description: "Frontend Developer & UI/UX Designer creating intuitive, visually stunning and highly functional web experiences.",
     images: ["/opengraph-image"],
   },
