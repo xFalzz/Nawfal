@@ -43,7 +43,7 @@ Halo! I'm **Nawfal**, a Frontend Specialist and TypeScript Developer based in Yo
 
 A highly detailed MacOS desktop clone built with **Next.js**, **TypeScript**, and **Tailwind CSS**. Features a functional dock, menu bar, and window system.
 
-#### 🔗 [QRQuick](https://github.com/xFalzz/QRQuick)
+#### 🔗 [QRQuick](https://qrquicks.vercel.app/)
 
 A functional QR code generator focusing on utility and simplicity. Built with **TypeScript**, **Next.js**, and **Prisma**.
 

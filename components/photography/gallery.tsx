@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 const images = [
@@ -45,7 +47,8 @@ export function HorizontalGallery() {
         {images.map((src, index) => (
           <div
             key={index}
-            className="group relative overflow-hidden rounded-lg bg-muted transition-transform hover:scale-[1.02]"
+            className="group relative select-none overflow-hidden rounded-lg bg-muted transition-transform hover:scale-[1.02]"
+            onContextMenu={(e) => e.preventDefault()}
           >
             <Image
               src={src}
@@ -55,6 +58,7 @@ export function HorizontalGallery() {
               className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               priority={index < 3}
+              draggable={false}
             />
           </div>
         ))}

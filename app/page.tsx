@@ -121,7 +121,7 @@ export default function Page() {
                       Live
                     </Badge>
                     <Link
-                      href="https://github.com/xFalzz/QRQuick"
+                      href="https://qrquicks.vercel.app/"
                       target="_blank"
                       className="rounded-sm border bg-popover px-2 text-popover-foreground"
                     >

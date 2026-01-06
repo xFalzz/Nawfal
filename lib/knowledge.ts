@@ -10,16 +10,6 @@ export const KNOWLEDGE_BASE = {
   },
   experience: [
     {
-      title: "Frontend Engineer",
-      company: "FNDC",
-      period: "10/2023 - Present"
-    },
-    {
-      title: "Cloud Computing Student",
-      company: "Dicoding",
-      period: "02/2024 - Present"
-    },
-    {
       title: "Internship (Front-End Specialist)",
       company: "Balai Teknologi Komunikasi Pendidikan DIY",
       period: "Mar 2024 - Aug 2024",
@@ -29,16 +19,6 @@ export const KNOWLEDGE_BASE = {
       title: "Video Editor & Second Cameraman",
       company: "Kopvie - Komunitas Film",
       period: "Sep 2023 - Jun 2024"
-    },
-    {
-      title: "Frontend Engineer",
-      company: "Kemnaker",
-      period: "01/2023 - 03/2023"
-    },
-    {
-      title: "Lab Assistant",
-      company: "Undip (Universitas Diponegoro)",
-      period: "08/2022 - 12/2023"
     }
   ],
   education: [
@@ -65,7 +45,7 @@ export const KNOWLEDGE_BASE = {
       type: "Personal Project",
       stack: ["TypeScript", "Next.js", "Prisma", "React", "Tailwind"],
       description: "A functional QR code generator focusing on utility and simplicity.",
-      github: "github.com/xFalzz/QRQuick"
+      url: "https://qrquicks.vercel.app/"
     },
     {
       name: "Particle Flow Squash",

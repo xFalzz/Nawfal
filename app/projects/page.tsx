@@ -34,7 +34,7 @@ const Projects = [
   },
   {
     name: "QRQuick",
-    url: "https://github.com/xFalzz/QRQuick",
+    url: "https://qrquicks.vercel.app/",
     image: QRQuickImage,
     type: "Personal Project",
     stack: ["TypeScript", "Next", "React", "Tailwind", "Prisma"],

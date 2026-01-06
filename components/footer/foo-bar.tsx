@@ -108,7 +108,7 @@ const Footer = () => {
 
         <div className="row-start-1 mx-auto flex h-full w-full flex-col justify-center px-4 py-6 md:row-span-2 md:px-12 lg:px-24">
           <p className="anim w-full text-left text-sm font-medium uppercase text-muted-foreground">
-            My Contacts
+            Contact Me
           </p>
           <p className="anim mb-8 mt-4 w-full max-w-sm text-balance text-left text-base font-medium text-foreground md:max-w-xs">
             Got an idea in mind? Let&apos;s connect and turn it into something
