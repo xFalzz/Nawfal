@@ -8,6 +8,7 @@ import TechStack from "@/components/macro/tech-stack";
 import MacOSImage from "@/public/images/projects/MacOS-clone.jpg";
 import QRQuickImage from "@/public/images/projects/OpenGraphIMG.jpg";
 import ParticleFlowSquashImage from "@/public/images/projects/particleflowsquash.png";
+import MoveiHubImage from "@/public/images/projects/MoveiHub.png";
 
 export const metadata: Metadata = {
   title: "My Projects",
@@ -23,6 +24,15 @@ export const metadata: Metadata = {
 };
 
 const Projects = [
+  {
+    name: "MoveiHub",
+    url: "https://moveihub.vercel.app/",
+    image: MoveiHubImage,
+    type: "Personal Project",
+    stack: ["Next", "TypeScript", "Tailwind", "TMDB API", "OpenAI"],
+    price: "Free",
+    category: "Web Application",
+  },
   {
     name: "MacOS Clone",
     url: "https://github.com/xFalzz/MacOS-clone",
