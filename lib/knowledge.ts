@@ -52,7 +52,7 @@ export const KNOWLEDGE_BASE = {
       type: "Personal Project",
       stack: ["Next.js", "TypeScript", "Tailwind CSS"],
       description: "A highly detailed MacOS desktop clone. Features a functional dock, menu bar, and window system.",
-      github: "github.com/xFalzz/MacOS-clone"
+      github: "https://github.com/xFalzz/MacOS-clone"
     },
     {
       name: "QRQuick",
@@ -66,7 +66,7 @@ export const KNOWLEDGE_BASE = {
       type: "Personal Project",
       stack: ["TypeScript", "React", "Tailwind", "Canvas API"],
       description: "An interactive particle game with smooth animations and physics-based interactions.",
-      url: "particleflowsquash.vercel.app"
+      url: "https://particleflowsquash.vercel.app"
     }
   ],
   socials: {
