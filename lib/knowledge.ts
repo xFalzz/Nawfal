@@ -34,6 +34,21 @@ export const KNOWLEDGE_BASE = {
   ],
   projects: [
     {
+      name: "Kost Putri Afifa",
+      type: "Freelance Project",
+      stack: ["Next.js", "React", "Tailwind CSS"],
+      description: "A freelance project for a boarding house in Yogyakarta. Features a gallery, location map, and contact information.",
+      url: "https://www.kostafifa.my.id/",
+      github: "github.com/xFalzz/kost-putri-afifa"
+    },
+    {
+      name: "MoveiHub",
+      type: "Personal Project",
+      stack: ["Next.js", "TypeScript", "Tailwind CSS", "TMDB API", "OpenAI"],
+      description: "A movie streaming dashboard powered by TMDB API. Features a dark mode UI, movie details, and an AI assistant for recommendations.",
+      url: "https://moveihub.vercel.app/"
+    },
+    {
       name: "MacOS Clone",
       type: "Personal Project",
       stack: ["Next.js", "TypeScript", "Tailwind CSS"],
