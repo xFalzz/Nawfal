@@ -28,6 +28,26 @@ export const KNOWLEDGE_BASE = {
       period: "2025 - Present"
     }
   ],
+  certificates: [
+    {
+      name: "Mengembangkan Aplikasi AI Generatif di Azure",
+      issuer: "Dicoding Indonesia",
+      date: "Jan 2026",
+      credentialId: "Dicoding Academy"
+    },
+    {
+      name: "Membangun Solusi AI Cerdas dengan Microsoft Fabric",
+      issuer: "Dicoding Indonesia",
+      date: "Oct 2025",
+      credentialId: "Microsoft Elevate Training Center"
+    },
+    {
+      name: "Belajar Dasar Data Science",
+      issuer: "Dicoding Indonesia",
+      date: "Sep 2025",
+      credentialId: "Dicoding Academy"
+    }
+  ],
   techStack: [
     "Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", 
     "Supabase", "GSAP", "Prisma", "Canvas API", "Firebase", "GraphQL"

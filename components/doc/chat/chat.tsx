@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import TextareaAutosize from 'react-textarea-autosize';
 
 const OWNER_EMAILS = ["nawfalirfan005@gmail.com", "nawfalirfan052@gmail.com"];
 
@@ -673,12 +674,22 @@ const Chat = () => {
 
         {/* AI Input Area */}
         <div className="p-4 bg-muted/10 border-t">
-          <form onSubmit={sendAiMessage} className="relative">
-            <Input
+          <form onSubmit={(e) => sendAiMessage(e)} className="relative flex items-end gap-2 bg-background border border-border/60 focus-within:ring-1 focus-within:ring-primary/20 rounded-xl p-2 transition-all duration-200">
+            <TextareaAutosize
+              minRows={1}
+              maxRows={5}
               value={aiInput}
               onChange={(e) => setAiInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  if (aiInput.trim() && !aiLoading) {
+                    sendAiMessage(undefined);
+                  }
+                }
+              }}
               placeholder="Ask AI assistant..."
-              className="bg-background border-border/60 focus-visible:ring-primary/20 h-10 pl-4 pr-10 text-sm rounded-xl transition-all duration-200"
+              className="flex-1 bg-transparent border-none focus:ring-0 resize-none text-sm py-2 max-h-[120px] scrollbar-thin scrollbar-thumb-border"
               disabled={aiLoading}
             />
             <Button 
@@ -686,7 +697,7 @@ const Chat = () => {
               disabled={!aiInput.trim() || aiLoading} 
               size="icon" 
               variant="ghost"
-              className="absolute right-1 top-1 h-8 w-8 rounded-lg hover:bg-primary/10 text-primary transition-all disabled:opacity-30"
+              className="h-8 w-8 rounded-lg hover:bg-primary/10 text-primary transition-all disabled:opacity-30 mb-0.5"
             >
               <Send className="h-4 w-4" />
             </Button>
