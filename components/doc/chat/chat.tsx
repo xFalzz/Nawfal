@@ -633,7 +633,14 @@ const Chat = () => {
                       ? "bg-primary text-primary-foreground rounded-tr-none" 
                       : "bg-muted text-foreground rounded-tl-none border border-border/50"
                   )}>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    <ReactMarkdown 
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        a: ({node, ...props}) => (
+                          <a {...props} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline font-medium" />
+                        )
+                      }}
+                    >
                       {msg.text}
                     </ReactMarkdown>
                   </div>
