@@ -1,4 +1,5 @@
 import { SiVercel } from "react-icons/si";
+import { FiLock } from "react-icons/fi";
 
 // Assets
 import Image, { StaticImageData } from "next/image";
@@ -82,7 +83,7 @@ const TemplateCard = ({
           <div className="h-auto w-[1px] self-stretch bg-border" />
           <div className="flex items-center gap-x-1 py-3">
             <code className="text-xs leading-none text-accent-foreground underline underline-offset-2">
-              {price}
+              {price === "Locked" ? <FiLock size={12} /> : price}
             </code>
           </div>
         </div>

@@ -9,6 +9,7 @@ import MacOSImage from "@/public/images/projects/MacOS-clone.jpg";
 import QRQuickImage from "@/public/images/projects/OpenGraphIMG.jpg";
 import ParticleFlowSquashImage from "@/public/images/projects/particleflowsquash.png";
 import MoveiHubImage from "@/public/images/projects/MoveiHub.png";
+import KostAfifaImage from "@/public/images/projects/kost-afifa.png";
 
 export const metadata: Metadata = {
   title: "My Projects",
@@ -24,6 +25,15 @@ export const metadata: Metadata = {
 };
 
 const Projects = [
+  {
+    name: "Kost Putri Afifa",
+    url: "https://www.kostafifa.my.id/",
+    image: KostAfifaImage,
+    type: "Freelance Project",
+    stack: ["Next", "React", "Tailwind"],
+    price: "Locked",
+    category: "Web Application",
+  },
   {
     name: "MoveiHub",
     url: "https://moveihub.vercel.app/",
