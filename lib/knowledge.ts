@@ -46,6 +46,13 @@ export const KNOWLEDGE_BASE = {
       issuer: "Dicoding Indonesia",
       date: "Sep 2025",
       credentialId: "Dicoding Academy"
+    },
+    {
+      name: "And many more...",
+      issuer: "LinkedIn",
+      date: "Ongoing",
+      credentialId: "Check LinkedIn for full list",
+      url: "https://www.linkedin.com/in/nawfal-irfan/"
     }
   ],
   techStack: [

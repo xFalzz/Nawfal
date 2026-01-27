@@ -689,7 +689,7 @@ const Chat = () => {
                 }
               }}
               placeholder="Ask AI assistant..."
-              className="flex-1 bg-transparent border-none focus:ring-0 resize-none text-sm py-2 max-h-[120px] scrollbar-thin scrollbar-thumb-border"
+              className="flex-1 bg-transparent border-none focus:ring-0 outline-none resize-none text-sm py-2 max-h-[120px] scrollbar-thin scrollbar-thumb-border"
               disabled={aiLoading}
             />
             <Button 
