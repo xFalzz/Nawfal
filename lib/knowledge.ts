@@ -36,7 +36,7 @@ export const KNOWLEDGE_BASE = {
     {
       name: "Kost Putri Afifa",
       type: "Freelance Project",
-      stack: ["Next.js", "React", "Tailwind CSS"],
+      stack: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS 4", "Supabase", "Framer Motion", "Radix UI"],
       description: "A freelance project for a boarding house in Yogyakarta. Features a gallery, location map, and contact information.",
       url: "https://www.kostafifa.my.id/",
       github: "github.com/xFalzz/kost-putri-afifa"
