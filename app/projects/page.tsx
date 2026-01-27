@@ -30,7 +30,7 @@ const Projects = [
     url: "https://www.kostafifa.my.id/",
     image: KostAfifaImage,
     type: "Freelance Project",
-    stack: ["Next 15", "React 19", "TS", "Tailwind 4", "Supabase"],
+    stack: ["Next 15", "React 19", "TS", "Tailwind 4", "Firebase"],
     price: "Locked",
     category: "Web Application",
   },
@@ -84,11 +84,11 @@ const Page = () => {
         </h1>
         <p className="w-full max-w-lg text-muted-foreground">
           Explore my{" "}
-          <span className="font-medium text-foreground">personal projects</span>{" "}
+          <span className="font-medium text-foreground">personal and freelance projects</span>{" "}
           built with modern web technologies. From a{" "}
-          <span className="font-medium text-foreground">MacOS clone</span> to a{" "}
-          <span className="font-medium text-foreground">QR code generator</span>{" "}
-          and an <span className="font-medium text-foreground">interactive particle game</span>,
+          <span className="font-medium text-foreground">boarding house platform</span> to a{" "}
+          <span className="font-medium text-foreground">movie streaming dashboard</span> and a{" "}
+          <span className="font-medium text-foreground">MacOS clone</span>,
           each project showcases different aspects of web development. Feel free
           to check them out and{" "}
           <span className="font-medium text-foreground">reach out</span> if you
