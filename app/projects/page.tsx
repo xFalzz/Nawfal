@@ -10,10 +10,11 @@ import QRQuickImage from "@/public/images/projects/OpenGraphIMG.jpg";
 import ParticleFlowSquashImage from "@/public/images/projects/particleflowsquash.png";
 import MoveiHubImage from "@/public/images/projects/MoveiHub.png";
 import KostAfifaImage from "@/public/images/projects/kost-afifa.png";
+import KuraImage from "@/public/images/projects/kura.png";
 
 export const metadata: Metadata = {
   title: "My Projects",
-  description: "Explore Nawfal's portfolio of personal projects including MacOS clone, QRQuick, and Particle Flow Squash. Built with Next.js, TypeScript, and modern web technologies.",
+  description: "Explore Nawfal's portfolio of personal projects including KURA, MacOS clone, QRQuick, and Particle Flow Squash. Built with Next.js, TypeScript, and modern web technologies.",
   alternates: {
     canonical: "/projects",
   },
@@ -25,6 +26,15 @@ export const metadata: Metadata = {
 };
 
 const Projects = [
+  {
+    name: "KURA",
+    url: "https://kuraa.vercel.app",
+    image: KuraImage,
+    type: "Personal Project | Website discovery games",
+    stack: ["Next", "TS", "Tailwind", "RAWG API", "Firebase"],
+    price: "Locked",
+    category: "Web Application",
+  },
   {
     name: "Kost Putri Afifa",
     url: "https://www.kostafifa.my.id/",
