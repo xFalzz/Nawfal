@@ -26,7 +26,7 @@ const SubLinks = () => {
       </Link>
       <Link
         href={
-          "https://drive.google.com/drive"
+          "https://drive.google.com/file/d/1EPzMt7K0beqd4LdEFN91OCAyxHGEUOje/view?usp=drive_link"
         }
         target="_blank"
         className="anim group col-span-1 flex h-fit w-full items-center justify-center gap-x-2 border-l py-4 font-medium transition-all duration-200 ease-in-out hover:w-full hover:bg-muted md:w-1/2"
