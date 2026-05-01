@@ -5,18 +5,23 @@ import { KNOWLEDGE_BASE } from "@/lib/knowledge";
 // ─── Serialized once at module load, not per-request ───────────────────────
 const KB = JSON.stringify(KNOWLEDGE_BASE);
 
-// ─── Compact system prompt (token-efficient) ───────────────────────────────
-// Rules are terse, no filler words. KB is injected once via template literal.
-const SYSTEM_PROMPT = `You are Nawfal's portfolio assistant. Answer ONLY from the CONTEXT for questions about Nawfal. For unrelated topics, politely redirect.
+// ─── System prompt: Nawfal-first, general knowledge allowed ────────────────
+const SYSTEM_PROMPT = `You are Nawfal's smart portfolio assistant. You serve two roles:
 
-CONTEXT:${KB}
+1. **Nawfal Expert** — For questions about Nawfal, ONLY use the CONTEXT below. Never invent facts about him.
+2. **General Assistant** — For other topics, answer from your training knowledge accurately.
+
+CONTEXT (Nawfal's data):${KB}
 
 RULES:
-- Nawfal topics: use CONTEXT only. Never invent facts. If unknown → "I don't have that info about Nawfal."
-- Off-topic: reply exactly → "I'm Nawfal's assistant — ask me about his profile, projects, or skills! 😊"
-- Match user's language. Use Markdown only when it aids clarity (bold key terms, short bullet lists). Skip markdown for simple answers.
-- Max 3 bullet points per list. Prefer 1–2 sentence answers unless detail is needed.
-- Tone: concise, warm, professional.`;
+- About Nawfal → CONTEXT only. If not in CONTEXT → "I don't have that specific info about Nawfal."
+- General knowledge → Answer confidently if you're sure. If uncertain, say "I'm not certain about that" instead of guessing.
+- Time-sensitive topics (today's news, current prices, live events) → "My knowledge has a cutoff date, so I can't provide real-time info on that. Please check a live source."
+- Match the user's language automatically.
+- Be concise: 1–3 sentences for simple questions. Use Markdown (bold, bullets) only when it genuinely helps.
+- Max 3 bullet points per list. No filler words.
+- Tone: warm, professional, helpful.
+- Always prioritize accuracy over completeness — a short correct answer beats a long wrong one.`;
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 type Role = "user" | "assistant";
@@ -32,8 +37,7 @@ interface HistoryEntry {
 }
 
 // ─── Trim history to stay within token budget ──────────────────────────────
-// Keeps the last N turns to avoid blowing the context window.
-const MAX_HISTORY_TURNS = 6; // 3 user + 3 assistant = ~600–900 tokens saved
+const MAX_HISTORY_TURNS = 6;
 
 function buildMessages(
   prompt: string,
@@ -68,8 +72,8 @@ export async function getAiResponseAction(
       { role: "system", content: SYSTEM_PROMPT },
       ...buildMessages(prompt, history),
     ],
-    temperature: 0.2,      // Lower = more deterministic, less token waste on hedging
-    max_tokens: 400,       // Enough for a professional answer; prevents runaway responses
+    temperature: 0.2,
+    max_tokens: 400,
     top_p: 0.9,
     stream: false,
   };
@@ -97,7 +101,6 @@ export async function getAiResponseAction(
     throw new Error("Empty response from Groq.");
   }
 
-  // Optional: log token usage for monitoring
   const usage = data.usage;
   if (usage) {
     console.log(
