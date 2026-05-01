@@ -155,6 +155,7 @@ async function callGroq(
   if (useTools) {
     body.tools = TOOLS;
     body.tool_choice = "auto";
+    body.parallel_tool_calls = false; // Simpler for Llama — one tool at a time
   }
 
   const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -176,6 +177,31 @@ async function callGroq(
   return res.json();
 }
 
+// ─── Fallback: answer without tools ────────────────────────────────────────
+async function fallbackWithoutTools(
+  apiKey: string,
+  prompt: string,
+  history: HistoryEntry[]
+): Promise<string> {
+  console.log("[NawfalAssistant] Falling back to direct answer (no tools).");
+  const messages: ChatMessage[] = [
+    { role: "system", content: SYSTEM_PROMPT },
+    ...buildMessages(prompt, history),
+  ];
+
+  const data = await callGroq(apiKey, messages, false);
+  const text = data.choices?.[0]?.message?.content;
+  if (!text) throw new Error("Empty fallback response from Groq.");
+
+  if (data.usage) {
+    console.log(
+      `[NawfalAssistant] Fallback tokens — prompt: ${data.usage.prompt_tokens}, completion: ${data.usage.completion_tokens}`
+    );
+  }
+
+  return text;
+}
+
 // ─── Main action ───────────────────────────────────────────────────────────
 export async function getAiResponseAction(
   prompt: string,
@@ -193,11 +219,17 @@ export async function getAiResponseAction(
   ];
 
   // ── Step 1: Initial call with tools ──────────────────────────────────────
-  const data = await callGroq(apiKey, messages, true);
+  let data;
+  try {
+    data = await callGroq(apiKey, messages, true);
+  } catch {
+    // If tool-enabled call fails, fall back to direct answer
+    return fallbackWithoutTools(apiKey, prompt, history);
+  }
+
   const choice = data.choices?.[0];
   const message = choice?.message;
 
-  // Log token usage
   if (data.usage) {
     console.log(
       `[NawfalAssistant] Step 1 tokens — prompt: ${data.usage.prompt_tokens}, completion: ${data.usage.completion_tokens}`
@@ -212,38 +244,51 @@ export async function getAiResponseAction(
   }
 
   // ── Step 2: Execute tool calls and get final answer ──────────────────────
-  // Add the assistant's tool-call message to context
-  messages.push({
-    role: "assistant",
-    content: message.content ?? "",
-    ...({ tool_calls: message.tool_calls } as any),
-  });
+  try {
+    // Add the assistant's tool-call message to context
+    messages.push({
+      role: "assistant",
+      content: message.content ?? "",
+      ...({ tool_calls: message.tool_calls } as any),
+    });
 
-  // Execute each tool call
-  for (const toolCall of message.tool_calls as ToolCall[]) {
-    if (toolCall.function.name === "search_web") {
-      const args = JSON.parse(toolCall.function.arguments);
-      console.log(`[NawfalAssistant] 🔍 Searching: "${args.query}"`);
-      const searchResult = await searchWeb(args.query);
-      messages.push({
-        role: "tool",
-        content: searchResult,
-        tool_call_id: toolCall.id,
-      });
+    // Execute each tool call
+    for (const toolCall of message.tool_calls as ToolCall[]) {
+      if (toolCall.function.name === "search_web") {
+        let args: { query: string };
+        try {
+          args = JSON.parse(toolCall.function.arguments);
+        } catch {
+          console.error("[NawfalAssistant] Malformed tool call args, skipping search.");
+          return fallbackWithoutTools(apiKey, prompt, history);
+        }
+
+        console.log(`[NawfalAssistant] 🔍 Searching: "${args.query}"`);
+        const searchResult = await searchWeb(args.query);
+        messages.push({
+          role: "tool",
+          content: searchResult,
+          tool_call_id: toolCall.id,
+        });
+      }
     }
+
+    // Final call — no tools this time, just answer with search context
+    const finalData = await callGroq(apiKey, messages, false);
+    const finalText: string | undefined =
+      finalData.choices?.[0]?.message?.content;
+
+    if (finalData.usage) {
+      console.log(
+        `[NawfalAssistant] Step 2 tokens — prompt: ${finalData.usage.prompt_tokens}, completion: ${finalData.usage.completion_tokens}`
+      );
+    }
+
+    if (!finalText) throw new Error("Empty response from Groq (step 2).");
+    return finalText;
+  } catch (err) {
+    console.error("[NawfalAssistant] Tool call flow failed, using fallback:", err);
+    return fallbackWithoutTools(apiKey, prompt, history);
   }
-
-  // Final call — no tools this time, just answer with search context
-  const finalData = await callGroq(apiKey, messages, false);
-  const finalText: string | undefined =
-    finalData.choices?.[0]?.message?.content;
-
-  if (finalData.usage) {
-    console.log(
-      `[NawfalAssistant] Step 2 tokens — prompt: ${finalData.usage.prompt_tokens}, completion: ${finalData.usage.completion_tokens}`
-    );
-  }
-
-  if (!finalText) throw new Error("Empty response from Groq (step 2).");
-  return finalText;
 }
+
