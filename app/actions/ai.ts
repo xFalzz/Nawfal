@@ -2,82 +2,108 @@
 
 import { KNOWLEDGE_BASE } from "@/lib/knowledge";
 
-/**
- * Nawfal's Assistant - Groq Edition (Autonomous Brain)
- * Lightning fast Llama 3.3 70B on Groq.
- */
+// ─── Serialized once at module load, not per-request ───────────────────────
+const KB = JSON.stringify(KNOWLEDGE_BASE);
 
-const SYSTEM_INSTRUCTION = `You are Nawfal's portfolio assistant. You ONLY answer questions about Nawfal using the CONTEXT below. Be concise and professional.
+// ─── Compact system prompt (token-efficient) ───────────────────────────────
+// Rules are terse, no filler words. KB is injected once via template literal.
+const SYSTEM_PROMPT = `You are Nawfal's portfolio assistant. Answer ONLY from the CONTEXT for questions about Nawfal. For unrelated topics, politely redirect.
 
-CONTEXT:
-${JSON.stringify(KNOWLEDGE_BASE)}
+CONTEXT:${KB}
 
-STRICT RULES:
-1. ONLY answer about Nawfal (profile, skills, projects, experience, education, certifications, contact).
-2. If asked about ANYTHING outside Nawfal's context (world events, general knowledge, coding help, other people, etc.), reply: "I'm Nawfal's portfolio assistant — I can only help with questions about Nawfal, his projects, and his skills. Feel free to ask about those! 😊"
-3. NEVER invent or guess information not in the CONTEXT. If unsure, say "I don't have that specific information about Nawfal."
-4. Detect the user's language and reply in the SAME language.
-5. Keep answers short and direct. Use Markdown (bold, lists) for clarity.
-6. Be friendly and professional.`;
+RULES:
+- Nawfal topics: use CONTEXT only. Never invent facts. If unknown → "I don't have that info about Nawfal."
+- Off-topic: reply exactly → "I'm Nawfal's assistant — ask me about his profile, projects, or skills! 😊"
+- Match user's language. Use Markdown only when it aids clarity (bold key terms, short bullet lists). Skip markdown for simple answers.
+- Max 3 bullet points per list. Prefer 1–2 sentence answers unless detail is needed.
+- Tone: concise, warm, professional.`;
 
-export async function getAiResponseAction(prompt: string, history: { role: string, parts: { text: string }[] }[] = []) {
-  const apiKey = process.env.GROQ_API_KEY || "";
-  
+// ─── Types ─────────────────────────────────────────────────────────────────
+type Role = "user" | "assistant";
+
+interface ChatMessage {
+  role: Role;
+  content: string;
+}
+
+interface HistoryEntry {
+  role: string;
+  parts: { text: string }[];
+}
+
+// ─── Trim history to stay within token budget ──────────────────────────────
+// Keeps the last N turns to avoid blowing the context window.
+const MAX_HISTORY_TURNS = 6; // 3 user + 3 assistant = ~600–900 tokens saved
+
+function buildMessages(
+  prompt: string,
+  history: HistoryEntry[]
+): ChatMessage[] {
+  const trimmed = history.slice(-MAX_HISTORY_TURNS);
+
+  return [
+    ...trimmed.map((m) => ({
+      role: (m.role === "model" ? "assistant" : "user") as Role,
+      content: m.parts[0].text,
+    })),
+    { role: "user" as Role, content: prompt },
+  ];
+}
+
+// ─── Main action ───────────────────────────────────────────────────────────
+export async function getAiResponseAction(
+  prompt: string,
+  history: HistoryEntry[] = []
+): Promise<string> {
+  const apiKey = process.env.GROQ_API_KEY;
+
   if (!apiKey) {
-    console.error("[NawfalAssistant] ERROR: Groq security key missing.");
-    throw new Error("Assistant is offline (Groq Calibration error).");
+    console.error("[NawfalAssistant] Missing GROQ_API_KEY.");
+    throw new Error("Assistant is offline — API key not configured.");
   }
 
-  try {
-    const url = "https://api.groq.com/openai/v1/chat/completions";
-    
-    // Map history to OpenAI format used by Groq
-    const messages = [
-      { role: "system", content: SYSTEM_INSTRUCTION },
-      ...history.map(m => ({
-        role: m.role === "model" ? "assistant" : "user",
-        content: m.parts[0].text
-      })),
-      { 
-        role: "user", 
-        content: prompt 
-      }
-    ];
+  const body = {
+    model: "llama-3.3-70b-versatile",
+    messages: [
+      { role: "system", content: SYSTEM_PROMPT },
+      ...buildMessages(prompt, history),
+    ],
+    temperature: 0.2,      // Lower = more deterministic, less token waste on hedging
+    max_tokens: 400,       // Enough for a professional answer; prevents runaway responses
+    top_p: 0.9,
+    stream: false,
+  };
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        messages: messages,
-        temperature: 0.3,
-        max_tokens: 512,
-        top_p: 1,
-        stream: false,
-        stop: null
-      })
-    });
+  const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify(body),
+  });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("[NawfalAssistant] Groq API Error:", errorData);
-      throw new Error(errorData.error?.message || "Groq communication failed.");
-    }
-
-    const data = await response.json();
-    const text = data.choices?.[0]?.message?.content;
-    
-    if (!text) {
-      throw new Error("Autonomous Groq response failed.");
-    }
-
-    console.log("[NawfalAssistant] Success: Received response from Groq/Llama");
-    return text;
-  } catch (error: any) {
-    console.error("[NawfalAssistant] Groq System Failure:", error.message);
-    throw new Error(`Groq Execution error: ${error.message || "Please check back later"}`);
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    const msg = (err as any)?.error?.message ?? `HTTP ${response.status}`;
+    console.error("[NawfalAssistant] Groq error:", msg);
+    throw new Error(`Groq error: ${msg}`);
   }
+
+  const data = await response.json();
+  const text: string | undefined = data.choices?.[0]?.message?.content;
+
+  if (!text) {
+    throw new Error("Empty response from Groq.");
+  }
+
+  // Optional: log token usage for monitoring
+  const usage = data.usage;
+  if (usage) {
+    console.log(
+      `[NawfalAssistant] Tokens — prompt: ${usage.prompt_tokens}, completion: ${usage.completion_tokens}, total: ${usage.total_tokens}`
+    );
+  }
+
+  return text;
 }
