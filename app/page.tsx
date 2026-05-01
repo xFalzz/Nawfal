@@ -22,7 +22,7 @@ export default function Page() {
         <ProfileHeader />
         <div className="pad-x relative w-full">
           <h1 className="text-balance text-left text-3xl font-semibold leading-[1.1] tracking-tight xs:text-4xl md:w-[60%] lg:text-5xl">
-            Frontend Developer
+            Software Engineer
             <br />
             UI/UX Designer
           </h1>
@@ -73,6 +73,37 @@ export default function Page() {
               collapsible
             >
               <AccordionItem value="item-1">
+                <AccordionTrigger>KURA - Game Discovery</AccordionTrigger>
+                <AccordionContent>
+                  <p className="mb-4 text-muted-foreground">
+                    A scalable game discovery platform with 897,000+ games. Built with{" "}
+                    <span className="text-foreground">Next.js</span>,{" "}
+                    <span className="text-foreground">TypeScript</span>,{" "}
+                    <span className="text-foreground">Firebase</span>, and{" "}
+                    <span className="text-foreground">RAWG API</span>. Features trending systems, community, and dynamic content exploration.
+                  </p>
+                  <div className="flex items-center justify-between gap-x-4">
+                    <Badge
+                      variant="secondary"
+                      className="relative flex w-fit items-center gap-x-2 rounded-full"
+                    >
+                      <div className="h-1.5 w-1.5 animate-ping rounded-full bg-green-500" />
+                      <div className="absolute left-2.5 h-1.5 w-1.5 rounded-full bg-green-500" />
+                      Live
+                    </Badge>
+                    <Link
+                      href="https://kuraa.vercel.app"
+                      target="_blank"
+                      className="rounded-sm border bg-popover px-2 text-popover-foreground"
+                    >
+                      <code className="text-xs font-medium md:text-sm">
+                        Visit Project
+                      </code>
+                    </Link>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2">
                 <AccordionTrigger>MacOS Clone</AccordionTrigger>
                 <AccordionContent>
                   <p className="mb-4 text-muted-foreground">
@@ -102,7 +133,7 @@ export default function Page() {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-2">
+              <AccordionItem value="item-3">
                 <AccordionTrigger>QRQuick</AccordionTrigger>
                 <AccordionContent>
                   <p className="mb-4 text-muted-foreground">
@@ -132,7 +163,7 @@ export default function Page() {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-3">
+              <AccordionItem value="item-4">
                 <AccordionTrigger>Particle Flow Squash</AccordionTrigger>
                 <AccordionContent>
                   <p className="mb-4 text-muted-foreground">

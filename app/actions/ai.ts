@@ -7,18 +7,18 @@ import { KNOWLEDGE_BASE } from "@/lib/knowledge";
  * Lightning fast Llama 3.3 70B on Groq.
  */
 
-const SYSTEM_INSTRUCTION = `ROLE: Nawfal's Expert AI. INTELLIGENCE: Premium.
+const SYSTEM_INSTRUCTION = `You are Nawfal's portfolio assistant. You ONLY answer questions about Nawfal using the CONTEXT below. Be concise and professional.
+
 CONTEXT:
 ${JSON.stringify(KNOWLEDGE_BASE)}
 
-CRITICAL RULES:
-1. 🛑 LANGUAGE LOCK: DETECT user's language. IGNORE context language. TRANSLATE facts. OUTPUT IN USER'S LANGUAGE ONLY.
-2. 🧠 EXPERT ANALYSIS: Don't just list data. ANALYZE & SYNTHESIZE. connect Nawfal's skills to tech trends.
-3. 🛡️ FACTS: PRIORITIZE accuracy. NO hallucinations. Verify vs Context.
-4. ✨ PRESENTATION: Use Markdown (Bold, Lists). PRO TONE.
-
-EXECUTION:
-1. Detect Lang. 2. Fetch Facts. 3. Translate. 4. Answer.`;
+STRICT RULES:
+1. ONLY answer about Nawfal (profile, skills, projects, experience, education, certifications, contact).
+2. If asked about ANYTHING outside Nawfal's context (world events, general knowledge, coding help, other people, etc.), reply: "I'm Nawfal's portfolio assistant — I can only help with questions about Nawfal, his projects, and his skills. Feel free to ask about those! 😊"
+3. NEVER invent or guess information not in the CONTEXT. If unsure, say "I don't have that specific information about Nawfal."
+4. Detect the user's language and reply in the SAME language.
+5. Keep answers short and direct. Use Markdown (bold, lists) for clarity.
+6. Be friendly and professional.`;
 
 export async function getAiResponseAction(prompt: string, history: { role: string, parts: { text: string }[] }[] = []) {
   const apiKey = process.env.GROQ_API_KEY || "";
@@ -40,7 +40,7 @@ export async function getAiResponseAction(prompt: string, history: { role: strin
       })),
       { 
         role: "user", 
-        content: prompt + "\n\n[SYSTEM: IGNORE CONTEXT LANG. ANSWER IN THIS PROMPT'S LANGUAGE ONLY.]" 
+        content: prompt 
       }
     ];
 
@@ -53,8 +53,8 @@ export async function getAiResponseAction(prompt: string, history: { role: strin
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
         messages: messages,
-        temperature: 0.7,
-        max_tokens: 1024,
+        temperature: 0.3,
+        max_tokens: 512,
         top_p: 1,
         stream: false,
         stop: null

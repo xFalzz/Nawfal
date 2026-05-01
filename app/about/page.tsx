@@ -16,13 +16,13 @@ import { Inspiration } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Learn more about Nawfal, a Front-End Specialist and TypeScript Developer based in Yogyakarta. Undergraduate Informatics Student building responsive, type-safe web applications.",
+  description: "Learn more about Nawfal, a Software Engineer focused on Web Development and AI-driven applications based in Yogyakarta. Building modern fullstack web applications with Next.js, TypeScript, and Firebase.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Nawfal | Frontend Developer",
-    description: "Front-End Specialist | Next.js & TypeScript Developer | UI/UX Enthusiast | AI Enthusiast building modern web applications.",
+    title: "About Nawfal | Software Engineer",
+    description: "Software Engineer focused on Web Development, AI-driven applications, and scalable systems using Next.js, TypeScript, and Firebase.",
     url: "https://nawfal.site/about",
   },
 };
@@ -32,19 +32,19 @@ const Page = () => {
     <section id="about" className="flex h-full w-full grow flex-col">
       <div className="pad-x flex w-full flex-col items-start gap-x-8 gap-y-6 py-4 md:flex-row md:py-8 lg:py-12">
         <h1 className="w-full text-balance text-3xl font-medium leading-tight sm:text-left md:w-1/2 lg:text-4xl">
-          Front-end focused developer building responsive, type-safe web applications.
+          Software Engineer building modern fullstack web applications and AI-driven solutions.
         </h1>
         <div className="flex w-full flex-col gap-y-4 text-muted-foreground md:w-1/2">
           <p>
             <span className="font-medium text-foreground">Nawfal</span> is a{" "}
             <span className="font-medium text-foreground">
-              Front-End Specialist
+              Software Engineer
             </span>{" "}
-            and{" "}
+            focused on{" "}
             <span className="font-medium text-foreground">
-              TypeScript Developer
+              Web Development and AI-driven applications
             </span>
-            , combining a multimedia background with modern engineering practices to create smooth, engaging user experiences.
+            , combining a multimedia background with modern engineering practices to build scalable, high-performance web applications.
           </p>
           <p>
             Currently expanding from Front-End into{" "}
@@ -52,7 +52,7 @@ const Page = () => {
             I don&apos;t just write code, I build products.
           </p>
           <p className="text-sm">
-            <span className="font-medium text-foreground">Tech Stack:</span> Next.js, React, TypeScript, Tailwind CSS, Framer Motion.
+            <span className="font-medium text-foreground">Tech Stack:</span> Next.js, React, TypeScript, Tailwind CSS, Node.js, Firebase, AWS Cloud.
           </p>
         </div>
       </div>
