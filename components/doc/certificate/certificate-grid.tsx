@@ -64,7 +64,11 @@ export default function CertificateGrid({
         const filtered = certificates.filter((c) => c.category === cat);
         if (filtered.length === 0) return null;
         return (
-          <div key={cat} className="mb-12">
+          <div
+            key={cat}
+            className="mb-12"
+            style={{ contentVisibility: "auto", containIntrinsicSize: "0 600px" }}
+          >
             <div className="mb-4 flex items-center gap-x-3">
               <div
                 className={`h-3 w-3 rounded-full bg-gradient-to-r ${categoryColors[cat]}`}
