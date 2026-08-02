@@ -139,9 +139,47 @@ export const KNOWLEDGE_BASE = {
     {
       name: "Particle Flow Squash",
       type: "Personal Project",
-      stack: ["TypeScript", "React", "Tailwind CSS", "Canvas API"],
-      description: "An interactive particle game with smooth animations and physics-based interactions.",
+      stack: ["TypeScript", "React", "Three.js / R3F", "MediaPipe", "Canvas API"],
+      description: "Immersive 3D web application combining MediaPipe hand tracking with React Three Fiber to manipulate a 15,000-particle system with natural gestures.",
       url: "https://particleflowsquash.vercel.app"
+    },
+    {
+      name: "nexus-vision",
+      type: "Open Source AI Project",
+      stack: ["Python", "OpenCV", "MediaPipe", "AI Computer Vision"],
+      description: "Python AI productivity studio for computer vision, hand drawing gesture interaction, and desktop automation.",
+      github: "https://github.com/xFalzz/nexus-vision"
+    },
+    {
+      name: "sawa (ꦱꦮ)",
+      type: "Open Source Language Project",
+      stack: ["Python", "Compiler / Interpreter", "Javanese Script"],
+      description: "An open source programming language interpreter that executes Python code written using Javanese script characters.",
+      github: "https://github.com/xFalzz/sawa"
+    },
+    {
+      name: "sinopsisp",
+      type: "Personal Project",
+      stack: ["Next.js", "TypeScript", "Tailwind CSS", "CMS"],
+      description: "A modern, elegant film & game analysis blog for in-depth reviews and pop culture insights.",
+      url: "https://sinopsisp.vercel.app",
+      github: "https://github.com/xFalzz/sinopsisp"
+    },
+    {
+      name: "Website Kelas XII MM 2",
+      type: "Community Project",
+      stack: ["JavaScript", "HTML5", "CSS3", "Vercel"],
+      description: "Memory archive and showcase website for XII Multimedia 2 students of SMK Negeri 2 Sewon.",
+      url: "https://xiidusemulti2.vercel.app",
+      github: "https://github.com/xFalzz/Website-KelasMM2"
+    },
+    {
+      name: "Snakes Community",
+      type: "Personal Project",
+      stack: ["JavaScript", "Tailwind CSS", "Node.js"],
+      description: "A global online platform for exploring snake species, herpetology resources, and herpetologist community interactions.",
+      url: "https://snakes-zeta.vercel.app/",
+      github: "https://github.com/xFalzz/Snakes"
     }
   ],
   socials: {

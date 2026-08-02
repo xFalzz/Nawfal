@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import TemplateCard from "@/components/macro/template-card";
 import TechStack from "@/components/macro/tech-stack";
 
-// Images
+// Assets
 import MacOSImage from "@/public/images/projects/MacOS-clone.jpg";
 import QRQuickImage from "@/public/images/projects/OpenGraphIMG.jpg";
 import ParticleFlowSquashImage from "@/public/images/projects/particleflowsquash.png";
@@ -14,82 +14,129 @@ import KuraImage from "@/public/images/projects/kura.png";
 import HijaraImage from "@/public/images/projects/hijara.png";
 
 export const metadata: Metadata = {
-  title: "My Projects",
-  description: "Explore Nawfal's portfolio of personal projects including KURA, Hijara, MacOS clone, QRQuick, and Particle Flow Squash. Built with Next.js, TypeScript, and modern web technologies.",
+  title: "My Projects | Nawfal Irfan Ramadhan",
+  description:
+    "Explore Nawfal's portfolio of featured software engineering and AI projects including Hijara, KURA, nexus-vision, sawa interpreter, MoveiHub, and Particle Flow Squash.",
   alternates: {
     canonical: "/projects",
   },
   openGraph: {
     title: "My Projects | Nawfal Irfan Ramadhan",
-    description: "Explore my portfolio of personal projects built with Next.js, TypeScript, Tailwind CSS, and modern web technologies.",
+    description:
+      "Explore my portfolio of featured open-source and freelance projects built with Next.js, TypeScript, Python, AI, and modern web technologies.",
     url: "https://nawfal.vercel.app/projects",
   },
 };
 
 const Projects = [
   {
-    name: "Hijara (Competition project)",
-    url: "#",
+    name: "Hijara - AI Sustainability Platform",
+    url: "https://hijara-juaravibecoding.vercel.app",
     image: HijaraImage,
-    type: "Competition Project",
-    stack: ["AI", "Sustainability", "Next.js"],
-    price: "Locked",
-    category: "Web Application",
+    type: "Google #JuaraVibeCoding Project",
+    stack: ["Gemini Vision", "Cloud Run", "Next 15"],
+    price: "Free",
+    category: "AI & Cloud",
   },
   {
-    name: "KURA",
+    name: "KURA - Game Encyclopedia",
     url: "https://kuraa.vercel.app",
     image: KuraImage,
-    type: "Personal Project | Website discovery games",
-    stack: ["Next", "TS", "Tailwind", "RAWG API", "Firebase"],
-    price: "Locked",
-    category: "Web Application",
-  },
-  {
-    name: "Kost Putri Afifa",
-    url: "https://www.kostafifa.my.id/",
-    image: KostAfifaImage,
-    type: "Freelance Project",
-    stack: ["Next 15", "React 19", "TS", "Tailwind 4", "Firebase"],
-    price: "Locked",
+    type: "Personal Project | 897k+ Games",
+    stack: ["Next", "TS", "RAWG API", "Firebase"],
+    price: "Free",
     category: "Web Application",
   },
   {
     name: "MoveiHub",
     url: "https://moveihub.vercel.app/",
     image: MoveiHubImage,
-    type: "Personal Project",
-    stack: ["Next", "TS", "Tailwind", "TMDB", "OpenAI"],
+    type: "Personal Project | 21 ⭐",
+    stack: ["Next", "TS", "TMDB", "OpenAI"],
     price: "Free",
     category: "Web Application",
-  },
-  {
-    name: "MacOS Clone",
-    url: "https://github.com/xFalzz/MacOS-clone",
-    image: MacOSImage,
-    type: "Personal Project",
-    stack: ["Next", "TypeScript", "Tailwind"],
-    price: "Free",
-    category: "Web Application",
-  },
-  {
-    name: "QRQuick",
-    url: "https://qrquicks.vercel.app/",
-    image: QRQuickImage,
-    type: "Personal Project",
-    stack: ["TypeScript", "Next", "React", "Tailwind", "Prisma"],
-    price: "Locked",
-    category: "Utility Tool",
   },
   {
     name: "Particle Flow Squash",
     url: "https://particleflowsquash.vercel.app/",
     image: ParticleFlowSquashImage,
-    type: "Personal Project",
-    stack: ["TypeScript", "React", "Tailwind", "Canvas API"],
+    type: "3D Gesture Interaction",
+    stack: ["MediaPipe", "R3F", "Three.js", "TS"],
     price: "Free",
-    category: "Interactive Game",
-  }
+    category: "AI & 3D Graphics",
+  },
+  {
+    name: "nexus-vision",
+    url: "https://github.com/xFalzz/nexus-vision",
+    image: ParticleFlowSquashImage,
+    type: "Python AI Productivity Studio",
+    stack: ["Python", "OpenCV", "MediaPipe", "AI"],
+    price: "Free",
+    category: "AI & Automation",
+  },
+  {
+    name: "sawa (ꦱꦮ)",
+    url: "https://github.com/xFalzz/sawa",
+    image: MacOSImage,
+    type: "Javanese Script Interpreter",
+    stack: ["Python", "Compiler", "Javanese"],
+    price: "Free",
+    category: "Open Source Language",
+  },
+  {
+    name: "MacOS Clone",
+    url: "https://github.com/xFalzz/MacOS-clone",
+    image: MacOSImage,
+    type: "macOS Desktop Experience | 8 ⭐",
+    stack: ["Preact", "TypeScript", "SCSS"],
+    price: "Free",
+    category: "Web Application",
+  },
+  {
+    name: "Kost Putri Afifa",
+    url: "https://www.kostafifa.my.id/",
+    image: KostAfifaImage,
+    type: "Freelance Client Project",
+    stack: ["Next 15", "React 19", "TS", "Firebase"],
+    price: "Locked",
+    category: "Client Project",
+  },
+  {
+    name: "QRQuick",
+    url: "https://qrquicks.vercel.app/",
+    image: QRQuickImage,
+    type: "QR Code Platform | 4 ⭐",
+    stack: ["TypeScript", "Next", "Prisma"],
+    price: "Free",
+    category: "Utility Tool",
+  },
+  {
+    name: "sinopsisp",
+    url: "https://sinopsisp.vercel.app",
+    image: MoveiHubImage,
+    type: "Film & Game Analysis Blog",
+    stack: ["Next", "TS", "Tailwind", "CMS"],
+    price: "Free",
+    category: "Web Application",
+  },
+  {
+    name: "Website XII MM 2",
+    url: "https://xiidusemulti2.vercel.app",
+    image: KostAfifaImage,
+    type: "SMK N 2 Sewon Memory Archive",
+    stack: ["JavaScript", "HTML5", "CSS3"],
+    price: "Free",
+    category: "Web Application",
+  },
+  {
+    name: "Snakes Community",
+    url: "https://snakes-zeta.vercel.app/",
+    image: KuraImage,
+    type: "Herpetology Community Platform",
+    stack: ["JavaScript", "Tailwind", "Node.js"],
+    price: "Free",
+    category: "Web Application",
+  },
 ];
 
 const Page = () => {
@@ -100,23 +147,17 @@ const Page = () => {
     >
       <div className="pad-x flex h-full w-full flex-col gap-y-4 md:gap-y-5">
         <h1 className="text-balance text-left text-3xl font-semibold leading-tight lg:text-4xl">
-          My Projects
+          Featured &amp; Open Source Projects
         </h1>
-        <p className="w-full max-w-lg text-muted-foreground">
-          Explore my{" "}
-          <span className="font-medium text-foreground">personal and freelance projects</span>{" "}
-          built with modern web technologies. From a{" "}
-          <span className="font-medium text-foreground">boarding house platform</span> to a{" "}
-          <span className="font-medium text-foreground">movie streaming dashboard</span> and a{" "}
-          <span className="font-medium text-foreground">MacOS clone</span>,
-          each project showcases different aspects of web development. Feel free
-          to check them out and{" "}
-          <span className="font-medium text-foreground">reach out</span> if you
-          have any questions.
+        <p className="w-full max-w-xl text-muted-foreground">
+          Explore my collection of <span className="font-medium text-foreground">AI platforms</span>,{" "}
+          <span className="font-medium text-foreground">full-stack web applications</span>,{" "}
+          <span className="font-medium text-foreground">open-source interpreters</span>, and{" "}
+          <span className="font-medium text-foreground">3D computer vision tools</span> built with Next.js, TypeScript, Python, and Google Cloud.
         </p>
       </div>
       <div className="h-[1px] w-full bg-border" />
-      <div className="pad-x flex h-full min-h-fit w-full grow flex-col gap-x-4 gap-y-4 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-8 lg:gap-x-12 lg:gap-y-12 xl:grid-cols-3">
+      <div className="pad-x flex h-full min-h-fit w-full grow flex-col gap-x-4 gap-y-4 md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-6 lg:gap-x-8 lg:gap-y-8 xl:grid-cols-3">
         {Projects.map((project, index) => (
           <TemplateCard key={index} {...project} />
         ))}
@@ -125,4 +166,5 @@ const Page = () => {
     </section>
   );
 };
+
 export default Page;
