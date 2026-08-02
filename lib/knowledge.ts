@@ -151,13 +151,6 @@ export const KNOWLEDGE_BASE = {
       github: "https://github.com/xFalzz/nexus-vision"
     },
     {
-      name: "sawa (ꦱꦮ)",
-      type: "Open Source Language Project",
-      stack: ["Python", "Compiler / Interpreter", "Javanese Script"],
-      description: "An open source programming language interpreter that executes Python code written using Javanese script characters.",
-      github: "https://github.com/xFalzz/sawa"
-    },
-    {
       name: "sinopsisp",
       type: "Personal Project",
       stack: ["Next.js", "TypeScript", "Tailwind CSS", "CMS"],

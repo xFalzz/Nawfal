@@ -13,7 +13,6 @@ import KostAfifaImage from "@/public/images/projects/kost-afifa.png";
 import KuraImage from "@/public/images/projects/kura.png";
 import HijaraImage from "@/public/images/projects/hijara.png";
 import NexusVisionImage from "@/public/images/projects/nexus-vision.png";
-import SawaImage from "@/public/images/projects/sawa.png";
 import SinopsispImage from "@/public/images/projects/sinopsisp.png";
 import KelasMM2Image from "@/public/images/projects/kelas-mm2.png";
 import SnakesImage from "@/public/images/projects/snakes.png";
@@ -21,7 +20,7 @@ import SnakesImage from "@/public/images/projects/snakes.png";
 export const metadata: Metadata = {
   title: "My Projects | Nawfal Irfan Ramadhan",
   description:
-    "Explore Nawfal's portfolio of featured software engineering and AI projects including Hijara, KURA, nexus-vision, sawa interpreter, MoveiHub, and Particle Flow Squash.",
+    "Explore Nawfal's portfolio of featured software engineering and AI projects including Hijara, KURA, nexus-vision, MoveiHub, and Particle Flow Squash.",
   alternates: {
     canonical: "/projects",
   },
@@ -36,11 +35,11 @@ export const metadata: Metadata = {
 const Projects = [
   {
     name: "Hijara - AI Sustainability Platform",
-    url: "https://hijara-juaravibecoding.vercel.app",
+    url: "#",
     image: HijaraImage,
     type: "Google #JuaraVibeCoding Project",
     stack: ["Gemini Vision", "Cloud Run", "Next 15"],
-    price: "Free",
+    price: "Locked",
     category: "AI & Cloud",
   },
   {
@@ -79,15 +78,7 @@ const Projects = [
     price: "Free",
     category: "AI & Automation",
   },
-  {
-    name: "sawa (ꦱꦮ)",
-    url: "https://github.com/xFalzz/sawa",
-    image: SawaImage,
-    type: "Javanese Script Interpreter",
-    stack: ["Python", "Compiler", "Javanese"],
-    price: "Free",
-    category: "Open Source Language",
-  },
+
   {
     name: "MacOS Clone",
     url: "https://github.com/xFalzz/MacOS-clone",
