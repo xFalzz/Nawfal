@@ -110,8 +110,8 @@ export default function ChatPage() {
 
       <SubLinks />
 
-      <div className="pad-x py-6 md:py-8">
-        <div className="max-w-7xl mx-auto w-full h-[680px] md:h-[780px] lg:h-[820px]">
+      <div className="pad-x py-6 md:py-8 w-full">
+        <div className="w-full h-[700px] md:h-[800px] lg:h-[840px]">
           <Chat />
         </div>
       </div>

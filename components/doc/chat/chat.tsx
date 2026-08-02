@@ -608,7 +608,7 @@ const Chat = () => {
       <div
         className={cn(
           "flex flex-col h-full border rounded-2xl bg-card/60 backdrop-blur-md overflow-hidden shadow-xl ring-1 ring-border/30 transition-all duration-300",
-          "w-full md:w-[380px] lg:w-[440px] shrink-0",
+          "w-full md:flex-1 md:w-1/2 shrink-0",
           activeTab !== "ai" && "hidden md:flex",
           !showAiOnDesktop && "md:hidden"
         )}
