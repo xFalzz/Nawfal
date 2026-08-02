@@ -5,29 +5,42 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Chat Room & AI Assistant | Nawfal Irfan Ramadhan",
-  description: "Experience Nawfal's real-time chat room and intelligent AI Assistant. A premium digital space to connect, explore projects, and discuss frontend development with Nawfal Irfan Ramadhan.",
-  keywords: ["Nawfal Irfan Ramadhan", "Chat Room", "AI Assistant", "Nawfal Assistant", "Frontend Portfolio", "Real-time Chat", "Llama 3.3", "Developer Community"],
+  description:
+    "Experience Nawfal's real-time chat room and intelligent AI Assistant. A premium digital space to connect, explore projects, and discuss software engineering with Nawfal Irfan Ramadhan.",
+  keywords: [
+    "Nawfal Irfan Ramadhan",
+    "Chat Room",
+    "AI Assistant",
+    "Nawfal Assistant",
+    "Frontend Portfolio",
+    "Real-time Chat",
+    "Software Engineer",
+  ],
   alternates: {
     canonical: "https://nawfal.vercel.app/chat",
   },
   openGraph: {
     title: "Chat Room & AI Assistant | Nawfal Irfan Ramadhan",
-    description: "Join the conversation and connect with Nawfal Irfan Ramadhan's digital extension in real-time.",
+    description:
+      "Join the conversation and connect with Nawfal Irfan Ramadhan's digital assistant in real-time.",
     url: "https://nawfal.vercel.app/chat",
     siteName: "Nawfal Irfan Ramadhan",
     locale: "en_US",
     type: "website",
-    images: [{
-      url: "/images/sinopsisp.jpg",
-      width: 800,
-      height: 800,
-      alt: "Nawfal Irfan Ramadhan"
-    }]
+    images: [
+      {
+        url: "/images/sinopsisp.jpg",
+        width: 800,
+        height: 800,
+        alt: "Nawfal Irfan Ramadhan",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Chat Room & AI Assistant | Nawfal Irfan Ramadhan",
-    description: "Connect with Nawfal Irfan Ramadhan's community and AI Assistant in real-time.",
+    description:
+      "Connect with Nawfal Irfan Ramadhan's community and AI Assistant in real-time.",
     images: ["/images/sinopsisp.jpg"],
   },
 };
@@ -37,43 +50,45 @@ export default function ChatPage() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Chat Room & AI Assistant",
-      "description": "Nawfal Irfan Ramadhan's personal real-time chat room and AI Assistant application.",
-      "publisher": {
+      name: "Chat Room & AI Assistant",
+      description:
+        "Nawfal Irfan Ramadhan's personal real-time chat room and AI Assistant application.",
+      publisher: {
         "@type": "Person",
-        "name": "Nawfal Irfan Ramadhan"
-      }
+        name: "Nawfal Irfan Ramadhan",
+      },
     },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
-      "itemListElement": [
+      itemListElement: [
         {
           "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://nawfal.vercel.app"
+          position: 1,
+          name: "Home",
+          item: "https://nawfal.vercel.app",
         },
         {
           "@type": "ListItem",
-          "position": 2,
-          "name": "Chat",
-          "item": "https://nawfal.vercel.app/chat"
-        }
-      ]
+          position: 2,
+          name: "Chat",
+          item: "https://nawfal.vercel.app/chat",
+        },
+      ],
     },
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Nawfal Assistant",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "All",
-      "description": "An intelligent digital assistant providing insights into Nawfal Irfan Ramadhan's professional portfolio and skills.",
-      "author": {
+      name: "Nawfal Assistant",
+      applicationCategory: "EducationalApplication",
+      operatingSystem: "All",
+      description:
+        "An intelligent digital assistant providing accurate insights into Nawfal Irfan Ramadhan's professional portfolio, certifications, and skills.",
+      author: {
         "@type": "Person",
-        "name": "Nawfal Irfan Ramadhan"
-      }
-    }
+        name: "Nawfal Irfan Ramadhan",
+      },
+    },
   ];
 
   return (
@@ -83,20 +98,20 @@ export default function ChatPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <ProfileHeader />
-      
-      <div className="pad-x mb-8">
+
+      <div className="pad-x mb-6">
         <h1 className="text-balance text-left text-3xl font-semibold leading-[1.1] tracking-tight xs:text-4xl md:w-[60%] lg:text-5xl">
-          Chat Room
+          Chat Room &amp; AI
         </h1>
-        <p className="mt-4 text-muted-foreground text-base max-w-lg">
-          A place to connect, share ideas, or just say hi. Sign in with Google or GitHub to start chatting.
+        <p className="mt-3 text-muted-foreground text-base max-w-lg">
+          Connect with the community in real-time or ask Nawfal&apos;s AI Assistant anything about his latest projects, certifications, and skills.
         </p>
       </div>
 
       <SubLinks />
 
-      <div className="pad-x py-8 md:py-12">
-        <div className="max-w-6xl mx-auto w-full h-[600px] md:h-[750px]">
+      <div className="pad-x py-6 md:py-8">
+        <div className="max-w-7xl mx-auto w-full h-[680px] md:h-[780px] lg:h-[820px]">
           <Chat />
         </div>
       </div>

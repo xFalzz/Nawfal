@@ -2,38 +2,35 @@
 
 import { KNOWLEDGE_BASE } from "@/lib/knowledge";
 
-// ─── Serialized once at module load ────────────────────────────────────────
-const KB = JSON.stringify(KNOWLEDGE_BASE);
+// ─── System prompt: Exclusive & Factual Nawfal AI Assistant ───────────────────
+function getSystemPrompt() {
+  const kbJson = JSON.stringify(KNOWLEDGE_BASE, null, 2);
+  
+  return `You are "Nawfal Assistant", the official AI Assistant embedded in Nawfal Irfan Ramadhan's personal website.
 
-// ─── System prompt: Nawfal expert + web-augmented general assistant ────────
-const SYSTEM_PROMPT = `You are Nawfal's smart portfolio assistant with web search capability.
+CONTEXT (Nawfal's complete, ground-truth knowledge base):
+${kbJson}
 
-CONTEXT (Nawfal's data):${KB}
+STRICT INSTRUCTIONS & BOUNDARIES:
+1. **Nawfal Exclusive Scope**: You MUST ONLY answer questions related to Nawfal Irfan Ramadhan (his background, skills, experience, education, projects, certifications, interests, or how to contact him).
+2. **Off-Topic Queries**: If the user asks about unrelated general topics (e.g. general coding tutorials, math problems, recipe advice, world news, sports, or random trivia not about Nawfal), politely decline and state:
+   "Saya adalah AI Assistant khusus yang memberikan informasi resmi tentang Nawfal Irfan Ramadhan. Silakan tanyakan hal seputar proyek, keahlian, pengalaman, atau sertifikasi Nawfal!" (Match the user's language: English/Indonesian).
+3. **100% Factual Integrity (NO HALLUCINATIONS)**:
+   - Use strictly the facts in CONTEXT. Never invent or assume facts, companies, dates, or certifications not in CONTEXT.
+   - If a question is about Nawfal but the detail is not in CONTEXT, respond honestly: "Informasi spesifik tersebut belum tercantum dalam data resmi Nawfal."
+4. **Current Status Highlights**:
+   - Status: Information Systems student at Universitas Bina Sarana Informatika (UBSI, GPA 3.56, 3rd semester).
+   - Experience: Freelance Web Developer @ Fiverr, AI Training @ Microsoft Elevate Training Center (METC), Multimedia Intern @ BTKP DIY, Video Editor @ Kopvie.
+   - Key Projects: Hijara (AI Sustainability Platform for Google #JuaraVibeCoding on GCP Cloud Run with Gemini AI), KURA, Kost Putri Afifa, MoveiHub, etc.
+   - Certifications: Has 48+ certifications from Microsoft, Google Cloud, IBM, AWS, Dicoding, Komdigi, Udemy, etc.
+5. **Tone & Style**: Warm, concise (1-3 paragraphs or max 4 bullet points), professional, engaging, and accurate. Use markdown formatting gracefully.`;
+}
 
-ROLES:
-1. **Nawfal Expert** — Questions about Nawfal → use CONTEXT only. Never invent facts about him.
-2. **General Assistant** — Other topics → use your knowledge OR the search_web tool for current/real-time info.
-
-WHEN TO SEARCH:
-- Current events, news, prices, scores, weather → ALWAYS search.
-- Facts you're unsure about → search to verify.
-- Historical/well-known facts you're confident about → answer directly, no search needed.
-
-RULES:
-- About Nawfal & not in CONTEXT → "I don't have that specific info about Nawfal."
-- Match user's language. Be concise (1–3 sentences). Use Markdown only when helpful.
-- Max 3 bullets per list. No filler.
-- When citing search results, summarize naturally — don't dump raw text.
-- Accuracy > completeness. Short correct answer > long wrong one.
-- Tone: warm, professional, helpful.`;
-
-// ─── Types ─────────────────────────────────────────────────────────────────
 type Role = "user" | "assistant" | "system" | "tool";
 
 interface ChatMessage {
   role: Role;
   content: string;
-  tool_call_id?: string;
 }
 
 interface HistoryEntry {
@@ -41,86 +38,6 @@ interface HistoryEntry {
   parts: { text: string }[];
 }
 
-interface ToolCall {
-  id: string;
-  type: "function";
-  function: {
-    name: string;
-    arguments: string;
-  };
-}
-
-// ─── Tool definition for Groq ──────────────────────────────────────────────
-const TOOLS = [
-  {
-    type: "function" as const,
-    function: {
-      name: "search_web",
-      description:
-        "Search the internet for current, real-time information. Use this for news, events, prices, facts you are unsure about, or anything that requires up-to-date data.",
-      parameters: {
-        type: "object",
-        properties: {
-          query: {
-            type: "string",
-            description: "The search query in the most relevant language for accurate results.",
-          },
-        },
-        required: ["query"],
-      },
-    },
-  },
-];
-
-// ─── Tavily web search ─────────────────────────────────────────────────────
-async function searchWeb(query: string): Promise<string> {
-  const apiKey = process.env.TAVILY_API_KEY;
-  if (!apiKey) {
-    return "Web search is unavailable (API key not configured).";
-  }
-
-  try {
-    const res = await fetch("https://api.tavily.com/search", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        api_key: apiKey,
-        query,
-        max_results: 3,
-        search_depth: "basic",
-        include_answer: true,
-      }),
-    });
-
-    if (!res.ok) {
-      console.error(`[Tavily] HTTP ${res.status}`);
-      return "Web search failed. Please try again.";
-    }
-
-    const data = await res.json();
-
-    // Use Tavily's built-in answer if available (most token-efficient)
-    let output = "";
-    if (data.answer) {
-      output += `Summary: ${data.answer}\n\n`;
-    }
-
-    // Append top sources for grounding
-    if (data.results?.length) {
-      output += "Sources:\n";
-      for (const r of data.results.slice(0, 3)) {
-        output += `- ${r.title}: ${r.content?.slice(0, 200) ?? ""} (${r.url})\n`;
-      }
-    }
-
-    return output || "No relevant results found.";
-  } catch (err) {
-    console.error("[Tavily] Search error:", err);
-    return "Web search encountered an error.";
-  }
-}
-
-// ─── Trim history to stay within token budget ──────────────────────────────
 const MAX_HISTORY_TURNS = 6;
 
 function buildMessages(
@@ -131,32 +48,24 @@ function buildMessages(
   return [
     ...trimmed.map((m) => ({
       role: (m.role === "model" ? "assistant" : "user") as Role,
-      content: m.parts[0].text,
+      content: m.parts[0]?.text || "",
     })),
     { role: "user" as Role, content: prompt },
   ];
 }
 
-// ─── Groq API call helper ──────────────────────────────────────────────────
 async function callGroq(
   apiKey: string,
-  messages: ChatMessage[],
-  useTools: boolean
+  messages: ChatMessage[]
 ) {
-  const body: Record<string, unknown> = {
+  const body = {
     model: "llama-3.3-70b-versatile",
     messages,
     temperature: 0.2,
-    max_tokens: 400,
+    max_tokens: 500,
     top_p: 0.9,
     stream: false,
   };
-
-  if (useTools) {
-    body.tools = TOOLS;
-    body.tool_choice = "auto";
-    body.parallel_tool_calls = false; // Simpler for Llama — one tool at a time
-  }
 
   const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
@@ -177,32 +86,6 @@ async function callGroq(
   return res.json();
 }
 
-// ─── Fallback: answer without tools ────────────────────────────────────────
-async function fallbackWithoutTools(
-  apiKey: string,
-  prompt: string,
-  history: HistoryEntry[]
-): Promise<string> {
-  console.log("[NawfalAssistant] Falling back to direct answer (no tools).");
-  const messages: ChatMessage[] = [
-    { role: "system", content: SYSTEM_PROMPT },
-    ...buildMessages(prompt, history),
-  ];
-
-  const data = await callGroq(apiKey, messages, false);
-  const text = data.choices?.[0]?.message?.content;
-  if (!text) throw new Error("Empty fallback response from Groq.");
-
-  if (data.usage) {
-    console.log(
-      `[NawfalAssistant] Fallback tokens — prompt: ${data.usage.prompt_tokens}, completion: ${data.usage.completion_tokens}`
-    );
-  }
-
-  return text;
-}
-
-// ─── Main action ───────────────────────────────────────────────────────────
 export async function getAiResponseAction(
   prompt: string,
   history: HistoryEntry[] = []
@@ -213,82 +96,21 @@ export async function getAiResponseAction(
     throw new Error("Assistant is offline — API key not configured.");
   }
 
+  const systemPrompt = getSystemPrompt();
+
   const messages: ChatMessage[] = [
-    { role: "system", content: SYSTEM_PROMPT },
+    { role: "system", content: systemPrompt },
     ...buildMessages(prompt, history),
   ];
 
-  // ── Step 1: Initial call with tools ──────────────────────────────────────
-  let data;
   try {
-    data = await callGroq(apiKey, messages, true);
-  } catch {
-    // If tool-enabled call fails, fall back to direct answer
-    return fallbackWithoutTools(apiKey, prompt, history);
-  }
-
-  const choice = data.choices?.[0];
-  const message = choice?.message;
-
-  if (data.usage) {
-    console.log(
-      `[NawfalAssistant] Step 1 tokens — prompt: ${data.usage.prompt_tokens}, completion: ${data.usage.completion_tokens}`
-    );
-  }
-
-  // If no tool call, return the direct answer
-  if (choice?.finish_reason !== "tool_calls" || !message?.tool_calls?.length) {
-    const text = message?.content;
+    const data = await callGroq(apiKey, messages);
+    const text = data.choices?.[0]?.message?.content;
     if (!text) throw new Error("Empty response from Groq.");
+
     return text;
-  }
-
-  // ── Step 2: Execute tool calls and get final answer ──────────────────────
-  try {
-    // Add the assistant's tool-call message to context
-    messages.push({
-      role: "assistant",
-      content: message.content ?? "",
-      ...({ tool_calls: message.tool_calls } as any),
-    });
-
-    // Execute each tool call
-    for (const toolCall of message.tool_calls as ToolCall[]) {
-      if (toolCall.function.name === "search_web") {
-        let args: { query: string };
-        try {
-          args = JSON.parse(toolCall.function.arguments);
-        } catch {
-          console.error("[NawfalAssistant] Malformed tool call args, skipping search.");
-          return fallbackWithoutTools(apiKey, prompt, history);
-        }
-
-        console.log(`[NawfalAssistant] 🔍 Searching: "${args.query}"`);
-        const searchResult = await searchWeb(args.query);
-        messages.push({
-          role: "tool",
-          content: searchResult,
-          tool_call_id: toolCall.id,
-        });
-      }
-    }
-
-    // Final call — no tools this time, just answer with search context
-    const finalData = await callGroq(apiKey, messages, false);
-    const finalText: string | undefined =
-      finalData.choices?.[0]?.message?.content;
-
-    if (finalData.usage) {
-      console.log(
-        `[NawfalAssistant] Step 2 tokens — prompt: ${finalData.usage.prompt_tokens}, completion: ${finalData.usage.completion_tokens}`
-      );
-    }
-
-    if (!finalText) throw new Error("Empty response from Groq (step 2).");
-    return finalText;
-  } catch (err) {
-    console.error("[NawfalAssistant] Tool call flow failed, using fallback:", err);
-    return fallbackWithoutTools(apiKey, prompt, history);
+  } catch (err: any) {
+    console.error("[NawfalAssistant] Error:", err);
+    throw new Error(err.message || "Gagal mendapatkan respon AI. Silakan coba lagi.");
   }
 }
-
