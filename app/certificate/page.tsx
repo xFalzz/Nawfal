@@ -115,8 +115,8 @@ const certificates: Certificate[] = [
     color: "from-blue-500 to-blue-700",
   },
   {
-    name: "Microsoft Learn Achievement (AZ-104)",
-    issuer: "Microsoft Learn",
+    name: "AI Engineer & Intelligent Systems Specialist",
+    issuer: "Microsoft Elevate Training Center",
     file: "/Sertifikasi/Sertifikat-Microsoft/PREEI2VWAF (1).pdf",
     category: "Microsoft",
     color: "from-blue-500 to-blue-700",
@@ -328,14 +328,14 @@ const certificates: Certificate[] = [
   // Komdigi
   {
     name: "Ethical Hacker For Dummies",
-    issuer: "Komdigi",
+    issuer: "Kementerian Komunikasi dan Digital (Komdigi)",
     file: "/Sertifikasi/Sertifikat-Komdigi/Sertifikat_NAWFAL IRFAN RAMADHAN_Ethical Hacker For Dummies.pdf",
     category: "Komdigi",
     color: "from-green-600 to-emerald-700",
   },
   {
     name: "Introduction to Cyber Security and Career Awareness",
-    issuer: "Komdigi",
+    issuer: "Kementerian Komunikasi dan Digital (Komdigi)",
     file: "/Sertifikasi/Sertifikat-Komdigi/Sertifikat_NAWFAL IRFAN RAMADHAN_Introduction to Cyber Security and Career Awareness (1).pdf",
     category: "Komdigi",
     color: "from-green-600 to-emerald-700",
@@ -350,7 +350,7 @@ const certificates: Certificate[] = [
     color: "from-rose-500 to-red-700",
   },
   {
-    name: "Udemy Course Certificate",
+    name: "Complete Web Development & Software Engineering",
     issuer: "Udemy",
     file: "/Sertifikasi/Sertifikat-Udemy/UC-aeb23da9-7b1a-4e4c-bdc0-943d893c07ff.pdf",
     category: "Udemy",
@@ -376,7 +376,7 @@ const certificates: Certificate[] = [
   // Umum
   {
     name: "BEC Software Engineering 2025",
-    issuer: "BEC",
+    issuer: "Bina Edukasi Cendekia",
     file: "/Sertifikasi/Sertifikat-Umum/BEC-XII-19251710-SWE2025.pdf",
     category: "Umum",
     color: "from-slate-500 to-gray-700",
@@ -396,8 +396,8 @@ const certificates: Certificate[] = [
     color: "from-slate-500 to-gray-700",
   },
   {
-    name: "Sertifikat Seminar",
-    issuer: "Nawfal Irfan Ramadhan",
+    name: "Sertifikat Seminar Nasional & Workshop",
+    issuer: "Panitia Seminar & Conference",
     file: "/Sertifikasi/Sertifikat-Umum/NAWFAL IRFAN RAMADHAN_SERTIFIKAT_SEMINAR.pdf",
     category: "Umum",
     color: "from-slate-500 to-gray-700",
