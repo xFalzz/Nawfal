@@ -31,7 +31,8 @@ import {
   ShieldCheck,
   GripVertical,
   GripHorizontal,
-  Maximize2,
+  Zap,
+  Radio,
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
@@ -233,6 +234,22 @@ const ChatMessage = ({
   );
 };
 
+// ─── Live Pulse Indicator ────────────────────────────────────────────────────
+const LivePulse = ({ color = "emerald" }: { color?: string }) => (
+  <div className="relative flex h-2 w-2 items-center justify-center shrink-0">
+    <span
+      className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+        color === "emerald" ? "bg-emerald-400" : "bg-primary"
+      }`}
+    />
+    <span
+      className={`relative inline-flex rounded-full h-2 w-2 ${
+        color === "emerald" ? "bg-emerald-500" : "bg-primary"
+      }`}
+    />
+  </div>
+);
+
 const Chat = () => {
   const [user, userLoading] = useAuthState(auth);
   const [activeTab, setActiveTab] = useState<"public" | "ai">("public");
@@ -241,7 +258,7 @@ const Chat = () => {
   // Resizable state
   const containerRef = useRef<HTMLDivElement>(null);
   const [leftWidthPercent, setLeftWidthPercent] = useState<number>(50);
-  const [containerHeight, setContainerHeight] = useState<number>(780);
+  const [containerHeight, setContainerHeight] = useState<number>(700);
   const [isDraggingSplit, setIsDraggingSplit] = useState<boolean>(false);
   const [isDraggingHeight, setIsDraggingHeight] = useState<boolean>(false);
 
@@ -295,8 +312,7 @@ const Chat = () => {
       const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
       const relativeX = clientX - rect.left;
       const newPercent = (relativeX / rect.width) * 100;
-      // Clamp between 20% and 80%
-      setLeftWidthPercent(Math.min(Math.max(newPercent, 20), 80));
+      setLeftWidthPercent(Math.min(Math.max(newPercent, 25), 75));
     },
     [isDraggingSplit]
   );
@@ -332,8 +348,7 @@ const Chat = () => {
       const rect = containerRef.current.getBoundingClientRect();
       const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
       const newHeight = clientY - rect.top;
-      // Clamp height between 500px and 1200px
-      setContainerHeight(Math.min(Math.max(newHeight, 500), 1200));
+      setContainerHeight(Math.min(Math.max(newHeight, 480), 1100));
     },
     [isDraggingHeight]
   );
@@ -472,7 +487,7 @@ const Chat = () => {
 
   if (userLoading) {
     return (
-      <div className="flex w-full h-[650px] items-center justify-center rounded-2xl border bg-card/50 backdrop-blur-md">
+      <div className="flex w-full h-[600px] items-center justify-center rounded-2xl border bg-card/50 backdrop-blur-md">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
       </div>
     );
@@ -485,7 +500,7 @@ const Chat = () => {
         ref={containerRef}
         style={{ height: `${containerHeight}px` }}
         className={cn(
-          "flex w-full overflow-hidden relative select-none-during-drag transition-height duration-75",
+          "flex w-full overflow-hidden relative transition-[height] duration-75",
           (isDraggingSplit || isDraggingHeight) && "select-none"
         )}
       >
@@ -495,20 +510,18 @@ const Chat = () => {
             width: showAiOnDesktop ? `${leftWidthPercent}%` : "100%",
           }}
           className={cn(
-            "flex flex-col h-full border rounded-2xl bg-card/60 backdrop-blur-md overflow-hidden shadow-xl ring-1 ring-border/30 transition-all duration-150",
-            "w-full",
+            "flex flex-col h-full border rounded-2xl overflow-hidden shadow-lg transition-all duration-150",
+            "bg-gradient-to-b from-card/80 to-card/60 backdrop-blur-xl",
+            "ring-1 ring-border/30",
             activeTab !== "public" && "hidden md:flex"
           )}
         >
-          {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b bg-muted/40 backdrop-blur-sm">
-            <div className="flex items-center gap-x-3">
-              <div className="relative flex h-2.5 w-2.5 items-center justify-center">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-              </div>
-              <div className="flex flex-col">
-                <h2 className="text-sm font-bold tracking-wider uppercase text-foreground">
+          {/* ── Public Chat Header ── */}
+          <div className="flex items-center justify-between px-4 py-3 border-b bg-gradient-to-r from-muted/60 to-muted/30 backdrop-blur-sm shrink-0">
+            <div className="flex items-center gap-x-2.5">
+              <LivePulse color="emerald" />
+              <div>
+                <h2 className="text-xs font-bold tracking-widest uppercase text-foreground leading-none">
                   Public Discussion
                 </h2>
                 <span className="text-[10px] text-muted-foreground">
@@ -517,49 +530,45 @@ const Chat = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-x-3">
-              {/* Mobile Switcher */}
-              <div className="flex md:hidden items-center bg-muted/70 p-1 rounded-lg border border-border/50">
-                <button
-                  onClick={() =>
-                    setActiveTab(activeTab === "public" ? "ai" : "public")
-                  }
-                  className="flex items-center gap-x-1.5 px-2.5 py-1 rounded-md text-xs font-semibold text-foreground"
-                >
-                  <span>{activeTab === "public" ? "Chat Room" : "AI Assistant"}</span>
-                  <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
-                </button>
-              </div>
+            <div className="flex items-center gap-x-2">
+              {/* Mobile Tab Switcher */}
+              <button
+                onClick={() => setActiveTab(activeTab === "public" ? "ai" : "public")}
+                className="flex md:hidden items-center gap-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-muted/70 border border-border/50 text-foreground hover:bg-muted transition-colors"
+              >
+                <Bot className="h-3.5 w-3.5 text-primary" />
+                <span>AI</span>
+              </button>
 
-              {/* Desktop Badge */}
-              <span className="hidden md:inline-flex items-center gap-x-1 text-[10px] font-semibold text-muted-foreground uppercase tracking-widest bg-muted/60 px-2.5 py-1 rounded-md border border-border/50">
-                <MessageSquare className="h-3 w-3 text-emerald-500" />
-                Public
+              {/* Desktop badge */}
+              <span className="hidden md:inline-flex items-center gap-x-1 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded-lg">
+                <Radio className="h-2.5 w-2.5" />
+                Live
               </span>
 
-              {/* Desktop AI Toggle */}
+              {/* Desktop AI toggle */}
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setShowAiOnDesktop(!showAiOnDesktop)}
-                aria-label={showAiOnDesktop ? "Hide Assistant" : "Show Assistant"}
+                aria-label={showAiOnDesktop ? "Hide AI" : "Show AI"}
                 className={cn(
-                  "hidden md:flex h-8 gap-x-1.5 text-xs font-medium rounded-xl transition-all shadow-none",
+                  "hidden md:flex h-7 gap-x-1.5 text-xs font-medium rounded-xl transition-all shadow-none border",
                   showAiOnDesktop
                     ? "bg-primary/10 border-primary/30 text-primary hover:bg-primary/20"
-                    : "bg-muted/40 text-muted-foreground hover:bg-muted"
+                    : "bg-muted/40 text-muted-foreground hover:bg-muted border-border/50"
                 )}
               >
                 <Bot className="h-3.5 w-3.5" />
-                <span>{showAiOnDesktop ? "Hide AI" : "Open AI"}</span>
+                <span className="hidden lg:inline">{showAiOnDesktop ? "Hide AI" : "Open AI"}</span>
               </Button>
             </div>
           </div>
 
-          {/* Messages List */}
+          {/* ── Messages List ── */}
           <div
             ref={scrollRef}
-            className="flex-1 overflow-y-auto p-4 md:p-5 flex flex-col scroll-smooth scrollbar-thin scrollbar-thumb-border hover:scrollbar-thumb-primary/20"
+            className="flex-1 overflow-y-auto p-4 flex flex-col scroll-smooth scrollbar-thin scrollbar-thumb-border/60 hover:scrollbar-thumb-primary/30 scrollbar-track-transparent min-h-0"
           >
             {loading ? (
               <div className="flex-1 flex items-center justify-center">
@@ -579,7 +588,7 @@ const Chat = () => {
             ) : (
               <div className="flex-1 flex flex-col items-center justify-center text-center p-8 space-y-3">
                 <div className="p-3.5 rounded-2xl bg-muted/60 border border-border/40">
-                  <Sparkles className="h-6 w-6 text-muted-foreground" />
+                  <MessageSquare className="h-6 w-6 text-muted-foreground" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold">No messages yet</p>
@@ -591,17 +600,17 @@ const Chat = () => {
             )}
           </div>
 
-          {/* Public Chat Input / Auth Area */}
-          <div className="p-4 bg-muted/20 border-t space-y-3 relative">
+          {/* ── Public Chat Input / Auth Area ── */}
+          <div className="p-3 bg-muted/20 border-t space-y-2.5 relative shrink-0">
             {error && (
-              <div className="absolute -top-12 left-4 right-4 bg-destructive/10 text-destructive text-[11px] px-3 py-2 rounded-xl border border-destructive/20 flex items-center gap-x-2 anim fade-in">
+              <div className="absolute -top-12 left-4 right-4 bg-destructive/10 text-destructive text-[11px] px-3 py-2 rounded-xl border border-destructive/20 flex items-center gap-x-2">
                 <AlertCircle className="h-3.5 w-3.5 shrink-0" />
                 <span>{error}</span>
               </div>
             )}
 
             {replyTo && (
-              <div className="absolute -top-12 left-0 right-0 bg-background/95 backdrop-blur-md border-t px-4 py-2 flex items-center justify-between anim slide-in-from-bottom-2 z-10">
+              <div className="absolute -top-10 left-0 right-0 bg-background/95 backdrop-blur-md border-t px-4 py-2 flex items-center justify-between z-10">
                 <div className="flex items-center gap-x-2 overflow-hidden">
                   <Reply className="h-3.5 w-3.5 text-primary shrink-0" />
                   <p className="text-xs truncate text-muted-foreground">
@@ -622,19 +631,19 @@ const Chat = () => {
             )}
 
             {!user ? (
-              <div className="flex flex-col items-center gap-y-3.5 py-2">
-                <div className="space-y-1 text-center">
+              <div className="flex flex-col items-center gap-y-3 py-1.5">
+                <div className="space-y-0.5 text-center">
                   <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">
                     Join the Conversation
                   </h3>
                   <p className="text-[11px] text-muted-foreground">
-                    Sign in with Google or GitHub to participate in the live chat.
+                    Sign in to participate in the live chat.
                   </p>
                 </div>
-                <div className="flex flex-wrap justify-center gap-2.5">
+                <div className="flex flex-wrap justify-center gap-2">
                   <Button
                     size="sm"
-                    className="gap-x-2 h-10 px-5 shadow-sm rounded-xl font-medium"
+                    className="gap-x-2 h-9 px-4 shadow-sm rounded-xl font-medium text-xs"
                     onClick={signInWithGoogle}
                   >
                     <FcGoogle className="h-4 w-4" />
@@ -642,7 +651,7 @@ const Chat = () => {
                   </Button>
                   <Button
                     size="sm"
-                    className="gap-x-2 bg-[#24292F] text-white hover:bg-[#24292F]/90 border-transparent transition-all h-10 px-5 shadow-sm rounded-xl font-medium"
+                    className="gap-x-2 bg-[#24292F] text-white hover:bg-[#24292F]/90 border-transparent h-9 px-4 shadow-sm rounded-xl font-medium text-xs"
                     onClick={signInWithGithub}
                   >
                     <Github className="h-4 w-4" />
@@ -651,20 +660,20 @@ const Chat = () => {
                 </div>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <form onSubmit={sendMessage} className="flex gap-x-2 items-center">
                   <Input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Type your message..."
-                    className="flex-1 bg-background border-border/60 focus-visible:ring-primary/20 h-11 px-4 text-sm rounded-xl transition-all duration-200"
+                    className="flex-1 bg-background border-border/60 focus-visible:ring-primary/20 h-10 px-4 text-sm rounded-xl transition-all duration-200"
                   />
                   <Button
                     type="submit"
                     disabled={!input.trim()}
                     size="icon"
                     aria-label="Send message"
-                    className="shrink-0 rounded-xl h-11 w-11 shadow-md shadow-primary/10 transition-transform active:scale-95 disabled:opacity-50"
+                    className="shrink-0 rounded-xl h-10 w-10 shadow-md shadow-primary/10 transition-transform active:scale-95 disabled:opacity-50"
                   >
                     <Send className="h-4 w-4" />
                   </Button>
@@ -689,7 +698,7 @@ const Chat = () => {
                   </div>
                   <button
                     onClick={handleSignOut}
-                    className="text-[11px] font-medium text-muted-foreground hover:text-destructive flex items-center gap-x-1 transition-colors"
+                    className="text-[11px] font-medium text-muted-foreground hover:text-destructive flex items-center gap-x-1 transition-colors shrink-0"
                   >
                     <LogOut className="h-3 w-3" />
                     Sign out
@@ -700,25 +709,25 @@ const Chat = () => {
           </div>
         </div>
 
-        {/* ─── Interactive Width Resizer Handle (Desktop Only) ──────────────── */}
+        {/* ─── Width Resizer Handle (Desktop Only) ──────────────── */}
         {showAiOnDesktop && (
           <div
             onMouseDown={handleSplitMouseDown}
             onTouchStart={handleSplitMouseDown}
             onDoubleClick={() => setLeftWidthPercent(50)}
-            title="Drag to resize panel widths (Double click to reset 50/50)"
+            title="Drag to resize panels (double-click to reset 50/50)"
             className={cn(
-              "hidden md:flex items-center justify-center cursor-col-resize px-1 my-auto group z-20 transition-all",
-              isDraggingSplit ? "opacity-100" : "opacity-60 hover:opacity-100"
+              "hidden md:flex flex-col items-center justify-center cursor-col-resize px-1.5 group z-20 transition-all shrink-0",
+              isDraggingSplit ? "opacity-100" : "opacity-40 hover:opacity-100"
             )}
           >
             <div
               className={cn(
-                "flex items-center justify-center h-16 w-3 rounded-full border border-border/60 bg-popover/80 shadow-md backdrop-blur-sm transition-all group-hover:border-primary/50 group-hover:bg-primary/10",
+                "flex items-center justify-center h-14 w-3 rounded-full border border-border/50 bg-popover/90 shadow backdrop-blur-sm transition-all group-hover:border-primary/40 group-hover:bg-primary/10",
                 isDraggingSplit && "border-primary bg-primary/20 ring-2 ring-primary/30"
               )}
             >
-              <GripVertical className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+              <GripVertical className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
             </div>
           </div>
         )}
@@ -729,51 +738,54 @@ const Chat = () => {
             width: showAiOnDesktop ? `${100 - leftWidthPercent}%` : "0%",
           }}
           className={cn(
-            "flex flex-col h-full border rounded-2xl bg-card/60 backdrop-blur-md overflow-hidden shadow-xl ring-1 ring-border/30 transition-all duration-150",
-            "w-full",
+            "flex flex-col h-full border rounded-2xl overflow-hidden shadow-lg transition-all duration-150",
+            "bg-gradient-to-b from-card/80 to-card/60 backdrop-blur-xl",
+            "ring-1 ring-primary/10",
             activeTab !== "ai" && "hidden md:flex",
             !showAiOnDesktop && "md:hidden"
           )}
         >
-          {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b bg-muted/40 backdrop-blur-sm">
-            <div className="flex items-center gap-x-3">
-              <div className="h-7 w-7 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
-                <Bot className="h-4 w-4" />
+          {/* ── AI Header ── */}
+          <div className="flex items-center justify-between px-4 py-3 border-b bg-gradient-to-r from-primary/10 via-muted/40 to-muted/20 backdrop-blur-sm shrink-0">
+            <div className="flex items-center gap-x-2.5">
+              <div className="h-6 w-6 rounded-lg bg-primary/15 border border-primary/25 flex items-center justify-center text-primary shrink-0">
+                <Bot className="h-3.5 w-3.5" />
               </div>
-              <div className="flex flex-col">
-                <h2 className="text-sm font-bold tracking-wider uppercase text-foreground">
+              <div>
+                <h2 className="text-xs font-bold tracking-widest uppercase text-foreground leading-none">
                   Nawfal Assistant
                 </h2>
                 <span className="text-[10px] text-muted-foreground flex items-center gap-x-1">
-                  <ShieldCheck className="h-3 w-3 text-emerald-500 inline" />
-                  Factual Knowledge Base
+                  <ShieldCheck className="h-2.5 w-2.5 text-emerald-500 inline shrink-0" />
+                  Factual · Always up-to-date
                 </span>
               </div>
             </div>
 
             <div className="flex items-center gap-x-2">
-              {/* Mobile Switcher */}
-              <div className="flex md:hidden items-center bg-muted/70 p-1 rounded-lg border border-border/50">
-                <button
-                  onClick={() =>
-                    setActiveTab(activeTab === "public" ? "ai" : "public")
-                  }
-                  className="flex items-center gap-x-1.5 px-2.5 py-1 rounded-md text-xs font-semibold text-foreground"
-                >
-                  <span>{activeTab === "public" ? "Public" : "Assistant"}</span>
-                  <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
-                </button>
-              </div>
+              {/* Mobile Tab Switcher */}
+              <button
+                onClick={() => setActiveTab(activeTab === "public" ? "ai" : "public")}
+                className="flex md:hidden items-center gap-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-muted/70 border border-border/50 text-foreground hover:bg-muted transition-colors"
+              >
+                <MessageSquare className="h-3.5 w-3.5 text-emerald-500" />
+                <span>Chat</span>
+              </button>
 
-              {/* Clear Chat Button */}
+              {/* AI powered badge */}
+              <span className="hidden md:inline-flex items-center gap-x-1 text-[10px] font-semibold text-primary/80 uppercase tracking-widest bg-primary/10 border border-primary/20 px-2 py-1 rounded-lg">
+                <Zap className="h-2.5 w-2.5" />
+                AI
+              </span>
+
+              {/* Clear Chat */}
               {aiMessages.length > 0 && (
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={clearAiChat}
                   title="Reset conversation"
-                  className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground"
+                  className="h-7 w-7 rounded-lg text-muted-foreground hover:text-foreground"
                 >
                   <RotateCcw className="h-3.5 w-3.5" />
                 </Button>
@@ -781,53 +793,59 @@ const Chat = () => {
             </div>
           </div>
 
-          {/* AI Messages Area */}
+          {/* ── AI Messages Area ── */}
           <div
             ref={aiScrollRef}
-            className="flex-1 overflow-y-auto p-4 md:p-5 flex flex-col space-y-4 scroll-smooth scrollbar-thin scrollbar-thumb-border hover:scrollbar-thumb-primary/20"
+            className="flex-1 overflow-y-auto p-4 flex flex-col space-y-4 scroll-smooth scrollbar-thin scrollbar-thumb-border/60 hover:scrollbar-thumb-primary/30 scrollbar-track-transparent min-h-0"
           >
             {aiMessages.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center text-center p-4 space-y-4 my-auto">
-                <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 shadow-sm">
-                  <Bot className="h-8 w-8 text-primary" />
+                {/* Bot Icon */}
+                <div className="relative">
+                  <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 shadow-sm">
+                    <Bot className="h-8 w-8 text-primary" />
+                  </div>
+                  <div className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-emerald-500 border-2 border-background flex items-center justify-center">
+                    <span className="text-[7px] text-white font-bold">AI</span>
+                  </div>
                 </div>
 
                 <div className="space-y-1.5 max-w-xs">
                   <p className="text-sm font-bold text-foreground">
-                    Official AI Assistant
+                    Official Nawfal Assistant
                   </p>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Tanyakan apapun seputar proyek, keahlian, pengalaman kerja, atau 48+ sertifikasi milik Nawfal.
+                    Tanyakan apapun seputar proyek, keahlian, pengalaman kerja, atau 48+ sertifikasi milik Nawfal. Selalu faktual & terkini.
                   </p>
                 </div>
 
                 {/* Quick Prompt Chips */}
-                <div className="grid grid-cols-1 gap-2 w-full pt-2">
+                <div className="grid grid-cols-1 gap-2 w-full pt-1">
                   {[
                     {
-                      label: "Proyek & Aplikasi (Hijara, KURA)",
+                      label: "🚀 Proyek Unggulan",
                       query: "Apa saja proyek unggulan yang telah dibuat Nawfal?",
                     },
                     {
-                      label: "Sertifikasi (Microsoft, Google, IBM)",
+                      label: "🏆 Sertifikasi (48+)",
                       query: "Sertifikasi apa saja yang dimiliki oleh Nawfal?",
                     },
                     {
-                      label: "Pengalaman Kerja & Pendidikan",
+                      label: "💼 Pengalaman & Pendidikan",
                       query: "Bagaimana riwayat pengalaman kerja dan pendidikan Nawfal?",
                     },
                     {
-                      label: "Kontak & Media Sosial",
+                      label: "📫 Cara Menghubungi",
                       query: "Bagaimana cara menghubungi Nawfal?",
                     },
                   ].map((item) => (
                     <button
                       key={item.label}
                       onClick={() => sendAiMessage(undefined, item.query)}
-                      className="text-left p-3 rounded-xl border border-border/50 bg-muted/30 text-xs hover:bg-primary/10 hover:border-primary/30 transition-all text-muted-foreground hover:text-foreground flex items-center justify-between group"
+                      className="text-left px-3 py-2.5 rounded-xl border border-border/50 bg-muted/30 text-xs hover:bg-primary/10 hover:border-primary/30 transition-all text-muted-foreground hover:text-foreground flex items-center justify-between group"
                     >
                       <span>{item.label}</span>
-                      <Sparkles className="h-3.5 w-3.5 text-primary/40 group-hover:text-primary transition-colors shrink-0" />
+                      <Sparkles className="h-3 w-3 text-primary/40 group-hover:text-primary transition-colors shrink-0" />
                     </button>
                   ))}
                 </div>
@@ -837,7 +855,7 @@ const Chat = () => {
                 <div
                   key={i}
                   className={cn(
-                    "flex w-full gap-x-3",
+                    "flex w-full gap-x-2.5",
                     msg.role === "user" ? "flex-row-reverse" : "flex-row"
                   )}
                 >
@@ -880,7 +898,7 @@ const Chat = () => {
                         "rounded-2xl px-4 py-2.5 text-xs leading-relaxed shadow-sm prose prose-neutral dark:prose-invert max-w-none",
                         msg.role === "user"
                           ? "bg-primary text-primary-foreground rounded-tr-none"
-                          : "bg-muted text-foreground rounded-tl-none border border-border/50"
+                          : "bg-muted/80 text-foreground rounded-tl-none border border-border/50"
                       )}
                     >
                       <ReactMarkdown
@@ -911,15 +929,15 @@ const Chat = () => {
             )}
 
             {aiLoading && (
-              <div className="flex w-full gap-x-3 anim fade-in">
+              <div className="flex w-full gap-x-2.5">
                 <div className="h-7 w-7 rounded-full flex items-center justify-center shrink-0 border bg-primary/10 border-primary/20">
                   <Bot className="h-3.5 w-3.5 text-primary animate-pulse" />
                 </div>
-                <div className="bg-muted border border-border/50 rounded-2xl rounded-tl-none px-4 py-2.5 flex items-center gap-x-1.5">
+                <div className="bg-muted/80 border border-border/50 rounded-2xl rounded-tl-none px-4 py-3 flex items-center gap-x-1.5">
                   {[0, 1, 2].map((i) => (
                     <div
                       key={i}
-                      className="h-1.5 w-1.5 rounded-full bg-primary/50 animate-bounce"
+                      className="h-1.5 w-1.5 rounded-full bg-primary/60 animate-bounce"
                       style={{ animationDelay: `${i * 150}ms` }}
                     />
                   ))}
@@ -935,8 +953,8 @@ const Chat = () => {
             )}
           </div>
 
-          {/* AI Input Area */}
-          <div className="p-4 bg-muted/20 border-t space-y-2">
+          {/* ── AI Input Area ── */}
+          <div className="p-3 bg-muted/10 border-t space-y-1.5 shrink-0">
             <form
               onSubmit={(e) => sendAiMessage(e)}
               className="relative flex items-end gap-2 bg-background border border-border/60 focus-within:ring-1 focus-within:ring-primary/30 rounded-xl p-2 transition-all duration-200 shadow-sm"
@@ -968,28 +986,31 @@ const Chat = () => {
                 <Send className="h-4 w-4" />
               </Button>
             </form>
-            <div className="flex items-center justify-between px-1 text-[10px] text-muted-foreground opacity-60">
-              <span>Official Nawfal AI Engine</span>
-              <span>Accurate &amp; Factual</span>
+            <div className="flex items-center justify-between px-1 text-[10px] text-muted-foreground opacity-50">
+              <span className="flex items-center gap-x-1">
+                <ShieldCheck className="h-2.5 w-2.5 text-emerald-500" />
+                Nawfal AI Engine
+              </span>
+              <span>Accurate · Factual · Real-time</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ─── Interactive Height Resizer Bar (Bottom) ───────────────────────── */}
+      {/* ─── Height Resizer Bar (Bottom) ───────────────────────── */}
       <div
         onMouseDown={handleHeightMouseDown}
         onTouchStart={handleHeightMouseDown}
-        onDoubleClick={() => setContainerHeight(780)}
-        title="Drag vertically to resize height (Double click to reset height)"
+        onDoubleClick={() => setContainerHeight(700)}
+        title="Drag to resize height (double-click to reset)"
         className={cn(
           "w-full flex items-center justify-center py-2 cursor-row-resize group z-20 transition-all mt-1",
-          isDraggingHeight ? "opacity-100" : "opacity-60 hover:opacity-100"
+          isDraggingHeight ? "opacity-100" : "opacity-50 hover:opacity-100"
         )}
       >
         <div
           className={cn(
-            "flex items-center justify-center h-3 w-28 rounded-full border border-border/60 bg-popover/80 shadow-sm backdrop-blur-sm transition-all group-hover:border-primary/50 group-hover:bg-primary/10",
+            "flex items-center justify-center h-3 w-24 rounded-full border border-border/50 bg-popover/80 shadow-sm backdrop-blur-sm transition-all group-hover:border-primary/50 group-hover:bg-primary/10",
             isDraggingHeight && "border-primary bg-primary/20 ring-2 ring-primary/30"
           )}
         >

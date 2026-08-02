@@ -44,6 +44,7 @@ export const KNOWLEDGE_BASE = {
       institution: "Universitas Bina Sarana Informatika (UBSI)",
       period: "2025 - 2029",
       gpa: "3.56",
+      semester: "3rd Semester (current)",
       coursework: "Software Engineering, Database Management, Web Application Development, System Analysis & Design"
     },
     {
@@ -53,52 +54,67 @@ export const KNOWLEDGE_BASE = {
       activities: "Kopvie (Film Community Extracurricular), Festival Film Pelajar Jogja (FFPJ), Photography Community"
     }
   ],
-  certificates: [
-    {
-      name: "Microsoft Azure AI Engineer Associate",
-      issuer: "Microsoft / Dicoding"
-    },
-    {
-      name: "AWS Cloud & Generative AI Fundamentals",
-      issuer: "AWS / Dicoding"
-    },
-    {
-      name: "Microsoft Fabric & Azure AI Applications",
-      issuer: "Microsoft / Dicoding"
-    },
-    {
-      name: "Basic Data Analytics Certification",
-      issuer: "Dicoding Indonesia"
-    },
-    {
-      name: "Belajar Machine Learning untuk Pemula",
-      issuer: "Dicoding Indonesia"
-    },
-    {
-      name: "Microsoft Excel Comprehensive Guide",
-      issuer: "Udemy"
-    },
-    {
-      name: "Ethical Hacker For Dummies",
-      issuer: "Komdigi"
-    },
-    {
-      name: "Introduction to Cyber Security",
-      issuer: "Komdigi"
+  certificationSummary: {
+    total: "48+",
+    issuers: ["Microsoft", "Google Cloud", "IBM", "AWS", "Dicoding", "Komdigi", "Udemy", "Cisco", "Oracle", "FreeCodeCamp", "SoloLearn"],
+    categories: {
+      Microsoft: "13+ certificates covering Azure AI, Fabric, Machine Learning, Cloud, and Security",
+      Google: "10+ Google Cloud Skill Badges and Certificates covering Cloud Run, ML APIs, Compute, Generative AI",
+      IBM: "2 IBM certificates: IBM AI Literacy Badge, IBM Design Thinking Practitioner",
+      AWS: "AWS Cloud & Generative AI Fundamentals",
+      Dicoding: "Multiple Dicoding certificates in AI, Machine Learning, Data Analytics, Web Development",
+      Komdigi: "Ethical Hacker For Dummies, Introduction to Cyber Security",
+      Udemy: "Microsoft Excel Comprehensive Guide and more",
+      Umum: "General certifications including Seminar certificates"
     }
+  },
+  certificates: [
+    // Microsoft
+    { name: "Developing Generative AI Applications on Azure", issuer: "Microsoft Elevate Training Center", category: "Microsoft" },
+    { name: "Building Intelligent AI Solutions with Microsoft Fabric", issuer: "Microsoft Elevate Training Center", category: "Microsoft" },
+    { name: "Microsoft Learn Achievement (AI-900)", issuer: "Microsoft Learn", category: "Microsoft" },
+    { name: "Microsoft Learn Achievement (AZ-104)", issuer: "Microsoft Learn", category: "Microsoft" },
+    { name: "Microsoft Azure AI Engineer Associate", issuer: "Microsoft / Dicoding", category: "Microsoft" },
+    { name: "Microsoft Fabric & Azure AI Applications", issuer: "Microsoft / Dicoding", category: "Microsoft" },
+    // Google Cloud
+    { name: "Google Cloud Skill Badge - Introduction to Generative AI", issuer: "Google Cloud Skills Boost", category: "Google" },
+    { name: "Google Cloud Skill Badge - Introduction to Large Language Models", issuer: "Google Cloud Skills Boost", category: "Google" },
+    { name: "Google Cloud Skill Badge - Responsible AI: Applying AI Principles with Google Cloud", issuer: "Google Cloud Skills Boost", category: "Google" },
+    { name: "Google Cloud Skill Badge - Use APIs to Work with Cloud Storage", issuer: "Google Cloud Skills Boost", category: "Google" },
+    { name: "Google Cloud Skill Badge - Create ML Models with BigQuery ML", issuer: "Google Cloud Skills Boost", category: "Google" },
+    { name: "Google Cloud Skill Badge - Build Real World AI Applications with Gemini and Imagen", issuer: "Google Cloud Skills Boost", category: "Google" },
+    { name: "Google Cloud Skill Badge - Develop GenAI Apps with Gemini and Streamlit", issuer: "Google Cloud Skills Boost", category: "Google" },
+    { name: "Google Cloud Skill Badge - Deploy and Manage Cloud Environments with Google Cloud", issuer: "Google Cloud Skills Boost", category: "Google" },
+    { name: "Google Cloud Skill Badge - Use Machine Learning APIs on Google Cloud", issuer: "Google Cloud Skills Boost", category: "Google" },
+    { name: "Google Cloud Skill Badge - The Basics of Google Cloud Compute", issuer: "Google Cloud Skills Boost", category: "Google" },
+    // IBM
+    { name: "IBM AI Literacy Badge", issuer: "IBM", category: "IBM" },
+    { name: "IBM Design Thinking Practitioner", issuer: "IBM", category: "IBM" },
+    // AWS
+    { name: "AWS Cloud & Generative AI Fundamentals", issuer: "AWS / Dicoding", category: "AWS" },
+    // Dicoding
+    { name: "Basic Data Analytics Certification", issuer: "Dicoding Indonesia", category: "Dicoding" },
+    { name: "Belajar Machine Learning untuk Pemula", issuer: "Dicoding Indonesia", category: "Dicoding" },
+    // Komdigi
+    { name: "Ethical Hacker For Dummies", issuer: "Komdigi", category: "Komdigi" },
+    { name: "Introduction to Cyber Security", issuer: "Komdigi", category: "Komdigi" },
+    // Udemy
+    { name: "Microsoft Excel Comprehensive Guide", issuer: "Udemy", category: "Udemy" }
   ],
   techStack: [
     "React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS",
     "Node.js", "Firebase", "Supabase", "MySQL", "PostgreSQL",
     "Git", "GitHub", "Cloudflare", "AWS Cloud", "Google Cloud", "Prisma",
-    "Framer Motion", "Canvas API", "Gemini AI"
+    "Framer Motion", "Canvas API", "Gemini AI", "Python", "OpenCV", "MediaPipe",
+    "Three.js / React Three Fiber", "RAWG API", "TMDB API"
   ],
   projects: [
     {
       name: "Hijara - AI Sustainability Platform",
-      type: "Competition Project",
+      type: "Competition Project (Google #JuaraVibeCoding 2025)",
       stack: ["Next.js 15", "TypeScript", "Supabase", "Google Cloud Run", "Gemini AI"],
-      description: "AI-Powered Sustainability Intelligence Platform for Google #JuaraVibeCoding. Integrates Google Gemini Vision for waste classification, energy monitoring, and recycling tracking. Runs fully serverless on Google Cloud Run.",
+      description: "AI-Powered Sustainability Intelligence Platform built for Google #JuaraVibeCoding. Integrates Google Gemini Vision for waste classification, energy monitoring, and recycling tracking. Runs fully serverless on Google Cloud Run. Currently locked/coming soon.",
+      status: "Coming Soon",
       url: "https://lnkd.in/gcBVhMc5"
     },
     {
@@ -180,10 +196,13 @@ export const KNOWLEDGE_BASE = {
     linkedin: "linkedin.com/in/nawfal-irfan/",
     twitter: "@xFalzs",
     githubId: "xFalzz",
-    website: "nawfal.vercel.app"
+    github: "https://github.com/xFalzz",
+    website: "nawfal.vercel.app",
+    fiverr: "Available on Fiverr for freelance web development"
   },
   inspirations: [
     "WPU (Sandhika Galih)", "Kelas Terbuka", "Sekolah Koding", "Petani Kode",
     "FreeCodeCamp", "CodeWithChris", "Theodevoid", "Dea.Afrizal"
-  ]
+  ],
+  lastUpdated: "August 2026"
 };
