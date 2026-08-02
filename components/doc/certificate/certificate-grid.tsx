@@ -1,9 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { TbFileTypePdf, TbX, TbExternalLink, TbDownload, TbChevronLeft, TbChevronRight } from "react-icons/tb";
+import Image from "next/image";
+import { TbFileTypePdf, TbX, TbDownload, TbChevronLeft, TbChevronRight } from "react-icons/tb";
 import CertificateThumbnail from "./certificate-thumbnail";
+
+function isImage(file: string) {
+  return /\.(png|jpg|jpeg|webp|svg)$/i.test(file);
+}
+
 
 type Certificate = {
   name: string;
@@ -135,22 +140,11 @@ export default function CertificateGrid({
                   href={selected.file}
                   download
                   className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
-                  title="Download PDF"
-                  onClick={(e) => e.stopPropagation()}
+                  title="Download"
+                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
                 >
                   <TbDownload size={16} />
                 </a>
-                {/* Open in new tab */}
-                <Link
-                  href={selected.file}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
-                  title="Open in new tab"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <TbExternalLink size={16} />
-                </Link>
                 {/* Close */}
                 <button
                   onClick={closeModal}
@@ -162,16 +156,29 @@ export default function CertificateGrid({
               </div>
             </div>
 
-            {/* PDF Viewer */}
-            <div className="relative flex-1 bg-muted" style={{ minHeight: "60vh" }}>
-              <iframe
-                key={selected.file}
-                src={`${selected.file}#toolbar=0&navpanes=0&view=FitH`}
-                title={selected.name}
-                className="h-full w-full border-0"
-                style={{ minHeight: "60vh" }}
-                scrolling="auto"
-              />
+            {/* Content Viewer — PDF iframe or Image */}
+            <div className="relative flex-1 bg-muted flex items-center justify-center" style={{ minHeight: "60vh" }}>
+              {isImage(selected.file) ? (
+                <div className="relative w-full" style={{ minHeight: "60vh" }}>
+                  <Image
+                    key={selected.file}
+                    src={selected.file}
+                    alt={selected.name}
+                    fill
+                    className="object-contain p-4"
+                    unoptimized
+                  />
+                </div>
+              ) : (
+                <iframe
+                  key={selected.file}
+                  src={`${selected.file}#toolbar=0&navpanes=0&view=FitH`}
+                  title={selected.name}
+                  className="h-full w-full border-0"
+                  style={{ minHeight: "60vh" }}
+                  scrolling="auto"
+                />
+              )}
             </div>
 
             {/* Modal Footer — Prev / Counter / Next */}

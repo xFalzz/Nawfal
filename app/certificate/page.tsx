@@ -130,6 +130,42 @@ const certificates: Certificate[] = [
     category: "Google",
     color: "from-red-500 to-yellow-500",
   },
+  {
+    name: "App Building with AppSheet",
+    issuer: "Google Cloud Skills Boost",
+    file: "/Sertifikasi/Sertifikat-Google/app-building-with-appsheet-skill-badge.png",
+    category: "Google",
+    color: "from-red-500 to-yellow-500",
+  },
+  {
+    name: "Build Serverless Applications with Cloud Run",
+    issuer: "Google Cloud Skills Boost",
+    file: "/Sertifikasi/Sertifikat-Google/build-serverless-applications-with-cloud-run-functi.png",
+    category: "Google",
+    color: "from-red-500 to-yellow-500",
+  },
+  {
+    name: "Discover and Protect Sensitive Data Across Your Ecosystem",
+    issuer: "Google Cloud Skills Boost",
+    file: "/Sertifikasi/Sertifikat-Google/discover-and-protect-sensitive-data-across-your-eco.png",
+    category: "Google",
+    color: "from-red-500 to-yellow-500",
+  },
+  {
+    name: "Optimize Costs for Google Kubernetes Engine",
+    issuer: "Google Cloud Skills Boost",
+    file: "/Sertifikasi/Sertifikat-Google/optimize-costs-for-google-kubernetes-engine-skill-b.png",
+    category: "Google",
+    color: "from-red-500 to-yellow-500",
+  },
+  {
+    name: "Use APIs to Work with Cloud Storage",
+    issuer: "Google Cloud Skills Boost",
+    file: "/Sertifikasi/Sertifikat-Google/use-apis-to-work-with-cloud-storage-skill-badge.png",
+    category: "Google",
+    color: "from-red-500 to-yellow-500",
+  },
+
 
   // Amazon / AWS
   {
