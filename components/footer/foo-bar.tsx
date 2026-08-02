@@ -38,31 +38,41 @@ const Footer = () => {
         </div>
 
         {/* Social Icons */}
-        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8">
-          <Link href="https://x.com/xFalzs" target="_blank">
-            <TbBrandTwitter className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
-          </Link>
-        </div>
-        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8">
-          <Link href="https://www.instagram.com/nawfaljr__" target="_blank">
-            <TbBrandInstagram className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:-rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
-          </Link>
-        </div>
-        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8">
-          <Link href="https://github.com/xFalzz" target="_blank">
-             <TbBrandGithub className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:rotate-6 group-hover:scale-125 group-hover:text-primary-foreground" />
-          </Link>
-        </div>
-        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8">
-          <Link href="https://www.linkedin.com/in/nawfal-irfan/" target="_blank">
-            <TbBrandLinkedin className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
-          </Link>
-        </div>
-        <div className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8">
-          <Link href="https://discord.gg/v6dgnKCpuM" target="_blank">
-            <TbBrandDiscord className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:-rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
-          </Link>
-        </div>
+        <Link
+          href="https://x.com/xFalzs"
+          target="_blank"
+          className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8"
+        >
+          <TbBrandTwitter className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
+        </Link>
+        <Link
+          href="https://www.instagram.com/nawfaljr__"
+          target="_blank"
+          className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8"
+        >
+          <TbBrandInstagram className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:-rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
+        </Link>
+        <Link
+          href="https://github.com/xFalzz"
+          target="_blank"
+          className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8"
+        >
+          <TbBrandGithub className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:rotate-6 group-hover:scale-125 group-hover:text-primary-foreground" />
+        </Link>
+        <Link
+          href="https://www.linkedin.com/in/nawfal-irfan/"
+          target="_blank"
+          className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8"
+        >
+          <TbBrandLinkedin className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
+        </Link>
+        <Link
+          href="https://discord.gg/v6dgnKCpuM"
+          target="_blank"
+          className="anim group col-span-1 flex h-auto w-full cursor-pointer items-center justify-center py-4 hover:bg-primary sm:aspect-video sm:py-8"
+        >
+          <TbBrandDiscord className="anim h-5 w-5 md:w-6 md:h-6 text-foreground group-hover:-rotate-12 group-hover:scale-125 group-hover:text-primary-foreground" />
+        </Link>
       </div>
 
       {/* Footer */}
