@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ProfileHeader from "@/components/macro/profile-header";
 import SubLinks from "@/components/macro/sub-links";
-import { TbExternalLink, TbFileTypePdf } from "react-icons/tb";
-import CertificateThumbnail from "@/components/doc/certificate/certificate-thumbnail";
-
+import { TbExternalLink } from "react-icons/tb";
+import CertificateGrid from "@/components/doc/certificate/certificate-grid";
 
 export const metadata: Metadata = {
   title: "Certificates | Nawfal Irfan Ramadhan",
@@ -379,51 +378,13 @@ export default function CertificatePage() {
           </div>
         </div>
 
-        {/* Certificate Grid */}
-        {categories.slice(1).map((cat) => {
-          const filtered = certificates.filter((c) => c.category === cat);
-          if (filtered.length === 0) return null;
-          return (
-            <div key={cat} className="mb-12">
-              <div className="mb-4 flex items-center gap-x-3">
-                <div className={`h-3 w-3 rounded-full bg-gradient-to-r ${categoryColors[cat]}`} />
-                <h2 className="text-lg font-semibold">{cat}</h2>
-                <span className="text-sm text-muted-foreground">({filtered.length})</span>
-              </div>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                {filtered.map((cert, i) => (
-                  <Link
-                    key={i}
-                    href={cert.file}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex flex-col overflow-hidden rounded-lg border bg-popover transition-all duration-200 hover:border-foreground/30 hover:shadow-md"
-                  >
-                    {/* PDF Thumbnail Preview */}
-                    <CertificateThumbnail file={cert.file} name={cert.name} />
+        {/* Certificate Grid with Modal Viewer */}
+        <CertificateGrid
+          certificates={certificates}
+          categories={categories}
+          categoryColors={categoryColors}
+        />
 
-                    {/* Card Info */}
-                    <div className="flex items-start gap-x-2 p-3">
-                      <div className={`mt-0.5 h-6 w-0.5 flex-none rounded-full bg-gradient-to-b ${cert.color}`} />
-                      <div className="min-w-0 flex-1">
-                        <p className="line-clamp-2 text-xs font-medium text-foreground leading-snug">
-                          {cert.name}
-                        </p>
-                        <p className="mt-0.5 truncate text-[10px] text-muted-foreground">
-                          {cert.issuer}
-                        </p>
-                      </div>
-                      <TbFileTypePdf
-                        size={14}
-                        className="mt-0.5 flex-none text-muted-foreground/50 group-hover:text-muted-foreground transition-colors"
-                      />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          );
-        })}
 
         {/* LinkedIn link */}
         <div className="mt-8 flex items-center gap-x-2 text-sm text-muted-foreground">
