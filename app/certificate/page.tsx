@@ -3,6 +3,8 @@ import Link from "next/link";
 import ProfileHeader from "@/components/macro/profile-header";
 import SubLinks from "@/components/macro/sub-links";
 import { TbExternalLink, TbFileTypePdf } from "react-icons/tb";
+import CertificateThumbnail from "@/components/doc/certificate/certificate-thumbnail";
+
 
 export const metadata: Metadata = {
   title: "Certificates | Nawfal Irfan Ramadhan",
@@ -382,35 +384,39 @@ export default function CertificatePage() {
           const filtered = certificates.filter((c) => c.category === cat);
           if (filtered.length === 0) return null;
           return (
-            <div key={cat} className="mb-10">
+            <div key={cat} className="mb-12">
               <div className="mb-4 flex items-center gap-x-3">
                 <div className={`h-3 w-3 rounded-full bg-gradient-to-r ${categoryColors[cat]}`} />
                 <h2 className="text-lg font-semibold">{cat}</h2>
                 <span className="text-sm text-muted-foreground">({filtered.length})</span>
               </div>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                 {filtered.map((cert, i) => (
                   <Link
                     key={i}
                     href={cert.file}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative flex items-start gap-x-3 overflow-hidden rounded-lg border bg-popover p-4 transition-all duration-200 hover:border-foreground/20 hover:shadow-sm"
+                    className="group flex flex-col overflow-hidden rounded-lg border bg-popover transition-all duration-200 hover:border-foreground/30 hover:shadow-md"
                   >
-                    {/* Colored accent bar */}
-                    <div
-                      className={`mt-0.5 h-8 w-1 flex-none rounded-full bg-gradient-to-b ${cert.color}`}
-                    />
-                    <div className="min-w-0 flex-1">
-                      <p className="line-clamp-2 text-sm font-medium text-foreground leading-snug group-hover:text-foreground">
-                        {cert.name}
-                      </p>
-                      <p className="mt-1 truncate text-xs text-muted-foreground">
-                        {cert.issuer}
-                      </p>
-                    </div>
-                    <div className="flex-none self-center">
-                      <TbFileTypePdf size={16} className="text-muted-foreground group-hover:text-foreground transition-colors" />
+                    {/* PDF Thumbnail Preview */}
+                    <CertificateThumbnail file={cert.file} name={cert.name} />
+
+                    {/* Card Info */}
+                    <div className="flex items-start gap-x-2 p-3">
+                      <div className={`mt-0.5 h-6 w-0.5 flex-none rounded-full bg-gradient-to-b ${cert.color}`} />
+                      <div className="min-w-0 flex-1">
+                        <p className="line-clamp-2 text-xs font-medium text-foreground leading-snug">
+                          {cert.name}
+                        </p>
+                        <p className="mt-0.5 truncate text-[10px] text-muted-foreground">
+                          {cert.issuer}
+                        </p>
+                      </div>
+                      <TbFileTypePdf
+                        size={14}
+                        className="mt-0.5 flex-none text-muted-foreground/50 group-hover:text-muted-foreground transition-colors"
+                      />
                     </div>
                   </Link>
                 ))}
