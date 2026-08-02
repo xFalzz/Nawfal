@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
  
 export const runtime = 'edge'
  
-export const alt = 'Nawfal - Frontend Web Developer'
+export const alt = 'Nawfal - Fullstack Web Developer'
 export const size = {
   width: 1200,
   height: 630,
@@ -31,7 +31,7 @@ export default async function Image() {
           Nawfal
         </div>
         <div style={{ fontSize: 36, color: '#a1a1aa' }}>
-          Frontend Web Developer
+          Fullstack Web Developer
         </div>
       </div>
     ),

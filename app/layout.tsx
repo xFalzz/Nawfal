@@ -21,12 +21,12 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 export const metadata: Metadata = {
   metadataBase: new URL('https://nawfal.vercel.app'),
   title: {
-    default: "Nawfal | Frontend Developer",
+    default: "Nawfal | Fullstack Developer",
     template: "%s | Nawfal"
   },
   description:
     "This is Nawfal's (me!) personal website. I write about tech, programming, and other things I find interesting. I also share my projects and experiences.",
-  keywords: ["Nawfal", "Frontend Developer", "UI/UX Designer", "Web Developer", "Portfolio", "Next.js", "React", "TypeScript", "Tailwind CSS"],
+  keywords: ["Nawfal", "Fullstack Developer", "Software Engineer", "Web Developer", "Portfolio", "Next.js", "React", "TypeScript", "Tailwind CSS"],
   authors: [{ name: "Nawfal Irfan", url: "https://nawfal.vercel.app" }],
   creator: "Nawfal Irfan",
   alternates: {
@@ -39,22 +39,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://nawfal.vercel.app",
-    title: "Nawfal | Frontend Developer",
-    description: "Frontend Developer & UI/UX Designer creating intuitive, visually stunning and highly functional web experiences.",
+    title: "Nawfal | Fullstack Developer",
+    description: "Fullstack Developer & AI Enthusiast creating intuitive, visually stunning and highly functional web experiences.",
     siteName: "Nawfal Portfolio",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Nawfal | Frontend Developer"
+        alt: "Nawfal | Fullstack Developer"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nawfal | Frontend Developer",
-    description: "Frontend Developer & UI/UX Designer creating intuitive, visually stunning and highly functional web experiences.",
+    title: "Nawfal | Fullstack Developer",
+    description: "Fullstack Developer & AI Enthusiast creating intuitive, visually stunning and highly functional web experiences.",
     images: ["/opengraph-image"],
   },
   robots: {

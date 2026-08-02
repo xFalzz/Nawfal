@@ -2,7 +2,7 @@
   <img src="public/images/sinopsisp.jpg" width="120" height="120" style="border-radius: 24px; object-fit: cover;" />
   <br />
   <h1>Nawfal Irfan Ramadhan</h1>
-  <p><b>Frontend Developer • UI/UX Designer • Visual Enthusiast</b></p>
+  <p><b>Fullstack Developer • AI Enthusiast • Visual Specialist</b></p>
 
   <p>
     <a href="https://nawfal.vercel.app"><img src="https://img.shields.io/badge/Website-nawfal.vercel.app-000000?style=for-the-badge&logo=vercel" alt="Website" /></a>
