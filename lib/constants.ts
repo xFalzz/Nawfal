@@ -15,6 +15,10 @@ const NavItems = [
     name: "Photography",
     href: "/photography",
   },
+  {
+    name: "Certificate",
+    href: "/certificate",
+  },
 ];
 
 const Experience: { title: string; company: string; date: string }[] = [];

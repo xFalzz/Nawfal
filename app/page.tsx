@@ -72,6 +72,37 @@ export default function Page() {
               type="single"
               collapsible
             >
+              <AccordionItem value="item-0">
+                <AccordionTrigger>Hijara - AI Sustainability 🌿</AccordionTrigger>
+                <AccordionContent>
+                  <p className="mb-4 text-muted-foreground">
+                    AI-Powered Sustainability Platform built for Google{" "}
+                    <span className="text-foreground">#JuaraVibeCoding</span>. Integrates{" "}
+                    <span className="text-foreground">Gemini Vision</span> for waste classification,{" "}
+                    energy monitoring, and recycling tracking. Fully serverless on{" "}
+                    <span className="text-foreground">Google Cloud Run</span>.
+                  </p>
+                  <div className="flex items-center justify-between gap-x-4">
+                    <Badge
+                      variant="secondary"
+                      className="relative flex w-fit items-center gap-x-2 rounded-full"
+                    >
+                      <div className="h-1.5 w-1.5 animate-ping rounded-full bg-green-500" />
+                      <div className="absolute left-2.5 h-1.5 w-1.5 rounded-full bg-green-500" />
+                      Live
+                    </Badge>
+                    <Link
+                      href="https://hijara-juaravibecoding.vercel.app"
+                      target="_blank"
+                      className="rounded-sm border bg-popover px-2 text-popover-foreground"
+                    >
+                      <code className="text-xs font-medium md:text-sm">
+                        Visit Project
+                      </code>
+                    </Link>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
               <AccordionItem value="item-1">
                 <AccordionTrigger>KURA - Game Discovery</AccordionTrigger>
                 <AccordionContent>

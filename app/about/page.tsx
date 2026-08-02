@@ -7,6 +7,7 @@ import { TbBrandTwitter, TbBrandInstagram, TbBrandYoutube } from "react-icons/tb
 import BTKP from "@/public/images/logos/BTKP.jpeg";
 import UBSI from "@/public/images/logos/UBSI.jpeg";
 import Avatar from "@/public/images/avatar-cloud.png";
+import MicrosoftLogo from "@/public/images/logos/microsoft.svg";
 
 // Components
 import { Button } from "@/components/ui/button";
@@ -62,7 +63,43 @@ const Page = () => {
           <h2 className="mb-2 text-balance text-left text-2xl font-semibold lg:mb-4">
             Experience
           </h2>
-          {/* Work Card */}
+          {/* Fiverr */}
+          <div className="flex items-center gap-x-4">
+            <div className="anim flex h-14 w-14 items-center justify-center rounded-md border border-border bg-popover p-2">
+              <div className="flex h-full w-full items-center justify-center rounded bg-gradient-to-br from-green-500 to-teal-600 text-white font-bold text-sm">
+                Fivr
+              </div>
+            </div>
+            <div className="flex w-fit flex-col">
+              <h3 className="text-balance text-base font-medium lg:text-lg">
+                Fiverr
+              </h3>
+              <p className="text-xs text-muted-foreground md:text-sm">
+                Freelance Web Developer · Remote
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Nov 2025 - Present
+              </p>
+            </div>
+          </div>
+          {/* Microsoft METC */}
+          <div className="flex items-center gap-x-4">
+            <div className="anim flex h-14 w-14 items-center justify-center rounded-md border border-border bg-popover p-2">
+              <Image src={MicrosoftLogo} alt="Microsoft" className="h-auto w-full rounded" />
+            </div>
+            <div className="flex w-fit flex-col">
+              <h3 className="text-balance text-base font-medium lg:text-lg">
+                Microsoft Elevate Training Center
+              </h3>
+              <p className="text-xs text-muted-foreground md:text-sm">
+                AI Training · Apprenticeship · Remote
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Oct 2025 - Mar 2026 · 6 mos
+              </p>
+            </div>
+          </div>
+          {/* BTKP */}
           <div className="flex items-center gap-x-4">
             <div className="anim flex h-14 w-14 items-center justify-center rounded-md border border-border bg-popover p-2">
               <Image src={BTKP} alt="BTKP" className="h-auto w-full rounded" />
@@ -72,13 +109,14 @@ const Page = () => {
                 Balai Teknologi Komunikasi Pendidikan DIY
               </h3>
               <p className="text-xs text-muted-foreground md:text-sm">
-                Internship
+                Multimedia Intern · On-site
               </p>
               <p className="text-xs text-muted-foreground">
                 Mar 2024 - Aug 2024 · 6 mos
               </p>
             </div>
           </div>
+          {/* Kopvie */}
           <div className="flex items-center gap-x-4">
             <div className="anim flex h-14 w-14 items-center justify-center rounded-md border border-border bg-popover p-2">
               <div className="flex h-full w-full items-center justify-center rounded bg-gradient-to-br from-red-500 to-orange-600 text-white font-bold text-lg">
@@ -87,16 +125,22 @@ const Page = () => {
             </div>
             <div className="flex w-fit flex-col">
               <h3 className="text-balance text-base font-medium lg:text-lg">
-                Kopvie - Komunitas Film
+                Kopvie - Film Community
               </h3>
               <p className="text-xs text-muted-foreground md:text-sm">
-                Video Editor & Second Cameraman
+                Video Editor & Second Cameraman · Hybrid
               </p>
               <p className="text-xs text-muted-foreground">
                 Sep 2023 - Jun 2024 · 10 mos
               </p>
             </div>
           </div>
+
+          <div className="h-px w-full bg-border my-2" />
+          <h2 className="text-balance text-left text-2xl font-semibold">
+            Education
+          </h2>
+          {/* UBSI */}
           <div className="flex items-center gap-x-4">
             <div className="anim flex h-14 w-14 items-center justify-center rounded-md border border-border bg-popover p-2">
               <Image src={UBSI} alt="UBSI" className="h-auto w-full rounded" />
@@ -109,10 +153,30 @@ const Page = () => {
                 Bachelor of Science, Information Systems
               </p>
               <p className="text-xs text-muted-foreground">
-                2025 - Present
+                2025 - 2029 · GPA 3.56
               </p>
             </div>
           </div>
+          {/* SMK Negeri 2 Sewon */}
+          <div className="flex items-center gap-x-4">
+            <div className="anim flex h-14 w-14 items-center justify-center rounded-md border border-border bg-popover p-2">
+              <div className="flex h-full w-full items-center justify-center rounded bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-bold text-xs text-center leading-tight">
+                SMK
+              </div>
+            </div>
+            <div className="flex w-fit flex-col">
+              <h3 className="text-balance text-base font-medium lg:text-lg">
+                SMK Negeri 2 Sewon
+              </h3>
+              <p className="text-xs text-muted-foreground md:text-sm">
+                Multimedia
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Jul 2022 - May 2025
+              </p>
+            </div>
+          </div>
+
           <Button
             asChild
             className="mt-2 bg-popover lg:mt-4"

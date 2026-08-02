@@ -3,30 +3,54 @@ export const KNOWLEDGE_BASE = {
     fullName: "Nawfal Irfan Ramadhan",
     nickname: "Nawfal",
     titles: ["Software Engineer", "Web Developer", "AI Enthusiast"],
-    location: "Yogyakarta, Indonesia",
-    bio: "Information Systems student focused on Software Engineering, Web Development, and AI-driven applications. Experienced in building modern fullstack web applications using Next.js, React, TypeScript, and Firebase with strong interest in scalable systems and product-focused development.",
+    location: "Kasihan, Yogyakarta, Indonesia",
+    bio: "Software Engineer and Information Systems student at Universitas Bina Sarana Informatika (3rd Semester) who enjoys turning ideas into web applications using modern technologies like React, Next.js, and Node.js. Passionate about building useful digital products, solving problems, and spending an unhealthy amount of time searching for a missing semicolon or debugging code that somehow fixes itself.",
     tagline: "I create intuitive, visually stunning and highly functional Web.",
     philosophy: "Combining a multimedia background with modern engineering practices to build intuitive, high-performance web applications and scalable systems."
   },
   experience: [
     {
-      title: "Internship",
-      company: "DIY Educational Communication Technology Center (Balai Teknologi Komunikasi Pendidikan DIY)",
+      title: "Freelance Web Developer",
+      company: "Fiverr",
+      period: "Nov 2025 - Present",
+      type: "Self-employed · Remote",
+      details: "Providing freelance web development services to clients worldwide via Fiverr platform."
+    },
+    {
+      title: "Artificial Intelligence Training",
+      company: "Microsoft Elevate Training Center (METC)",
+      period: "Oct 2025 - Mar 2026",
+      type: "Apprenticeship · Remote",
+      details: "Completed AI training program covering Intelligent Agents, Azure AI, and applied machine learning concepts. Skills: AIF, Intelligent Agents, Azure AI, Machine Learning."
+    },
+    {
+      title: "Multimedia Intern",
+      company: "Balai Teknologi Komunikasi Pendidikan DIY (BTKP)",
       period: "Mar 2024 - Aug 2024",
-      details: "Assisted administrative processes and helped streamline internal operations using digital tools. Developed SAC-based educational applications to support multimedia learning initiatives. Participated in broadcasting and educational content production."
+      type: "Internship · On-site",
+      details: "Assisted administrative processes and helped streamline internal operations using digital tools. Developed SAC-based educational applications to support multimedia learning initiatives. Actively participated in broadcasting and educational content production."
     },
     {
       title: "Video Editor & Second Cameraman",
-      company: "Kopvie - Komunitas Film",
-      period: "Sep 2023 - Jun 2024"
+      company: "Kopvie - Film Community",
+      period: "Sep 2023 - Jun 2024",
+      type: "Part-time · Hybrid",
+      details: "Collaborated with a creative team in an independent film community focused on short film production and visual storytelling. Contributed as Film Editor, Second Cameraman, and Audio Assistant in multiple projects."
     }
   ],
   education: [
     {
       degree: "Bachelor of Science, Information Systems",
       institution: "Universitas Bina Sarana Informatika (UBSI)",
-      period: "2025 - Present",
+      period: "2025 - 2029",
+      gpa: "3.56",
       coursework: "Software Engineering, Database Management, Web Application Development, System Analysis & Design"
+    },
+    {
+      degree: "Multimedia",
+      institution: "SMK Negeri 2 Sewon",
+      period: "Jul 2022 - May 2025",
+      activities: "Kopvie (Film Community Extracurricular), Festival Film Pelajar Jogja (FFPJ), Photography Community"
     }
   ],
   certificates: [
@@ -45,21 +69,37 @@ export const KNOWLEDGE_BASE = {
     {
       name: "Basic Data Analytics Certification",
       issuer: "Dicoding Indonesia"
+    },
+    {
+      name: "Belajar Machine Learning untuk Pemula",
+      issuer: "Dicoding Indonesia"
+    },
+    {
+      name: "Microsoft Excel Comprehensive Guide",
+      issuer: "Udemy"
+    },
+    {
+      name: "Ethical Hacker For Dummies",
+      issuer: "Komdigi"
+    },
+    {
+      name: "Introduction to Cyber Security",
+      issuer: "Komdigi"
     }
   ],
   techStack: [
     "React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS",
     "Node.js", "Firebase", "Supabase", "MySQL", "PostgreSQL",
-    "Git", "GitHub", "Cloudflare", "AWS Cloud", "Prisma",
-    "Framer Motion", "Canvas API"
+    "Git", "GitHub", "Cloudflare", "AWS Cloud", "Google Cloud", "Prisma",
+    "Framer Motion", "Canvas API", "Gemini AI"
   ],
   projects: [
     {
-      name: "Hijara (Competition project)",
+      name: "Hijara - AI Sustainability Platform",
       type: "Competition Project",
-      stack: ["AI", "Sustainability", "Next.js"],
-      description: "AI-powered Sustainability Website built for competition.",
-      url: "#"
+      stack: ["Next.js 15", "TypeScript", "Supabase", "Google Cloud Run", "Gemini AI"],
+      description: "AI-Powered Sustainability Intelligence Platform for Google #JuaraVibeCoding. Integrates Google Gemini Vision for waste classification, energy monitoring, and recycling tracking. Runs fully serverless on Google Cloud Run.",
+      url: "https://lnkd.in/gcBVhMc5"
     },
     {
       name: "KURA - Game Discovery Platform",
