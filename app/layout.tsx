@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   verification: {
-    // google: "your-google-verification-token",
+    google: "google8cbfb42f0970a6b2",
   },
   openGraph: {
     type: "website",
