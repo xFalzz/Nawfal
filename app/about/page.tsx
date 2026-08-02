@@ -153,7 +153,7 @@ const Page = () => {
                 Bachelor of Science, Information Systems
               </p>
               <p className="text-xs text-muted-foreground">
-                2025 - 2029 · GPA 3.56
+                2025 - 2029 · GPA 3.78
               </p>
             </div>
           </div>

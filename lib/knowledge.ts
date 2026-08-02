@@ -43,7 +43,7 @@ export const KNOWLEDGE_BASE = {
       degree: "Bachelor of Science, Information Systems",
       institution: "Universitas Bina Sarana Informatika (UBSI)",
       period: "2025 - 2029",
-      gpa: "3.56",
+      gpa: "3.78",
       semester: "3rd Semester (current)",
       coursework: "Software Engineering, Database Management, Web Application Development, System Analysis & Design"
     },

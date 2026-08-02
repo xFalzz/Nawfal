@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -20,6 +21,8 @@ import { Button } from "@/components/ui/button";
 import DizzyAvatar from "@/public/images/avatar-dizzy.png";
 
 export default function NotFound() {
+  const pathname = usePathname();
+  const currentPath = pathname || "/404";
   const quickLinks = [
     {
       title: "Home",
@@ -125,8 +128,8 @@ export default function NotFound() {
               system_diagnostics.log
             </span>
           </div>
-          <div className="text-emerald-400 font-medium">
-            &gt; GET {typeof window !== "undefined" ? window.location.pathname : "/404"} HTTP/1.1
+          <div className="text-emerald-400 font-medium" suppressHydrationWarning>
+            &gt; GET {currentPath} HTTP/1.1
           </div>
           <div className="text-amber-400">
             &gt; Status: 404 Not Found (Resource lost in cyberspace)
