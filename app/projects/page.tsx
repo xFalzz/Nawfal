@@ -11,10 +11,11 @@ import ParticleFlowSquashImage from "@/public/images/projects/particleflowsquash
 import MoveiHubImage from "@/public/images/projects/MoveiHub.png";
 import KostAfifaImage from "@/public/images/projects/kost-afifa.png";
 import KuraImage from "@/public/images/projects/kura.png";
+import HijaraImage from "@/public/images/projects/hijara.png";
 
 export const metadata: Metadata = {
   title: "My Projects",
-  description: "Explore Nawfal's portfolio of personal projects including KURA, MacOS clone, QRQuick, and Particle Flow Squash. Built with Next.js, TypeScript, and modern web technologies.",
+  description: "Explore Nawfal's portfolio of personal projects including KURA, Hijara, MacOS clone, QRQuick, and Particle Flow Squash. Built with Next.js, TypeScript, and modern web technologies.",
   alternates: {
     canonical: "/projects",
   },
@@ -26,6 +27,15 @@ export const metadata: Metadata = {
 };
 
 const Projects = [
+  {
+    name: "Hijara (Competition project)",
+    url: "#",
+    image: HijaraImage,
+    type: "Competition Project",
+    stack: ["AI", "Sustainability", "Next.js"],
+    price: "Locked",
+    category: "Web Application",
+  },
   {
     name: "KURA",
     url: "https://kuraa.vercel.app",

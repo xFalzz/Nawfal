@@ -55,6 +55,13 @@ export const KNOWLEDGE_BASE = {
   ],
   projects: [
     {
+      name: "Hijara (Competition project)",
+      type: "Competition Project",
+      stack: ["AI", "Sustainability", "Next.js"],
+      description: "AI-powered Sustainability Website built for competition.",
+      url: "#"
+    },
+    {
       name: "KURA - Game Discovery Platform",
       type: "Personal Project",
       stack: ["Next.js", "TypeScript", "Tailwind CSS", "RAWG API", "Firebase"],

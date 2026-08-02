@@ -41,8 +41,8 @@ const TemplateCard = ({
 }) => {
   return (
     <Link
-      href={url}
-      target="_blank"
+      href={url || "#"}
+      target={url && url !== "#" ? "_blank" : "_self"}
       className="anim group relative flex h-fit w-full cursor-pointer flex-col overflow-hidden rounded border bg-popover pt-2.5"
     >
       <div className="absolute right-0 top-0 h-fit rounded-bl-lg rounded-tr bg-accent px-2 py-0.5">
@@ -61,7 +61,7 @@ const TemplateCard = ({
             </h1>
           </div>
           <p className="text-xs leading-none text-muted-foreground">
-            {url.replace("https://", "")}
+            {url && url !== "#" ? url.replace("https://", "") : "Coming Soon"}
           </p>
         </div>
       </div>
