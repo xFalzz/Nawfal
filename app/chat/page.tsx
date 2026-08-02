@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
     images: [{
-      url: "/images/snp.png",
+      url: "/images/sinopsisp.jpg",
       width: 800,
       height: 800,
       alt: "Nawfal Irfan Ramadhan"
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Chat Room & AI Assistant | Nawfal Irfan Ramadhan",
     description: "Connect with Nawfal Irfan Ramadhan's community and AI Assistant in real-time.",
-    images: ["/images/snp.png"],
+    images: ["/images/sinopsisp.jpg"],
   },
 };
 
