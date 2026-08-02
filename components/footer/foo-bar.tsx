@@ -83,6 +83,7 @@ const Footer = () => {
             <HoverItem header="Nav">
               <HoverLinks href="/about">About</HoverLinks>
               <HoverLinks href="/projects">Projects</HoverLinks>
+              <HoverLinks href="/certificate">Certificates</HoverLinks>
               <HoverLinks href="/photography">Photography</HoverLinks>
             </HoverItem>
           </HoverCard>

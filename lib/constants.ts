@@ -12,16 +12,12 @@ const NavItems = [
     href: "/projects",
   },
   {
-    name: "Certificate",
-    href: "/certificate",
-  },
-  {
-    name: "Chat & AI",
-    href: "/chat",
-  },
-  {
     name: "Photography",
     href: "/photography",
+  },
+  {
+    name: "Certificate",
+    href: "/certificate",
   },
 ];
 
