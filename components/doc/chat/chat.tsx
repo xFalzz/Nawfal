@@ -27,6 +27,7 @@ import {
   User,
   MessageSquare,
   ChevronDown,
+  ChevronRight,
   RotateCcw,
   ShieldCheck,
   GripVertical,
@@ -844,8 +845,8 @@ const Chat = () => {
                       onClick={() => sendAiMessage(undefined, item.query)}
                       className="text-left px-3 py-2.5 rounded-xl border border-border/50 bg-muted/30 text-xs hover:bg-primary/10 hover:border-primary/30 transition-all text-muted-foreground hover:text-foreground flex items-center justify-between group"
                     >
-                      <span>{item.label}</span>
-                      <Sparkles className="h-3 w-3 text-primary/40 group-hover:text-primary transition-colors shrink-0" />
+                      <span className="font-medium text-foreground/90">{item.label}</span>
+                      <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/60 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
                     </button>
                   ))}
                 </div>
