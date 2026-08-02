@@ -114,8 +114,14 @@ const certificates: Certificate[] = [
     category: "Microsoft",
     color: "from-blue-500 to-blue-700",
   },
+  {
+    name: "Microsoft Learn Achievement (AZ-104)",
+    issuer: "Microsoft Learn",
+    file: "/Sertifikasi/Sertifikat-Microsoft/PREEI2VWAF (1).pdf",
+    category: "Microsoft",
+    color: "from-blue-500 to-blue-700",
+  },
 
-  // Google
   {
     name: "Juara Vibe Coding - Google Cloud",
     issuer: "Google Cloud",
@@ -165,7 +171,36 @@ const certificates: Certificate[] = [
     category: "Google",
     color: "from-red-500 to-yellow-500",
   },
+  {
+    name: "Use Machine Learning APIs on Google Cloud",
+    issuer: "Google Cloud Skills Boost",
+    file: "/Sertifikasi/Sertifikat-Google/use-machine-learning-apis-on-google-cloud-skill-bad.png",
+    category: "Google",
+    color: "from-red-500 to-yellow-500",
+  },
+  {
+    name: "The Basics of Google Cloud Compute",
+    issuer: "Google Cloud Skills Boost",
+    file: "/Sertifikasi/Sertifikat-Google/the-basics-of-google-cloud-compute-skill-badge.png",
+    category: "Google",
+    color: "from-red-500 to-yellow-500",
+  },
 
+  // IBM
+  {
+    name: "IBM AI Literacy Badge",
+    issuer: "IBM",
+    file: "/Sertifikasi/Sertifikat-IBM/AILiteracy_Badge20260802-8-8m26k3.pdf",
+    category: "IBM",
+    color: "from-blue-700 to-cyan-600",
+  },
+  {
+    name: "IBM Design Thinking Practitioner",
+    issuer: "IBM",
+    file: "/Sertifikasi/Sertifikat-IBM/IBMDesign20260802-8-smkwkd.pdf",
+    category: "IBM",
+    color: "from-blue-700 to-cyan-600",
+  },
 
   // Amazon / AWS
   {
@@ -360,13 +395,21 @@ const certificates: Certificate[] = [
     category: "Umum",
     color: "from-slate-500 to-gray-700",
   },
+  {
+    name: "Sertifikat Seminar",
+    issuer: "Nawfal Irfan Ramadhan",
+    file: "/Sertifikasi/Sertifikat-Umum/NAWFAL IRFAN RAMADHAN_SERTIFIKAT_SEMINAR.pdf",
+    category: "Umum",
+    color: "from-slate-500 to-gray-700",
+  },
 ];
 
-const categories = ["All", "Microsoft", "Google", "Amazon", "Dicoding", "Komdigi", "Udemy", "Kompetensi", "Umum"];
+const categories = ["All", "Microsoft", "Google", "IBM", "Amazon", "Dicoding", "Komdigi", "Udemy", "Kompetensi", "Umum"];
 
 const categoryColors: Record<string, string> = {
   Microsoft: "from-blue-500 to-blue-700",
   Google: "from-red-500 to-yellow-500",
+  IBM: "from-blue-700 to-cyan-600",
   Amazon: "from-orange-400 to-orange-600",
   Dicoding: "from-violet-500 to-purple-700",
   Komdigi: "from-green-600 to-emerald-700",
