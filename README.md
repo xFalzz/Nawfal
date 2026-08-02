@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/images/Falz.jpg" width="120" height="120" style="border-radius: 24px; object-fit: cover;" />
+  <img src="public/images/snp.png" width="120" height="120" style="border-radius: 24px; object-fit: cover;" />
   <br />
   <h1>Nawfal Irfan Ramadhan</h1>
   <p><b>Frontend Developer • UI/UX Designer • Visual Enthusiast</b></p>
