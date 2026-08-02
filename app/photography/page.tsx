@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Photography | Nawfal Irfan Ramadhan",
     description: "Browse through my photography collection. A visual journey capturing moments and perspectives.",
-    url: "https://nawfal.site/photography",
+    url: "https://nawfal.vercel.app/photography",
   },
 };
 

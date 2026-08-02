@@ -19,7 +19,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nawfal.site'),
+  metadataBase: new URL('https://nawfal.vercel.app'),
   title: {
     default: "Nawfal | Frontend Developer",
     template: "%s | Nawfal"
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   description:
     "This is Nawfal's (me!) personal website. I write about tech, programming, and other things I find interesting. I also share my projects and experiences.",
   keywords: ["Nawfal", "Frontend Developer", "UI/UX Designer", "Web Developer", "Portfolio", "Next.js", "React", "TypeScript", "Tailwind CSS"],
-  authors: [{ name: "Nawfal Irfan", url: "https://nawfal.site" }],
+  authors: [{ name: "Nawfal Irfan", url: "https://nawfal.vercel.app" }],
   creator: "Nawfal Irfan",
   alternates: {
     canonical: "/",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://nawfal.site",
+    url: "https://nawfal.vercel.app",
     title: "Nawfal | Frontend Developer",
     description: "Frontend Developer & UI/UX Designer creating intuitive, visually stunning and highly functional web experiences.",
     siteName: "Nawfal Portfolio",

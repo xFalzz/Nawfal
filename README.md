@@ -5,7 +5,7 @@
   <p><b>Frontend Developer • UI/UX Designer • Visual Enthusiast</b></p>
 
   <p>
-    <a href="https://nawfal.site"><img src="https://img.shields.io/badge/Website-nawfal.site-000000?style=for-the-badge&logo=vercel" alt="Website" /></a>
+    <a href="https://nawfal.vercel.app"><img src="https://img.shields.io/badge/Website-nawfal.vercel.app-000000?style=for-the-badge&logo=vercel" alt="Website" /></a>
     <a href="https://github.com/xFalzz"><img src="https://img.shields.io/github/followers/xFalzz?label=Follow&style=for-the-badge&logo=github" alt="GitHub Followers" /></a>
     <a href="https://www.linkedin.com/in/nawfal-irfan/"><img src="https://img.shields.io/badge/LinkedIn-Nawfal--Irfan-0077B5?style=for-the-badge&logo=linkedin" alt="LinkedIn" /></a>
   </p>

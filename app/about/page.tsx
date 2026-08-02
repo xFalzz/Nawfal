@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About Nawfal | Software Engineer",
     description: "Software Engineer focused on Web Development, AI-driven applications, and scalable systems using Next.js, TypeScript, and Firebase.",
-    url: "https://nawfal.site/about",
+    url: "https://nawfal.vercel.app/about",
   },
 };
 

@@ -50,7 +50,7 @@ const SubLinks = () => {
         <p className="text-center text-xs font-medium text-muted-foreground anim group-hover:text-foreground">Chat</p>
       </Link>
       <Link
-        href={"https://nawfal.site/"}
+        href={"https://nawfal.vercel.app/"}
         className="md:pad-r anim group col-span-1 flex h-fit w-full items-center justify-center gap-x-2 border-l border-t py-4 font-medium transition-all duration-200 ease-in-out hover:w-full hover:bg-muted md:w-1/2 md:border-t-0"
       >
         <Link2

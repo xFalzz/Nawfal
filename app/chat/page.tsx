@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   description: "Experience Nawfal's real-time chat room and intelligent AI Assistant. A premium digital space to connect, explore projects, and discuss frontend development with Nawfal Irfan Ramadhan.",
   keywords: ["Nawfal Irfan Ramadhan", "Chat Room", "AI Assistant", "Nawfal Assistant", "Frontend Portfolio", "Real-time Chat", "Llama 3.3", "Developer Community"],
   alternates: {
-    canonical: "https://nawfal.site/chat",
+    canonical: "https://nawfal.vercel.app/chat",
   },
   openGraph: {
     title: "Chat Room & AI Assistant | Nawfal Irfan Ramadhan",
     description: "Join the conversation and connect with Nawfal Irfan Ramadhan's digital extension in real-time.",
-    url: "https://nawfal.site/chat",
+    url: "https://nawfal.vercel.app/chat",
     siteName: "Nawfal Irfan Ramadhan",
     locale: "en_US",
     type: "website",
@@ -52,13 +52,13 @@ export default function ChatPage() {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://nawfal.site"
+          "item": "https://nawfal.vercel.app"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Chat",
-          "item": "https://nawfal.site/chat"
+          "item": "https://nawfal.vercel.app/chat"
         }
       ]
     },

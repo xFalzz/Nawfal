@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "My Projects | Nawfal Irfan Ramadhan",
     description: "Explore my portfolio of personal projects built with Next.js, TypeScript, Tailwind CSS, and modern web technologies.",
-    url: "https://nawfal.site/projects",
+    url: "https://nawfal.vercel.app/projects",
   },
 };
 

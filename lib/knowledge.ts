@@ -109,7 +109,7 @@ export const KNOWLEDGE_BASE = {
     linkedin: "linkedin.com/in/nawfal-irfan/",
     twitter: "@xFalzs",
     githubId: "xFalzz",
-    website: "www.nawfal.site"
+    website: "nawfal.vercel.app"
   },
   inspirations: [
     "WPU (Sandhika Galih)", "Kelas Terbuka", "Sekolah Koding", "Petani Kode",
