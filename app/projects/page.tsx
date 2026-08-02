@@ -14,8 +14,8 @@ import KuraImage from "@/public/images/projects/kura.png";
 import HijaraImage from "@/public/images/projects/hijara.png";
 import NexusVisionImage from "@/public/images/projects/nexus-vision.png";
 import SinopsispImage from "@/public/images/projects/sinopsisp.png";
-import KelasMM2Image from "@/public/images/projects/kelas-mm2.png";
-import SnakesImage from "@/public/images/projects/snakes.png";
+import KelasMM2Image from "@/public/images/projects/xiimm2.png";
+import SnakesImage from "@/public/images/projects/snakess.png";
 
 export const metadata: Metadata = {
   title: "My Projects | Nawfal Irfan Ramadhan",
