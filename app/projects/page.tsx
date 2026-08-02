@@ -12,6 +12,11 @@ import MoveiHubImage from "@/public/images/projects/MoveiHub.png";
 import KostAfifaImage from "@/public/images/projects/kost-afifa.png";
 import KuraImage from "@/public/images/projects/kura.png";
 import HijaraImage from "@/public/images/projects/hijara.png";
+import NexusVisionImage from "@/public/images/projects/nexus-vision.png";
+import SawaImage from "@/public/images/projects/sawa.png";
+import SinopsispImage from "@/public/images/projects/sinopsisp.png";
+import KelasMM2Image from "@/public/images/projects/kelas-mm2.png";
+import SnakesImage from "@/public/images/projects/snakes.png";
 
 export const metadata: Metadata = {
   title: "My Projects | Nawfal Irfan Ramadhan",
@@ -68,7 +73,7 @@ const Projects = [
   {
     name: "nexus-vision",
     url: "https://github.com/xFalzz/nexus-vision",
-    image: ParticleFlowSquashImage,
+    image: NexusVisionImage,
     type: "Python AI Productivity Studio",
     stack: ["Python", "OpenCV", "MediaPipe", "AI"],
     price: "Free",
@@ -77,7 +82,7 @@ const Projects = [
   {
     name: "sawa (ꦱꦮ)",
     url: "https://github.com/xFalzz/sawa",
-    image: MacOSImage,
+    image: SawaImage,
     type: "Javanese Script Interpreter",
     stack: ["Python", "Compiler", "Javanese"],
     price: "Free",
@@ -113,7 +118,7 @@ const Projects = [
   {
     name: "sinopsisp",
     url: "https://sinopsisp.vercel.app",
-    image: MoveiHubImage,
+    image: SinopsispImage,
     type: "Film & Game Analysis Blog",
     stack: ["Next", "TS", "Tailwind", "CMS"],
     price: "Free",
@@ -122,7 +127,7 @@ const Projects = [
   {
     name: "Website XII MM 2",
     url: "https://xiidusemulti2.vercel.app",
-    image: KostAfifaImage,
+    image: KelasMM2Image,
     type: "SMK N 2 Sewon Memory Archive",
     stack: ["JavaScript", "HTML5", "CSS3"],
     price: "Free",
@@ -131,7 +136,7 @@ const Projects = [
   {
     name: "Snakes Community",
     url: "https://snakes-zeta.vercel.app/",
-    image: KuraImage,
+    image: SnakesImage,
     type: "Herpetology Community Platform",
     stack: ["JavaScript", "Tailwind", "Node.js"],
     price: "Free",
