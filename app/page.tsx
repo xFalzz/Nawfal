@@ -49,7 +49,7 @@ export default function Page() {
           <div className="grid grid-cols-1 items-end gap-x-6 md:grid-cols-2">
             <div className="flex flex-col justify-between">
               <Shine className="anim mb-2 inline-flex w-fit items-center justify-center py-1">
-                <span>✨ I&apos;m open for work</span>
+                <span>🟢 I&apos;m open for work</span>
               </Shine>
               <h2 className="mb-3 w-full max-w-lg text-balance text-xl font-semibold text-foreground md:mb-4 md:text-2xl lg:text-3xl">
                 I create intuitive, visually stunning and highly functional Web.

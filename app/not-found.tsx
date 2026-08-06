@@ -11,7 +11,6 @@ import {
   FolderGit2,
   Award,
   Terminal,
-  Sparkles,
   Search,
   Compass,
 } from "lucide-react";
@@ -164,7 +163,7 @@ export default function NotFound() {
             className="rounded-xl h-11 px-6 gap-x-2 font-medium backdrop-blur-md hover:bg-muted/80 transition-all hover:scale-105"
           >
             <Link href="/chat">
-              <Sparkles className="h-4 w-4 text-primary" />
+              <Compass className="h-4 w-4 text-primary" />
               <span>Tanya AI Assistant</span>
             </Link>
           </Button>

@@ -16,7 +16,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithPopup, signInWithRedirect, signOut } from "firebase/auth";
 import {
   Send,
-  Sparkles,
   Reply,
   X,
   CheckCircle2,

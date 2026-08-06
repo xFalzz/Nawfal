@@ -77,6 +77,22 @@ const NavDrop = () => {
               </Link>
               <Link
                 className={`anim group rounded-sm px-2 py-1 hover:bg-muted ${
+                  pathname === "/components" ? "bg-muted" : "bg-transparent"
+                }`}
+                href="/components"
+              >
+                <p
+                  className={`whitespace-nowrap text-sm font-medium group-hover:text-foreground md:text-base ${
+                    pathname === "/components"
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  Components
+                </p>
+              </Link>
+              <Link
+                className={`anim group rounded-sm px-2 py-1 hover:bg-muted ${
                   pathname === "/certificate" ? "bg-muted" : "bg-transparent"
                 }`}
                 href="/certificate"

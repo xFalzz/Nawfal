@@ -4,7 +4,7 @@ import {
   FileText,
   Link2,
   Heart,
-  Sparkles,
+  Zap,
   MessageSquare,
 } from "lucide-react";
 
@@ -16,7 +16,7 @@ const SubLinks = () => {
         target="_blank"
         className="md:pad-l anim group col-span-1 flex h-fit w-full items-center justify-center gap-x-2 py-4 font-medium transition-all duration-200 ease-in-out hover:w-full hover:bg-muted md:w-1/2"
       >
-        <Sparkles
+        <Zap
           size={14}
           className="anim delay-100 text-muted-foreground fill-transparent group-hover:text-yellow-400 group-hover:fill-yellow-400"
         />
