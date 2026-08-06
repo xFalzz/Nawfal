@@ -27,7 +27,7 @@ const TechStack = () => {
         </p>
       </div>
 
-      <div className="pad-x grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="pad-x grid w-full grid-cols-1 gap-3 xs:grid-cols-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
         {TechStackItems.map((item, index) => (
           <div
             key={index}

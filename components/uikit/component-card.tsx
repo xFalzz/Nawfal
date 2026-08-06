@@ -41,12 +41,12 @@ export function ComponentCard({
   return (
     <div className="group relative flex w-full flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white transition-all hover:border-neutral-400 hover:shadow-sm dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-neutral-700">
       {/* Compact Header Bar */}
-      <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-2 dark:border-neutral-800">
-        <div className="flex items-center gap-1.5 min-w-0">
-          <span className="rounded border border-neutral-200 bg-neutral-100 px-1.5 py-0.5 font-mono text-[9px] font-medium uppercase tracking-wider text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400">
+      <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-neutral-200 px-2.5 py-2 dark:border-neutral-800 sm:px-3">
+        <div className="flex items-center gap-1.5 min-w-0 flex-1">
+          <span className="hidden rounded border border-neutral-200 bg-neutral-100 px-1.5 py-0.5 font-mono text-[8px] font-medium uppercase tracking-wider text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 xs:inline-block xs:text-[9px]">
             {category}
           </span>
-          <h4 className="truncate text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+          <h4 className="truncate text-[11px] font-semibold text-neutral-900 dark:text-neutral-100 xs:text-xs">
             {name}
           </h4>
         </div>
@@ -79,7 +79,7 @@ export function ComponentCard({
       </div>
 
       {/* Content Area */}
-      <div className="relative min-h-[190px] w-full flex-1">
+      <div className="relative min-h-[160px] w-full flex-1 sm:min-h-[190px]">
         <AnimatePresence mode="wait">
           {activeTab === "preview" ? (
             <motion.div
@@ -87,7 +87,7 @@ export function ComponentCard({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex min-h-[190px] w-full items-center justify-center p-5 bg-neutral-50/40 dark:bg-black/40"
+              className="flex min-h-[160px] w-full items-center justify-center p-3 bg-neutral-50/40 dark:bg-black/40 sm:min-h-[190px] sm:p-5"
             >
               {component}
             </motion.div>
@@ -97,7 +97,7 @@ export function ComponentCard({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="relative min-h-[190px] max-h-[280px] w-full overflow-auto bg-neutral-950 p-4 text-[11px] font-mono text-neutral-200 dark:bg-black scrollbar-thin"
+              className="relative min-h-[160px] max-h-[280px] w-full overflow-auto bg-neutral-950 p-3 text-[10px] font-mono text-neutral-200 dark:bg-black scrollbar-thin sm:min-h-[190px] sm:p-4 sm:text-[11px]"
             >
               <button
                 onClick={handleCopyCode}
@@ -115,9 +115,9 @@ export function ComponentCard({
       </div>
 
       {/* Compact Footer */}
-      <div className="flex items-center justify-between border-t border-neutral-200 bg-neutral-50 px-3 py-1.5 text-[10px] text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900/50 dark:text-neutral-400">
-        <p className="truncate max-w-[70%]">{description}</p>
-        <span className="font-mono text-[9px] text-neutral-400">CLI: nawfal-ui</span>
+      <div className="flex items-center justify-between border-t border-neutral-200 bg-neutral-50 px-2.5 py-1.5 text-[9px] text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900/50 dark:text-neutral-400 sm:px-3 sm:text-[10px]">
+        <p className="truncate max-w-[65%] sm:max-w-[70%]">{description}</p>
+        <span className="shrink-0 font-mono text-[8px] text-neutral-400 sm:text-[9px]">CLI: nawfal-ui</span>
       </div>
     </div>
   );

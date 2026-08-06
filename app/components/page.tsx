@@ -12,7 +12,9 @@ import {
   Terminal, 
   Check,
   Copy,
-  Zap
+  Zap,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 // Hub Sections
@@ -89,6 +91,38 @@ export default function ComponentsHubPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All System Components");
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedCli, setCopiedCli] = useState(false);
+
+  // Category Drag & Scroll Ref + Handlers
+  const categoryScrollRef = React.useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftState, setScrollLeftState] = useState(0);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!categoryScrollRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - categoryScrollRef.current.offsetLeft);
+    setScrollLeftState(categoryScrollRef.current.scrollLeft);
+  };
+
+  const handleMouseLeaveOrUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !categoryScrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - categoryScrollRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    categoryScrollRef.current.scrollLeft = scrollLeftState - walk;
+  };
+
+  const scrollCategory = (direction: "left" | "right") => {
+    if (categoryScrollRef.current) {
+      const scrollAmount = direction === "left" ? -220 : 220;
+      categoryScrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
 
   const categories = [
     "All System Components", 
@@ -1221,23 +1255,23 @@ export function GitBranchTreeGraph() {
   };
 
   return (
-    <div className="pad-x min-h-[100svh] w-full pb-12 pt-6 md:pt-8">
+    <div className="pad-x min-h-[100svh] w-full pb-8 pt-4 sm:pb-12 md:pt-8">
       {/* Ecosystem Hero Header */}
-      <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-neutral-900 p-5 text-white dark:border-neutral-800 dark:bg-black md:p-6">
-        <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="rounded border border-neutral-700 bg-neutral-800 px-2 py-0.5 font-mono text-[10px] uppercase text-neutral-300">
+      <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-neutral-900 p-4 text-white dark:border-neutral-800 dark:bg-black sm:p-5 md:p-6">
+        <div className="flex flex-col items-start justify-between gap-3 sm:gap-4 md:flex-row md:items-center">
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded border border-neutral-700 bg-neutral-800 px-2 py-0.5 font-mono text-[9px] uppercase text-neutral-300 sm:text-[10px]">
                 v5.0.0 Established Enterprise Edition
               </span>
-              <span className="flex items-center gap-1 font-mono text-[10px] text-emerald-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> 42 Components Verified
+              <span className="flex items-center gap-1 font-mono text-[9px] text-emerald-400 sm:text-[10px]">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 animate-pulse" /> 42 Components Verified
               </span>
             </div>
-            <h1 className="mt-2 text-2xl font-extrabold tracking-tight md:text-3xl">
+            <h1 className="mt-2 text-xl font-extrabold tracking-tight sm:text-2xl md:text-3xl">
               Nawfal UI Kit
             </h1>
-            <p className="mt-1 text-xs text-neutral-400 max-w-xl">
+            <p className="mt-1 text-[11px] text-neutral-400 max-w-xl sm:text-xs">
               Production-grade monochromatic component architecture featuring authoritative taxonomy, AI RAG engines, audio media suites, and full source code specs.
             </p>
           </div>
@@ -1245,11 +1279,11 @@ export function GitBranchTreeGraph() {
           {/* CLI Copy Bar */}
           <div 
             onClick={handleCopyCli}
-            className="group flex cursor-pointer items-center gap-3 rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-2 font-mono text-xs text-neutral-300 transition-all hover:border-neutral-600"
+            className="group flex w-full cursor-pointer items-center gap-2 rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 font-mono text-[11px] text-neutral-300 transition-all hover:border-neutral-600 sm:w-auto sm:gap-3 sm:px-3.5 sm:text-xs"
           >
-            <Terminal className="h-4 w-4 text-neutral-400" />
-            <span>npx nawfal-ui@latest init</span>
-            <button className="rounded border border-neutral-700 bg-neutral-800 p-1 text-neutral-300 hover:text-white">
+            <Terminal className="h-3.5 w-3.5 shrink-0 text-neutral-400 sm:h-4 sm:w-4" />
+            <span className="truncate">npx nawfal-ui@latest init</span>
+            <button className="shrink-0 rounded border border-neutral-700 bg-neutral-800 p-1 text-neutral-300 hover:text-white">
               {copiedCli ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
             </button>
           </div>
@@ -1257,8 +1291,8 @@ export function GitBranchTreeGraph() {
       </section>
 
       {/* Sticky Navigation Tabs */}
-      <nav className="sticky top-16 z-30 my-6 flex items-center justify-between gap-2 overflow-x-auto rounded-lg border border-neutral-200 bg-white/90 p-1 backdrop-blur-md no-scrollbar dark:border-neutral-800 dark:bg-neutral-950/90">
-        <div className="flex items-center gap-1">
+      <nav className="sticky top-[57px] z-30 my-4 flex items-center justify-between gap-1.5 overflow-x-auto rounded-lg border border-neutral-200 bg-white/90 p-1 backdrop-blur-md no-scrollbar dark:border-neutral-800 dark:bg-neutral-950/90 sm:my-6 sm:gap-2">
+        <div className="flex shrink-0 items-center gap-0.5 sm:gap-1">
           <button
             onClick={() => setActiveTab("components")}
             className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
@@ -1320,7 +1354,7 @@ export function GitBranchTreeGraph() {
           </button>
         </div>
 
-        <div className="hidden items-center gap-1.5 px-3 font-mono text-[10px] text-neutral-400 md:flex">
+        <div className="hidden shrink-0 items-center gap-1.5 px-2 font-mono text-[10px] text-neutral-400 lg:flex">
           <Zap className="h-3 w-3 text-neutral-400" />
           <span>Enterprise Taxonomy</span>
         </div>
@@ -1338,45 +1372,84 @@ export function GitBranchTreeGraph() {
             transition={{ duration: 0.15 }}
             className="flex flex-col gap-4"
           >
-            {/* Single-Line Category Filter Toolbar */}
-            <div className="flex w-full items-center justify-between gap-3 overflow-x-auto rounded-lg border border-neutral-200 bg-neutral-50/50 p-2 backdrop-blur-md no-scrollbar dark:border-neutral-800 dark:bg-neutral-900/40">
-              {/* Category Pills (Strict Single Row Horizontal Scroll) */}
-              <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5 shrink-0">
-                {categories.map((cat) => {
-                  const count = cat === "All System Components" ? uikitComponents.length : uikitComponents.filter(c => c.category === cat).length;
-                  return (
-                    <button
-                      key={cat}
-                      onClick={() => setSelectedCategory(cat)}
-                      className={`flex items-center gap-1 rounded px-2.5 py-1 text-[11px] font-medium transition-colors shrink-0 whitespace-nowrap ${
-                        selectedCategory === cat
-                          ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
-                          : "bg-white text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
-                      }`}
-                    >
-                      <span>{cat}</span>
-                      <span className="font-mono text-[9px] opacity-70">({count})</span>
-                    </button>
-                  );
-                })}
+            {/* Category Filter Toolbar */}
+            <div className="flex w-full flex-col gap-2 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50/50 p-2 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/40 sm:flex-row sm:items-center sm:gap-2">
+              {/* Category Pills Slider Container with Left & Right Arrow Controls */}
+              <div className="relative flex min-w-0 flex-1 items-center gap-1">
+                {/* Left Scroll Arrow Button */}
+                <button
+                  type="button"
+                  onClick={() => scrollCategory("left")}
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded border border-neutral-200 bg-white text-neutral-600 shadow-xs transition-colors hover:bg-neutral-100 hover:text-black dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                  title="Scroll Left"
+                  aria-label="Scroll categories left"
+                >
+                  <ChevronLeft className="h-3.5 w-3.5" />
+                </button>
+
+                {/* Draggable & Scrollable Category Bar */}
+                <div
+                  ref={categoryScrollRef}
+                  onMouseDown={handleMouseDown}
+                  onMouseLeave={handleMouseLeaveOrUp}
+                  onMouseUp={handleMouseLeaveOrUp}
+                  onMouseMove={handleMouseMove}
+                  className={`flex min-w-0 flex-1 items-center gap-1 overflow-x-auto py-0.5 no-scrollbar select-none ${
+                    isDragging ? "cursor-grabbing" : "cursor-grab"
+                  }`}
+                >
+                  {categories.map((cat) => {
+                    const count =
+                      cat === "All System Components"
+                        ? uikitComponents.length
+                        : uikitComponents.filter((c) => c.category === cat).length;
+                    return (
+                      <button
+                        key={cat}
+                        onClick={() => {
+                          if (!isDragging) setSelectedCategory(cat);
+                        }}
+                        className={`flex shrink-0 items-center gap-1 rounded px-2.5 py-1 text-[10px] font-medium transition-all whitespace-nowrap sm:text-[11px] ${
+                          selectedCategory === cat
+                            ? "bg-neutral-900 text-white shadow-xs dark:bg-white dark:text-black font-semibold"
+                            : "bg-white text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                        }`}
+                      >
+                        <span>{cat}</span>
+                        <span className="font-mono text-[8px] opacity-70 sm:text-[9px]">({count})</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Right Scroll Arrow Button */}
+                <button
+                  type="button"
+                  onClick={() => scrollCategory("right")}
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded border border-neutral-200 bg-white text-neutral-600 shadow-xs transition-colors hover:bg-neutral-100 hover:text-black dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                  title="Scroll Right"
+                  aria-label="Scroll categories right"
+                >
+                  <ChevronRight className="h-3.5 w-3.5" />
+                </button>
               </div>
 
-              {/* Search Input (Fixed Width on Same Line) */}
-              <div className="relative w-48 shrink-0">
+              {/* Search Input */}
+              <div className="relative w-full shrink-0 sm:w-44 md:w-48">
                 <Search className="absolute left-2.5 top-1/2 h-3 w-3 -translate-y-1/2 text-neutral-400" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Filter components..."
-                  className="w-full rounded border border-neutral-300 bg-white py-1 pl-8 pr-2.5 text-xs text-neutral-900 outline-none focus:border-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:border-white"
+                  className="w-full rounded border border-neutral-300 bg-white py-1.5 pl-8 pr-2.5 text-xs text-neutral-900 outline-none focus:border-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:border-white sm:py-1"
                 />
               </div>
             </div>
 
             {/* 3-Column Grid Layout */}
             {filteredComponents.length > 0 ? (
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {filteredComponents.map((item) => (
                   <ComponentCard
                     key={item.id}

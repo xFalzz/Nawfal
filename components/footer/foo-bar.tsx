@@ -23,9 +23,9 @@ import { Command } from "@/components/macro/command-dialog";
 const Footer = () => {
   return (
     <footer className="z-40 flex h-fit min-h-[100svh] w-full flex-col bg-background text-foreground">
-      <div className="grid grid-cols-5 border-t lg:grid-cols-7 xl:grid-cols-9">
+      <div className="grid grid-cols-3 border-t sm:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9">
         {/* Footer */}
-        <div className="col-span-5 flex items-center justify-center border-b px-4 py-4 md:border-r lg:col-span-2 lg:border-b-0 lg:py-4 xl:col-span-4">
+        <div className="col-span-3 flex items-center justify-center border-b px-4 py-3 sm:col-span-6 md:border-r lg:col-span-2 lg:border-b-0 lg:py-4 xl:col-span-4">
           <p className="text-center text-sm font-semibold uppercase text-foreground">
             Follow me
           </p>
@@ -117,7 +117,7 @@ const Footer = () => {
           </HoverCard>
         </div>
 
-        <div className="row-start-1 mx-auto flex h-full w-full flex-col justify-center px-4 py-6 md:row-span-2 md:px-12 lg:px-24">
+        <div className="row-start-1 mx-auto flex h-full w-full flex-col justify-center px-4 py-6 md:row-span-2 md:px-8 lg:px-16 xl:px-24">
           <p className="anim w-full text-left text-sm font-medium uppercase text-muted-foreground">
             Contact Me
           </p>

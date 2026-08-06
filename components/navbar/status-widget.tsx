@@ -94,22 +94,22 @@ export function StatusWidget() {
   }
 
   return (
-    <div className="flex flex-col items-start gap-1 text-[10px] font-medium leading-none text-muted-foreground sm:flex-row sm:gap-4 sm:text-xs">
+    <div className="flex items-center gap-2 text-[10px] font-medium leading-none text-muted-foreground sm:gap-4 sm:text-xs">
       <div className="flex items-center gap-1.5 uppercase transition-colors hover:text-foreground">
-        <div className="relative flex h-2 w-2">
+        <div className="relative flex h-2 w-2 shrink-0">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
           <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
         </div>
-        <span>{time}</span>
+        <span className="whitespace-nowrap">{time}</span>
+      </div>
+      <div className="hidden h-3 w-[1px] bg-border sm:block" />
+      <div className="hidden items-center gap-1.5 uppercase transition-colors hover:text-foreground sm:flex">
+        <MapPin className="h-3 w-3 shrink-0" />
+        <span className="whitespace-nowrap">YOGYAKARTA, INDONESIA</span>
       </div>
       <div className="hidden h-3 w-[1px] bg-border sm:block" />
       <div className="flex items-center gap-1.5 uppercase transition-colors hover:text-foreground">
-        <MapPin className="h-3 w-3" />
-        <span>YOGYAKARTA, INDONESIA</span>
-      </div>
-      <div className="hidden h-3 w-[1px] bg-border sm:block" />
-      <div className="flex items-center gap-1.5 uppercase transition-colors hover:text-foreground">
-        <Cloud className="h-3 w-3" />
+        <Cloud className="h-3 w-3 shrink-0" />
         <span>{temperature !== null ? `${temperature}°C` : "--°C"}</span>
       </div>
     </div>

@@ -436,7 +436,7 @@ export default function CertificatePage() {
 
       <div className="pad-x py-6 md:py-10">
         {/* Stats */}
-        <div className="mb-8 flex flex-wrap gap-4">
+        <div className="mb-6 flex flex-wrap gap-2 sm:gap-3 md:mb-8 md:gap-4">
           {categories.slice(1).map((cat) => {
             const count = certificates.filter((c) => c.category === cat).length;
             if (count === 0) return null;

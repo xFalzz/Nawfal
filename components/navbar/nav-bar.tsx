@@ -16,7 +16,7 @@ const Navbar = () => {
 
       {/* Nav Items */}
       <nav className="flex items-center justify-between">
-        <ul className="flex items-center gap-x-8">
+        <ul className="flex items-center gap-x-4 sm:gap-x-6 md:gap-x-8">
           {NavItems.map((item, index) => (
             <li key={index} className="hidden sm:block">
               <NavLink href={item.href} name={item.name} />

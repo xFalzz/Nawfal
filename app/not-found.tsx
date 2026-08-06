@@ -56,7 +56,7 @@ export default function NotFound() {
   return (
     <main className="w-full flex-1 flex flex-col items-center justify-center pad-x py-10 md:py-16 min-h-[80vh] relative overflow-hidden">
       {/* Ambient background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-primary/20 via-sky-500/10 to-purple-500/15 rounded-full blur-3xl pointer-events-none -z-10 opacity-70" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] bg-gradient-to-tr from-primary/20 via-sky-500/10 to-purple-500/15 rounded-full blur-3xl pointer-events-none -z-10 opacity-70" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -119,7 +119,7 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="w-full max-w-md rounded-2xl border border-border/60 bg-black/80 dark:bg-card/40 backdrop-blur-md p-4 text-left font-mono text-xs shadow-xl ring-1 ring-white/5 space-y-1.5"
+          className="w-full max-w-sm rounded-2xl border border-border/60 bg-black/80 dark:bg-card/40 backdrop-blur-md p-3 sm:p-4 sm:max-w-md text-left font-mono text-xs shadow-xl ring-1 ring-white/5 space-y-1.5"
         >
           <div className="flex items-center gap-x-1.5 pb-2 border-b border-border/40 text-muted-foreground">
             <Terminal className="h-3.5 w-3.5 text-primary" />

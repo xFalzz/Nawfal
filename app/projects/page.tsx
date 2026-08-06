@@ -153,7 +153,7 @@ const Page = () => {
         </p>
       </div>
       <div className="h-[1px] w-full bg-border" />
-      <div className="pad-x flex h-full min-h-fit w-full grow flex-col gap-x-4 gap-y-4 md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-6 lg:gap-x-8 lg:gap-y-8 xl:grid-cols-3">
+      <div className="pad-x flex h-full min-h-fit w-full grow flex-col gap-x-4 gap-y-4 md:grid md:grid-cols-2 md:gap-x-5 md:gap-y-5 lg:gap-x-6 lg:gap-y-6 xl:grid-cols-3 xl:gap-x-8 xl:gap-y-8">
         {Projects.map((project, index) => (
           <TemplateCard key={index} {...project} />
         ))}
