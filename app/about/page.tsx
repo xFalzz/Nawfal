@@ -59,7 +59,7 @@ const Page = () => {
       </div>
       <div className="h-[1px] w-full bg-border" />
       <div className="flex h-full w-full grow flex-col md:flex-row">
-        <div className="pad-x flex h-auto w-full flex-col justify-center gap-y-4 border-b py-4 md:w-1/2 md:max-w-md md:border-b-0 md:border-r md:py-8 lg:max-w-lg lg:py-12">
+        <div className="pad-x flex h-auto w-full flex-col justify-center gap-y-4 border-b py-4 md:w-fit md:border-b-0 md:border-r md:py-8 lg:py-12">
           <h2 className="mb-2 text-balance text-left text-2xl font-semibold lg:mb-4">
             Experience
           </h2>
@@ -105,7 +105,7 @@ const Page = () => {
               <Image src={BTKP} alt="BTKP" className="h-auto w-full rounded" />
             </div>
             <div className="flex w-fit flex-col">
-              <h3 className="text-balance text-sm font-medium sm:text-base lg:text-lg">
+              <h3 className="text-balance text-base font-medium lg:text-lg">
                 Balai Teknologi Komunikasi Pendidikan DIY
               </h3>
               <p className="text-xs text-muted-foreground md:text-sm">
@@ -190,7 +190,7 @@ const Page = () => {
             </Link>
           </Button>
         </div>
-        <div className="pad-x flex h-auto w-full grow flex-col justify-center gap-y-4 self-stretch pb-5 pt-4 md:items-center md:py-8 lg:py-12">
+        <div className="pad-x flex h-auto w-auto grow flex-col justify-center gap-y-4 self-stretch pb-5 pt-4 md:items-center md:py-8 lg:py-12">
           <h2 className="w-full text-balance text-left text-2xl font-semibold md:max-w-lg">
             Inspiration
           </h2>
