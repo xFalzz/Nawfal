@@ -161,9 +161,9 @@ export default function CertificateGrid({
             </div>
 
             {/* Content Viewer — PDF iframe or Image */}
-            <div className="relative flex-1 bg-muted flex items-center justify-center" style={{ minHeight: "60vh" }}>
+            <div className="relative flex-1 bg-muted flex items-center justify-center min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh]">
               {isImage(selected.file) ? (
-                <div className="relative w-full" style={{ minHeight: "60vh" }}>
+                <div className="relative w-full min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh]">
                   <Image
                     key={selected.file}
                     src={selected.file}
@@ -178,8 +178,7 @@ export default function CertificateGrid({
                   key={selected.file}
                   src={`${selected.file}#toolbar=0&navpanes=0&view=FitH`}
                   title={selected.name}
-                  className="h-full w-full border-0"
-                  style={{ minHeight: "60vh" }}
+                  className="h-full w-full border-0 min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh]"
                   scrolling="auto"
                 />
               )}

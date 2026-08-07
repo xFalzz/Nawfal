@@ -1,131 +1,411 @@
 "use client";
 
 import React, { useState } from "react";
-import { BookOpen, Code2, ArrowUpRight, Check, ChevronRight, Zap, ShieldCheck, Cpu } from "lucide-react";
+import { BookOpen, Code2, ArrowUpRight, Check, ChevronRight, Zap, ShieldCheck, Cpu, Terminal, Palette, Layers, Box, Eye, Sparkles, Shield, Globe } from "lucide-react";
 
 export function LearnSection() {
   const [selectedGuide, setSelectedGuide] = useState(0);
 
   const guides = [
     {
-      id: "out-of-the-box-physics",
-      title: "1. Engineering Out-Of-The-Box Audio Spectrum & Hardware Trackers",
-      category: "Innovation Engineering",
-      readTime: "5 min read",
-      summary: "How to build real-time audio spectrum physics visualizers and listener events for physical hardware keyboards in React.",
-      content: `
-Building components that go beyond basic buttons or forms requires tapping into low-level browser APIs:
+      id: "what-is-nawfal-ui",
+      title: "What is Nawfal UI? — Complete Introduction",
+      category: "Getting Started",
+      readTime: "3 min read",
+      summary: "Understand what Nawfal UI is, why it was built, and how it fits into the modern React ecosystem as a production-grade component library.",
+      content: `Nawfal UI is an open-source, enterprise-grade React component library built on a strict monochromatic design philosophy. It ships 48 production-ready components across 7 categories — from AI-powered semantic search interfaces to physics-based motion primitives and real-time telemetry dashboards.
 
-1. **Hardware Keyboard Key Tracker**: Listening to global \`keydown\` and \`keyup\` window events to map physical key codes (e.g. \`CMD\`, \`K\`, \`W\`, \`A\`, \`S\`, \`D\`) to 3D spring-animated keycaps in real time.
-2. **Audio Spectrum Waveform**: Animating dynamic bar heights using spring stiffness (\`stiffness: 300, damping: 15\`) to emulate physical frequency bounce during audio playback.
-3. **Holographic Scanlines**: Employing linear gradient transforms moving vertically across dark obsidian surfaces to simulate holographic laser security cards.
-      `,
+### Why Nawfal UI Exists
+Most component libraries ship compiled packages that abstract away the source code. Nawfal UI takes the opposite approach: **source-owned components**. Every component is a standalone TSX file that you copy into your project, own, and customize without dependency lock-in.
+
+### Key Differentiators
+- **Copy-paste architecture** — No npm imports, no version conflicts
+- **Monochromatic design system** — WCAG AAA compliant, 18.5:1 contrast ratio
+- **Physics-based animations** — Spring dynamics (stiffness, damping, mass) via Framer Motion
+- **AI-first components** — RAG search, vector similarity, token streaming
+- **CLI installer** — \`npx nawfal-ui@latest init\` for instant project setup
+
+### Who Should Use This?
+Nawfal UI is ideal for developers building modern web applications with Next.js 14+ who want premium, dark-mode-first UI components with full source ownership.`,
     },
     {
-      id: "motion-springs",
-      title: "2. Mastering Physics-Based Springs in Framer Motion",
-      category: "Animation Mechanics",
+      id: "installation-guide",
+      title: "Installation & Quick Start Guide",
+      category: "Setup",
       readTime: "4 min read",
-      summary: "Why spring physics feel significantly better than traditional CSS ease-in-out transitions, and how to tune stiffness and damping for UI components.",
-      content: `
-Traditional linear or cubic-bezier CSS animations can feel artificial. Physics-driven spring animations model mass, stiffness, and damping to create tactile, natural UI micro-interactions.
+      summary: "Step-by-step guide to installing Nawfal UI in your Next.js project using the CLI, manual copy, or Git clone approach.",
+      content: `Getting started with Nawfal UI takes less than 2 minutes. Choose from three installation methods:
 
-### Recommended Spring Presets:
-- **Snappy Button**: \`{ type: "spring", stiffness: 400, damping: 25 }\`
-- **Floating Modal**: \`{ type: "spring", stiffness: 200, damping: 20 }\`
-- **Magnetic Drag**: \`{ type: "spring", stiffness: 150, damping: 15, mass: 0.5 }\`
-      `,
+### Method 1: CLI (Recommended)
+\`\`\`bash
+# Initialize your project
+npx nawfal-ui@latest init
+
+# Add specific components
+npx nawfal-ui@latest add ai-semantic-search
+npx nawfal-ui@latest add holographic-badge
+npx nawfal-ui@latest add audio-waveform
+\`\`\`
+
+### Method 2: Manual Copy
+1. Browse components at the Components tab
+2. Click "Show Code" on any component
+3. Copy the TSX source into your \`components/uikit/\` directory
+4. Import and use: \`import { HolographicBadge } from "@/components/uikit/holographic-badge"\`
+
+### Method 3: Clone Repository
+\`\`\`bash
+git clone https://github.com/xFalzz/nawfal-ui
+cp -r nawfal-ui/components/uikit/ ./components/
+\`\`\`
+
+### Required Dependencies
+Make sure these packages are installed in your project:
+- \`react\` ^18.3.x
+- \`framer-motion\` ^12.x
+- \`lucide-react\` ^0.356.x
+- \`tailwind-merge\` ^2.x
+- \`clsx\` ^2.x
+
+### Configuration File
+After running \`init\`, a \`nawfal-ui.json\` config file is created:
+\`\`\`json
+{
+  "style": "monochrome",
+  "tsx": true,
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils"
+  }
+}
+\`\`\``,
     },
     {
-      id: "monochrome-depth",
-      title: "3. The Art of Monochromatic UI: Creating Depth Without Color",
+      id: "design-system-deep-dive",
+      title: "Deep Dive: The Monochromatic Design System",
       category: "Design System",
-      readTime: "5 min read",
-      summary: "How to build rich visual hierarchy using only luminance gradients, subtle borders, radial spotlights, and backdrop blurs.",
-      content: `
-When color is removed as a visual indicator, interface design relies heavily on four fundamental elements:
-
-1. **Luminance Contrast**: Separating background obsidian (#0A0A0A) from elevated surfaces (#171717).
-2. **Radial Spotlights**: Using dynamic mouse coordinates to illuminate component borders on hover.
-3. **Precision Grid Lines**: Employing 1px borders with 10-15% opacity to establish structural boundaries.
-4. **Subtle Elevation**: Harnessing backdrop blur filters (\`backdrop-filter: blur(12px)\`) for contextual depth.
-      `,
-    },
-    {
-      id: "next14-architecture",
-      title: "4. Scalable Component Architecture in Next.js 14 App Router",
-      category: "Architecture",
       readTime: "6 min read",
-      summary: "Best practices for organizing Server Components vs Client Components in production React applications.",
-      content: `
-In Next.js 14, default to **Server Components** for maximum performance and low JS bundle payload. Push \`"use client"\` boundaries as far down the DOM tree as possible.
+      summary: "The complete design philosophy behind Nawfal UI — color tokens, typography scale, spacing system, border radii, and accessibility standards.",
+      content: `The Nawfal UI design system is built on one core principle: **extreme visual clarity through luminance hierarchy**.
 
-### Key Rules:
-- Keep data fetching inside Server Components at the root layout or page level.
-- Wrap interactive micro-widgets (like Nawfal UI components) with local \`"use client"\` directives.
-- Use React Suspense boundaries around async data-fetching sub-trees.
-      `,
+### Color Palette (6 Core Tokens)
+- **#0A0A0A** (Obsidian Core) — Primary backgrounds, hero sections
+- **#171717** (Neutral Dark) — Elevated card surfaces
+- **#262626** (Subtle Surface) — Secondary containers, modals
+- **#404040** (Muted Border) — Borders, dividers, separators
+- **#FAFAFA** (Light Surface) — Light mode backgrounds
+- **#FFFFFF** (Pure White) — Primary foreground text, icons
+
+### Why Monochromatic?
+Color is inherently subjective and introduces brand collision in enterprise contexts. A monochromatic palette:
+1. Eliminates color bias and cultural interpretation issues
+2. Forces designers to create hierarchy through **luminance, spacing, and typography** alone
+3. Works universally across all brand identities
+4. Achieves maximum WCAG contrast ratios naturally
+
+### Typography Scale
+- **Display XL**: 3xl, extrabold, tracking-tight — Hero headlines
+- **Heading**: xl, bold — Section headers
+- **Subheading**: sm, semibold, uppercase, wider — Category labels
+- **Body**: xs, leading-relaxed — Content paragraphs
+- **Caption**: mono, 10px, medium — Metadata, version tags
+- **Badge**: mono, 8px, bold, uppercase — Status indicators
+
+### Spacing System (4px base grid)
+All spacing follows a 4px base grid: 4px → 8px → 12px → 16px → 20px → 24px → 32px. This ensures pixel-perfect alignment across all component compositions.
+
+### Border Radius Tokens
+- **rounded-sm** (2px) — Inline badges
+- **rounded** (4px) — Input fields
+- **rounded-lg** (8px) — Cards, containers
+- **rounded-xl** (12px) — Section containers
+- **rounded-2xl** (16px) — Hero panels`,
     },
     {
-      id: "ai-semantic-rag-ui",
-      title: "5. Building AI Semantic Search & Vector RAG UI Components in React",
+      id: "component-categories",
+      title: "Understanding the 7 Component Categories",
+      category: "Component Architecture",
+      readTime: "5 min read",
+      summary: "Detailed breakdown of all 48 components organized by their 7 functional categories — what each does and when to use them.",
+      content: `Nawfal UI ships 48 components organized into 7 distinct functional categories:
+
+### 1. AI RAG & Intelligence Engines (5 components)
+Build AI-powered search interfaces with real-time vector similarity, token-by-token streaming, and semantic matching.
+- **AI Semantic Search** — Full RAG search bar with query processing
+- **Vector RAG Engine** — Cosine similarity scoring and confidence badges
+- **Token Estimator** — GPT tokenization calculator
+- **Neural Voice AI** — Conversational AI interface
+- **AI Vision Inspector** — Image analysis pipeline UI
+
+### 2. Audio Architecture & Media (5 components)
+Premium music and audio visualization components.
+- **Audio Waveform** — Dynamic frequency bar visualizer
+- **Spotify Player** — Full-featured music player
+- **Vinyl Controller** — Retro disk animation
+- **Album Art Card** — Glassmorphic album display
+- **Mini Player** — Compact playback widget
+
+### 3. Bespoke Widgets & Utilities (8 components)
+Unique developer-focused widgets that solve specific problems.
+- **Color Picker** — HSL/RGB/Hex selector
+- **BPM Metronome** — Audio tempo counter
+- **Terminal Runner** — CLI simulation
+- **Command Palette** — ⌘K search interface
+- **FPS Monitor** — Frame rate dashboard
+- **Copy Button** — One-click clipboard
+- **QR Generator** — Dynamic QR code
+- **Code Syntax Block** — Highlighted code display
+
+### 4. Kinetic Motion & Physics (6 components)
+Spring-animated, GPU-optimized motion primitives.
+
+### 5. Structural Containers & Surfaces (8 components)
+Glass panels, glow cards, holographic badges, and 3D parallax containers.
+
+### 6. Interactive Inputs & Controls (9 components)
+Form elements, toggles, steppers, OTP inputs, and range sliders.
+
+### 7. Telemetry & System Signals (7 components)
+Real-time monitoring dashboards, commit graphs, radar sweeps.`,
+    },
+    {
+      id: "physics-spring-animations",
+      title: "Mastering Physics-Based Spring Animations",
+      category: "Animation Engineering",
+      readTime: "5 min read",
+      summary: "Why spring physics feel significantly better than CSS transitions, and how to tune stiffness, damping, and mass for production UI.",
+      content: `Traditional \`ease-in-out\` CSS animations feel artificial because they follow fixed mathematical curves. Physics-driven spring animations model real-world mass, stiffness, and damping to create naturally responsive micro-interactions.
+
+### The Spring Model
+A spring animation follows Hooke's Law: F = -kx - cv
+- **k (stiffness)** — How quickly the element reaches its target (higher = faster)
+- **c (damping)** — How quickly the oscillation settles (higher = less bounce)
+- **m (mass)** — How heavy the element feels (higher = more inertia)
+
+### Recommended Spring Presets
+| Preset | Stiffness | Damping | Mass | Use Case |
+|--------|-----------|---------|------|----------|
+| Snappy Button | 400 | 25 | 1 | Button press/release |
+| Floating Modal | 200 | 20 | 1 | Modal entrance |
+| Magnetic Drag | 150 | 15 | 0.5 | Drag-to-snap |
+| Gentle Fade | 100 | 20 | 1 | Page transitions |
+| Elastic Bounce | 300 | 10 | 0.8 | Notification pop |
+
+### Implementation in Framer Motion
+\`\`\`tsx
+<motion.div
+  initial={{ scale: 0.9, opacity: 0 }}
+  animate={{ scale: 1, opacity: 1 }}
+  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+/>
+\`\`\`
+
+### GPU Optimization Rules
+1. Only animate \`transform\` and \`opacity\` — never width/height/margin
+2. Use \`will-change: transform\` sparingly on frequently animated elements
+3. Avoid animating more than 10 elements simultaneously
+4. Prefer \`translateZ(0)\` for hardware layer promotion`,
+    },
+    {
+      id: "ai-rag-components",
+      title: "Building AI-Powered Interfaces with Nawfal UI",
       category: "AI Web Engineering",
       readTime: "7 min read",
-      summary: "Architecting interactive conversational search bars, vector similarity badges, and token-by-token streaming RAG outputs.",
-      content: `
-AI-driven interfaces require specialized UX patterns that provide instant feedback during async inference:
+      summary: "How to implement semantic search, vector RAG, token streaming, and confidence scoring in production React applications.",
+      content: `AI-driven interfaces require specialized UX patterns that handle async inference, streaming outputs, and confidence visualization.
 
-1. **Vector Confidence Score**: Displaying real-time similarity metrics (e.g. \`98.4% MATCH\`) derived from cosine similarity calculations over embeddings.
-2. **Streaming Text Simulation**: Utilizing \`setInterval\` or Server-Sent Events (SSE) to render tokens incrementally, providing responsive feedback to the user.
-3. **Optimistic Tag Suggestions**: Automatically surfacing auto-complete semantic filters as the user types.
-      `,
+### Pattern 1: Vector Similarity Badge
+Display cosine similarity scores from embedding comparisons:
+\`\`\`tsx
+<VectorBadge score={0.984} threshold={0.8} />
+// Renders: "98.4% MATCH ✓" with emerald indicator
+\`\`\`
+
+### Pattern 2: Token-by-Token Streaming
+Render AI responses incrementally using Server-Sent Events:
+1. Connect to SSE endpoint
+2. Accumulate tokens in state
+3. Render with cursor blink animation
+4. Auto-scroll container to bottom
+
+### Pattern 3: Semantic Search Bar
+The AI Semantic Search component combines:
+- Debounced query input (300ms)
+- Real-time suggestion filtering
+- Vector similarity ranking
+- Highlighted match rendering
+- Keyboard navigation (↑↓ Enter)
+
+### Pattern 4: Confidence Thresholds
+Map confidence scores to visual indicators:
+- **95-100%**: Emerald badge, "VERIFIED MATCH"
+- **80-94%**: Amber badge, "HIGH CONFIDENCE"
+- **60-79%**: Orange badge, "MODERATE"
+- **<60%**: Red badge, "LOW CONFIDENCE"
+
+### Best Practice: Optimistic UI
+Always show immediate feedback (loading states, skeleton placeholders) before AI inference completes. Users expect <200ms visual response even if inference takes 2-5 seconds.`,
     },
     {
-      id: "gpu-performance-optimization",
-      title: "6. High-Performance Web Animations & GPU Layer Optimization",
-      category: "Performance",
-      readTime: "5 min read",
-      summary: "Ensuring 60 FPS rendering by leveraging hardware acceleration, transform3d, and avoiding layout reflows.",
-      content: `
-Smooth 60 FPS animations depend on keeping work on the GPU thread rather than triggering CPU layout re-calculations:
-
-- **GPU Accelerated Properties**: Animate ONLY \`transform\` (scale, translate, rotate) and \`opacity\`.
-- **Hardware Layer Promotion**: Use \`transform: translateZ(0)\` or \`will-change: transform\` sparingly on heavily animated widgets.
-- **Avoid Reflow Triggers**: Never animate properties like \`width\`, \`height\`, \`margin\`, or \`padding\` directly.
-      `,
-    },
-    {
-      id: "glassmorphism-css-engineering",
-      title: "7. Glassmorphism & Backdrop Filter Engineering in Modern CSS",
+      id: "glassmorphism-engineering",
+      title: "Glassmorphism & Backdrop Filter Engineering",
       category: "CSS Engineering",
       readTime: "4 min read",
-      summary: "Designing sleek frosted glass cards with cross-browser fallback support.",
-      content: `
-Frosted glass UI creates a sense of spatial hierarchy by blurring elements behind floating containers.
+      summary: "Creating sleek frosted glass surfaces with proper cross-browser support, performance considerations, and fallback patterns.",
+      content: `Frosted glass (glassmorphism) creates spatial hierarchy by blurring content behind floating panels, suggesting depth and layering.
 
-### Recommended CSS Tokens:
+### The CSS Foundation
 \`\`\`css
 .glass-panel {
   background: rgba(10, 10, 10, 0.65);
   backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 \`\`\`
-      `,
+
+### Tailwind Implementation
+\`\`\`html
+<div class="bg-black/65 backdrop-blur-xl border border-white/12">
+  <!-- Glass content -->
+</div>
+\`\`\`
+
+### Performance Considerations
+- Backdrop blur is GPU-intensive — limit to 3-4 stacked layers maximum
+- On mobile devices, reduce blur from 16px to 8px for smoother scrolling
+- Use \`will-change: transform\` on glass containers to promote GPU layers
+- Avoid animating backdrop-filter values directly
+
+### Cross-Browser Fallbacks
+- Safari requires \`-webkit-backdrop-filter\` prefix
+- Firefox 103+ supports backdrop-filter natively
+- For unsupported browsers, fall back to solid rgba backgrounds`,
     },
     {
-      id: "wcag-monochrome-accessibility",
-      title: "8. Accessible Monochromatic Contrast (WCAG AA/AAA Standard)",
+      id: "nextjs-architecture",
+      title: "Scalable Component Architecture in Next.js 14",
+      category: "Architecture",
+      readTime: "6 min read",
+      summary: "Best practices for organizing Server vs Client Components, data fetching patterns, and code-splitting strategies in Next.js App Router.",
+      content: `Next.js 14's App Router fundamentally changes how we think about component architecture. Default to Server Components for maximum performance.
+
+### Key Rules
+1. **Server Components first** — Keep data fetching at root layout/page level
+2. **Push "use client" down** — Only interactive widgets need client directives
+3. **Use Suspense boundaries** — Wrap async sub-trees for progressive loading
+4. **Code-split by route** — Each page auto-bundles independently
+
+### Nawfal UI Integration Pattern
+\`\`\`tsx
+// app/dashboard/page.tsx (Server Component)
+import { DashboardMetrics } from "./metrics";
+
+export default async function DashboardPage() {
+  const data = await fetchMetrics(); // Server-side
+  return <DashboardMetrics data={data} />;
+}
+
+// app/dashboard/metrics.tsx (Client Component)
+"use client";
+import { RadarSweep } from "@/components/uikit/radar-sweep";
+export function DashboardMetrics({ data }) {
+  return <RadarSweep data={data} />;
+}
+\`\`\`
+
+### File Organization
+\`\`\`
+components/
+  uikit/          ← Nawfal UI source components
+  ui/             ← shadcn/ui primitives
+  macro/          ← App-specific compositions
+lib/
+  utils.ts        ← cn() helper, shared utilities
+\`\`\``,
+    },
+    {
+      id: "accessibility-wcag",
+      title: "Accessibility (WCAG AA/AAA) in Monochromatic UI",
       category: "Accessibility",
       readTime: "5 min read",
-      summary: "Ensuring high contrast ratios (4.5:1 for body text, 3:1 for large UI components) in dark mode interfaces.",
-      content: `
-A common pitfall in dark monochromatic themes is low legibility due to insufficient contrast.
+      summary: "Ensuring full accessibility compliance in dark monochromatic themes — contrast ratios, focus management, screen readers, and keyboard navigation.",
+      content: `A monochromatic design system naturally achieves high contrast ratios, but accessibility goes far beyond color.
 
-- **Body Text**: Maintain minimum 4.5:1 contrast against background (#0A0A0A vs #FAFAFA = 18.5:1).
-- **Secondary Text**: Keep neutral text at minimum #A3A3A3 to satisfy WCAG AA legibility.
-- **Focus Rings**: Always preserve visible focus outlines (\`ring-2 ring-white\`) for keyboard navigation.
-      `,
+### Contrast Ratios in Nawfal UI
+- **Primary text** (#FAFAFA on #0A0A0A) = 18.5:1 → WCAG AAA ✓
+- **Secondary text** (#A3A3A3 on #0A0A0A) = 8.6:1 → WCAG AAA ✓
+- **Muted text** (#737373 on #0A0A0A) = 4.7:1 → WCAG AA ✓
+- **Border indicators** (#404040 on #0A0A0A) = 2.6:1 → Non-text AA ✓
+
+### Focus Management
+Every interactive element must have visible focus states:
+\`\`\`css
+:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+\`\`\`
+
+### Keyboard Navigation
+- All components support Tab/Shift+Tab navigation
+- Arrow keys for list/menu navigation
+- Enter/Space for activation
+- Escape for dismissal
+
+### Screen Reader Support
+- Use semantic HTML elements (\`<button>\`, \`<nav>\`, \`<main>\`)
+- Add \`aria-label\` to icon-only buttons
+- Use \`role="status"\` for live telemetry updates
+- Announce route changes with \`aria-live="polite"\`
+
+### Motion Sensitivity
+Respect \`prefers-reduced-motion\`:
+\`\`\`css
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+\`\`\``,
+    },
+    {
+      id: "gpu-performance",
+      title: "GPU-Optimized Web Animations for 60 FPS",
+      category: "Performance",
+      readTime: "5 min read",
+      summary: "Ensuring buttery-smooth 60 FPS rendering by leveraging hardware acceleration, compositor threads, and avoiding layout thrashing.",
+      content: `Smooth animations depend on keeping work on the GPU compositor thread rather than triggering CPU layout recalculations.
+
+### The Golden Rules
+1. **Animate ONLY** \`transform\` and \`opacity\` — these are composited, not layout-triggering
+2. **Never animate** \`width\`, \`height\`, \`margin\`, \`padding\`, \`top\`, \`left\`
+3. **Use \`transform: translateZ(0)\`** to promote elements to their own compositor layer
+4. **Limit simultaneous animations** to 8-10 elements per viewport
+
+### Layout Thrashing Detection
+Layout thrashing occurs when you read and write DOM layout properties in quick succession:
+\`\`\`js
+// BAD — causes forced synchronous layout
+element.style.width = "100px";
+const height = element.offsetHeight; // Forces layout calculation
+element.style.height = height + "px";
+
+// GOOD — batch reads, then batch writes
+const height = element.offsetHeight;
+requestAnimationFrame(() => {
+  element.style.width = "100px";
+  element.style.height = height + "px";
+});
+\`\`\`
+
+### Performance Budget
+- First Contentful Paint: < 1.5s
+- Largest Contentful Paint: < 2.5s  
+- Cumulative Layout Shift: < 0.1
+- Total Blocking Time: < 200ms
+- JS bundle per route: < 150KB gzipped`,
     },
   ];
 
@@ -135,20 +415,21 @@ A common pitfall in dark monochromatic themes is low legibility due to insuffici
       <section className="rounded-xl border border-neutral-200 bg-white/60 p-5 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/60">
         <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-neutral-500">
           <BookOpen className="h-4 w-4" />
-          <span>Learn & Engineering Tutorials ({guides.length} Micro-Guides)</span>
+          <span>Documentation & Learning Center ({guides.length} Guides)</span>
         </div>
         <h2 className="mt-1 text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-          Frontend Engineering & AI Web Tutorials
+          Nawfal UI Knowledge Base
         </h2>
         <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
-          Comprehensive micro-guides covering low-level hardware events, AI vector search, GPU optimization, spring physics, and accessibility.
+          Comprehensive documentation covering installation, design system philosophy, component architecture, 
+          AI interfaces, animation engineering, accessibility standards, and performance optimization.
         </p>
       </section>
 
       {/* Guide List & Reader */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {/* Sidebar Selection */}
-        <div className="flex flex-col gap-2.5 max-h-[500px] overflow-y-auto pr-1 md:col-span-1">
+        <div className="flex flex-col gap-2.5 max-h-[600px] overflow-y-auto pr-1 md:col-span-1">
           {guides.map((g, idx) => (
             <div
               key={g.id}

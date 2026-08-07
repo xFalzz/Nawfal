@@ -35,7 +35,7 @@ const NavDrop = () => {
             />
           </div>
         </PopoverTrigger>
-        <PopoverContent className="absolute -right-4 mt-10 flex w-fit flex-col gap-3 px-0 pb-2.5 pt-3 sm:pb-3 md:mt-5">
+        <PopoverContent className="right-0 mt-2 flex w-[200px] flex-col gap-3 p-3 shadow-xl backdrop-blur-xl border bg-background/95 rounded-xl">
           <div className="flex flex-col gap-y-1">
             <div className="flex flex-col gap-y-1 px-1 sm:hidden">
               <div className="mb-1 flex items-center gap-x-12 px-2">

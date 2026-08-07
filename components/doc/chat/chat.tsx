@@ -254,6 +254,16 @@ const Chat = () => {
   const [user, userLoading] = useAuthState(auth);
   const [activeTab, setActiveTab] = useState<"public" | "ai">("public");
   const [showAiOnDesktop, setShowAiOnDesktop] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
 
   // Resizable state
   const containerRef = useRef<HTMLDivElement>(null);
@@ -498,19 +508,23 @@ const Chat = () => {
       {/* Resizable Chat Container */}
       <div
         ref={containerRef}
-        style={{ height: `${containerHeight}px` }}
+        style={{ height: isDesktop ? `${containerHeight}px` : undefined }}
         className={cn(
-          "flex w-full overflow-hidden relative transition-[height] duration-75",
+          "flex flex-col md:flex-row w-full overflow-hidden relative transition-[height] duration-75 min-h-[500px] h-[calc(100vh-220px)] md:h-auto",
           (isDraggingSplit || isDraggingHeight) && "select-none"
         )}
       >
         {/* ─── Public Chat Room Panel ────────────────────────────────────────── */}
         <div
           style={{
-            width: showAiOnDesktop ? `${leftWidthPercent}%` : "100%",
+            width: isDesktop
+              ? showAiOnDesktop
+                ? `${leftWidthPercent}%`
+                : "100%"
+              : undefined,
           }}
           className={cn(
-            "flex flex-col h-full border rounded-2xl overflow-hidden shadow-lg transition-all duration-150",
+            "flex flex-col h-full w-full border rounded-2xl overflow-hidden shadow-lg transition-all duration-150",
             "bg-gradient-to-b from-card/80 to-card/60 backdrop-blur-xl",
             "ring-1 ring-border/30",
             activeTab !== "public" && "hidden md:flex"
@@ -735,10 +749,14 @@ const Chat = () => {
         {/* ─── Nawfal AI Assistant Panel ──────────────────────────────────────── */}
         <div
           style={{
-            width: showAiOnDesktop ? `${100 - leftWidthPercent}%` : "0%",
+            width: isDesktop
+              ? showAiOnDesktop
+                ? `${100 - leftWidthPercent}%`
+                : "0%"
+              : undefined,
           }}
           className={cn(
-            "flex flex-col h-full border rounded-2xl overflow-hidden shadow-lg transition-all duration-150",
+            "flex flex-col h-full w-full border rounded-2xl overflow-hidden shadow-lg transition-all duration-150",
             "bg-gradient-to-b from-card/80 to-card/60 backdrop-blur-xl",
             "ring-1 ring-primary/10",
             activeTab !== "ai" && "hidden md:flex",
@@ -997,14 +1015,14 @@ const Chat = () => {
         </div>
       </div>
 
-      {/* ─── Height Resizer Bar (Bottom) ───────────────────────── */}
+      {/* ─── Height Resizer Bar (Bottom - Desktop Only) ───────────────────────── */}
       <div
         onMouseDown={handleHeightMouseDown}
         onTouchStart={handleHeightMouseDown}
         onDoubleClick={() => setContainerHeight(700)}
         title="Drag to resize height (double-click to reset)"
         className={cn(
-          "w-full flex items-center justify-center py-2 cursor-row-resize group z-20 transition-all mt-1",
+          "hidden md:flex w-full items-center justify-center py-2 cursor-row-resize group z-20 transition-all mt-1",
           isDraggingHeight ? "opacity-100" : "opacity-50 hover:opacity-100"
         )}
       >
