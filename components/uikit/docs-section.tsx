@@ -120,26 +120,26 @@ export const springPresets = {
       </section>
 
       {/* ─── Multi-Tab Navigation Bar ────────────────────────────────────────── */}
-      <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-100 p-1 font-mono text-xs dark:border-neutral-800 dark:bg-black overflow-x-auto no-scrollbar">
+      <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-100 p-1 font-mono text-xs dark:border-neutral-800 dark:bg-black overflow-x-auto no-scrollbar touch-pan-x scroll-smooth">
         <div className="flex gap-1 shrink-0">
           {[
-            { id: "overview", label: "Overview & Philosophy", icon: <Layers className="h-3.5 w-3.5" /> },
-            { id: "cli", label: "CLI Command Reference", icon: <Terminal className="h-3.5 w-3.5" /> },
-            { id: "tokens", label: "Design Tokens & Swatches", icon: <Palette className="h-3.5 w-3.5" /> },
-            { id: "utilities", label: "Helper Utilities & Motion", icon: <Code2 className="h-3.5 w-3.5" /> },
-            { id: "compatibility", label: "Tech Stack Matrix", icon: <Package className="h-3.5 w-3.5" /> },
+            { id: "overview", label: "Overview & Philosophy", icon: <Layers className="h-3.5 w-3.5 shrink-0" /> },
+            { id: "cli", label: "CLI Command Reference", icon: <Terminal className="h-3.5 w-3.5 shrink-0" /> },
+            { id: "tokens", label: "Design Tokens & Swatches", icon: <Palette className="h-3.5 w-3.5 shrink-0" /> },
+            { id: "utilities", label: "Helper Utilities & Motion", icon: <Code2 className="h-3.5 w-3.5 shrink-0" /> },
+            { id: "compatibility", label: "Tech Stack Matrix", icon: <Package className="h-3.5 w-3.5 shrink-0" /> },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as DocTab)}
-              className={`flex items-center gap-1.5 rounded px-3.5 py-1.5 text-[11px] font-semibold transition-all ${
+              className={`shrink-0 flex items-center gap-1.5 rounded px-3 py-1.5 text-[11px] font-semibold whitespace-nowrap transition-all ${
                 activeTab === tab.id
                   ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black shadow-xs"
                   : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200"
               }`}
             >
               {tab.icon}
-              <span>{tab.label}</span>
+              <span className="whitespace-nowrap">{tab.label}</span>
             </button>
           ))}
         </div>

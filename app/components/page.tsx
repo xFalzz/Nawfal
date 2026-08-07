@@ -1449,90 +1449,90 @@ export function GitBranchTreeGraph() {
       </section>
 
       {/* Sticky Navigation Tabs */}
-      <nav className="sticky top-[57px] z-30 my-3 flex items-center justify-between gap-1 overflow-x-auto rounded-lg border border-neutral-200 bg-white/90 p-1 backdrop-blur-md no-scrollbar dark:border-neutral-800 dark:bg-neutral-950/90 sm:my-6 sm:gap-2">
+      <nav className="sticky top-[57px] z-30 my-3 flex items-center justify-between gap-1 overflow-x-auto rounded-lg border border-neutral-200 bg-white/90 p-1 backdrop-blur-md no-scrollbar dark:border-neutral-800 dark:bg-neutral-950/90 sm:my-6 sm:gap-2 touch-pan-x scroll-smooth">
         <div className="flex shrink-0 items-center gap-0.5 sm:gap-1">
           <button
             onClick={() => setActiveTab("components")}
-            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === "components"
                 ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
-            <Layers className="h-3.5 w-3.5" />
-            <span>Components ({uikitComponents.length})</span>
+            <Layers className="h-3.5 w-3.5 shrink-0" />
+            <span className="whitespace-nowrap">Components ({uikitComponents.length})</span>
           </button>
 
           <button
             onClick={() => setActiveTab("documents")}
-            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === "documents"
                 ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
-            <Code2 className="h-3.5 w-3.5" />
-            <span>Documents</span>
+            <Code2 className="h-3.5 w-3.5 shrink-0" />
+            <span className="whitespace-nowrap">Documents</span>
           </button>
 
           <button
             onClick={() => setActiveTab("tools")}
-            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === "tools"
                 ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
-            <Sliders className="h-3.5 w-3.5" />
-            <span>Tools</span>
+            <Sliders className="h-3.5 w-3.5 shrink-0" />
+            <span className="whitespace-nowrap">Tools</span>
           </button>
 
           <button
             onClick={() => setActiveTab("templates")}
-            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === "templates"
                 ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
-            <LayoutGrid className="h-3.5 w-3.5" />
-            <span>Templates</span>
+            <LayoutGrid className="h-3.5 w-3.5 shrink-0" />
+            <span className="whitespace-nowrap">Templates</span>
           </button>
 
           <button
             onClick={() => setActiveTab("playground")}
-            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === "playground"
                 ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
-            <Sliders className="h-3.5 w-3.5" />
-            <span>Design Studio</span>
+            <Sliders className="h-3.5 w-3.5 shrink-0" />
+            <span className="whitespace-nowrap">Design Studio</span>
           </button>
 
           <button
             onClick={() => setActiveTab("learn")}
-            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === "learn"
                 ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
-            <BookOpen className="h-3.5 w-3.5" />
-            <span>Learn & FAQ</span>
+            <BookOpen className="h-3.5 w-3.5 shrink-0" />
+            <span className="whitespace-nowrap">Learn & FAQ</span>
           </button>
 
           <button
             onClick={() => setActiveTab("community")}
-            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === "community"
                 ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
-            <Users className="h-3.5 w-3.5" />
-            <span>Community</span>
+            <Users className="h-3.5 w-3.5 shrink-0" />
+            <span className="whitespace-nowrap">Community</span>
           </button>
         </div>
 

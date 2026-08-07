@@ -550,23 +550,24 @@ export function Component() {
         <div className="flex flex-col gap-4 lg:col-span-9">
 
           {/* View Switcher Top Toolbar */}
-          <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-100 p-1 font-mono text-xs dark:border-neutral-800 dark:bg-black">
-            <div className="flex gap-1">
+          <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-100 p-1 font-mono text-xs dark:border-neutral-800 dark:bg-black overflow-x-auto no-scrollbar touch-pan-x scroll-smooth">
+            <div className="flex gap-1 shrink-0">
               {[
-                { id: "canvas", icon: <Eye className="h-3.5 w-3.5" />, label: "Wide Canvas" },
-                { id: "code",   icon: <Code2 className="h-3.5 w-3.5" />, label: "Code Exporter" },
-                { id: "tokens", icon: <Terminal className="h-3.5 w-3.5" />, label: "Tokens" },
+                { id: "canvas", icon: <Eye className="h-3.5 w-3.5 shrink-0" />, label: "Wide Canvas" },
+                { id: "code",   icon: <Code2 className="h-3.5 w-3.5 shrink-0" />, label: "Code Exporter" },
+                { id: "tokens", icon: <Terminal className="h-3.5 w-3.5 shrink-0" />, label: "Tokens" },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveView(tab.id as any)}
-                  className={`flex items-center gap-1.5 rounded px-3.5 py-1 text-[11px] font-semibold transition-all ${
+                  className={`shrink-0 flex items-center gap-1.5 rounded px-3 py-1 text-[11px] font-semibold whitespace-nowrap transition-all ${
                     activeView === tab.id
                       ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black shadow-xs"
                       : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200"
                   }`}
                 >
-                  {tab.icon} {tab.label}
+                  {tab.icon}
+                  <span className="whitespace-nowrap">{tab.label}</span>
                 </button>
               ))}
             </div>

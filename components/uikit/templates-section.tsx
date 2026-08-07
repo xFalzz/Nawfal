@@ -838,19 +838,19 @@ export function MotionButtonShowcase() {
       </section>
 
       {/* ─── Category Filter ──────────────────────────────────────────────────── */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar touch-pan-x scroll-smooth py-0.5">
         {categoriesWithCount.map((c) => (
           <button
             key={c.id}
             onClick={() => setSelectedCategory(c.id)}
-            className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-semibold whitespace-nowrap transition-all ${
               selectedCategory === c.id
                 ? "border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-black shadow-sm"
                 : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400 dark:hover:border-neutral-600"
             }`}
           >
             {c.icon}
-            <span>{c.id}</span>
+            <span className="whitespace-nowrap">{c.id}</span>
             <span className="rounded-full bg-neutral-800 px-1.5 py-0.5 font-mono text-[9px] text-neutral-400">{c.count}</span>
           </button>
         ))}
