@@ -1,3 +1,5 @@
+"use server";
+
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -6,7 +8,7 @@ import { useTheme } from "next-themes";
 import {
   Command, Search, Layers, Sliders, LayoutGrid, BookOpen,
   Users, Bot, Home, Sun, Moon, CornerDownLeft, User, FolderGit2,
-  Award, Camera
+  Award, Camera, Sparkles
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -31,10 +33,14 @@ export function GlobalCommandPalette() {
     { label: "About Nawfal", path: "/about", icon: <User className="h-4 w-4" />, category: "Profile", description: "Biography, education & experience" },
     { label: "Featured Projects", path: "/projects", icon: <FolderGit2 className="h-4 w-4" />, category: "Work", description: "Hijara, KURA, macOS Sequoia Clone" },
     { label: "Certificates & Credentials", path: "/certificate", icon: <Award className="h-4 w-4" />, category: "Achievements", description: "48+ Google, IBM & Coursera certs" },
-    { label: "Photography Gallery", path: "/photography", icon: <Camera className="h-4 w-4" />, category: "Gallery", description: "Visual & street photography" },
-    { label: "UI Kit Components", path: "/components", icon: <Layers className="h-4 w-4" />, category: "Design System", description: "48 monochrome React primitives" },
-    { label: "Design Studio Workbench", path: "/components#studio", icon: <Sliders className="h-4 w-4" />, category: "Design System", description: "Interactive component geometry inspector" },
-    { label: "Page Templates & Layouts", path: "/components#templates", icon: <LayoutGrid className="h-4 w-4" />, category: "Design System", description: "19 production-ready section blocks" },
+    { label: "Photography Gallery", path: "/photography", icon: <Camera className="h-4 w-4" />, category: "Gallery", description: "Visual & street photography showcase" },
+    { label: "UI Kit Components", path: "/components?tab=components", icon: <Layers className="h-4 w-4" />, category: "UI Kit", description: "48 monochrome React primitives" },
+    { label: "Enterprise Documentation", path: "/components?tab=documents", icon: <BookOpen className="h-4 w-4" />, category: "Docs", description: "CLI installation & component architecture" },
+    { label: "Design Studio Workbench", path: "/components?tab=tools", icon: <Sliders className="h-4 w-4" />, category: "UI Kit", description: "Interactive component geometry inspector" },
+    { label: "Page Templates & Layouts", path: "/components?tab=templates", icon: <LayoutGrid className="h-4 w-4" />, category: "UI Kit", description: "19 production-ready section blocks" },
+    { label: "Interactive Playground", path: "/components?tab=playground", icon: <Sparkles className="h-4 w-4" />, category: "Playground", description: "Live component playground sandbox" },
+    { label: "Learn & FAQ Academy", path: "/components?tab=learn", icon: <BookOpen className="h-4 w-4" />, category: "Docs", description: "Academy guides & frequently asked questions" },
+    { label: "Community Hub", path: "/components?tab=community", icon: <Users className="h-4 w-4" />, category: "Community", description: "Community showcase & contributions" },
     { label: "AI Assistant & Chat Room", path: "/chat", icon: <Bot className="h-4 w-4" />, category: "AI & Chat", description: "Real-time AI Chat & Community Room" },
   ];
 
@@ -140,7 +146,7 @@ export function GlobalCommandPalette() {
             </div>
 
             {/* Command List */}
-            <div ref={listRef} className="max-h-[340px] overflow-y-auto p-2 flex flex-col gap-1 scrollbar-thin">
+            <div ref={listRef} className="max-h-[360px] overflow-y-auto p-2 flex flex-col gap-1 scrollbar-thin">
 
               {/* Theme Switch Action (Index 0) */}
               <button
@@ -196,7 +202,7 @@ export function GlobalCommandPalette() {
                       <span className="rounded border border-neutral-200 bg-neutral-100 px-1.5 py-0.5 text-[9px] text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 font-semibold">
                         {item.category}
                       </span>
-                      <CornerDownLeft className={`h-3.5 w-3.5 transition-transform ${isSelected ? "translate-x-0 text-primary" : "opacity-30"}`} />
+                      <CornerDownLeft className={`h-3.5 w-3.5 transition-transform ${isSelected ? "translate-x-0 text-primary opacity-100" : "opacity-20"}`} />
                     </div>
                   </button>
                 );

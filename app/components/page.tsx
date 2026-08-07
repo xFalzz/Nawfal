@@ -106,6 +106,33 @@ export default function ComponentsHubPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedCli, setCopiedCli] = useState(false);
 
+  // Tab Listener from URL parameters (?tab=...) & Hashes (#...)
+  React.useEffect(() => {
+    const handleSyncTabFromUrl = () => {
+      if (typeof window === "undefined") return;
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get("tab");
+      const hash = window.location.hash.replace("#", "");
+
+      if (tabParam && ["components", "documents", "tools", "templates", "playground", "learn", "community"].includes(tabParam)) {
+        setActiveTab(tabParam as any);
+      } else if (hash && ["components", "documents", "tools", "templates", "playground", "learn", "community", "studio"].includes(hash)) {
+        if (hash === "studio") setActiveTab("tools");
+        else setActiveTab(hash as any);
+      }
+    };
+
+    handleSyncTabFromUrl();
+    window.addEventListener("popstate", handleSyncTabFromUrl);
+    window.addEventListener("hashchange", handleSyncTabFromUrl);
+    const interval = setInterval(handleSyncTabFromUrl, 300);
+    return () => {
+      window.removeEventListener("popstate", handleSyncTabFromUrl);
+      window.removeEventListener("hashchange", handleSyncTabFromUrl);
+      clearInterval(interval);
+    };
+  }, []);
+
   // Category Drag & Scroll Ref + Handlers
   const categoryScrollRef = React.useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
