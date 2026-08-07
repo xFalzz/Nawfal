@@ -16,7 +16,7 @@ import {
   ChevronLeft,
   ChevronRight,
   LayoutGrid,
-  Sparkles
+  FlaskConical
 } from "lucide-react";
 
 // Hub Sections
@@ -1507,8 +1507,8 @@ export function GitBranchTreeGraph() {
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
-            <Sparkles className="h-3.5 w-3.5 text-sky-400" />
-            <span>Playground</span>
+            <Sliders className="h-3.5 w-3.5" />
+            <span>Design Studio</span>
           </button>
 
           <button
