@@ -81,7 +81,7 @@ export function PlaygroundSection() {
   // View state
   const [activeView, setActiveView] = useState<"canvas" | "code" | "tokens">("canvas");
   const [copiedCode, setCopiedCode] = useState(false);
-  const [viewport, setViewport] = useState<"desktop" | "tablet" | "mobile">("desktop");
+  const [viewport, setViewport] = useState<"desktop" | "laptop" | "tablet" | "phablet" | "mobile">("desktop");
 
   const selectedComp = CATALOG.find((c) => c.id === selectedId) ?? CATALOG[0];
 
