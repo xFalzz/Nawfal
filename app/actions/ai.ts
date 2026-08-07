@@ -4,11 +4,15 @@ import fs from "fs";
 import path from "path";
 import { KNOWLEDGE_BASE } from "@/lib/knowledge";
 
-type Role = "user" | "assistant" | "system" | "tool";
+type Role = "user" | "model";
+
+interface ChatMessagePart {
+  text: string;
+}
 
 interface ChatMessage {
   role: Role;
-  content: string;
+  parts: ChatMessagePart[];
 }
 
 interface HistoryEntry {
@@ -216,7 +220,7 @@ function getDynamicSystemPrompt(userPrompt: string) {
     timeStyle: "short",
   });
 
-  return `You are "Nawfal AI Assistant", the official AI Intelligence Engine embedded in Nawfal Irfan Ramadhan's personal website & Nawfal UI Ecosystem (nawfal.vercel.app / nawfal-ui).
+  return `You are "Nawfal AI Assistant", an executive-grade, hyper-intelligent, and professional AI Intelligence Engine powered by Google Gemini 3.1 Flash Lite. You are embedded in Nawfal Irfan Ramadhan's personal website & Nawfal UI Ecosystem (nawfal.vercel.app / nawfal-ui).
 
 ********************************************************************************
 UNIVERSAL GLOBAL LANGUAGE MASTER DIRECTIVE:
@@ -229,6 +233,7 @@ CRITICAL MANDATORY INSTRUCTION: You MUST formulate 100% of your response in ${la
 
 CURRENT SERVER TIME (Jakarta/WIB): ${now}
 ECOSYSTEM VERSION: v5.2.0
+AI ENGINE CORE: Google Gemini 3.1 Flash Lite
 PRIMARY OWNER / CREATOR: Nawfal Irfan Ramadhan (Nickname: Nawfal, Handles: xFalzz, xFalzs)
 GITHUB REPOSITORY SOURCE: https://github.com/xFalzz/Nawfal/tree/main/components
 
@@ -247,11 +252,11 @@ ADDITIONAL ECOSYSTEM DATA:
 - Layout Templates: 19 pre-assembled layout blocks across 7 categories (AI RAG, Audio & Media, DevOps, Auth & Security, Analytics, DevTools, UI Controls).
 - NextGen CLI: \`npx nawfal-ui@latest init\`, \`add <component>\`, \`list\`, \`diff\`, \`help\`.
 
-STRICT INSTRUCTIONS & BOUNDARIES:
-1. **Nawfal Exclusive Scope**: You MUST ONLY answer questions related to Nawfal Irfan Ramadhan — his background, tech stack, education (UBSI System Information, GPA 3.78/4.00), certifications (48+), projects (Hijara, KURA, Kost Afifa, MoveiHub, macOS Sequoia Clone, etc.), hobbies, photography, and the Nawfal UI Ecosystem (48 components, Design Studio, Templates, CLI).
-2. **Off-Topic Refusal Protocol**: If the user asks about unrelated general topics that are NOT covered in Nawfal's website/portfolio/ecosystem (e.g., cooking recipes, general world politics, external stock market advice, unrelated math homework), you MUST POLITELY DECLINE in ${langInfo.name}.
-3. **Factual Integrity & Clarity**: Base all answers strictly on the GROUND TRUTH KNOWLEDGE BASE & Real-Time Introspection above. Clear, direct, unambiguous responses.
-4. **Formatting**: Clear Markdown with bullet points and code blocks.`;
+EXECUTIVE PROFESSIONAL TONE & STRICT BOUNDARIES:
+1. **Professional & Executive Manner**: Deliver clear, structured, articulate, and impressive responses. Use well-organized Markdown lists, bold emphasis, and precise formatting.
+2. **Nawfal Exclusive Scope**: You MUST ONLY answer questions related to Nawfal Irfan Ramadhan — his background, tech stack, education (UBSI System Information, GPA 3.78/4.00), certifications (48+), projects (Hijara, KURA, Kost Afifa, MoveiHub, macOS Sequoia Clone, etc.), hobbies, photography, and the Nawfal UI Ecosystem (48 components, Design Studio, Templates, CLI).
+3. **Off-Topic Refusal Protocol**: If the user asks about unrelated general topics that are NOT covered in Nawfal's website/portfolio/ecosystem (e.g., cooking recipes, general world politics, external stock market advice, unrelated math homework), you MUST POLITELY DECLINE in ${langInfo.name} with an executive tone.
+4. **Factual Integrity & Zero Hallucinations**: Base all answers strictly on the GROUND TRUTH KNOWLEDGE BASE & Real-Time Introspection above.`;
 }
 
 function generateSmartLocalResponse(prompt: string): string {
@@ -504,66 +509,80 @@ Saya khusus diprogram untuk menjawab hal-hal yang berkaitan dengan:
 *Pertanyaan di luar cakupan profil dan website Nawfal tidak dapat saya jawab.* Silakan tanyakan topik seputar portofolio Nawfal!`;
 }
 
-async function callGroqWithFallback(apiKey: string, messages: ChatMessage[]) {
+/**
+ * ⚡ Call Google Gemini API (Model: gemini-3.1-flash-lite)
+ * Official endpoint: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent
+ */
+async function callGeminiApiWithFallback(apiKey: string, prompt: string, history: HistoryEntry[]) {
   const models = [
-    "llama-3.3-70b-versatile",
-    "llama-3.1-8b-instant",
-    "llama3-8b-8192",
-    "gemma2-9b-it"
+    "gemini-3.1-flash-lite",          // Primary requested model
+    "gemini-3.1-flash-lite-preview",  // Preview endpoint fallback
+    "gemini-2.0-flash-lite",          // 2.0 lite fallback
+    "gemini-2.5-flash",               // 2.5 flash fallback
   ];
+
+  const systemInstructionText = getDynamicSystemPrompt(prompt);
+
+  // Convert chat history format for Gemini API ({ role: 'user' | 'model', parts: [{ text }] })
+  const contents: ChatMessage[] = history.slice(-10).map((h) => ({
+    role: (h.role === "model" ? "model" : "user") as Role,
+    parts: [{ text: h.parts[0]?.text || "" }],
+  }));
+
+  // Append current user prompt
+  contents.push({
+    role: "user",
+    parts: [{ text: prompt }],
+  });
 
   for (const model of models) {
     try {
-      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const res = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model,
-          messages,
-          temperature: 0.15,
-          max_tokens: 700,
-          top_p: 0.9,
-          stream: false,
+          systemInstruction: {
+            parts: [{ text: systemInstructionText }],
+          },
+          contents,
+          generationConfig: {
+            temperature: 0.15,
+            topP: 0.9,
+            maxOutputTokens: 1000,
+          },
         }),
       });
 
       if (res.ok) {
         const data = await res.json();
-        const text = data.choices?.[0]?.message?.content;
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (text) return text;
+      } else {
+        const errText = await res.text();
+        console.warn(`[NawfalAI] Gemini model ${model} returned error status ${res.status}: ${errText}`);
       }
     } catch (e) {
-      console.warn(`[NawfalAI] Model ${model} failed, trying next...`);
+      console.warn(`[NawfalAI] Gemini model ${model} call failed, trying next fallback...`);
     }
   }
 
-  throw new Error("GROQ_API_UNAVAILABLE");
+  throw new Error("GEMINI_API_UNAVAILABLE");
 }
 
 export async function getAiResponseAction(
   prompt: string,
   history: HistoryEntry[] = []
 ): Promise<string> {
-  const apiKey = process.env.GROQ_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
 
   if (apiKey) {
     try {
-      const systemPrompt = getDynamicSystemPrompt(prompt);
-      const messages: ChatMessage[] = [
-        { role: "system", content: systemPrompt },
-        ...history.slice(-10).map((m) => ({
-          role: (m.role === "model" ? "assistant" : "user") as Role,
-          content: m.parts[0]?.text || "",
-        })),
-        { role: "user" as Role, content: prompt },
-      ];
-
-      return await callGroqWithFallback(apiKey, messages);
+      return await callGeminiApiWithFallback(apiKey, prompt, history);
     } catch (err) {
-      console.warn("[NawfalAI] Groq API call failed or unconfigured, seamlessly serving via smart local knowledge engine.");
+      console.warn("[NawfalAI] Google Gemini API call failed or unconfigured, seamlessly serving via smart local knowledge engine.");
     }
   }
 
