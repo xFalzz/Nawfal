@@ -1415,21 +1415,21 @@ export function GitBranchTreeGraph() {
   return (
     <div className="pad-x min-h-[100svh] w-full pb-8 pt-4 sm:pb-12 md:pt-8">
       {/* Ecosystem Hero Header */}
-      <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-neutral-900 p-4 text-white dark:border-neutral-800 dark:bg-black sm:p-5 md:p-6">
+      <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-white p-4 text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white shadow-xs sm:p-5 md:p-6">
         <div className="flex flex-col items-start justify-between gap-3 sm:gap-4 md:flex-row md:items-center">
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded border border-neutral-700 bg-neutral-800 px-2 py-0.5 font-mono text-[9px] uppercase text-neutral-300 sm:text-[10px]">
+              <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-[9px] uppercase text-neutral-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 sm:text-[10px]">
                 v5.2.0 NextGen CLI Edition
               </span>
-              <span className="flex items-center gap-1 font-mono text-[9px] text-emerald-400 sm:text-[10px]">
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 animate-pulse" /> 48 Components Verified
+              <span className="flex items-center gap-1 font-mono text-[9px] text-emerald-600 dark:text-emerald-400 sm:text-[10px]">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" /> 48 Components Verified
               </span>
             </div>
-            <h1 className="mt-2 text-xl font-extrabold tracking-tight sm:text-2xl md:text-3xl">
+            <h1 className="mt-2 text-xl font-extrabold tracking-tight text-neutral-900 dark:text-white sm:text-2xl md:text-3xl">
               Nawfal UI Kit
             </h1>
-            <p className="mt-1 text-[11px] text-neutral-400 max-w-xl sm:text-xs">
+            <p className="mt-1 text-[11px] text-neutral-600 dark:text-neutral-400 max-w-xl sm:text-xs">
               Production-grade monochromatic component architecture featuring authoritative taxonomy, AI RAG engines, audio media suites, and full source code specs.
             </p>
           </div>
@@ -1437,12 +1437,12 @@ export function GitBranchTreeGraph() {
           {/* CLI Copy Bar */}
           <div 
             onClick={handleCopyCli}
-            className="group flex w-full cursor-pointer items-center gap-2 rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 font-mono text-[11px] text-neutral-300 transition-all hover:border-neutral-600 sm:w-auto sm:gap-3 sm:px-3.5 sm:text-xs"
+            className="group flex w-full cursor-pointer items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 font-mono text-[11px] text-neutral-800 transition-all hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300 dark:hover:border-neutral-600 sm:w-auto sm:gap-3 sm:px-3.5 sm:text-xs"
           >
-            <Terminal className="h-3.5 w-3.5 shrink-0 text-neutral-400 sm:h-4 sm:w-4" />
+            <Terminal className="h-3.5 w-3.5 shrink-0 text-neutral-500 dark:text-neutral-400 sm:h-4 sm:w-4" />
             <span className="truncate">npx nawfal-ui@latest init</span>
-            <button className="shrink-0 rounded border border-neutral-700 bg-neutral-800 p-1 text-neutral-300 hover:text-white">
-              {copiedCli ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
+            <button className="shrink-0 rounded border border-neutral-300 bg-neutral-200 p-1 text-neutral-700 hover:text-black dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:text-white">
+              {copiedCli ? <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400" /> : <Copy className="h-3 w-3" />}
             </button>
           </div>
         </div>
