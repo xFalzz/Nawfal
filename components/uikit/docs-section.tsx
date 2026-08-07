@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import {
   Check, Copy, Layers, Palette, Type, Sliders, Zap, ShieldCheck,
   BookOpen, Code2, Terminal, Package, FileCode2, ArrowUpRight,
-  Settings, Cpu, Box, Sparkles, Server, FileJson, CheckCircle2,
+  Settings, Cpu, Box, Server, FileJson, CheckCircle2,
   FolderTree, Search, ExternalLink, Play
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";

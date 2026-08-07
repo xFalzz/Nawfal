@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import {
   Command, Search, Layers, Sliders, LayoutGrid, BookOpen,
   Users, Bot, Home, Sun, Moon, CornerDownLeft, User, FolderGit2,
-  Award, Camera, Sparkles
+  Award, Camera, Code2
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -36,7 +36,7 @@ export function GlobalCommandPalette() {
     { label: "Enterprise Documentation", path: "/components?tab=documents", icon: <BookOpen className="h-4 w-4" />, category: "Docs", description: "CLI installation & component architecture" },
     { label: "Design Studio Workbench", path: "/components?tab=tools", icon: <Sliders className="h-4 w-4" />, category: "UI Kit", description: "Interactive component geometry inspector" },
     { label: "Page Templates & Layouts", path: "/components?tab=templates", icon: <LayoutGrid className="h-4 w-4" />, category: "UI Kit", description: "19 production-ready section blocks" },
-    { label: "Interactive Playground", path: "/components?tab=playground", icon: <Sparkles className="h-4 w-4" />, category: "Playground", description: "Live component playground sandbox" },
+    { label: "Interactive Playground", path: "/components?tab=playground", icon: <Code2 className="h-4 w-4" />, category: "Playground", description: "Live component playground sandbox" },
     { label: "Learn & FAQ Academy", path: "/components?tab=learn", icon: <BookOpen className="h-4 w-4" />, category: "Docs", description: "Academy guides & frequently asked questions" },
     { label: "Community Hub", path: "/components?tab=community", icon: <Users className="h-4 w-4" />, category: "Community", description: "Community showcase & contributions" },
     { label: "AI Assistant & Chat Room", path: "/chat", icon: <Bot className="h-4 w-4" />, category: "AI & Chat", description: "Real-time AI Chat & Community Room" },

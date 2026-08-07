@@ -5,7 +5,7 @@ import {
   Sliders, Check, Copy, Code2, Eye, Terminal, Monitor,
   Tablet, Smartphone, RotateCcw, Box, ArrowUpRight, CheckCircle2,
   Square, Shield, Layers, Command, Grid, SlidersHorizontal,
-  ChevronRight, Sparkles, Download, RefreshCw, Lock, Search,
+  ChevronRight, Download, RefreshCw, Lock, Search,
   Music, Cpu, Radio, Activity, Zap, Play, Loader2, ArrowRight,
   TrendingUp, Bell, Key, Hash, LayoutGrid, ToggleLeft, ToggleRight
 } from "lucide-react";
@@ -29,7 +29,7 @@ interface ComponentConfig {
 const CATALOG: ComponentConfig[] = [
   // Buttons
   { id: "btn-action", name: "Action Motion Button", category: "Buttons", description: "Monochrome interactive action button with arrow icon & motion physics.", icon: <Zap className="h-3.5 w-3.5" /> },
-  { id: "btn-beam", name: "Shimmer Border Beam", category: "Buttons", description: "Rotating conic-gradient animated border beam button.", icon: <Sparkles className="h-3.5 w-3.5" /> },
+  { id: "btn-beam", name: "Shimmer Border Beam", category: "Buttons", description: "Rotating conic-gradient animated border beam button.", icon: <Zap className="h-3.5 w-3.5" /> },
   { id: "btn-icon", name: "Icon Shortcut Command", category: "Buttons", description: "Compact icon action button with keyboard shortcut badge.", icon: <Command className="h-3.5 w-3.5" /> },
   
   // Cards

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import {
   BookOpen, Code2, ArrowUpRight, Check, ChevronRight, Zap, ShieldCheck,
-  Cpu, Terminal, Palette, Layers, Box, Eye, Sparkles, Shield, Globe,
+  Cpu, Terminal, Palette, Layers, Box, Eye, Shield, Globe,
   Search, HelpCircle, ChevronDown, CheckCircle2, Copy, FileText, Send
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";

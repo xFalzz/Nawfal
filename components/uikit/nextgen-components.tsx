@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   Mic, 
   MicOff, 
-  Sparkles, 
+  Terminal, 
   Atom,
   Activity, 
   Layers, 
@@ -423,7 +423,7 @@ export function FloatingCommandPalette() {
     { title: "Create New UI Component", type: "Action", icon: Layers },
     { title: "Run System Diagnostics", type: "Command", icon: Zap },
     { title: "Open Security Docs", type: "Navigation", icon: ShieldCheck },
-    { title: "Launch AI Studio", type: "Tool", icon: Sparkles },
+    { title: "Launch AI Studio", type: "Tool", icon: Terminal },
   ].filter((i) => i.title.toLowerCase().includes(search.toLowerCase()));
 
   return (

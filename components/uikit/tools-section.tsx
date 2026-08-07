@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sliders, ShieldCheck, Copy, Check, Code2, RefreshCw, Pipette, Ruler, Hash, Eye, Palette, Sparkles } from "lucide-react";
+import { Sliders, ShieldCheck, Copy, Check, Code2, RefreshCw, Pipette, Ruler, Hash, Eye, Palette } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 export function ToolsSection() {

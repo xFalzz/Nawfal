@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 import {
   Users, Send, Star, GitFork, MessageSquare, Check, Github, Zap,
-  ArrowUpRight, Heart, TrendingUp, Globe, Download, Code2, Sparkles,
-  ShieldCheck, Terminal, ShieldAlert, CheckCircle2, Cloud
+  ArrowUpRight, Heart, TrendingUp, Globe, Download, Code2, Terminal,
+  ShieldCheck, ShieldAlert, CheckCircle2, Cloud
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { db } from "@/lib/firebase";
@@ -561,7 +561,7 @@ export function CommunitySection() {
           {/* Changelog Timeline */}
           <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-neutral-200 pb-2.5 dark:border-neutral-800 font-bold uppercase tracking-wider text-neutral-500">
-              <span className="flex items-center gap-1.5"><Sparkles className="h-3.5 w-3.5" /> Release Changelog</span>
+              <span className="flex items-center gap-1.5"><Terminal className="h-3.5 w-3.5" /> Release Changelog</span>
               <span className="text-[9px] opacity-60">v5.2.0</span>
             </div>
 

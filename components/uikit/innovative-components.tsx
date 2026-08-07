@@ -14,7 +14,6 @@ import {
   FileCode2, 
   RefreshCw,
   Search,
-  Sparkles,
   Sliders,
   CheckCircle2,
   ScanEye
