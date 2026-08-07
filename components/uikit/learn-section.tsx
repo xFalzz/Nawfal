@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import {
   BookOpen, Code2, ArrowUpRight, Check, ChevronRight, Zap, ShieldCheck,
   Cpu, Terminal, Palette, Layers, Box, Eye, Sparkles, Shield, Globe,
-  Search, HelpCircle, ChevronDown, CheckCircle2, Copy, FileText
+  Search, HelpCircle, ChevronDown, CheckCircle2, Copy, FileText, Send
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
@@ -123,6 +123,7 @@ export function LearnSection() {
   const [selectedGuideIndex, setSelectedGuideIndex] = useState<number>(0);
   const [faqSearch, setFaqSearch] = useState<string>("");
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [feedbackMsg, setFeedbackMsg] = useState<string>("");
 
   const activeGuide = GUIDES[selectedGuideIndex] ?? GUIDES[0];
 
@@ -134,6 +135,13 @@ export function LearnSection() {
       f.cat.toLowerCase().includes(faqSearch.toLowerCase())
   );
 
+  const handleFeedbackSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!feedbackMsg.trim()) return;
+    toast({ title: "Feedback Received!", description: "Thank you for contributing to Nawfal UI documentation." });
+    setFeedbackMsg("");
+  };
+
   return (
     <div className="flex w-full flex-col gap-8 text-neutral-900 dark:text-neutral-100">
 
@@ -143,7 +151,7 @@ export function LearnSection() {
           <div>
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
               <BookOpen className="h-3.5 w-3.5 text-neutral-700 dark:text-neutral-300" />
-              <span>LEARN & FAQ HUB</span>
+              <span>LEARN & FAQ ACADEMY</span>
               <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-neutral-700 dark:border-neutral-800 dark:bg-black dark:text-neutral-300 font-semibold">
                 v5.2.0 EDITION
               </span>
@@ -203,7 +211,7 @@ export function LearnSection() {
               <FileText className="h-4 w-4 text-neutral-500" />
               <span className="font-bold text-sm text-neutral-900 dark:text-white">{activeGuide.title}</span>
             </div>
-            <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-[9px] text-neutral-600 dark:border-neutral-800 dark:bg-black dark:text-neutral-400">
+            <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-[9px] text-neutral-600 dark:border-neutral-800 dark:bg-black dark:text-neutral-400 font-semibold">
               {activeGuide.category}
             </span>
           </div>
@@ -219,7 +227,7 @@ export function LearnSection() {
       </div>
 
       {/* ─── Comprehensive FAQ Accordion Section ────────────────────────────── */}
-      <section className="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <section className="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950 shadow-xs">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-neutral-200 pb-4 dark:border-neutral-800">
           <div>
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-neutral-500">
@@ -273,7 +281,7 @@ export function LearnSection() {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="border-t border-neutral-200 dark:border-neutral-800 px-4 py-3 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400"
+                      className="border-t border-neutral-200 dark:border-neutral-800 px-4 py-3 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 font-sans"
                     >
                       {faq.a}
                     </motion.div>
@@ -286,6 +294,29 @@ export function LearnSection() {
           {filteredFaqs.length === 0 && (
             <p className="py-6 text-center font-mono text-xs text-neutral-500">No questions match your query.</p>
           )}
+        </div>
+
+        {/* Feedback Submission Box */}
+        <div className="mt-4 flex flex-col gap-3 rounded-lg border border-neutral-200 bg-neutral-100/60 p-4 dark:border-neutral-800 dark:bg-black/60 font-mono text-xs">
+          <div className="flex items-center gap-2">
+            <Send className="h-3.5 w-3.5 text-neutral-500" />
+            <span className="font-bold text-neutral-800 dark:text-neutral-200">Have more questions or need a custom component?</span>
+          </div>
+          <form onSubmit={handleFeedbackSubmit} className="flex gap-2">
+            <input
+              type="text"
+              placeholder="Ask a question or request a component..."
+              value={feedbackMsg}
+              onChange={(e) => setFeedbackMsg(e.target.value)}
+              className="flex-1 rounded-lg border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-950 px-3 py-1.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-neutral-500"
+            />
+            <button
+              type="submit"
+              className="rounded-lg border border-neutral-900 bg-neutral-900 px-4 py-1.5 font-bold text-white dark:border-neutral-100 dark:bg-neutral-100 dark:text-black hover:opacity-90 transition-all"
+            >
+              Submit
+            </button>
+          </form>
         </div>
       </section>
 
