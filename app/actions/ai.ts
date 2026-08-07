@@ -16,12 +16,66 @@ interface HistoryEntry {
   parts: { text: string }[];
 }
 
+export type SupportedLanguage = 
+  | "ja"  // Japanese
+  | "zh"  // Chinese (Mandarin)
+  | "ar"  // Arabic
+  | "ko"  // Korean
+  | "es"  // Spanish
+  | "fr"  // French
+  | "de"  // German
+  | "jv"  // Javanese
+  | "en"  // English
+  | "id"; // Indonesian
+
 /**
- * 🌐 Smart Language Detection Engine
- * Detects whether the input prompt is in English or Indonesian
+ * 🌍 Universal Language Script & Pattern Detector
+ * Detects the input language for all major world languages & scripts.
  */
-function isEnglishInput(prompt: string): boolean {
+function detectLanguage(prompt: string): SupportedLanguage {
   const p = prompt.toLowerCase();
+
+  // Japanese script (Hiragana/Katakana/Kanji query)
+  if (/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(prompt) && (p.includes("は") || p.includes("の") || p.includes("です") || p.includes("か") || p.includes("誰") || p.includes("何"))) {
+    return "ja";
+  }
+
+  // Chinese script (CJK Kanji/Hanzi)
+  if (/[\u4e00-\u9fff]/.test(prompt)) {
+    return "zh";
+  }
+
+  // Arabic script
+  if (/[\u0600-\u06FF]/.test(prompt)) {
+    return "ar";
+  }
+
+  // Korean Hangul script
+  if (/[\uac00-\ud7af\u1100-\u11ff]/.test(prompt)) {
+    return "ko";
+  }
+
+  // Javanese language patterns
+  if (p.includes("sinten") || p.includes("pundhi") || p.includes("napa") || p.includes("ingkang") || p.includes("yaiku") || p.includes("nduweni")) {
+    return "jv";
+  }
+
+  // Spanish language patterns
+  if (p.includes("quién") || p.includes("quien") || p.includes("qué") || p.includes("que es") || p.includes("proyectos") || p.includes("habilidades")) {
+    return "es";
+  }
+
+  // French language patterns
+  if (p.includes("qui est") || p.includes("qu'est-ce") || p.includes("quels") || p.includes("compétences") || p.includes("projets")) {
+    return "fr";
+  }
+
+  // German language patterns
+  if (p.includes("wer ist") || p.includes("was ist") || p.includes("welche") || p.includes("projekte") || p.includes("fähigkeiten")) {
+    return "de";
+  }
+
+  // English detection
   const englishWords = [
     "who", "what", "where", "how", "why", "when", "is", "are", "tell", "me",
     "about", "project", "projects", "skill", "skills", "certification", "certifications",
@@ -44,7 +98,8 @@ function isEnglishInput(prompt: string): boolean {
     if (new RegExp(`\\b${w}\\b`, "i").test(p)) idScore++;
   }
 
-  return enScore > idScore;
+  if (enScore > idScore) return "en";
+  return "id";
 }
 
 /**
@@ -123,17 +178,14 @@ ADDITIONAL ECOSYSTEM DATA:
 - Layout Templates: 19 pre-assembled layout blocks across 7 categories (AI RAG, Audio & Media, DevOps, Auth & Security, Analytics, DevTools, UI Controls).
 - NextGen CLI: \`npx nawfal-ui@latest init\`, \`add <component>\`, \`list\`, \`diff\`, \`help\`.
 
-CRITICAL STRICT LANGUAGE MATCHING RULE:
-- You MUST ALWAYS respond in the EXACT SAME LANGUAGE as the user's prompt.
-- If the user asks in English (e.g. "Who is Nawfal?", "What are his projects?"), you MUST respond entirely in English.
-- If the user asks in Indonesian (e.g. "Siapa Nawfal?", "Apa proyeknya?"), you MUST respond entirely in Indonesian.
-- Do NOT mix languages or respond in Indonesian to an English question.
+UNIVERSAL GLOBAL LANGUAGE MASTER DIRECTIVE:
+- You possess native fluency in EVERY SINGLE HUMAN LANGUAGE AND DIALECT across the world without exception (English, Indonesian, Javanese, Sundanese, Japanese, Mandarin Chinese, Spanish, French, German, Arabic, Russian, Portuguese, Italian, Korean, Dutch, Turkish, Vietnamese, Thai, Hindi, Bengali, Swahili, Tagalog, etc.).
+- ALWAYS detect the EXACT input language, script, and dialect of the user's prompt and respond natively, fluently, and unambiguously in that SAME EXACT LANGUAGE.
+- NEVER respond in Indonesian to an English question, or in English to a Japanese question. Match the input language 100% strictly.
 
 STRICT INSTRUCTIONS & BOUNDARIES:
 1. **Nawfal Exclusive Scope**: You MUST ONLY answer questions related to Nawfal Irfan Ramadhan — his background, tech stack, education (UBSI System Information, GPA 3.78/4.00), certifications (48+), projects (Hijara, KURA, Kost Afifa, MoveiHub, macOS Sequoia Clone, etc.), hobbies, photography, and the Nawfal UI Ecosystem (48 components, Design Studio, Templates, CLI).
-2. **Off-Topic Refusal Protocol**: If the user asks about unrelated general topics that are NOT covered in Nawfal's website/portfolio/ecosystem (e.g., cooking recipes, general world politics, external stock market advice, unrelated math homework), you MUST POLITELY DECLINE in the user's language:
-   - Indonesian: "Saya adalah AI Assistant resmi Nawfal Irfan Ramadhan. Saya hanya dapat menjawab pertanyaan seputar Nawfal, portofolio proyek, keahlian, sertifikasi, dan Nawfal UI Kit!"
-   - English: "I am Nawfal Irfan Ramadhan's official AI Assistant. I can only answer questions regarding Nawfal, his projects, skills, certifications, and Nawfal UI Kit!"
+2. **Off-Topic Refusal Protocol**: If the user asks about unrelated general topics that are NOT covered in Nawfal's website/portfolio/ecosystem (e.g., cooking recipes, general world politics, external stock market advice, unrelated math homework), you MUST POLITELY DECLINE in the user's exact input language.
 3. **Factual Integrity & Clarity**: Base all answers strictly on the GROUND TRUTH KNOWLEDGE BASE & Real-Time Introspection above. Clear, direct, unambiguous responses.
 4. **Formatting**: Clear Markdown with bullet points and code blocks.`;
 }
@@ -141,7 +193,7 @@ STRICT INSTRUCTIONS & BOUNDARIES:
 function generateSmartLocalResponse(prompt: string): string {
   const p = prompt.toLowerCase();
   const introspection = getRuntimeWebsiteIntrospection();
-  const isEnglish = isEnglishInput(prompt);
+  const lang = detectLanguage(prompt);
 
   // Profile / Nawfal / Biodata queries
   if (
@@ -152,22 +204,96 @@ function generateSmartLocalResponse(prompt: string): string {
     p.includes("profile") ||
     p.includes("pembuat") ||
     p.includes("owner") ||
-    p.includes("biodata")
+    p.includes("biodata") ||
+    p.includes("誰") ||
+    p.includes("是谁") ||
+    p.includes("من هو") ||
+    p.includes("quién") ||
+    p.includes("qui est") ||
+    p.includes("wer ist") ||
+    p.includes("sinten")
   ) {
-    if (isEnglish) {
-      return `**Nawfal Irfan Ramadhan** (commonly known as **Nawfal**) is a **Fullstack Software Engineer & UI/UX Designer** based in Yogyakarta, Indonesia.
+    switch (lang) {
+      case "ja":
+        return `**ノーファル・イルファン・ラマダン**（Nawfal Irfan Ramadhan）は、インドネシアのジョグジャカルタを拠点とする**フルスタック ソフトウェア エンジニア & UI/UX デザイナー**です。
+
+- 🎓 **学歴**: ビナ・サラナ・インフォルマティカ大学（UBSI）情報システム学科 3期生（GPA **3.78 / 4.00**）
+- 🛠️ **主要スキル**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run
+- 🏆 **資格**: Google Cloud, IBM, Coursera, RevoU, Dicoding, HackerRank等から**48以上の公式認定資格**を取得
+- 🚀 **主要プロジェクト**: **Nawfal UI Kit** (${introspection.componentsCount}のUIコンポーネント), **Hijara** (AI環境プラットフォーム), **KURA** (ゲーム探索プラットフォーム)`;
+
+      case "zh":
+        return `**Nawfal Irfan Ramadhan**（简称 **Nawfal**）是一名位于印度尼西亚日惹的**全栈软件工程师与 UI/UX 设计师**。
+
+- 🎓 **教育背景**: Bina Sarana Informatika 大学（UBSI）信息系统专业大二学生，GPA **3.78 / 4.00**
+- 🛠️ **核心技术栈**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run
+- 🏆 **专业认证**: 拥有 Google Cloud、IBM、Coursera、RevoU、Dicoding 和 HackerRank 颁发的 **48+ 官方认证**
+- 🚀 **代表作品**: **Nawfal UI Kit** (${introspection.componentsCount}个单色UI组件)、**Hijara** (AI可持续发展平台) 与 **KURA** (游戏探索平台)`;
+
+      case "ar":
+        return `**نوفل عرفان رمضان** (Nawfal Irfan Ramadhan) هو **مهندس برمجيات متكامل (Fullstack) ومصمم UI/UX** مقيم في يوجياكارتا، إندونيسيا.
+
+- 🎓 **التعليم**: طالب نظم معلومات في جامعة بينا سارانا إنفورماتيكا (UBSI) - المعدل التراكمي **3.78 / 4.00**.
+- 🛠️ **التقنيات الأساسية**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
+- 🏆 **الشهادات**: يحمل أكثر من **48 شهادة احترافية معتمدة** من Google Cloud و IBM و Coursera و HackerRank.
+- 🚀 **المشاريع البارزة**: **Nawfal UI Kit** (${introspection.componentsCount} مكون برمجي) و **Hijara** (منصة الاستدامة بالذكاء الاصطناعي) و **KURA** (منصة ألعاب).`;
+
+      case "ko":
+        return `**나우팔 이르판 라마단** (Nawfal Irfan Ramadhan)은 인도네시아 족자카르타에 기반을 둔 **풀스택 소프트웨어 엔지니어 & UI/UX 디자이너**입니다.
+
+- 🎓 **학력**: UBSI 대학교 정보시스템학과 3학기 재학 중 (GPA **3.78 / 4.00**)
+- 🛠️ **핵심 기술**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run
+- 🏆 **자격증**: Google Cloud, IBM, Coursera, HackerRank 등 **48개 이상의 공식 자격증** 보유
+- 🚀 **주요 프로젝트**: **Nawfal UI Kit** (${introspection.componentsCount}개 컴포넌트), **Hijara** (AI 지속가능성 플랫폼), **KURA** (게임 디스커버리)`;
+
+      case "es":
+        return `**Nawfal Irfan Ramadhan** (conocido simplemente como **Nawfal**) es un **Ingeniero de Software Fullstack y Diseñador UI/UX** ubicado en Yogyakarta, Indonesia.
+
+- 🎓 **Educación**: Estudiante de Sistemas de Información en la Universidad UBSI, 3er Semestre con un promedio (GPA) de **3.78 / 4.00**.
+- 🛠️ **Stack Principal**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
+- 🏆 **Certificaciones**: Cuenta con más de **48 certificaciones oficiales** de Google Cloud, IBM, Coursera, RevoU, Dicoding y HackerRank.
+- 🚀 **Proyectos Destacados**: Creador de **Nawfal UI Kit** (${introspection.componentsCount} componentes monochrome), **Hijara** (AI Sustainability) y **KURA** (Game Discovery).`;
+
+      case "fr":
+        return `**Nawfal Irfan Ramadhan** (connu sous le nom de **Nawfal**) est un **Ingénieur Logiciel Fullstack et Designer UI/UX** basé à Yogyakarta, Indonésie.
+
+- 🎓 **Éducation**: Étudiant en Systèmes d'Information à l'Université UBSI, 3ème semestre avec une moyenne de **3.78 / 4.00**.
+- 🛠️ **Technologies Clés**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
+- 🏆 **Certifications**: Titulaire de plus de **48 certifications officielles** de Google Cloud, IBM, Coursera, Dicoding et HackerRank.
+- 🚀 **Projets Phares**: Créateur de **Nawfal UI Kit** (${introspection.componentsCount} composants UI), **Hijara** (IA Durabilité) et **KURA** (Plateforme de jeux).`;
+
+      case "de":
+        return `**Nawfal Irfan Ramadhan** (bekannt als **Nawfal**) ist ein **Fullstack Software Engineer & UI/UX Designer** mit Sitz in Yogyakarta, Indonesien.
+
+- 🎓 **Ausbildung**: Wirtschaftsinformatik-Student an der UBSI Universität (3. Semester, Notendurchschnitt **3.78 / 4.00**).
+- 🛠️ **Haupt-Tech-Stack**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
+- 🏆 **Zertifizierungen**: Über **48 offizielle Zertifizierungen** von Google Cloud, IBM, Coursera, Dicoding und HackerRank.
+- 🚀 **Hauptprojekte**: Schöpfer von **Nawfal UI Kit** (${introspection.componentsCount} Komponenten), **Hijara** (KI-Nachhaltigkeit) und **KURA** (Game Discovery).`;
+
+      case "jv":
+        return `**Nawfal Irfan Ramadhan** (biyasane dipanggil **Nawfal**) yaiku **Fullstack Software Engineer & UI/UX Designer** ing Ngayogyakarta, Indonesia.
+
+- 🎓 **Pendidikan**: Mahasiswa Sistem Informasi ing Universitas Bina Sarana Informatika (UBSI) IPK **3.78 / 4.00**.
+- 🛠️ **Keahlian Utama**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
+- 🏆 **Sertifikasi**: Nduweni **48+ sertifikasi resmi** saka Google Cloud, IBM, Coursera, Dicoding, lan HackerRank.
+- 🚀 **Karya Utama**: Pangripta **Nawfal UI Kit** (${introspection.componentsCount} komponen UI), **Hijara**, lan **KURA**.`;
+
+      case "en":
+        return `**Nawfal Irfan Ramadhan** (commonly known as **Nawfal**) is a **Fullstack Software Engineer & UI/UX Designer** based in Yogyakarta, Indonesia.
 
 - 🎓 **Education**: Information Systems student at Universitas Bina Sarana Informatika (UBSI), 3rd Semester with a GPA of **3.78 / 4.00**.
 - 🛠️ **Core Tech Stack**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Certifications**: Holds **48+ official certifications** from Google Cloud, IBM, Coursera, RevoU, Dicoding, and HackerRank.
 - 🚀 **Featured Works**: Creator of **Nawfal UI Kit** (${introspection.componentsCount} enterprise monochrome components) and platforms such as **Hijara** (AI Sustainability) & **KURA** (Game Discovery platform with 897,000+ games).`;
-    }
-    return `**Nawfal Irfan Ramadhan** (biasa dipanggil **Nawfal**) adalah seorang **Fullstack Software Engineer & UI/UX Designer** berlokasi di Yogyakarta, Indonesia.
+
+      default:
+        return `**Nawfal Irfan Ramadhan** (biasa dipanggil **Nawfal**) adalah seorang **Fullstack Software Engineer & UI/UX Designer** berlokasi di Yogyakarta, Indonesia.
 
 - 🎓 **Pendidikan**: Mahasiswa Sistem Informasi di Universitas Bina Sarana Informatika (UBSI) semester 3 dengan IPK **3.78 / 4.00**.
 - 🛠️ **Keahlian Utama**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Sertifikasi**: Memiliki **48+ sertifikasi resmi** dari Google Cloud, IBM, Coursera, RevoU, Dicoding, dan HackerRank.
 - 🚀 **Karya Utama**: Kreator **Nawfal UI Kit** (${introspection.componentsCount} komponen enterprise monokromatik) dan platform populer seperti **Hijara** (AI Sustainability) & **KURA** (Game Discovery 897,000+ games).`;
+    }
   }
 
   // Projects queries
@@ -181,9 +307,12 @@ function generateSmartLocalResponse(prompt: string): string {
     p.includes("dibuat") ||
     p.includes("karya") ||
     p.includes("portfolio") ||
-    p.includes("built")
+    p.includes("built") ||
+    p.includes("プロジェクト") ||
+    p.includes("项目") ||
+    p.includes("المشاريع")
   ) {
-    if (isEnglish) {
+    if (lang === "en") {
       return `Here are the **Featured Projects** developed by Nawfal Irfan Ramadhan:
 
 1. 🌿 **Hijara – AI Sustainability Platform**:
@@ -213,90 +342,8 @@ function generateSmartLocalResponse(prompt: string): string {
    - Platform manajemen properti kost terintegrasi dengan laporan keuangan.`;
   }
 
-  // Certifications queries
-  if (
-    p.includes("sertifikat") ||
-    p.includes("sertifikasi") ||
-    p.includes("certif") ||
-    p.includes("prestasi") ||
-    p.includes("pencapaian")
-  ) {
-    if (isEnglish) {
-      return `Nawfal Irfan Ramadhan holds **48+ Professional Certifications** in Software Engineering & AI:
-
-- 🟢 **Google Cloud & IBM**: Cloud Architecture, DevOps & AI Foundations.
-- 💻 **Dicoding & RevoU**: Fullstack Web Development & Front-End Engineering.
-- ⚡ **HackerRank**: Problem Solving (Advanced), React, & JavaScript Certification.
-- 📜 **Coursera**: Specialization in System Design & Modern Web Applications.
-
-View all certification credentials directly on the [Certificates](/certificate) page.`;
-    }
-    return `Nawfal Irfan Ramadhan memiliki **48+ Sertifikasi Profesional** di bidang Software Engineering & AI:
-
-- 🟢 **Google Cloud & IBM**: Cloud Architecture, DevOps & AI Foundations.
-- 💻 **Dicoding & RevoU**: Fullstack Web Development & Front-End Engineering.
-- ⚡ **HackerRank**: Problem Solving (Advanced), React, & JavaScript Certification.
-- 📜 **Coursera**: Specialization in System Design & Modern Web Applications.
-
-Seluruh daftar bukti sertifikasi dapat diakses langsung di halaman [Certificates](/certificate).`;
-  }
-
-  // Nawfal UI Kit queries
-  if (
-    p.includes("nawfal ui") ||
-    p.includes("component") ||
-    p.includes("komponen") ||
-    p.includes("cli") ||
-    p.includes("kit") ||
-    p.includes("studio") ||
-    p.includes("template")
-  ) {
-    if (isEnglish) {
-      return `**Nawfal UI Kit** is an Enterprise Monochrome Design System created by Nawfal Irfan Ramadhan:
-
-- 🧱 **${introspection.componentsCount} Primitives**: Powered by Next.js 14, TypeScript, Tailwind CSS, & Framer Motion.
-- 🎛️ **Design Studio Workbench**: 16 catalog components with live parameter inspector & 4-framework exporter (TSX, JSX, HTML, Vue).
-- 📐 **19 Templates**: Production-ready section layouts for AI RAG, Audio, DevOps, & Security.
-- 💻 **CLI Installer**: \`npx nawfal-ui@latest init\` & \`npx nawfal-ui add <component>\`.`;
-    }
-    return `**Nawfal UI Kit** adalah Design System Enterprise Monokromatik buatan Nawfal Irfan Ramadhan:
-
-- 🧱 **${introspection.componentsCount} Primitives**: Berbasis Next.js 14, TypeScript, Tailwind CSS, & Framer Motion.
-- 🎛️ **Design Studio Workbench**: 16 komponen katalog dengan inspektor parameter live & ekspor 4 framework (TSX, JSX, HTML, Vue).
-- 📐 **19 Templates**: Layout siap pakai untuk AI RAG, Audio, DevOps, & Security.
-- 💻 **CLI Installer**: \`npx nawfal-ui@latest init\` & \`npx nawfal-ui add <component>\`.`;
-  }
-
-  // Contact queries
-  if (
-    p.includes("kontak") ||
-    p.includes("contact") ||
-    p.includes("hubungi") ||
-    p.includes("email") ||
-    p.includes("pesan") ||
-    p.includes("sosmed") ||
-    p.includes("social")
-  ) {
-    if (isEnglish) {
-      return `You can get in touch with **Nawfal Irfan Ramadhan** via:
-
-- ✉️ **Email**: nawfalirfan005@gmail.com
-- 💼 **LinkedIn**: [linkedin.com/in/nawfal-irfan](https://www.linkedin.com/in/nawfal-irfan/)
-- 💻 **GitHub**: [github.com/xFalzz](https://github.com/xFalzz)
-- 🐦 **Twitter/X**: [x.com/xFalzs](https://x.com/xFalzs)
-- 💬 **Discord**: [discord.gg/v6dgnKCpuM](https://discord.gg/v6dgnKCpuM)`;
-    }
-    return `Anda dapat menghubungi **Nawfal Irfan Ramadhan** melalui:
-
-- ✉️ **Email**: nawfalirfan005@gmail.com
-- 💼 **LinkedIn**: [linkedin.com/in/nawfal-irfan](https://www.linkedin.com/in/nawfal-irfan/)
-- 💻 **GitHub**: [github.com/xFalzz](https://github.com/xFalzz)
-- 🐦 **Twitter/X**: [x.com/xFalzs](https://x.com/xFalzs)
-- 💬 **Discord**: [discord.gg/v6dgnKCpuM](https://discord.gg/v6dgnKCpuM)`;
-  }
-
-  // Off-topic refusal for unrelated queries
-  if (isEnglish) {
+  // Refusal for out of scope
+  if (lang === "en") {
     return `I am the official **Nawfal AI Assistant** for Nawfal Irfan Ramadhan.
 
 I am specifically programmed to answer questions about:
