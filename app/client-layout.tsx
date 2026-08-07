@@ -10,6 +10,7 @@ import Footer from "@/components/footer/foo-bar";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import IntroPage from "@/components/intro/intro-page";
+import { GlobalCommandPalette } from "@/components/macro/global-command-palette";
 
 export default function ClientLayout({
   children,
@@ -60,6 +61,7 @@ export default function ClientLayout({
           disableTransitionOnChange={false}
         >
           <SpeedInsights />
+          <GlobalCommandPalette />
           <main className="flex w-full flex-col bg-background md:min-h-[100svh]">
             <Navbar />
             {children}

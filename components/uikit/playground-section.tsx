@@ -457,22 +457,25 @@ export function Component() {
             </div>
 
             {/* Viewport Selector */}
-            <div className="hidden items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-100 p-1 dark:border-neutral-800 dark:bg-black sm:flex">
+            <div className="hidden items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-100 p-1 dark:border-neutral-800 dark:bg-black sm:flex font-mono text-[10px]">
               {[
-                { id: "desktop", icon: <Monitor className="h-3.5 w-3.5" /> },
-                { id: "tablet",  icon: <Tablet className="h-3.5 w-3.5" /> },
-                { id: "mobile",  icon: <Smartphone className="h-3.5 w-3.5" /> },
+                { id: "desktop", label: "100%", icon: <Monitor className="h-3.5 w-3.5" /> },
+                { id: "laptop",  label: "1024px", icon: <Monitor className="h-3 w-3 opacity-80" /> },
+                { id: "tablet",  label: "768px",  icon: <Tablet className="h-3.5 w-3.5" /> },
+                { id: "phablet", label: "480px",  icon: <Smartphone className="h-3 w-3 opacity-80" /> },
+                { id: "mobile",  label: "360px",  icon: <Smartphone className="h-3.5 w-3.5" /> },
               ].map((v) => (
                 <button
                   key={v.id}
                   onClick={() => setViewport(v.id as any)}
-                  className={`flex h-6 w-7 items-center justify-center rounded transition-all ${
+                  className={`flex items-center gap-1 rounded px-2 py-1 font-semibold transition-all ${
                     viewport === v.id
-                      ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black shadow-xs"
+                      ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black shadow-xs font-bold"
                       : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-neutral-300"
                   }`}
                 >
                   {v.icon}
+                  <span className="hidden md:inline">{v.label}</span>
                 </button>
               ))}
             </div>
@@ -608,14 +611,18 @@ export function Component() {
               {/* Header Telemetry */}
               <div className={`flex items-center justify-between border-b pb-3 font-mono text-[10px] ${isLight ? "border-neutral-200 text-neutral-500" : "border-neutral-800 text-neutral-500"}`}>
                 <span className="font-bold uppercase tracking-wider">{selectedComp.name} · WIDE CANVAS</span>
-                <span>W: {viewport === "desktop" ? "100%" : viewport === "tablet" ? "480px" : "320px"}</span>
+                <span>
+                  VIEWPORT: {viewport === "desktop" ? "100% (FULL)" : viewport === "laptop" ? "1024px" : viewport === "tablet" ? "768px" : viewport === "phablet" ? "480px" : "360px"}
+                </span>
               </div>
 
               {/* Render Area for ALL 16 COMPONENTS */}
               <div className="my-12 flex items-center justify-center">
                 <div
-                  className="flex justify-center transition-all duration-300"
-                  style={{ width: viewport === "desktop" ? "100%" : viewport === "tablet" ? "480px" : "320px" }}
+                  className="flex justify-center transition-all duration-300 max-w-full"
+                  style={{
+                    width: viewport === "desktop" ? "100%" : viewport === "laptop" ? "1024px" : viewport === "tablet" ? "768px" : viewport === "phablet" ? "480px" : "360px"
+                  }}
                 >
                   <motion.div
                     key={selectedId + borderRadius + borderWidth + size + compState + customText + customSubtext + themeCanvas + segmentedActive + toggleActive + pinCode.join("")}
