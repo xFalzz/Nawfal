@@ -1,46 +1,53 @@
 "use client";
 
 import React, { useState } from "react";
-import { Users, Send, Star, GitFork, MessageSquare, Check, Github, Zap, ArrowUpRight, Heart, TrendingUp, Globe, Download, Code2 } from "lucide-react";
+import {
+  Users, Send, Star, GitFork, MessageSquare, Check, Github, Zap,
+  ArrowUpRight, Heart, TrendingUp, Globe, Download, Code2, Sparkles,
+  ShieldCheck, Terminal
+} from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 export function CommunitySection() {
   const { toast } = useToast();
   const [name, setName] = useState("");
+  const [role, setRole] = useState("");
   const [message, setMessage] = useState("");
+
+  const GITHUB_COMPONENTS_URL = "https://github.com/xFalzz/Nawfal/tree/main/components";
 
   const [feedbacks, setFeedbacks] = useState([
     {
       name: "Rian Hidayat",
-      role: "Fullstack Developer",
-      text: "The AI Semantic Vector Search and Hardware Keypress Tracker are total game changers! 100% complete code snippets work flawlessly in production.",
+      role: "Fullstack Engineer",
+      text: "The AI RAG Vector Search and Hardware Keypress Tracker are total game changers! 100% complete source code snippets work flawlessly in production.",
       date: "Just now",
       avatar: "RH",
     },
     {
       name: "Alex Rivera",
-      role: "Frontend Engineer @ Vercel",
+      role: "Frontend Specialist @ Vercel Ecosystem",
       text: "Love the 48 component collection. The unclipped viewports and full TSX previews make it incredibly developer-friendly. The spring physics are buttery smooth.",
       date: "Today",
       avatar: "AR",
     },
     {
       name: "Devi Permata",
-      role: "UI/UX Specialist",
+      role: "UI/UX Architect",
       text: "The Spotify Music suite and AI Vision inspector add incredible personality without feeling AI-generated. The monochromatic design system is genuinely elegant.",
       date: "Yesterday",
       avatar: "DP",
     },
     {
       name: "Marcus Chen",
-      role: "CTO @ StartupLab",
-      text: "Migrated our entire dashboard to Nawfal UI. Source-owned components mean zero dependency conflicts. The CLI installation is seamless.",
+      role: "CTO @ TechStartup",
+      text: "Migrated our entire dashboard to Nawfal UI. Source-owned components mean zero npm dependency conflicts. The CLI installation is seamless.",
       date: "2 days ago",
       avatar: "MC",
     },
     {
       name: "Sari Nurhayati",
-      role: "Senior React Developer",
+      role: "Senior React Engineer",
       text: "The WCAG AAA compliance out of the box is impressive. We passed our accessibility audit with flying colors using Nawfal UI components.",
       date: "3 days ago",
       avatar: "SN",
@@ -48,18 +55,18 @@ export function CommunitySection() {
   ]);
 
   const stats = [
-    { label: "Total Components", value: "48", icon: Code2 },
-    { label: "GitHub Stars", value: "2.4K", icon: Star },
-    { label: "Downloads", value: "12K+", icon: Download },
-    { label: "Contributors", value: "38", icon: Users },
+    { label: "Verified Components", value: "48", icon: Code2 },
+    { label: "GitHub Repository Stars", value: "2.4K+", icon: Star },
+    { label: "CLI Installs", value: "12K+", icon: Download },
+    { label: "Community Contributors", value: "38+", icon: Users },
   ];
 
   const changelog = [
-    { version: "v5.2.0", date: "Aug 2026", changes: "Added CLI installer, 6 new motion primitives, improved mobile responsiveness" },
-    { version: "v5.1.0", date: "Jul 2026", changes: "AI Vision Inspector, Neural Voice AI component, dark mode refinements" },
-    { version: "v5.0.0", date: "Jun 2026", changes: "Major redesign — monochromatic v2, spring physics engine, 48 component milestone" },
+    { version: "v5.2.0", date: "Aug 2026", changes: "Added NextGen CLI installer (npx nawfal-ui@latest), Design Studio Workbench, 16 interactive studio items, and theme-adaptive design system" },
+    { version: "v5.1.0", date: "Jul 2026", changes: "AI Vision Inspector, Neural Voice AI spectrum component, dark/light mode contrast refinements" },
+    { version: "v5.0.0", date: "Jun 2026", changes: "Major architectural redesign — monochromatic v2 scale, Framer Motion spring physics engine, 48 component milestone" },
     { version: "v4.4.0", date: "May 2026", changes: "Audio architecture suite, Spotify player, vinyl controller, waveform visualizer" },
-    { version: "v4.0.0", date: "Apr 2026", changes: "Initial public release with 32 enterprise components" },
+    { version: "v4.0.0", date: "Apr 2026", changes: "Initial public open-source release with 32 enterprise primitives" },
   ];
 
   const handleSubmitFeedback = (e: React.FormEvent) => {
@@ -69,7 +76,7 @@ export function CommunitySection() {
     setFeedbacks([
       {
         name,
-        role: "Community Contributor",
+        role: role.trim() || "Community Member",
         text: message,
         date: "Just now",
         avatar: name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase(),
@@ -78,6 +85,7 @@ export function CommunitySection() {
     ]);
 
     setName("");
+    setRole("");
     setMessage("");
 
     toast({
@@ -87,166 +95,182 @@ export function CommunitySection() {
   };
 
   return (
-    <div className="flex w-full flex-col gap-6">
-      {/* GitHub Ecosystem Banner */}
-      <section className="flex flex-col items-start justify-between gap-4 rounded-xl border border-neutral-200 bg-white p-5 text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white shadow-xs sm:flex-row sm:items-center">
+    <div className="flex w-full flex-col gap-6 text-neutral-900 dark:text-neutral-100">
+
+      {/* ─── GitHub Ecosystem Banner ────────────────────────────────────────── */}
+      <section className="flex flex-col items-start justify-between gap-4 rounded-xl border border-neutral-200 bg-white p-6 text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white shadow-xs sm:flex-row sm:items-center">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-neutral-500 dark:text-neutral-400">
             <Github className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
             <span>Open Source Ecosystem • v5.2.0 • MIT License</span>
           </div>
-          <h2 className="mt-1 text-xl font-bold tracking-tight text-neutral-900 dark:text-white">Nawfal UI Community Hub</h2>
-          <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+          <h2 className="mt-1 text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
+            Nawfal UI Community Hub
+          </h2>
+          <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400 max-w-xl">
             Join the growing community of developers building premium React applications with Nawfal UI&apos;s 48 enterprise-grade components.
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        {/* GitHub Direct Links pointing to /components */}
+        <div className="flex flex-wrap items-center gap-2.5">
           <a
-            href="https://github.com/xFalzz"
+            href={GITHUB_COMPONENTS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-neutral-700"
+            className="flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-neutral-100 px-3 py-1.5 font-mono text-xs font-semibold text-neutral-800 transition-colors hover:bg-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700"
           >
-            <Star className="h-3.5 w-3.5 text-amber-400 fill-amber-400" />
+            <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
             <span>Star</span>
           </a>
           <a
-            href="https://github.com/xFalzz"
+            href={GITHUB_COMPONENTS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-neutral-700"
+            className="flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-neutral-100 px-3 py-1.5 font-mono text-xs font-semibold text-neutral-800 transition-colors hover:bg-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700"
           >
             <GitFork className="h-3.5 w-3.5" />
             <span>Fork</span>
           </a>
           <a
-            href="https://github.com/xFalzz"
+            href={GITHUB_COMPONENTS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-lg border border-white/20 bg-white px-3 py-1.5 text-xs font-semibold text-black transition-colors hover:bg-neutral-200"
+            className="flex items-center gap-1.5 rounded-lg border border-neutral-900 bg-neutral-900 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors hover:opacity-90 dark:border-neutral-100 dark:bg-neutral-100 dark:text-black"
           >
             <ArrowUpRight className="h-3.5 w-3.5" />
-            <span>View on GitHub</span>
+            <span>View Components Source</span>
           </a>
         </div>
       </section>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {/* ─── Community Statistics Grid ──────────────────────────────────────── */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 font-mono">
         {stats.map((s, i) => (
-          <div key={i} className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-white/60 p-4 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/60">
-            <s.icon className="h-5 w-5 shrink-0 text-neutral-500" />
+          <div key={i} className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-white/80 p-4 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/80 shadow-xs">
+            <s.icon className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-300" />
             <div>
-              <p className="text-lg font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100">{s.value}</p>
-              <p className="text-[10px] text-neutral-500">{s.label}</p>
+              <div className="text-lg font-extrabold text-neutral-900 dark:text-white">{s.value}</div>
+              <div className="text-[10px] text-neutral-500 uppercase font-bold">{s.label}</div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Guestbook & Feedback */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {/* Form */}
-        <section className="rounded-xl border border-neutral-200 bg-white/60 p-5 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/60">
-          <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-neutral-500">
-            <MessageSquare className="h-4 w-4" />
-            <span>Community Guestbook</span>
-          </div>
-          <h3 className="mt-1 text-base font-bold text-neutral-900 dark:text-neutral-100">
-            Share Your Experience
-          </h3>
-          <p className="mt-1 text-xs text-neutral-500">
-            Let us know how Nawfal UI has helped your project, or suggest new component ideas for future releases.
-          </p>
+      {/* ─── Community Testimonials Feed & Form ─────────────────────────────── */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
 
-          <form onSubmit={handleSubmitFeedback} className="mt-4 flex flex-col gap-3">
-            <div>
-              <label className="text-xs font-medium text-neutral-700 dark:text-neutral-300">Your Name / Handle</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Nawfal Irfan"
-                className="mt-1 w-full rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-xs text-neutral-900 outline-none focus:border-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:border-white"
-              />
+        {/* Left: Testimonials Feed (7 cols) */}
+        <div className="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950 lg:col-span-7">
+          <div className="flex items-center justify-between border-b border-neutral-200 pb-3 dark:border-neutral-800 font-mono">
+            <div className="flex items-center gap-2">
+              <MessageSquare className="h-4 w-4 text-neutral-500" />
+              <span className="font-bold text-sm text-neutral-900 dark:text-white">Developer Reviews & Feedback</span>
             </div>
-            <div>
-              <label className="text-xs font-medium text-neutral-700 dark:text-neutral-300">Your Feedback or Idea</label>
-              <textarea
-                rows={3}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Tell us how you're using Nawfal UI..."
-                className="mt-1 w-full rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-xs text-neutral-900 outline-none focus:border-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:border-white"
-              />
-            </div>
-            <button
-              type="submit"
-              className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-neutral-900 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200"
-            >
-              <Send className="h-3.5 w-3.5" />
-              <span>Submit Feedback</span>
-            </button>
-          </form>
-        </section>
-
-        {/* Live Feedback Feed */}
-        <section className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white/60 p-5 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/60">
-          <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-neutral-500">
-            <Users className="h-4 w-4" />
-            <span>Community Testimonials ({feedbacks.length})</span>
+            <span className="text-[10px] text-neutral-400">{feedbacks.length} Posts</span>
           </div>
 
-          <div className="mt-1 flex flex-col gap-2.5 overflow-y-auto max-h-[340px] pr-1">
-            {feedbacks.map((fb, idx) => (
-              <div
-                key={idx}
-                className="rounded-lg border border-neutral-200 bg-neutral-50 p-3 text-xs dark:border-neutral-800 dark:bg-neutral-900/50"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-900 font-mono text-[9px] font-bold text-white dark:bg-white dark:text-black">
-                    {fb.avatar}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-neutral-900 dark:text-neutral-100">{fb.name}</span>
-                      <span className="font-mono text-[9px] text-neutral-400">{fb.date}</span>
+          <div className="flex flex-col gap-3 max-h-[480px] overflow-y-auto pr-1 font-mono text-xs">
+            {feedbacks.map((item, idx) => (
+              <div key={idx} className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-black">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full border border-neutral-300 bg-neutral-200 text-[10px] font-bold text-neutral-900 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
+                      {item.avatar}
                     </div>
-                    <span className="block text-[9px] text-neutral-500">{fb.role}</span>
+                    <div>
+                      <h5 className="font-bold text-neutral-900 dark:text-white">{item.name}</h5>
+                      <span className="text-[10px] text-neutral-500">{item.role}</span>
+                    </div>
                   </div>
+                  <span className="text-[9px] text-neutral-400">{item.date}</span>
                 </div>
-                <p className="mt-2 text-[11px] leading-relaxed text-neutral-600 dark:text-neutral-400">{fb.text}</p>
+                <p className="text-[11px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-sans">
+                  &ldquo;{item.text}&rdquo;
+                </p>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+
+        {/* Right: Submit Feedback Form & Changelog (5 cols) */}
+        <div className="flex flex-col gap-6 lg:col-span-5">
+
+          {/* Form Box */}
+          <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950 font-mono text-xs shadow-xs">
+            <div className="flex items-center gap-2 border-b border-neutral-200 pb-2.5 dark:border-neutral-800 font-bold uppercase tracking-wider text-neutral-500">
+              <Send className="h-3.5 w-3.5" />
+              <span>Share Community Feedback</span>
+            </div>
+
+            <form onSubmit={handleSubmitFeedback} className="flex flex-col gap-3">
+              <div>
+                <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500">Your Name</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Nawfal Irfan"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white outline-none focus:border-neutral-500"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500">Role / Company (Optional)</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Fullstack Developer"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="w-full rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white outline-none focus:border-neutral-500"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500">Feedback / Review</label>
+                <textarea
+                  rows={3}
+                  placeholder="Tell us what you think of Nawfal UI..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="w-full rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white outline-none focus:border-neutral-500"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="mt-1 flex items-center justify-center gap-1.5 rounded-lg border border-neutral-900 bg-neutral-900 py-2 font-bold text-white dark:border-neutral-100 dark:bg-neutral-100 dark:text-black hover:opacity-90 transition-all shadow-xs"
+              >
+                <Send className="h-3.5 w-3.5" />
+                <span>Post Review</span>
+              </button>
+            </form>
+          </div>
+
+          {/* Changelog Timeline */}
+          <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950 font-mono text-xs">
+            <div className="flex items-center justify-between border-b border-neutral-200 pb-2.5 dark:border-neutral-800 font-bold uppercase tracking-wider text-neutral-500">
+              <span className="flex items-center gap-1.5"><Sparkles className="h-3.5 w-3.5" /> Release Changelog</span>
+              <span className="text-[9px] opacity-60">v5.2.0</span>
+            </div>
+
+            <div className="flex flex-col gap-2.5">
+              {changelog.map((c, i) => (
+                <div key={i} className="flex flex-col gap-1 border-l-2 border-neutral-300 dark:border-neutral-800 pl-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-neutral-900 dark:text-white">{c.version}</span>
+                    <span className="text-[9px] text-neutral-400">{c.date}</span>
+                  </div>
+                  <p className="text-[10px] text-neutral-600 dark:text-neutral-400 font-sans leading-relaxed">{c.changes}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
-      {/* Changelog */}
-      <section className="rounded-xl border border-neutral-200 bg-white/60 p-5 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/60">
-        <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-neutral-500">
-          <TrendingUp className="h-4 w-4" />
-          <span>Release Changelog</span>
-        </div>
-        <h3 className="mt-1 text-base font-bold text-neutral-900 dark:text-neutral-100">Version History</h3>
-
-        <div className="mt-4 flex flex-col gap-2">
-          {changelog.map((entry, i) => (
-            <div key={i} className="flex items-start gap-3 rounded-lg border border-neutral-200 bg-neutral-50 p-3 dark:border-neutral-800 dark:bg-neutral-900/50">
-              <div className="shrink-0">
-                <span className="rounded bg-neutral-900 px-2 py-0.5 font-mono text-[10px] font-bold text-white dark:bg-white dark:text-black">
-                  {entry.version}
-                </span>
-              </div>
-              <div className="min-w-0 flex-1">
-                <span className="block font-mono text-[9px] text-neutral-400">{entry.date}</span>
-                <p className="mt-0.5 text-[11px] text-neutral-600 dark:text-neutral-400">{entry.changes}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
