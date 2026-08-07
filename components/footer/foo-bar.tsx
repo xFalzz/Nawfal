@@ -81,8 +81,10 @@ const Footer = () => {
           <HoverCard className="border-b">
             <HoverTitle>Nav</HoverTitle>
             <HoverItem header="Nav">
+              <HoverLinks href="/">Home</HoverLinks>
               <HoverLinks href="/about">About</HoverLinks>
               <HoverLinks href="/projects">Projects</HoverLinks>
+              <HoverLinks href="/components">Components</HoverLinks>
               <HoverLinks href="/certificate">Certificates</HoverLinks>
               <HoverLinks href="/photography">Photography</HoverLinks>
             </HoverItem>
@@ -90,8 +92,8 @@ const Footer = () => {
           <HoverCard className="border-b">
             <HoverTitle>Soc</HoverTitle>
             <HoverItem header="Soc">
-              <HoverLinks href="https://x.com/xFalzs" target="_blank">
-                Twitter/X
+              <HoverLinks href="https://github.com/xFalzz" target="_blank">
+                GitHub
               </HoverLinks>
               <HoverLinks
                 href="https://www.linkedin.com/in/nawfal-irfan/"
@@ -99,11 +101,20 @@ const Footer = () => {
               >
                 LinkedIn
               </HoverLinks>
+              <HoverLinks href="https://x.com/xFalzs" target="_blank">
+                Twitter/X
+              </HoverLinks>
               <HoverLinks
                 href="https://www.instagram.com/nawfaljr__"
                 target="_blank"
               >
                 Instagram
+              </HoverLinks>
+              <HoverLinks
+                href="https://discord.gg/v6dgnKCpuM"
+                target="_blank"
+              >
+                Discord
               </HoverLinks>
             </HoverItem>
           </HoverCard>
