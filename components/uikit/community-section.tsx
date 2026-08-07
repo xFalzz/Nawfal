@@ -8,42 +8,103 @@ import {
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
-const GAMBLING_KEYWORDS = [
+/**
+ * 🧹 Normalizes text by mapping leetspeak symbols, stripping punctuation/spaces,
+ * and collapsing consecutive repeated letters (e.g. "s-l-o-t" -> "slot", "k.n.t.l" -> "kntl")
+ */
+function normalizeString(str: string): string {
+  let s = str.toLowerCase();
+  s = s.replace(/0/g, "o")
+       .replace(/1/g, "i")
+       .replace(/3/g, "e")
+       .replace(/4/g, "a")
+       .replace(/5/g, "s")
+       .replace(/7/g, "t")
+       .replace(/8/g, "b")
+       .replace(/@/g, "a")
+       .replace(/\$/g, "s")
+       .replace(/!/g, "i");
+
+  const cleaned = s.replace(/[^a-z0-9]/gi, "");
+  const collapsed = cleaned.replace(/(.)\1{2,}/gi, "$1$1");
+  return collapsed;
+}
+
+const GAMBLING_TERMS = [
+  // Full & Abbreviated terms
   "slot", "gacor", "judi", "judol", "zeus", "pragmatic", "maxwin", "deposit", 
-  "wd", "withdraw", "scatter", "togel", "poker", "casino", "bet77", "slot88", 
-  "depo", "jackpot", "rtp", "pragmatik", "bocor", "situsjudi", "linkgacor", 
-  "gacor88", "maxwin88", "slotonline", "judionline", "bonus100", "depo10k"
+  "withdraw", "scatter", "togel", "poker", "casino", "bet77", "slot88", 
+  "jackpot", "pragmatik", "situsjudi", "linkgacor", "gacor88", "maxwin88", 
+  "slotonline", "judionline", "bonus100", "depo10k", "depo20k", "depo50k",
+  "slt", "gcr", "jdi", "jdl", "mxwn", "sctr", "tgl", "pkr", "csn", "bt77", "slt88", "jkpt"
 ];
 
-const PROFANITY_WORDS = [
-  "anjing", "babi", "kontol", "kintol", "memek", "pantek", "bangsat", "tai", "taik", 
-  "taek", "pukimak", "pepek", "jancok", "jancuk", "bego", "goblok", "tolol", "itil", 
-  "ngentot", "kampang", "jembut", "bajingan", "fuck", "shit", "bitch", "asshole", 
-  "bastard", "cunt", "dick", "pussy", "nigger", "whore", "slut", "cock"
+const PROFANITY_PATTERNS = [
+  // Indonesian Full & Abbreviated Swear Words
+  { pattern: /\b(anjing|anjg|ajg|anj|ajx)\b/gi, replacement: "***" },
+  { pattern: /\b(babi|bbi)\b/gi, replacement: "***" },
+  { pattern: /\b(kontol|kntl|kntol|knl|knt|kintol)\b/gi, replacement: "******" },
+  { pattern: /\b(memek|mmk|mek)\b/gi, replacement: "*****" },
+  { pattern: /\b(pantek|pntk)\b/gi, replacement: "******" },
+  { pattern: /\b(bangsat|bgst|bgsk)\b/gi, replacement: "*******" },
+  { pattern: /\b(tai|taik|taek)\b/gi, replacement: "***" },
+  { pattern: /\b(pukimak|pkak|pukima)\b/gi, replacement: "*******" },
+  { pattern: /\b(pepek|ppk)\b/gi, replacement: "*****" },
+  { pattern: /\b(jancok|jancuk|jncok|jncuk|jnc)\b/gi, replacement: "******" },
+  { pattern: /\b(bego|bgo)\b/gi, replacement: "****" },
+  { pattern: /\b(goblok|gblg|gblk|gblok)\b/gi, replacement: "******" },
+  { pattern: /\b(tolol|tll)\b/gi, replacement: "*****" },
+  { pattern: /\b(itil|itl)\b/gi, replacement: "****" },
+  { pattern: /\b(ngentot|ngntt|ngnt|ngt)\b/gi, replacement: "*******" },
+  { pattern: /\b(kampang|kmpng)\b/gi, replacement: "*******" },
+  { pattern: /\b(jembut|jmbt)\b/gi, replacement: "******" },
+  { pattern: /\b(bajingan|bjgn)\b/gi, replacement: "********" },
+  
+  // English Full & Abbreviated Swear Words
+  { pattern: /\b(fuck|fck|fk|fuk|fuc|fucking|fucker)\b/gi, replacement: "****" },
+  { pattern: /\b(shit|skt|sht|sh!t)\b/gi, replacement: "****" },
+  { pattern: /\b(bitch|btch|bch)\b/gi, replacement: "*****" },
+  { pattern: /\b(asshole|assh|ass)\b/gi, replacement: "*******" },
+  { pattern: /\b(bastard|bstrd)\b/gi, replacement: "*******" },
+  { pattern: /\b(cunt|cnt)\b/gi, replacement: "****" },
+  { pattern: /\b(dick|dck)\b/gi, replacement: "****" },
+  { pattern: /\b(pussy|pssy)\b/gi, replacement: "*****" },
+  { pattern: /\b(nigger|nigga|nggr)\b/gi, replacement: "******" },
+  { pattern: /\b(whore|whr)\b/gi, replacement: "*****" },
+  { pattern: /\b(slut|slt)\b/gi, replacement: "****" },
+  { pattern: /\b(cock|cck)\b/gi, replacement: "****" }
 ];
 
 /**
- * Checks if input text contains prohibited online gambling / slot keywords
+ * Smart Check for Gambling Content (detects raw text AND normalized/abbreviated text)
  */
-function containsGamblingContent(text: string): boolean {
-  const lower = text.toLowerCase();
-  return GAMBLING_KEYWORDS.some((word) => 
-    new RegExp(`\\b${word}\\b`, "i").test(lower) || lower.includes(word)
-  );
+function isSmartGambling(text: string): boolean {
+  const rawLower = text.toLowerCase();
+  const normalized = normalizeString(text);
+
+  return GAMBLING_TERMS.some((term) => {
+    return rawLower.includes(term) || normalized.includes(term);
+  });
 }
 
 /**
- * Automatically censors vulgar / profanity words with asterisks (***)
+ * Smart Profanity Sensor (censors raw words, shorthands, spaced letters, and leetspeak)
  */
-function sanitizeProfanity(text: string): { sanitizedText: string; hasProfanity: boolean } {
+function smartSanitizeProfanity(text: string): { sanitizedText: string; hasProfanity: boolean } {
   let sanitizedText = text;
   let hasProfanity = false;
 
-  PROFANITY_WORDS.forEach((word) => {
-    const regex = new RegExp(`\\b${word}\\b`, "gi");
-    if (regex.test(sanitizedText)) {
+  PROFANITY_PATTERNS.forEach(({ pattern, replacement }) => {
+    if (pattern.test(sanitizedText)) {
       hasProfanity = true;
-      sanitizedText = sanitizedText.replace(regex, "*".repeat(word.length));
+      sanitizedText = sanitizedText.replace(pattern, replacement);
+    }
+  });
+
+  const normalized = normalizeString(text);
+  PROFANITY_PATTERNS.forEach(({ pattern }) => {
+    if (pattern.test(normalized)) {
+      hasProfanity = true;
     }
   });
 
@@ -141,20 +202,20 @@ export function CommunitySection() {
     e.preventDefault();
     if (!name.trim() || !message.trim()) return;
 
-    // 1. Strict Gambling / Slot Content Blocker
-    if (containsGamblingContent(message) || containsGamblingContent(name) || containsGamblingContent(role)) {
+    // 1. Smart Gambling / Slot Content Blocker (Full & Abbreviated)
+    if (isSmartGambling(message) || isSmartGambling(name) || isSmartGambling(role)) {
       toast({
         title: "Submission Blocked ⛔",
-        description: "Your message contains prohibited gambling / slot content and was automatically rejected.",
+        description: "Your message contains prohibited gambling / slot keywords or abbreviations and was automatically rejected.",
         variant: "destructive",
       });
       return;
     }
 
-    // 2. Profanity Auto-Sanitizer & Sensor
-    const nameCheck = sanitizeProfanity(name.trim());
-    const roleCheck = sanitizeProfanity(role.trim());
-    const messageCheck = sanitizeProfanity(message.trim());
+    // 2. Smart Profanity Auto-Sanitizer & Sensor (Full & Abbreviated)
+    const nameCheck = smartSanitizeProfanity(name.trim());
+    const roleCheck = smartSanitizeProfanity(role.trim());
+    const messageCheck = smartSanitizeProfanity(message.trim());
 
     const finalName = nameCheck.sanitizedText;
     const finalRole = roleCheck.sanitizedText || "Community Member";
@@ -163,7 +224,7 @@ export function CommunitySection() {
     if (messageCheck.hasProfanity || nameCheck.hasProfanity || roleCheck.hasProfanity) {
       toast({
         title: "Content Auto-Censored 🛡️",
-        description: "Inappropriate language in your feedback was automatically sanitized with asterisks (***).",
+        description: "Profanity, vulgar words, or shorthands in your feedback were automatically censored (***).",
       });
     } else {
       toast({
@@ -249,7 +310,7 @@ export function CommunitySection() {
             </span>
             <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-semibold">
               <ShieldCheck className="h-3.5 w-3.5" />
-              Real-time Moderation Active
+              Smart AI Moderation Active
             </span>
           </div>
 
@@ -295,8 +356,8 @@ export function CommunitySection() {
                 <Send className="h-3.5 w-3.5" />
                 <span>Share Public Feedback</span>
               </span>
-              <span className="text-[9px] text-emerald-500 flex items-center gap-0.5">
-                <ShieldCheck className="h-3 w-3" /> Filtered
+              <span className="text-[9px] text-emerald-500 flex items-center gap-0.5 font-bold">
+                <ShieldCheck className="h-3 w-3" /> Smart Filter
               </span>
             </div>
 
@@ -342,8 +403,8 @@ export function CommunitySection() {
                 <span>Post Review to Public</span>
               </button>
               <div className="flex items-center gap-1 text-[9px] text-neutral-400">
-                <ShieldAlert className="h-3 w-3 text-amber-500" />
-                <span>Submissions are auto-moderated against slot/gambling & profanity.</span>
+                <ShieldAlert className="h-3 w-3 text-amber-500 shrink-0" />
+                <span>Auto-detects & censors profanities, shorthands (kntl, ajg, bgst) & slot/gambling keywords.</span>
               </div>
             </form>
           </div>
