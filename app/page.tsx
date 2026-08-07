@@ -12,6 +12,8 @@ import SubLinks from "@/components/macro/sub-links";
 import Shine from "@/components/macro/shine";
 import ProfileHeader from "@/components/macro/profile-header";
 
+import KeyboardShortcutsBadge from "@/components/macro/keyboard-shortcuts-badge";
+
 export default function Page() {
   return (
     <>
@@ -27,20 +29,7 @@ export default function Page() {
             UI/UX Designer
           </h1>
 
-          <div className="pad-r absolute bottom-0 right-0 hidden flex-col items-end gap-y-2 sm:flex">
-            <code className="justify-end gap-x-2 text-xs text-muted-foreground">
-              Theme{" "}
-              <kbd className="pointer-events-none inline-flex h-fit select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-                <span className="text-xs">⌘</span>M
-              </kbd>
-            </code>
-            <code className="justify-end gap-x-2 text-xs text-muted-foreground">
-              Command{" "}
-              <kbd className="pointer-events-none inline-flex h-fit select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-                <span className="text-xs">⌘</span>F
-              </kbd>
-            </code>
-          </div>
+          <KeyboardShortcutsBadge />
         </div>
 
         <SubLinks />
