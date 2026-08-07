@@ -4,9 +4,18 @@ import React, { useState, useEffect } from "react";
 import {
   Users, Send, Star, GitFork, MessageSquare, Check, Github, Zap,
   ArrowUpRight, Heart, TrendingUp, Globe, Download, Code2, Sparkles,
-  ShieldCheck, Terminal, ShieldAlert, CheckCircle2
+  ShieldCheck, Terminal, ShieldAlert, CheckCircle2, CloudCheck
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { db } from "@/lib/firebase";
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp
+} from "firebase/firestore";
 
 /**
  * 🧹 Normalizes text by mapping leetspeak symbols, stripping punctuation/spaces,
@@ -116,6 +125,7 @@ export function CommunitySection() {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const GITHUB_COMPONENTS_URL = "https://github.com/xFalzz/Nawfal/tree/main/components";
 
@@ -159,8 +169,54 @@ export function CommunitySection() {
 
   const [feedbacks, setFeedbacks] = useState(defaultFeedbacks);
 
-  // Load user feedbacks from localStorage on mount
+  // 🌐 Real-time Firebase Firestore Global Synchronization
   useEffect(() => {
+    let unsubscribe = () => {};
+    try {
+      const q = query(
+        collection(db, "community_feedbacks"),
+        orderBy("createdAt", "desc")
+      );
+
+      unsubscribe = onSnapshot(
+        q,
+        (snapshot) => {
+          const liveItems: any[] = [];
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            liveItems.push({
+              id: doc.id,
+              name: data.name || "Community Member",
+              role: data.role || "Developer",
+              text: data.text || "",
+              date: data.createdAt
+                ? new Date(data.createdAt.seconds * 1000).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })
+                : "Just now",
+              avatar: data.avatar || "CU",
+            });
+          });
+
+          if (liveItems.length > 0) {
+            setFeedbacks([...liveItems, ...defaultFeedbacks]);
+          }
+        },
+        (err) => {
+          console.warn("Firestore snapshot connection issue, fallback to local storage:", err);
+          loadLocalStorageFeedbacks();
+        }
+      );
+    } catch (err) {
+      console.warn("Firestore unavailable, using fallback cache");
+      loadLocalStorageFeedbacks();
+    }
+
+    return () => unsubscribe();
+  }, []);
+
+  const loadLocalStorageFeedbacks = () => {
     try {
       const saved = localStorage.getItem("nawfal_community_feedbacks");
       if (saved) {
@@ -170,16 +226,16 @@ export function CommunitySection() {
         }
       }
     } catch (e) {
-      console.warn("Failed to load community feedbacks from storage");
+      console.warn("Failed to load local storage feedbacks");
     }
-  }, []);
+  };
 
   const saveFeedbacksToStorage = (updated: typeof feedbacks) => {
     setFeedbacks(updated);
     try {
       localStorage.setItem("nawfal_community_feedbacks", JSON.stringify(updated));
     } catch (e) {
-      console.warn("Failed to save community feedbacks");
+      console.warn("Failed to save local storage feedbacks");
     }
   };
 
@@ -198,9 +254,9 @@ export function CommunitySection() {
     { version: "v4.0.0", date: "Apr 2026", changes: "Initial public open-source release with 32 enterprise primitives" },
   ];
 
-  const handleSubmitFeedback = (e: React.FormEvent) => {
+  const handleSubmitFeedback = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !message.trim()) return;
+    if (!name.trim() || !message.trim() || isSubmitting) return;
 
     // 1. Smart Gambling / Slot Content Blocker (Full & Abbreviated)
     if (isSmartGambling(message) || isSmartGambling(name) || isSmartGambling(role)) {
@@ -211,6 +267,8 @@ export function CommunitySection() {
       });
       return;
     }
+
+    setIsSubmitting(true);
 
     // 2. Smart Profanity Auto-Sanitizer & Sensor (Full & Abbreviated)
     const nameCheck = smartSanitizeProfanity(name.trim());
@@ -228,21 +286,37 @@ export function CommunitySection() {
       });
     } else {
       toast({
-        title: "Feedback Published Live! 🎉",
-        description: "Your review is now public and visible in the Nawfal UI Community Hub.",
+        title: "Feedback Published Globally! 🎉",
+        description: "Your review is now public and visible to ALL visitors globally in real time.",
       });
     }
+
+    const avatarLetters = finalName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase() || "CU";
 
     const newFeedbackItem = {
       name: finalName,
       role: finalRole,
       text: finalMessage,
       date: "Just now",
-      avatar: finalName.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase() || "CU",
+      avatar: avatarLetters,
     };
 
-    const updatedList = [newFeedbackItem, ...feedbacks];
-    saveFeedbacksToStorage(updatedList);
+    // 🌐 Write to Firebase Cloud Firestore for Global Multi-User Sync
+    try {
+      await addDoc(collection(db, "community_feedbacks"), {
+        name: finalName,
+        role: finalRole,
+        text: finalMessage,
+        avatar: avatarLetters,
+        createdAt: serverTimestamp(),
+      });
+    } catch (err) {
+      console.warn("Firestore write fallback to local storage:", err);
+      const updatedList = [newFeedbackItem, ...feedbacks];
+      saveFeedbacksToStorage(updatedList);
+    } finally {
+      setIsSubmitting(false);
+    }
 
     setName("");
     setRole("");
@@ -306,11 +380,11 @@ export function CommunitySection() {
           <div className="flex items-center justify-between font-mono text-xs text-neutral-500">
             <span className="flex items-center gap-2 font-bold uppercase tracking-wider text-neutral-900 dark:text-white">
               <MessageSquare className="h-4 w-4 text-primary" />
-              <span>Public Community Reviews & Feedback ({feedbacks.length})</span>
+              <span>Public Global Reviews & Feedback ({feedbacks.length})</span>
             </span>
             <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-semibold">
               <ShieldCheck className="h-3.5 w-3.5" />
-              Smart AI Moderation Active
+              Live Cloud Multi-User Sync Active
             </span>
           </div>
 
@@ -334,7 +408,8 @@ export function CommunitySection() {
                       </span>
                     </div>
                   </div>
-                  <span className="font-mono text-[10px] text-neutral-400 shrink-0">
+                  <span className="font-mono text-[10px] text-neutral-400 shrink-0 flex items-center gap-1">
+                    <CloudCheck className="h-3 w-3 text-emerald-500" />
                     {f.date}
                   </span>
                 </div>
@@ -357,7 +432,7 @@ export function CommunitySection() {
                 <span>Share Public Feedback</span>
               </span>
               <span className="text-[9px] text-emerald-500 flex items-center gap-0.5 font-bold">
-                <ShieldCheck className="h-3 w-3" /> Smart Filter
+                <ShieldCheck className="h-3 w-3" /> Cloud Sync
               </span>
             </div>
 
@@ -369,7 +444,8 @@ export function CommunitySection() {
                   placeholder="e.g. Nawfal Irfan"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white outline-none focus:border-neutral-500"
+                  disabled={isSubmitting}
+                  className="w-full rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white outline-none focus:border-neutral-500 disabled:opacity-50"
                 />
               </div>
 
@@ -380,7 +456,8 @@ export function CommunitySection() {
                   placeholder="e.g. Fullstack Developer"
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white outline-none focus:border-neutral-500"
+                  disabled={isSubmitting}
+                  className="w-full rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white outline-none focus:border-neutral-500 disabled:opacity-50"
                 />
               </div>
 
@@ -391,20 +468,22 @@ export function CommunitySection() {
                   placeholder="Tell us what you think of Nawfal UI..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white outline-none focus:border-neutral-500"
+                  disabled={isSubmitting}
+                  className="w-full rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white outline-none focus:border-neutral-500 disabled:opacity-50"
                 />
               </div>
 
               <button
                 type="submit"
-                className="mt-1 flex items-center justify-center gap-1.5 rounded-lg border border-neutral-900 bg-neutral-900 py-2 font-bold text-white dark:border-neutral-100 dark:bg-neutral-100 dark:text-black hover:opacity-90 transition-all shadow-xs"
+                disabled={isSubmitting || !name.trim() || !message.trim()}
+                className="mt-1 flex items-center justify-center gap-1.5 rounded-lg border border-neutral-900 bg-neutral-900 py-2 font-bold text-white dark:border-neutral-100 dark:bg-neutral-100 dark:text-black hover:opacity-90 transition-all shadow-xs disabled:opacity-50"
               >
                 <Send className="h-3.5 w-3.5" />
-                <span>Post Review to Public</span>
+                <span>{isSubmitting ? "Publishing to Cloud..." : "Post Review Globally"}</span>
               </button>
               <div className="flex items-center gap-1 text-[9px] text-neutral-400">
                 <ShieldAlert className="h-3 w-3 text-amber-500 shrink-0" />
-                <span>Auto-detects & censors profanities, shorthands (kntl, ajg, bgst) & slot/gambling keywords.</span>
+                <span>Syncs live to ALL visitors globally. Auto-censors profanity & slot/gambling terms.</span>
               </div>
             </form>
           </div>
