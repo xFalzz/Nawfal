@@ -26,7 +26,8 @@ function getDynamicSystemPrompt() {
 
 CURRENT SERVER TIME (Jakarta/WIB): ${now}
 ECOSYSTEM VERSION: v5.2.0
-GITHUB COMPONENT SOURCE: https://github.com/xFalzz/Nawfal/tree/main/components
+PRIMARY OWNER / CREATOR: Nawfal Irfan Ramadhan (Nickname: Nawfal, Handles: xFalzz, xFalzs)
+GITHUB REPOSITORY SOURCE: https://github.com/xFalzz/Nawfal/tree/main/components
 
 GROUND TRUTH KNOWLEDGE BASE (Automatically Synced):
 ${kbJson}
@@ -38,31 +39,49 @@ ADDITIONAL ECOSYSTEM DATA:
 - NextGen CLI: \`npx nawfal-ui@latest init\`, \`add <component>\`, \`list\`, \`diff\`, \`help\`.
 
 STRICT INSTRUCTIONS & BOUNDARIES:
-1. **Nawfal-Exclusive & Ecosystem Scope**: You MUST ONLY answer questions related to Nawfal Irfan Ramadhan — his background, tech stack, education (UBSI, GPA 3.78), certifications (48+), projects (Hijara, KURA, Kost Afifa, MoveiHub, macOS Sequoia Clone, etc.), and the Nawfal UI Ecosystem (48 components, Design Studio, Templates, CLI).
-2. **Off-Topic Queries**: If the user asks about unrelated general topics (cooking recipes, world politics, random sports, external math tutorials), politely decline with:
-   - Indonesian: "Saya adalah AI Assistant resmi Nawfal Irfan Ramadhan. Silakan tanyakan hal seputar proyek, keahlian, pengalaman, sertifikasi, atau Nawfal UI Kit!"
-   - English: "I am Nawfal's official AI Assistant. Feel free to ask about his projects, skills, experience, certifications, or the Nawfal UI Kit!"
-3. **Factual Integrity (NO HALLUCINATIONS)**:
-   - Base all answers strictly on the GROUND TRUTH KNOWLEDGE BASE above.
-4. **Tone & Formatting**:
-   - Professional, encouraging, clear, and engaging.
-   - Use clean Markdown styling (bolding, bullet points, code blocks for CLI commands).`;
+1. **Nawfal Exclusive Scope**: You MUST ONLY answer questions related to Nawfal Irfan Ramadhan — his background, tech stack, education (UBSI System Information, GPA 3.78/4.00), certifications (48+), projects (Hijara, KURA, Kost Afifa, MoveiHub, macOS Sequoia Clone, etc.), hobbies, photography, and the Nawfal UI Ecosystem (48 components, Design Studio, Templates, CLI).
+2. **Off-Topic Refusal Protocol**: If the user asks about unrelated general topics that are NOT covered in Nawfal's website/portfolio/ecosystem (e.g., cooking recipes, general world politics, external stock market advice, unrelated math homework), you MUST POLITELY DECLINE:
+   - Indonesian: "Saya adalah AI Assistant resmi Nawfal Irfan Ramadhan. Saya hanya dapat menjawab pertanyaan seputar Nawfal, portofolio proyek, keahlian, sertifikasi, dan Nawfal UI Kit!"
+   - English: "I am Nawfal Irfan Ramadhan's official AI Assistant. I can only answer questions regarding Nawfal, his projects, skills, certifications, and Nawfal UI Kit!"
+3. **Factual Integrity**: Base all answers strictly on the GROUND TRUTH KNOWLEDGE BASE above. No false hallucinations.
+4. **Formatting**: Clear Markdown with bullet points and code blocks.`;
 }
 
 function generateSmartLocalResponse(prompt: string): string {
   const p = prompt.toLowerCase();
 
-  if (p.includes("siapa") || p.includes("who is") || p.includes("nawfal") || p.includes("nawis") || p.includes("tentang") || p.includes("profile")) {
-    return `**Nawfal Irfan Ramadhan** (biasa dipanggil **Nawfal** / **Nawis**) adalah seorang **Fullstack Software Engineer & UI/UX Designer** berlokasi di Yogyakarta, Indonesia.
+  // Profile / Nawfal / Biodata queries
+  if (
+    p.includes("siapa") ||
+    p.includes("who is") ||
+    p.includes("nawfal") ||
+    p.includes("tentang") ||
+    p.includes("profile") ||
+    p.includes("pembuat") ||
+    p.includes("owner") ||
+    p.includes("biodata")
+  ) {
+    return `**Nawfal Irfan Ramadhan** (biasa dipanggil **Nawfal**) adalah seorang **Fullstack Software Engineer & UI/UX Designer** berlokasi di Yogyakarta, Indonesia.
 
 - 🎓 **Pendidikan**: Mahasiswa Sistem Informasi di Universitas Bina Sarana Informatika (UBSI) semester 3 dengan IPK **3.78 / 4.00**.
 - 🛠️ **Keahlian Utama**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Sertifikasi**: Memiliki **48+ sertifikasi resmi** dari Google Cloud, IBM, Coursera, RevoU, Dicoding, dan HackerRank.
-- 🚀 **Karya**: Kreator **Nawfal UI Kit** (48 komponen enterprise monokromatik) dan platform populer seperti **Hijara** & **KURA**.`;
+- 🚀 **Karya Utama**: Kreator **Nawfal UI Kit** (48 komponen enterprise monokromatik) dan platform populer seperti **Hijara** (AI Sustainability) & **KURA** (Game Discovery 897,000+ games).`;
   }
 
-  if (p.includes("proyek") || p.includes("project") || p.includes("hijara") || p.includes("kura") || p.includes("aplikasi") || p.includes("buat") || p.includes("dibuat")) {
-    return `Berikut adalah beberapa **Proyek Unggulan** karya Nawfal Irfan Ramadhan:
+  // Projects queries
+  if (
+    p.includes("proyek") ||
+    p.includes("project") ||
+    p.includes("hijara") ||
+    p.includes("kura") ||
+    p.includes("aplikasi") ||
+    p.includes("buat") ||
+    p.includes("dibuat") ||
+    p.includes("karya") ||
+    p.includes("portfolio")
+  ) {
+    return `Berikut adalah **Proyek Unggulan** buatan Nawfal Irfan Ramadhan:
 
 1. 🌿 **Hijara – AI Sustainability Platform**:
    - Platform keberlanjutan berbasis AI untuk Google #JuaraVibeCoding.
@@ -77,19 +96,35 @@ function generateSmartLocalResponse(prompt: string): string {
    - Platform manajemen properti kost terintegrasi dengan laporan keuangan.`;
   }
 
-  if (p.includes("sertifikat") || p.includes("sertifikasi") || p.includes("certif") || p.includes("prestasi")) {
-    return `Nawfal Irfan Ramadhan memiliki **48+ Sertifikasi Profesional** di bidang Software Engineering & AI, di antaranya:
+  // Certifications queries
+  if (
+    p.includes("sertifikat") ||
+    p.includes("sertifikasi") ||
+    p.includes("certif") ||
+    p.includes("prestasi") ||
+    p.includes("pencapaian")
+  ) {
+    return `Nawfal Irfan Ramadhan memiliki **48+ Sertifikasi Profesional** di bidang Software Engineering & AI:
 
 - 🟢 **Google Cloud & IBM**: Cloud Architecture, DevOps & AI Foundations.
 - 💻 **Dicoding & RevoU**: Fullstack Web Development & Front-End Engineering.
 - ⚡ **HackerRank**: Problem Solving (Advanced), React, & JavaScript Certification.
 - 📜 **Coursera**: Specialization in System Design & Modern Web Applications.
 
-Seluruh bukti sertifikat dapat dilihat langsung di halaman [Certificates](/certificate).`;
+Seluruh daftar bukti sertifikasi dapat diakses langsung di halaman [Certificates](/certificate).`;
   }
 
-  if (p.includes("nawfal ui") || p.includes("component") || p.includes("komponen") || p.includes("cli") || p.includes("kit")) {
-    return `**Nawfal UI Kit** adalah Design System Enterprise Monokromatik berkinerja tinggi:
+  // Nawfal UI Kit queries
+  if (
+    p.includes("nawfal ui") ||
+    p.includes("component") ||
+    p.includes("komponen") ||
+    p.includes("cli") ||
+    p.includes("kit") ||
+    p.includes("studio") ||
+    p.includes("template")
+  ) {
+    return `**Nawfal UI Kit** adalah Design System Enterprise Monokromatik buatan Nawfal Irfan Ramadhan:
 
 - 🧱 **48 Primitives**: Berbasis Next.js 14, TypeScript, Tailwind CSS, & Framer Motion.
 - 🎛️ **Design Studio Workbench**: 16 komponen katalog dengan inspektor parameter live & ekspor 4 framework (TSX, JSX, HTML, Vue).
@@ -97,7 +132,16 @@ Seluruh bukti sertifikat dapat dilihat langsung di halaman [Certificates](/certi
 - 💻 **CLI Installer**: \`npx nawfal-ui@latest init\` & \`npx nawfal-ui add <component>\`.`;
   }
 
-  if (p.includes("kontak") || p.includes("contact") || p.includes("hubungi") || p.includes("email") || p.includes("pesan")) {
+  // Contact queries
+  if (
+    p.includes("kontak") ||
+    p.includes("contact") ||
+    p.includes("hubungi") ||
+    p.includes("email") ||
+    p.includes("pesan") ||
+    p.includes("sosmed") ||
+    p.includes("social")
+  ) {
     return `Anda dapat menghubungi **Nawfal Irfan Ramadhan** melalui:
 
 - ✉️ **Email**: nawfalirfan005@gmail.com
@@ -107,19 +151,19 @@ Seluruh bukti sertifikat dapat dilihat langsung di halaman [Certificates](/certi
 - 💬 **Discord**: [discord.gg/v6dgnKCpuM](https://discord.gg/v6dgnKCpuM)`;
   }
 
-  return `Saya adalah **Nawfal AI Assistant** resmi. Saya dapat memberikan informasi terverifikasi mengenai:
+  // Off-topic refusal for unrelated queries
+  return `Saya adalah **Nawfal AI Assistant** resmi Nawfal Irfan Ramadhan. 
 
-- 👤 **Profil & Latar Belakang** Nawfal Irfan Ramadhan (Nawis)
+Saya khusus diprogram untuk menjawab hal-hal yang berkaitan dengan:
+- 👤 **Profil & Biodata** Nawfal Irfan Ramadhan
 - 🚀 **Portofolio Proyek** (Hijara, KURA, macOS Clone, Nawfal UI Kit)
-- 🏆 **48+ Sertifikasi Profesional**
-- 🛠️ **Tech Stack & Keahlian Engineering**
-- 📦 **Spesifikasi Nawfal UI Kit & CLI**
+- 🏆 **48+ Sertifikasi & Keahlian Engineering**
+- 📦 **Nawfal UI Kit Ecosystem & CLI**
 
-Silakan tanyakan hal seputar topik di atas!`;
+*Pertanyaan di luar cakupan profil dan website Nawfal tidak dapat saya jawab.* Silakan tanyakan topik seputar portofolio Nawfal!`;
 }
 
 async function callGroqWithFallback(apiKey: string, messages: ChatMessage[]) {
-  // Updated list of active, non-deprecated Groq models
   const models = [
     "llama-3.3-70b-versatile",
     "llama-3.1-8b-instant",
@@ -182,6 +226,5 @@ export async function getAiResponseAction(
     }
   }
 
-  // Bulletproof Smart Local Knowledge Engine (100% Uptime Guarantee)
   return generateSmartLocalResponse(prompt);
 }

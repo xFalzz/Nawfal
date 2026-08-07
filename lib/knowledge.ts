@@ -2,7 +2,8 @@ export const KNOWLEDGE_BASE = {
   profile: {
     fullName: "Nawfal Irfan Ramadhan",
     nickname: "Nawfal",
-    titles: ["Software Engineer", "Web Developer", "AI Enthusiast"],
+    nicknames: ["Nawfal", "xFalzz", "xFalzs"],
+    titles: ["Software Engineer", "Web Developer", "AI Enthusiast", "UI/UX Designer"],
     location: "Kasihan, Yogyakarta, Indonesia",
     bio: "Software Engineer and Information Systems student at Universitas Bina Sarana Informatika (3rd Semester) who enjoys turning ideas into web applications using modern technologies like React, Next.js, and Node.js. Passionate about building useful digital products, solving problems, and spending an unhealthy amount of time searching for a missing semicolon or debugging code that somehow fixes itself.",
     tagline: "I create intuitive, visually stunning and highly functional Web.",
