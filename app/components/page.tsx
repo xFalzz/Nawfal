@@ -1449,13 +1449,13 @@ export function GitBranchTreeGraph() {
       </section>
 
       {/* Sticky Navigation Tabs */}
-      <nav className="sticky top-[57px] z-30 my-4 flex items-center justify-between gap-1.5 overflow-x-auto rounded-lg border border-neutral-200 bg-white/90 p-1 backdrop-blur-md no-scrollbar dark:border-neutral-800 dark:bg-neutral-950/90 sm:my-6 sm:gap-2">
+      <nav className="sticky top-[57px] z-30 my-3 flex items-center justify-between gap-1 overflow-x-auto rounded-lg border border-neutral-200 bg-white/90 p-1 backdrop-blur-md no-scrollbar dark:border-neutral-800 dark:bg-neutral-950/90 sm:my-6 sm:gap-2">
         <div className="flex shrink-0 items-center gap-0.5 sm:gap-1">
           <button
             onClick={() => setActiveTab("components")}
-            className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
               activeTab === "components"
-                ? "bg-neutral-900 text-white dark:bg-white dark:text-black"
+                ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
@@ -1465,9 +1465,9 @@ export function GitBranchTreeGraph() {
 
           <button
             onClick={() => setActiveTab("documents")}
-            className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
               activeTab === "documents"
-                ? "bg-neutral-900 text-white dark:bg-white dark:text-black"
+                ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
@@ -1477,9 +1477,9 @@ export function GitBranchTreeGraph() {
 
           <button
             onClick={() => setActiveTab("tools")}
-            className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
               activeTab === "tools"
-                ? "bg-neutral-900 text-white dark:bg-white dark:text-black"
+                ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
@@ -1489,9 +1489,9 @@ export function GitBranchTreeGraph() {
 
           <button
             onClick={() => setActiveTab("templates")}
-            className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
               activeTab === "templates"
-                ? "bg-neutral-900 text-white dark:bg-white dark:text-black"
+                ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
@@ -1501,9 +1501,9 @@ export function GitBranchTreeGraph() {
 
           <button
             onClick={() => setActiveTab("playground")}
-            className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
               activeTab === "playground"
-                ? "bg-neutral-900 text-white dark:bg-white dark:text-black"
+                ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
@@ -1513,9 +1513,9 @@ export function GitBranchTreeGraph() {
 
           <button
             onClick={() => setActiveTab("learn")}
-            className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
               activeTab === "learn"
-                ? "bg-neutral-900 text-white dark:bg-white dark:text-black"
+                ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
@@ -1525,9 +1525,9 @@ export function GitBranchTreeGraph() {
 
           <button
             onClick={() => setActiveTab("community")}
-            className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
+            className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold transition-all ${
               activeTab === "community"
-                ? "bg-neutral-900 text-white dark:bg-white dark:text-black"
+                ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
