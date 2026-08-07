@@ -1,12 +1,54 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Users, Send, Star, GitFork, MessageSquare, Check, Github, Zap,
   ArrowUpRight, Heart, TrendingUp, Globe, Download, Code2, Sparkles,
-  ShieldCheck, Terminal
+  ShieldCheck, Terminal, ShieldAlert, CheckCircle2
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+
+const GAMBLING_KEYWORDS = [
+  "slot", "gacor", "judi", "judol", "zeus", "pragmatic", "maxwin", "deposit", 
+  "wd", "withdraw", "scatter", "togel", "poker", "casino", "bet77", "slot88", 
+  "depo", "jackpot", "rtp", "pragmatik", "bocor", "situsjudi", "linkgacor", 
+  "gacor88", "maxwin88", "slotonline", "judionline", "bonus100", "depo10k"
+];
+
+const PROFANITY_WORDS = [
+  "anjing", "babi", "kontol", "kintol", "memek", "pantek", "bangsat", "tai", "taik", 
+  "taek", "pukimak", "pepek", "jancok", "jancuk", "bego", "goblok", "tolol", "itil", 
+  "ngentot", "kampang", "jembut", "bajingan", "fuck", "shit", "bitch", "asshole", 
+  "bastard", "cunt", "dick", "pussy", "nigger", "whore", "slut", "cock"
+];
+
+/**
+ * Checks if input text contains prohibited online gambling / slot keywords
+ */
+function containsGamblingContent(text: string): boolean {
+  const lower = text.toLowerCase();
+  return GAMBLING_KEYWORDS.some((word) => 
+    new RegExp(`\\b${word}\\b`, "i").test(lower) || lower.includes(word)
+  );
+}
+
+/**
+ * Automatically censors vulgar / profanity words with asterisks (***)
+ */
+function sanitizeProfanity(text: string): { sanitizedText: string; hasProfanity: boolean } {
+  let sanitizedText = text;
+  let hasProfanity = false;
+
+  PROFANITY_WORDS.forEach((word) => {
+    const regex = new RegExp(`\\b${word}\\b`, "gi");
+    if (regex.test(sanitizedText)) {
+      hasProfanity = true;
+      sanitizedText = sanitizedText.replace(regex, "*".repeat(word.length));
+    }
+  });
+
+  return { sanitizedText, hasProfanity };
+}
 
 export function CommunitySection() {
   const { toast } = useToast();
@@ -16,7 +58,7 @@ export function CommunitySection() {
 
   const GITHUB_COMPONENTS_URL = "https://github.com/xFalzz/Nawfal/tree/main/components";
 
-  const [feedbacks, setFeedbacks] = useState([
+  const defaultFeedbacks = [
     {
       name: "Rian Hidayat",
       role: "Fullstack Engineer",
@@ -52,7 +94,33 @@ export function CommunitySection() {
       date: "3 days ago",
       avatar: "SN",
     },
-  ]);
+  ];
+
+  const [feedbacks, setFeedbacks] = useState(defaultFeedbacks);
+
+  // Load user feedbacks from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("nawfal_community_feedbacks");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setFeedbacks(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to load community feedbacks from storage");
+    }
+  }, []);
+
+  const saveFeedbacksToStorage = (updated: typeof feedbacks) => {
+    setFeedbacks(updated);
+    try {
+      localStorage.setItem("nawfal_community_feedbacks", JSON.stringify(updated));
+    } catch (e) {
+      console.warn("Failed to save community feedbacks");
+    }
+  };
 
   const stats = [
     { label: "Verified Components", value: "48", icon: Code2 },
@@ -73,25 +141,51 @@ export function CommunitySection() {
     e.preventDefault();
     if (!name.trim() || !message.trim()) return;
 
-    setFeedbacks([
-      {
-        name,
-        role: role.trim() || "Community Member",
-        text: message,
-        date: "Just now",
-        avatar: name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase(),
-      },
-      ...feedbacks,
-    ]);
+    // 1. Strict Gambling / Slot Content Blocker
+    if (containsGamblingContent(message) || containsGamblingContent(name) || containsGamblingContent(role)) {
+      toast({
+        title: "Submission Blocked ⛔",
+        description: "Your message contains prohibited gambling / slot content and was automatically rejected.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // 2. Profanity Auto-Sanitizer & Sensor
+    const nameCheck = sanitizeProfanity(name.trim());
+    const roleCheck = sanitizeProfanity(role.trim());
+    const messageCheck = sanitizeProfanity(message.trim());
+
+    const finalName = nameCheck.sanitizedText;
+    const finalRole = roleCheck.sanitizedText || "Community Member";
+    const finalMessage = messageCheck.sanitizedText;
+
+    if (messageCheck.hasProfanity || nameCheck.hasProfanity || roleCheck.hasProfanity) {
+      toast({
+        title: "Content Auto-Censored 🛡️",
+        description: "Inappropriate language in your feedback was automatically sanitized with asterisks (***).",
+      });
+    } else {
+      toast({
+        title: "Feedback Published Live! 🎉",
+        description: "Your review is now public and visible in the Nawfal UI Community Hub.",
+      });
+    }
+
+    const newFeedbackItem = {
+      name: finalName,
+      role: finalRole,
+      text: finalMessage,
+      date: "Just now",
+      avatar: finalName.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase() || "CU",
+    };
+
+    const updatedList = [newFeedbackItem, ...feedbacks];
+    saveFeedbacksToStorage(updatedList);
 
     setName("");
     setRole("");
     setMessage("");
-
-    toast({
-      title: "Feedback Submitted!",
-      description: "Thank you for contributing to Nawfal UI Community Hub.",
-    });
   };
 
   return (
@@ -118,89 +212,92 @@ export function CommunitySection() {
             href={GITHUB_COMPONENTS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-neutral-100 px-3 py-1.5 font-mono text-xs font-semibold text-neutral-800 transition-colors hover:bg-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700"
+            className="flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2 font-mono text-xs font-semibold text-white dark:bg-white dark:text-black hover:opacity-90 transition-all shadow-xs"
           >
-            <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
-            <span>Star</span>
-          </a>
-          <a
-            href={GITHUB_COMPONENTS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-neutral-100 px-3 py-1.5 font-mono text-xs font-semibold text-neutral-800 transition-colors hover:bg-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700"
-          >
-            <GitFork className="h-3.5 w-3.5" />
-            <span>Fork</span>
-          </a>
-          <a
-            href={GITHUB_COMPONENTS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-lg border border-neutral-900 bg-neutral-900 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors hover:opacity-90 dark:border-neutral-100 dark:bg-neutral-100 dark:text-black"
-          >
-            <ArrowUpRight className="h-3.5 w-3.5" />
-            <span>View Components Source</span>
+            <Github className="h-4 w-4" />
+            <span>View Source on GitHub</span>
+            <ArrowUpRight className="h-3.5 w-3.5 opacity-60" />
           </a>
         </div>
       </section>
 
-      {/* ─── Community Statistics Grid ──────────────────────────────────────── */}
+      {/* ─── Community Metrics ──────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 font-mono">
-        {stats.map((s, i) => (
-          <div key={i} className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-white/80 p-4 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/80 shadow-xs">
-            <s.icon className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-300" />
-            <div>
-              <div className="text-lg font-extrabold text-neutral-900 dark:text-white">{s.value}</div>
-              <div className="text-[10px] text-neutral-500 uppercase font-bold">{s.label}</div>
+        {stats.map((s, i) => {
+          const Icon = s.icon;
+          return (
+            <div key={i} className="flex flex-col gap-1 rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950 shadow-xs">
+              <div className="flex items-center justify-between text-neutral-400">
+                <span className="text-[10px] font-bold uppercase tracking-wider">{s.label}</span>
+                <Icon className="h-4 w-4" />
+              </div>
+              <span className="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">{s.value}</span>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* ─── Community Testimonials Feed & Form ─────────────────────────────── */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+      {/* ─── Main Content Grid: Feedbacks + Form + Changelog ───────────────── */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
 
-        {/* Left: Testimonials Feed (7 cols) */}
-        <div className="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950 lg:col-span-7">
-          <div className="flex items-center justify-between border-b border-neutral-200 pb-3 dark:border-neutral-800 font-mono">
-            <div className="flex items-center gap-2">
-              <MessageSquare className="h-4 w-4 text-neutral-500" />
-              <span className="font-bold text-sm text-neutral-900 dark:text-white">Developer Reviews & Feedback</span>
-            </div>
-            <span className="text-[10px] text-neutral-400">{feedbacks.length} Posts</span>
+        {/* Left Col (2 cols): Community Feedbacks List */}
+        <div className="flex flex-col gap-4 lg:col-span-2">
+          <div className="flex items-center justify-between font-mono text-xs text-neutral-500">
+            <span className="flex items-center gap-2 font-bold uppercase tracking-wider text-neutral-900 dark:text-white">
+              <MessageSquare className="h-4 w-4 text-primary" />
+              <span>Public Community Reviews & Feedback ({feedbacks.length})</span>
+            </span>
+            <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-semibold">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              Real-time Moderation Active
+            </span>
           </div>
 
-          <div className="flex flex-col gap-3 max-h-[480px] overflow-y-auto pr-1 font-mono text-xs">
-            {feedbacks.map((item, idx) => (
-              <div key={idx} className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-black">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full border border-neutral-300 bg-neutral-200 text-[10px] font-bold text-neutral-900 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
-                      {item.avatar}
+          <div className="flex flex-col gap-3">
+            {feedbacks.map((f, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950 font-sans shadow-xs transition-all hover:border-neutral-300 dark:hover:border-neutral-700"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 text-xs font-mono font-bold text-white dark:bg-white dark:text-black">
+                      {f.avatar}
                     </div>
                     <div>
-                      <h5 className="font-bold text-neutral-900 dark:text-white">{item.name}</h5>
-                      <span className="text-[10px] text-neutral-500">{item.role}</span>
+                      <h4 className="text-xs font-bold text-neutral-900 dark:text-white leading-tight">
+                        {f.name}
+                      </h4>
+                      <span className="text-[10px] text-neutral-500 font-mono">
+                        {f.role}
+                      </span>
                     </div>
                   </div>
-                  <span className="text-[9px] text-neutral-400">{item.date}</span>
+                  <span className="font-mono text-[10px] text-neutral-400 shrink-0">
+                    {f.date}
+                  </span>
                 </div>
-                <p className="text-[11px] leading-relaxed text-neutral-700 dark:text-neutral-300 font-sans">
-                  &ldquo;{item.text}&rdquo;
+                <p className="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed font-mono">
+                  &ldquo;{f.text}&rdquo;
                 </p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Right: Submit Feedback Form & Changelog (5 cols) */}
-        <div className="flex flex-col gap-6 lg:col-span-5">
+        {/* Right Col (1 col): Submit Form + Changelog */}
+        <div className="flex flex-col gap-6">
 
-          {/* Form Box */}
+          {/* Submit Feedback Form */}
           <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950 font-mono text-xs shadow-xs">
-            <div className="flex items-center gap-2 border-b border-neutral-200 pb-2.5 dark:border-neutral-800 font-bold uppercase tracking-wider text-neutral-500">
-              <Send className="h-3.5 w-3.5" />
-              <span>Share Community Feedback</span>
+            <div className="flex items-center justify-between border-b border-neutral-200 pb-2.5 dark:border-neutral-800 font-bold uppercase tracking-wider text-neutral-500">
+              <span className="flex items-center gap-2">
+                <Send className="h-3.5 w-3.5" />
+                <span>Share Public Feedback</span>
+              </span>
+              <span className="text-[9px] text-emerald-500 flex items-center gap-0.5">
+                <ShieldCheck className="h-3 w-3" /> Filtered
+              </span>
             </div>
 
             <form onSubmit={handleSubmitFeedback} className="flex flex-col gap-3">
@@ -242,8 +339,12 @@ export function CommunitySection() {
                 className="mt-1 flex items-center justify-center gap-1.5 rounded-lg border border-neutral-900 bg-neutral-900 py-2 font-bold text-white dark:border-neutral-100 dark:bg-neutral-100 dark:text-black hover:opacity-90 transition-all shadow-xs"
               >
                 <Send className="h-3.5 w-3.5" />
-                <span>Post Review</span>
+                <span>Post Review to Public</span>
               </button>
+              <div className="flex items-center gap-1 text-[9px] text-neutral-400">
+                <ShieldAlert className="h-3 w-3 text-amber-500" />
+                <span>Submissions are auto-moderated against slot/gambling & profanity.</span>
+              </div>
             </form>
           </div>
 
