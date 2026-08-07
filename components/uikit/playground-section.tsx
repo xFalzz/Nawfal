@@ -420,7 +420,7 @@ export function Component() {
     <div className="flex w-full flex-col gap-5 text-neutral-900 dark:text-neutral-100">
 
       {/* ─── Top Studio Bar ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-white/70 backdrop-blur-md p-5 dark:border-neutral-800 dark:bg-neutral-950/80 shadow-xs">
+      <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950 shadow-xs">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
@@ -434,7 +434,7 @@ export function Component() {
               Interactive Component Studio
             </h3>
             <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400 max-w-xl">
-              Inspect, customize parameters, test states, and copy production-ready monochrome TSX/HTML snippets.
+              Select any component from the catalog, customize parameters, simulate states, and copy production-ready monochrome TSX/HTML snippets.
             </p>
           </div>
 
@@ -447,7 +447,7 @@ export function Component() {
                   onClick={() => setThemeCanvas(t)}
                   className={`rounded px-2.5 py-1 font-semibold capitalize transition-all ${
                     themeCanvas === t
-                      ? "bg-neutral-900 text-white dark:bg-neutral-800 dark:text-white shadow-xs"
+                      ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black shadow-xs"
                       : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200"
                   }`}
                 >
@@ -468,7 +468,7 @@ export function Component() {
                   onClick={() => setViewport(v.id as any)}
                   className={`flex h-6 w-7 items-center justify-center rounded transition-all ${
                     viewport === v.id
-                      ? "bg-neutral-900 text-white dark:bg-neutral-800 dark:text-white shadow-xs"
+                      ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black shadow-xs"
                       : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-neutral-300"
                   }`}
                 >
@@ -562,8 +562,8 @@ export function Component() {
                   onClick={() => setActiveView(tab.id as any)}
                   className={`flex items-center gap-1.5 rounded px-3.5 py-1 text-[11px] font-semibold transition-all ${
                     activeView === tab.id
-                      ? "bg-neutral-900 text-white dark:bg-neutral-800 dark:text-white shadow-xs"
-                      : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-neutral-300"
+                      ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black shadow-xs"
+                      : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200"
                   }`}
                 >
                   {tab.icon} {tab.label}
@@ -576,7 +576,7 @@ export function Component() {
               onClick={() => setShowGrid(!showGrid)}
               className={`flex items-center gap-1 rounded px-2.5 py-1 text-[10px] font-mono transition-all ${
                 showGrid
-                  ? "text-neutral-900 bg-white border border-neutral-300 dark:text-neutral-300 dark:bg-neutral-900 dark:border-neutral-800"
+                  ? "text-neutral-900 bg-white border border-neutral-300 dark:text-neutral-200 dark:bg-neutral-800 dark:border-neutral-700"
                   : "text-neutral-500"
               }`}
             >
@@ -649,8 +649,8 @@ export function Component() {
                         className="group relative inline-flex items-center justify-center overflow-hidden p-[1px] font-mono text-xs font-semibold"
                       >
                         <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#000_0%,#fff_50%,#000_100%)]" />
-                        <span style={{ borderRadius: `${Math.max(2, borderRadius - 1)}px` }} className="inline-flex items-center gap-2 bg-black px-5 py-2.5 text-white">
-                          <Zap className="h-3.5 w-3.5 text-neutral-300" />
+                        <span style={{ borderRadius: `${Math.max(2, borderRadius - 1)}px` }} className={`inline-flex items-center gap-2 px-5 py-2.5 ${isLight ? "bg-white text-black" : "bg-black text-white"}`}>
+                          <Zap className={`h-3.5 w-3.5 ${isLight ? "text-neutral-700" : "text-neutral-300"}`} />
                           <span>{customText}</span>
                         </span>
                       </button>
@@ -661,12 +661,16 @@ export function Component() {
                       <button
                         style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
                         className={`inline-flex items-center gap-2 border px-4 py-2 font-mono text-xs font-semibold ${
-                          isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-neutral-900 text-white"
+                          isLight
+                            ? "border-neutral-300 bg-neutral-100 text-black"
+                            : "border-neutral-800 bg-neutral-900 text-white"
                         }`}
                       >
                         <Command className="h-3.5 w-3.5" />
                         <span>{customText}</span>
-                        <kbd className="rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-1.5 py-0.5 text-[9px]">⌘K</kbd>
+                        <kbd className={`rounded border px-1.5 py-0.5 text-[9px] ${
+                          isLight ? "border-neutral-300 bg-white text-black" : "border-neutral-700 bg-neutral-800 text-white"
+                        }`}>⌘K</kbd>
                       </button>
                     )}
 
@@ -675,14 +679,18 @@ export function Component() {
                       <div
                         style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
                         className={`flex w-full max-w-sm flex-col gap-3 border p-5 font-mono text-xs ${
-                          isLight ? "border-neutral-300 bg-neutral-50 text-black" : "border-neutral-800 bg-neutral-950 text-white"
+                          isLight
+                            ? "border-neutral-300 bg-neutral-50 text-black"
+                            : "border-neutral-800 bg-neutral-950 text-white"
                         }`}
                       >
                         <div className={`flex items-center justify-between border-b pb-3 ${isLight ? "border-neutral-200" : "border-neutral-800"}`}>
                           <span className="font-bold uppercase tracking-wider">{customText}</span>
-                          <span className="rounded border border-neutral-700 bg-neutral-900 px-2 py-0.5 text-[9px] font-bold text-neutral-300">ACTIVE</span>
+                          <span className={`rounded border px-2 py-0.5 text-[9px] font-bold ${
+                            isLight ? "border-neutral-300 bg-neutral-200 text-neutral-800" : "border-neutral-700 bg-neutral-900 text-neutral-300"
+                          }`}>ACTIVE</span>
                         </div>
-                        <p className="text-[11px] leading-relaxed opacity-70">{customSubtext}</p>
+                        <p className={`text-[11px] leading-relaxed ${isLight ? "text-neutral-600" : "text-neutral-400"}`}>{customSubtext}</p>
                       </div>
                     )}
 
@@ -694,12 +702,12 @@ export function Component() {
                           isLight ? "border-neutral-300 bg-neutral-50 text-black" : "border-neutral-800 bg-neutral-950 text-white"
                         }`}
                       >
-                        <div className="flex items-center justify-between opacity-60">
+                        <div className={`flex items-center justify-between ${isLight ? "text-neutral-500" : "text-neutral-400"}`}>
                           <span className="text-[10px] uppercase font-bold tracking-wider">{customText}</span>
                           <TrendingUp className="h-3.5 w-3.5" />
                         </div>
                         <div className="text-2xl font-extrabold">99.98%</div>
-                        <span className="text-[10px] opacity-70">{customSubtext}</span>
+                        <span className={`text-[10px] ${isLight ? "text-neutral-500" : "text-neutral-400"}`}>{customSubtext}</span>
                       </div>
                     )}
 
@@ -707,30 +715,32 @@ export function Component() {
                     {selectedComp.id === "card-hud" && (
                       <div
                         style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
-                        className="relative flex w-full max-w-xs flex-col gap-3 overflow-hidden border border-neutral-800 bg-black p-4 font-mono text-xs text-white"
+                        className={`relative flex w-full max-w-xs flex-col gap-3 overflow-hidden border p-4 font-mono text-xs ${
+                          isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-black text-white"
+                        }`}
                       >
-                        <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
-                          <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase text-neutral-300">
+                        <div className={`flex items-center justify-between border-b pb-2 ${isLight ? "border-neutral-200" : "border-neutral-800"}`}>
+                          <span className={`flex items-center gap-1.5 text-[10px] font-bold uppercase ${isLight ? "text-neutral-800" : "text-neutral-300"}`}>
                             <Cpu className="h-3.5 w-3.5" /> {customText}
                           </span>
-                          <span className="text-[9px] text-emerald-400 animate-pulse">● LIVE</span>
+                          <span className="text-[9px] text-emerald-500 font-bold animate-pulse">● LIVE</span>
                         </div>
-                        <p className="text-[10px] text-neutral-400 leading-relaxed">${customSubtext}</p>
+                        <p className={`text-[10px] leading-relaxed ${isLight ? "text-neutral-600" : "text-neutral-400"}`}>{customSubtext}</p>
                       </div>
                     )}
 
                     {/* 7. Text Input Field */}
                     {selectedComp.id === "input-field" && (
                       <div className="flex w-full max-w-xs flex-col gap-1.5 font-mono text-xs">
-                        <label className="text-[10px] font-bold uppercase opacity-60">{customText}</label>
+                        <label className={`text-[10px] font-bold uppercase ${isLight ? "text-neutral-600" : "text-neutral-400"}`}>{customText}</label>
                         <input
                           type="text"
                           placeholder={customSubtext}
                           style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
                           className={`w-full border px-3 py-2 outline-none ${
                             isLight
-                              ? "border-neutral-300 bg-white text-black placeholder-neutral-400"
-                              : "border-neutral-800 bg-black text-white placeholder-neutral-600"
+                              ? "border-neutral-300 bg-white text-black placeholder-neutral-400 focus:border-neutral-800"
+                              : "border-neutral-800 bg-black text-white placeholder-neutral-600 focus:border-neutral-400"
                           }`}
                         />
                       </div>
@@ -739,7 +749,7 @@ export function Component() {
                     {/* 8. OTP PIN Input */}
                     {selectedComp.id === "input-pin" && (
                       <div className="flex flex-col items-center gap-2 font-mono text-xs">
-                        <span className="text-[10px] font-bold uppercase opacity-60">{customText}</span>
+                        <span className={`text-[10px] font-bold uppercase ${isLight ? "text-neutral-600" : "text-neutral-400"}`}>{customText}</span>
                         <div className="flex gap-2">
                           {pinCode.map((val, idx) => (
                             <input
@@ -755,8 +765,8 @@ export function Component() {
                               style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
                               className={`flex h-10 w-10 text-center font-bold text-sm border outline-none ${
                                 isLight
-                                  ? "border-neutral-300 bg-white text-black"
-                                  : "border-neutral-800 bg-neutral-950 text-white"
+                                  ? "border-neutral-300 bg-neutral-100 text-black focus:border-neutral-800"
+                                  : "border-neutral-800 bg-neutral-900 text-white focus:border-neutral-400"
                               }`}
                             />
                           ))}
@@ -772,9 +782,11 @@ export function Component() {
                           isLight ? "border-neutral-300 bg-white text-black" : "border-neutral-800 bg-black text-white"
                         }`}
                       >
-                        <Search className="h-3.5 w-3.5 opacity-50" />
+                        <Search className={`h-3.5 w-3.5 ${isLight ? "text-neutral-500" : "text-neutral-400"}`} />
                         <input type="text" placeholder={customSubtext} className="w-full bg-transparent outline-none" />
-                        <kbd className="rounded border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-1.5 py-0.5 text-[9px]">⌘K</kbd>
+                        <kbd className={`rounded border px-1.5 py-0.5 text-[9px] ${
+                          isLight ? "border-neutral-200 bg-neutral-100 text-neutral-700" : "border-neutral-800 bg-neutral-900 text-neutral-300"
+                        }`}>⌘K</kbd>
                       </div>
                     )}
 
@@ -786,7 +798,7 @@ export function Component() {
                           isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-neutral-900 text-neutral-200"
                         }`}
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-neutral-900 dark:bg-neutral-100 animate-pulse" />
+                        <span className={`h-1.5 w-1.5 rounded-full animate-pulse ${isLight ? "bg-neutral-900" : "bg-neutral-100"}`} />
                         <span>{customText}</span>
                       </div>
                     )}
@@ -799,7 +811,7 @@ export function Component() {
                           isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-neutral-950 text-neutral-200"
                         }`}
                       >
-                        <Radio className="h-3.5 w-3.5 animate-spin opacity-70" />
+                        <Radio className={`h-3.5 w-3.5 animate-spin ${isLight ? "text-neutral-700" : "text-neutral-400"}`} />
                         <span>{customText}</span>
                       </div>
                     )}
@@ -812,7 +824,9 @@ export function Component() {
                           isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-neutral-900 text-neutral-200"
                         }`}
                       >
-                        <span className="rounded bg-black text-white dark:bg-white dark:text-black px-1.5 py-0.5 text-[9px] font-extrabold">48</span>
+                        <span className={`rounded px-1.5 py-0.5 text-[9px] font-extrabold ${
+                          isLight ? "bg-black text-white" : "bg-white text-black"
+                        }`}>48</span>
                         <span>{customText}</span>
                       </div>
                     )}
@@ -832,8 +846,12 @@ export function Component() {
                             style={{ borderRadius: `calc(${borderRadius}px - 2px)` }}
                             className={`px-3 py-1 font-semibold transition-all ${
                               segmentedActive === i
-                                ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
-                                : "opacity-60 hover:opacity-100"
+                                ? isLight
+                                  ? "bg-neutral-900 text-white shadow-xs"
+                                  : "bg-white text-black shadow-xs"
+                                : isLight
+                                ? "text-neutral-600 hover:text-black"
+                                : "text-neutral-400 hover:text-white"
                             }`}
                           >
                             {item}
@@ -845,35 +863,47 @@ export function Component() {
                     {/* 14. Compact Toggle */}
                     {selectedComp.id === "ctrl-toggle" && (
                       <div className="flex items-center gap-3 font-mono text-xs">
-                        <span className="text-[10px] uppercase font-bold opacity-60">{customText}</span>
+                        <span className={`text-[10px] uppercase font-bold ${isLight ? "text-neutral-600" : "text-neutral-400"}`}>{customText}</span>
                         <button
                           onClick={() => setToggleActive(!toggleActive)}
                           style={{ borderRadius: `${borderRadius}px` }}
                           className={`flex h-6 w-11 items-center rounded-full border p-0.5 transition-all ${
                             toggleActive
-                              ? "border-neutral-800 bg-neutral-900 dark:bg-neutral-100 justify-end"
-                              : "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-900 justify-start"
+                              ? isLight
+                                ? "border-neutral-900 bg-neutral-900 justify-end"
+                                : "border-neutral-100 bg-neutral-100 justify-end"
+                              : isLight
+                              ? "border-neutral-300 bg-neutral-200 justify-start"
+                              : "border-neutral-800 bg-neutral-900 justify-start"
                           }`}
                         >
-                          <span className={`h-4.5 w-4.5 rounded-full ${toggleActive ? "bg-white dark:bg-black" : "bg-neutral-500"}`} />
+                          <span className={`h-4.5 w-4.5 rounded-full ${
+                            toggleActive
+                              ? isLight ? "bg-white" : "bg-black"
+                              : isLight ? "bg-neutral-500" : "bg-neutral-600"
+                          }`} />
                         </button>
                       </div>
                     )}
 
-                    {/* 15. Interactive Dock */}
+                    {/* 15. Interactive Dock (BUG FIXED: Theme-adaptive icons inside dock) */}
                     {selectedComp.id === "nav-dock" && (
                       <div
                         style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
                         className={`flex gap-2 border p-2 shadow-md ${
-                          isLight ? "border-neutral-300 bg-white" : "border-neutral-800 bg-neutral-950"
+                          isLight ? "border-neutral-300 bg-neutral-100" : "border-neutral-800 bg-neutral-950"
                         }`}
                       >
                         {[Command, Terminal, Search, Zap, Layers].map((IconComp, i) => (
                           <button
                             key={i}
-                            className="flex h-9 w-9 items-center justify-center rounded border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 hover:scale-110 transition-all"
+                            className={`flex h-9 w-9 items-center justify-center rounded border hover:scale-110 transition-all ${
+                              isLight
+                                ? "border-neutral-300 bg-white text-black hover:border-neutral-500"
+                                : "border-neutral-800 bg-neutral-900 text-white hover:border-neutral-600"
+                            }`}
                           >
-                            <IconComp className="h-4 w-4 opacity-80" />
+                            <IconComp className="h-4 w-4" />
                           </button>
                         ))}
                       </div>
@@ -888,10 +918,12 @@ export function Component() {
                         }`}
                       >
                         <div className="flex items-center gap-2">
-                          <Terminal className="h-3.5 w-3.5 opacity-50" />
+                          <Terminal className={`h-3.5 w-3.5 ${isLight ? "text-neutral-500" : "text-neutral-400"}`} />
                           <span>{customText}</span>
                         </div>
-                        <kbd className="rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-1.5 py-0.5 text-[9px]">⌘K</kbd>
+                        <kbd className={`rounded border px-1.5 py-0.5 text-[9px] ${
+                          isLight ? "border-neutral-300 bg-white text-neutral-700" : "border-neutral-800 bg-neutral-900 text-neutral-300"
+                        }`}>⌘K</kbd>
                       </div>
                     )}
                   </motion.div>
@@ -1023,8 +1055,8 @@ export function Component() {
                       onClick={() => setBorderWidth(bw)}
                       className={`rounded border py-1 text-[10px] font-bold transition-all ${
                         borderWidth === bw
-                          ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
-                          : "border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-500"
+                          ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-100 dark:text-black font-bold"
+                          : "border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 hover:border-neutral-400"
                       }`}
                     >
                       {bw}px
@@ -1043,8 +1075,8 @@ export function Component() {
                       onClick={() => setSize(s)}
                       className={`rounded border py-1 text-[10px] font-bold uppercase transition-all ${
                         size === s
-                          ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
-                          : "border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-500"
+                          ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-100 dark:text-black font-bold"
+                          : "border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 hover:border-neutral-400"
                       }`}
                     >
                       {s}
@@ -1063,8 +1095,8 @@ export function Component() {
                       onClick={() => setCompState(st)}
                       className={`rounded border py-1 text-[10px] font-bold capitalize transition-all ${
                         compState === st
-                          ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
-                          : "border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-500"
+                          ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-100 dark:text-black font-bold"
+                          : "border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 hover:border-neutral-400"
                       }`}
                     >
                       {st}
