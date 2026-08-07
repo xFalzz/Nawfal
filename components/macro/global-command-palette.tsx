@@ -13,9 +13,9 @@ export function GlobalCommandPalette() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const router = useRouter();
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
 
-  // Listen for ⌘K or ⌘M globally (⌘K for Command Palette, ⌘F is separate for Find)
+  // Listen for ⌘K or ⌘M globally (⌘K for Command Palette, ⌘M for Theme Toggle)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
@@ -24,7 +24,8 @@ export function GlobalCommandPalette() {
         setIsOpen((prev) => !prev);
       } else if ((e.metaKey || e.ctrlKey) && key === "m") {
         e.preventDefault();
-        setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+        const currentMode = resolvedTheme || theme;
+        setTheme(currentMode === "dark" ? "light" : "dark");
       } else if (e.key === "Escape") {
         setIsOpen(false);
       }
@@ -32,7 +33,7 @@ export function GlobalCommandPalette() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [setTheme]);
+  }, [theme, resolvedTheme, setTheme]);
 
   const handleNavigate = (path: string) => {
     setIsOpen(false);

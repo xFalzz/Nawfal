@@ -23,17 +23,6 @@ export function Command() {
   const [open, setOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "m" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setTheme(theme === "dark" ? "light" : "dark");
-      }
-    };
-
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, [theme, setTheme]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
