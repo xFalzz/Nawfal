@@ -175,7 +175,34 @@ export function CommunitySection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [, setTick] = useState(0);
 
+  // Factual GitHub Real-time Metadata
+  const [realGithubStats, setRealGithubStats] = useState({
+    stars: "1",
+    forks: "0",
+    openSource: "MIT License",
+    components: "48 Components",
+  });
+
   const GITHUB_COMPONENTS_URL = "https://github.com/xFalzz/Nawfal/tree/main/components";
+
+  // Fetch real GitHub Repository stats from API
+  useEffect(() => {
+    fetch("https://api.github.com/repos/xFalzz/Nawfal")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && typeof data.stargazers_count === "number") {
+          setRealGithubStats({
+            stars: data.stargazers_count.toString(),
+            forks: data.forks_count ? data.forks_count.toString() : "0",
+            openSource: data.license?.spdx_id ? `${data.license.spdx_id} License` : "MIT License",
+            components: "48 Components",
+          });
+        }
+      })
+      .catch((err) => {
+        console.warn("Failed to fetch real GitHub repo stats:", err);
+      });
+  }, []);
 
   // Static reference dates so default items always display consistent past relative times
   const defaultFeedbacks = [
@@ -242,7 +269,6 @@ export function CommunitySection() {
           snapshot.docs.forEach((doc, idx) => {
             const data = doc.data();
             
-            // Extract exact persistent timestamp
             let dateObj: any;
             if (data.createdAt && typeof data.createdAt.toDate === "function") {
               dateObj = data.createdAt.toDate();
@@ -253,7 +279,6 @@ export function CommunitySection() {
             } else if (data.createdAt) {
               dateObj = new Date(data.createdAt);
             } else {
-              // Fallback for pending serverTimestamp write
               dateObj = new Date(Date.now() - (idx + 1) * 10 * 60 * 1000);
             }
 
@@ -307,11 +332,12 @@ export function CommunitySection() {
     }
   };
 
+  // 100% Real Factual GitHub Metrics
   const stats = [
-    { label: "Verified Components", value: "48", icon: Code2 },
-    { label: "GitHub Repository Stars", value: "2.4K+", icon: Star },
-    { label: "CLI Installs", value: "12K+", icon: Download },
-    { label: "Community Contributors", value: "38+", icon: Users },
+    { label: "Verified Primitives", value: "48 Components", icon: Code2 },
+    { label: "GitHub Stars", value: realGithubStats.stars, icon: Star },
+    { label: "GitHub Forks", value: realGithubStats.forks, icon: GitFork },
+    { label: "License & Access", value: realGithubStats.openSource, icon: Globe },
   ];
 
   const changelog = [
@@ -426,7 +452,7 @@ export function CommunitySection() {
         </div>
       </section>
 
-      {/* ─── Community Metrics ──────────────────────────────────────────────── */}
+      {/* ─── Real Factual GitHub Metrics ─────────────────────────────────────── */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 font-mono">
         {stats.map((s, i) => {
           const Icon = s.icon;
@@ -454,7 +480,7 @@ export function CommunitySection() {
             </span>
             <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-semibold">
               <ShieldCheck className="h-3.5 w-3.5" />
-              Persistent Timestamps & Live Cloud Active
+              Real GitHub Data & Live Cloud Active
             </span>
           </div>
 
@@ -502,7 +528,7 @@ export function CommunitySection() {
                 <span>Share Public Feedback</span>
               </span>
               <span className="text-[9px] text-emerald-500 flex items-center gap-0.5 font-bold">
-                <ShieldCheck className="h-3 w-3" /> Persistent Clock
+                <ShieldCheck className="h-3 w-3" /> Factual Data
               </span>
             </div>
 
@@ -553,7 +579,7 @@ export function CommunitySection() {
               </button>
               <div className="flex items-center gap-1 text-[9px] text-neutral-400">
                 <ShieldAlert className="h-3 w-3 text-amber-500 shrink-0" />
-                <span>Timestamps persist accurately across refreshes (e.g. 5m ago, 2h ago, Yesterday).</span>
+                <span>Displays real GitHub repo stats & persistent relative timestamps.</span>
               </div>
             </form>
           </div>
