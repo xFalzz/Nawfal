@@ -15,12 +15,16 @@ export function GlobalCommandPalette() {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
 
-  // Listen for ⌘K or Ctrl+K globally
+  // Listen for ⌘K, ⌘F, or ⌘M globally
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      const key = e.key.toLowerCase();
+      if ((e.metaKey || e.ctrlKey) && (key === "k" || key === "f")) {
         e.preventDefault();
         setIsOpen((prev) => !prev);
+      } else if ((e.metaKey || e.ctrlKey) && key === "m") {
+        e.preventDefault();
+        setTheme((prev) => (prev === "dark" ? "light" : "dark"));
       } else if (e.key === "Escape") {
         setIsOpen(false);
       }
@@ -28,7 +32,7 @@ export function GlobalCommandPalette() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [setTheme]);
 
   const handleNavigate = (path: string) => {
     setIsOpen(false);
