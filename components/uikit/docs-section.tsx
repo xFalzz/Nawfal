@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import {
   Check, Copy, Layers, Palette, Type, Sliders, Zap, ShieldCheck,
   BookOpen, Code2, Terminal, Package, FileCode2, ArrowUpRight,
-  Settings, Cpu, Box, Sparkles, Server, FileJson, CheckCircle2
+  Settings, Cpu, Box, Sparkles, Server, FileJson, CheckCircle2,
+  FolderTree, Search, ExternalLink, Play
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
@@ -14,8 +15,10 @@ type DocTab = "overview" | "cli" | "tokens" | "utilities" | "compatibility";
 export function DocsSection() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<DocTab>("overview");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [copiedHex, setCopiedHex] = useState<string | null>(null);
   const [copiedSnippet, setCopiedSnippet] = useState<string | null>(null);
+  const [simulatedCliCmd, setSimulatedCliCmd] = useState<string>("npx nawfal-ui@latest init");
 
   const colors = [
     { name: "Obsidian Core", hex: "#0A0A0A", bgClass: "bg-black text-white border border-neutral-800", usage: "Primary dark background base" },
@@ -36,24 +39,84 @@ export function DocsSection() {
 
   const cliCommands = [
     { cmd: "npx nawfal-ui@latest init", desc: "Initialize project configuration (nawfal-ui.json), create components/uikit/ directory, and generate helper utilities." },
-    { cmd: "npx nawfal-ui@latest add <component>", desc: "Download and install a specific standalone TSX component directly into your codebase." },
+    { cmd: "npx nawfal-ui@latest add ai-neural-voice-spectrum", desc: "Download and install a specific standalone TSX component directly into your codebase." },
     { cmd: "npx nawfal-ui@latest list", desc: "Display all 48 available enterprise components categorized by AI, Audio, Motion, and Telemetry." },
     { cmd: "npx nawfal-ui@latest diff", desc: "Compare local component modifications with upstream Nawfal UI releases." },
     { cmd: "npx nawfal-ui@latest help", desc: "Show full CLI command reference and usage options." },
   ];
 
+  const simulatedTerminalOutputs: Record<string, string> = {
+    "npx nawfal-ui@latest init": `==================================================
+ 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.2.0
+==================================================
+[1/3] ⚙️ Initializing Nawfal UI Kit configuration...
+  ✓ Created nawfal-ui.json configuration
+  ✓ Created directory: /project/components/uikit
+  ✓ Created lib/utils.ts (cn utility)
+
+[2/3] 📦 Checking required peer dependencies...
+  Required: framer-motion, lucide-react, clsx, tailwind-merge
+
+[3/3] 🎉 Nawfal UI Kit successfully initialized!
+Run 'npx nawfal-ui add <component>' to install components.`,
+
+    "npx nawfal-ui@latest add ai-neural-voice-spectrum": `==================================================
+ 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.2.0
+==================================================
+[+] Installing component: ai-neural-voice-spectrum...
+  ✓ Downloaded standalone TSX source
+  ✓ Verified TypeScript types (0 errors)
+  ✓ Saved to: components/uikit/ai-neural-voice-spectrum.tsx
+
+Success! Import via:
+import { AINeuralVoiceSpectrum } from "@/components/uikit/ai-neural-voice-spectrum";`,
+
+    "npx nawfal-ui@latest list": `==================================================
+ 📦 Available Enterprise Components (48 Total):
+==================================================
+  • ai-neural-voice-spectrum
+  • ai-prompt-token-calculator
+  • quantum-particle-matrix
+  • cyber-parallax-hud-card
+  • multi-step-pipeline-wizard
+  • floating-command-palette
+  • ai-generative-semantic-search
+  • ai-vision-prompt-inspector
+  • audio-waveform-visualizer
+  • spotify-mini-player
+  • system-telemetry-monitor
+  ... and 37 more primitives.`,
+
+    "npx nawfal-ui@latest diff": `==================================================
+ 🔍 Nawfal UI Local Source Diff Checker
+==================================================
+  • components/uikit/ai-neural-voice-spectrum.tsx: Up to date (v5.2.0)
+  • components/uikit/custom-components.tsx: Custom local edits detected (100% owned)
+No upstream breaking conflicts found.`,
+
+    "npx nawfal-ui@latest help": `==================================================
+ 📖 Nawfal UI CLI Command Reference
+==================================================
+Usage:
+  npx nawfal-ui@latest init         Initialize Nawfal UI in project
+  npx nawfal-ui@latest add <name>   Install component source file
+  npx nawfal-ui@latest list         List all 48 components
+  npx nawfal-ui@latest help         Show CLI help menu`,
+  };
+
   const configSnippet = `{
   "$schema": "https://nawfal.vercel.app/schema.json",
-  "style": "monochrome",
+  "version": "5.2.0",
+  "style": "monochrome-enterprise",
   "rsc": true,
   "tsx": true,
   "tailwind": {
-    "config": "tailwind.config.js",
+    "config": "tailwind.config.ts",
     "css": "app/globals.css",
     "baseColor": "neutral"
   },
   "aliases": {
-    "components": "@/components",
+    "components": "@/components/uikit",
     "utils": "@/lib/utils"
   }
 }`;
@@ -68,7 +131,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }`;
 
-  const motionPresetSnippet = `// Framer Motion Spring Presets
+  const motionPresetSnippet = `// Framer Motion Spring Dynamics Presets
 export const springPresets = {
   snappy: { type: "spring", stiffness: 400, damping: 25 },
   gentle: { type: "spring", stiffness: 200, damping: 20 },
@@ -94,7 +157,7 @@ export const springPresets = {
 
       {/* ─── Hero Documentation Banner ───────────────────────────────────────── */}
       <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-white/80 backdrop-blur-md p-6 dark:border-neutral-800 dark:bg-neutral-950/80 shadow-xs">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
               <BookOpen className="h-3.5 w-3.5 text-neutral-700 dark:text-neutral-300" />
@@ -112,9 +175,15 @@ export const springPresets = {
           </div>
 
           <div className="flex items-center gap-2 font-mono text-xs">
-            <span className="rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-neutral-700 dark:border-neutral-800 dark:bg-black dark:text-neutral-300">
-              48 Primitives
-            </span>
+            <a
+              href="https://nawfal.vercel.app/schema.json"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-neutral-100 px-3 py-1.5 text-[11px] font-bold text-neutral-800 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-all"
+            >
+              <ExternalLink className="h-3.5 w-3.5 text-sky-500" />
+              <span>JSON Schema</span>
+            </a>
           </div>
         </div>
       </section>
@@ -123,7 +192,7 @@ export const springPresets = {
       <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-100 p-1 font-mono text-xs dark:border-neutral-800 dark:bg-black overflow-x-auto no-scrollbar touch-pan-x scroll-smooth">
         <div className="flex gap-1 shrink-0">
           {[
-            { id: "overview", label: "Overview & Philosophy", icon: <Layers className="h-3.5 w-3.5 shrink-0" /> },
+            { id: "overview", label: "Overview & Architecture", icon: <Layers className="h-3.5 w-3.5 shrink-0" /> },
             { id: "cli", label: "CLI Command Reference", icon: <Terminal className="h-3.5 w-3.5 shrink-0" /> },
             { id: "tokens", label: "Design Tokens & Swatches", icon: <Palette className="h-3.5 w-3.5 shrink-0" /> },
             { id: "utilities", label: "Helper Utilities & Motion", icon: <Code2 className="h-3.5 w-3.5 shrink-0" /> },
@@ -145,7 +214,7 @@ export const springPresets = {
         </div>
       </div>
 
-      {/* ─── TAB 1: OVERVIEW & PHILOSOPHY ────────────────────────────────────── */}
+      {/* ─── TAB 1: OVERVIEW & ARCHITECTURE ────────────────────────────────── */}
       {activeTab === "overview" && (
         <div className="flex flex-col gap-6">
           <section className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
@@ -167,28 +236,61 @@ export const springPresets = {
                 </div>
               ))}
             </div>
+
+            {/* Directory Structure Breakdown */}
+            <div className="mt-6 border-t border-neutral-200 pt-5 dark:border-neutral-800 font-mono text-xs">
+              <h4 className="font-bold uppercase text-neutral-700 dark:text-neutral-300 flex items-center gap-2">
+                <FolderTree className="h-4 w-4 text-sky-500" /> Recommended Project Directory Tree
+              </h4>
+              <pre className="mt-3 overflow-x-auto rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-[11px] leading-relaxed text-neutral-800 dark:border-neutral-800 dark:bg-black dark:text-neutral-300">
+                <code>{`my-nextjs-app/
+├── nawfal-ui.json             # Nawfal UI project config (schema: https://nawfal.vercel.app/schema.json)
+├── lib/
+│   └── utils.ts              # cn() class merger helper (clsx + tailwind-merge)
+└── components/
+    └── uikit/                # 48 Standalone TSX Source Components
+        ├── ai-neural-voice-spectrum.tsx
+        ├── quantum-particle-matrix.tsx
+        ├── cyber-parallax-hud-card.tsx
+        └── custom-components.tsx`}</code>
+              </pre>
+            </div>
           </section>
         </div>
       )}
 
-      {/* ─── TAB 2: CLI COMMAND REFERENCE ───────────────────────────────────── */}
+      {/* ─── TAB 2: CLI COMMAND REFERENCE & SIMULATOR ──────────────────────── */}
       {activeTab === "cli" && (
         <div className="flex flex-col gap-6">
           <section className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-neutral-200 pb-3 dark:border-neutral-800">
-              <h3 className="text-base font-bold text-neutral-900 dark:text-white">CLI Commands & Configuration</h3>
-              <span className="text-[10px] text-neutral-400">npx nawfal-ui@latest</span>
+              <h3 className="text-base font-bold text-neutral-900 dark:text-white">CLI Commands & Interactive Terminal Simulator</h3>
+              <span className="text-[10px] text-neutral-400 font-mono">npx nawfal-ui@latest</span>
             </div>
 
             <div className="mt-4 flex flex-col gap-3">
               {cliCommands.map((item, i) => (
-                <div key={i} className="flex items-start justify-between gap-3 rounded-lg border border-neutral-200 bg-neutral-50 p-3.5 dark:border-neutral-800 dark:bg-black">
+                <div
+                  key={i}
+                  onClick={() => setSimulatedCliCmd(item.cmd)}
+                  className={`group flex cursor-pointer items-start justify-between gap-3 rounded-lg border p-3.5 transition-all ${
+                    simulatedCliCmd === item.cmd
+                      ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-900 dark:text-white shadow-xs"
+                      : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:bg-neutral-100 dark:border-neutral-800 dark:bg-black dark:text-neutral-400 dark:hover:border-neutral-700"
+                  }`}
+                >
                   <div className="min-w-0 flex-1">
-                    <code className="font-mono text-xs font-bold text-neutral-900 dark:text-white">$ {item.cmd}</code>
-                    <p className="mt-1 text-[11px] text-neutral-600 dark:text-neutral-400">{item.desc}</p>
+                    <div className="flex items-center gap-2">
+                      <Play className="h-3 w-3 shrink-0 opacity-70" />
+                      <code className="font-mono text-xs font-bold">$ {item.cmd}</code>
+                    </div>
+                    <p className="mt-1 text-[11px] opacity-80">{item.desc}</p>
                   </div>
                   <button
-                    onClick={() => handleCopySnippet(item.cmd, `cli-${i}`)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCopySnippet(item.cmd, `cli-${i}`);
+                    }}
                     className="flex h-7 w-7 shrink-0 items-center justify-center rounded border border-neutral-300 bg-white text-neutral-700 transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300"
                   >
                     {copiedSnippet === `cli-${i}` ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
@@ -197,18 +299,41 @@ export const springPresets = {
               ))}
             </div>
 
-            {/* Config JSON File Viewer */}
+            {/* Interactive Terminal Console Output */}
             <div className="mt-6">
+              <div className="flex items-center justify-between border-b border-neutral-800 bg-neutral-900 px-4 py-2 text-[10px] text-neutral-400 rounded-t-lg">
+                <span className="flex items-center gap-1.5 font-bold text-white">
+                  <Terminal className="h-3.5 w-3.5 text-emerald-400" /> SIMULATED TERMINAL CONSOLE
+                </span>
+                <span>Active: {simulatedCliCmd}</span>
+              </div>
+              <pre className="overflow-x-auto rounded-b-lg border border-neutral-800 bg-black p-4 font-mono text-[11px] leading-relaxed text-emerald-400 min-h-[160px]">
+                <code>{simulatedTerminalOutputs[simulatedCliCmd] || simulatedTerminalOutputs["npx nawfal-ui@latest init"]}</code>
+              </pre>
+            </div>
+
+            {/* Config JSON File Viewer */}
+            <div className="mt-6 border-t border-neutral-200 pt-5 dark:border-neutral-800">
               <div className="flex items-center justify-between border-b border-neutral-200 pb-2 dark:border-neutral-800">
                 <span className="font-bold text-neutral-700 dark:text-neutral-300 flex items-center gap-2">
-                  <FileJson className="h-4 w-4" /> Config File Spec (nawfal-ui.json)
+                  <FileJson className="h-4 w-4 text-amber-500" /> Config File Spec (nawfal-ui.json)
                 </span>
-                <button
-                  onClick={() => handleCopySnippet(configSnippet, "config-json")}
-                  className="flex items-center gap-1 text-[10px] text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
-                >
-                  <Copy className="h-3 w-3" /> Copy JSON
-                </button>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="https://nawfal.vercel.app/schema.json"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] text-sky-500 underline flex items-center gap-1"
+                  >
+                    <ExternalLink className="h-3 w-3" /> View Public Schema
+                  </a>
+                  <button
+                    onClick={() => handleCopySnippet(configSnippet, "config-json")}
+                    className="flex items-center gap-1 text-[10px] text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
+                  >
+                    <Copy className="h-3 w-3" /> Copy JSON
+                  </button>
+                </div>
               </div>
               <pre className="mt-2 overflow-x-auto rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-[11px] leading-relaxed text-neutral-800 dark:border-neutral-800 dark:bg-black dark:text-neutral-300">
                 <code>{configSnippet}</code>
