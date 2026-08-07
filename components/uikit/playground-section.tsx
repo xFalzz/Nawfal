@@ -15,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 type ThemeCanvas = "obsidian" | "graphite" | "pure-light";
 type ExportFormat = "tsx" | "jsx" | "html" | "tailwind";
 type ComponentSize = "sm" | "md" | "lg";
-type ComponentState = "default" | "hover" | "loading" | "disabled";
+type ComponentState = "default" | "loading" | "disabled";
 
 interface ComponentConfig {
   id: string;
@@ -84,7 +84,6 @@ export function PlaygroundSection() {
     lg: "px-6 py-3 text-sm",
   };
 
-  // Helper border styles
   const isLight = themeCanvas === "pure-light";
 
   // Code Generator
@@ -102,7 +101,7 @@ export function ActionButton() {
   return (
     <button
       style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
-      className="inline-flex items-center gap-2 border border-neutral-200 bg-neutral-900 ${sizeMap[size]} font-mono font-semibold text-white transition-all hover:bg-neutral-800 disabled:opacity-50"
+      className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-900 text-white dark:bg-white dark:text-black ${sizeMap[size]} font-mono font-semibold transition-all hover:opacity-90 disabled:opacity-50"
       ${compState === "disabled" ? "disabled" : ""}
     >
       ${compState === "loading" ? `<Loader2 className="h-3.5 w-3.5 animate-spin" />` : ""}
@@ -118,13 +117,13 @@ export function SurfaceCard() {
   return (
     <div
       style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
-      className="flex w-full max-w-sm flex-col gap-3 border border-neutral-800 bg-neutral-950 p-5 font-mono text-xs text-white"
+      className="flex w-full max-w-sm flex-col gap-3 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-5 font-mono text-xs text-neutral-900 dark:text-white"
     >
-      <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
-        <span className="font-bold uppercase tracking-wider text-neutral-200">${customText}</span>
-        <span className="rounded border border-neutral-800 bg-neutral-900 px-2 py-0.5 text-[9px] text-neutral-400">ACTIVE</span>
+      <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-3">
+        <span className="font-bold uppercase tracking-wider">${customText}</span>
+        <span className="rounded border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-2 py-0.5 text-[9px] font-bold text-neutral-600 dark:text-neutral-400">ACTIVE</span>
       </div>
-      <p className="text-[11px] leading-relaxed text-neutral-400">${customSubtext}</p>
+      <p className="text-[11px] leading-relaxed text-neutral-600 dark:text-neutral-400">${customSubtext}</p>
     </div>
   );
 }`;
@@ -135,9 +134,9 @@ export function PulseStatusBadge() {
   return (
     <div
       style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
-      className="inline-flex items-center gap-2 border border-neutral-800 bg-neutral-900 px-3 py-1 font-mono text-xs font-medium text-neutral-200"
+      className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-3 py-1 font-mono text-xs font-medium text-neutral-800 dark:text-neutral-200"
     >
-      <span className="h-1.5 w-1.5 rounded-full bg-neutral-100 animate-pulse" />
+      <span className="h-1.5 w-1.5 rounded-full bg-neutral-900 dark:bg-neutral-100 animate-pulse" />
       <span>${customText}</span>
     </div>
   );
@@ -148,12 +147,12 @@ export function PulseStatusBadge() {
 export function TextInputField() {
   return (
     <div className="flex w-full max-w-xs flex-col gap-1.5 font-mono text-xs">
-      <label className="text-[10px] font-bold uppercase text-neutral-400">${customText}</label>
+      <label className="text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">${customText}</label>
       <input
         type="text"
         placeholder="${customSubtext}"
         style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
-        className="w-full border border-neutral-800 bg-black px-3 py-2 text-neutral-100 outline-none focus:border-neutral-400"
+        className="w-full border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-black px-3 py-2 text-neutral-900 dark:text-neutral-100 outline-none focus:border-neutral-500"
       />
     </div>
   );
@@ -163,7 +162,7 @@ export function TextInputField() {
         return `// Nawfal UI — ${selectedComp.name}
 export function ${selectedComp.name.replace(/\s+/g, "")}() {
   return (
-    <div style={{ borderRadius: "${r}" }} className="border border-neutral-800 bg-neutral-950 p-4 font-mono text-xs text-white">
+    <div style={{ borderRadius: "${r}" }} className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-4 font-mono text-xs text-neutral-900 dark:text-white">
       <span>${customText}</span>
     </div>
   );
@@ -185,32 +184,38 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
     : CATALOG.filter((c) => c.category === activeCategory);
 
   return (
-    <div className="flex w-full flex-col gap-5 text-neutral-100">
+    <div className="flex w-full flex-col gap-5 text-neutral-900 dark:text-neutral-100">
 
       {/* ─── Top Studio Bar ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 p-5">
+      <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-white/70 backdrop-blur-md p-5 dark:border-neutral-800 dark:bg-neutral-950/80">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-400">
-              <Box className="h-3.5 w-3.5 text-neutral-300" />
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
+              <Box className="h-3.5 w-3.5 text-neutral-700 dark:text-neutral-300" />
               <span>DESIGN STUDIO WORKBENCH</span>
-              <span className="rounded border border-neutral-800 bg-black px-2 py-0.5 text-neutral-300">MONOCHROME EDITION</span>
+              <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-neutral-700 dark:border-neutral-800 dark:bg-black dark:text-neutral-300 font-semibold">
+                THEME-ADAPTIVE
+              </span>
             </div>
-            <h3 className="mt-1.5 text-xl font-bold tracking-tight text-white">Interactive Component Studio</h3>
-            <p className="mt-0.5 text-xs text-neutral-400 max-w-xl">
-              Inspect, customize parameters, test states, and copy production-ready monochrome TSX/HTML snippets.
+            <h3 className="mt-1.5 text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              Interactive Component Studio
+            </h3>
+            <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400 max-w-xl">
+              Inspect, customize parameters, test states, and copy production-ready monochrome TSX/HTML snippets. Adaptable to both dark and light modes.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             {/* Theme Canvas Picker */}
-            <div className="flex items-center gap-1 rounded-lg border border-neutral-800 bg-black p-1 font-mono text-[10px]">
+            <div className="flex items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-100 p-1 font-mono text-[10px] dark:border-neutral-800 dark:bg-black">
               {(["obsidian", "graphite", "pure-light"] as const).map((t) => (
                 <button
                   key={t}
                   onClick={() => setThemeCanvas(t)}
                   className={`rounded px-2.5 py-1 font-semibold capitalize transition-all ${
-                    themeCanvas === t ? "bg-neutral-800 text-white" : "text-neutral-500 hover:text-neutral-300"
+                    themeCanvas === t
+                      ? "bg-neutral-900 text-white dark:bg-neutral-800 dark:text-white shadow-xs"
+                      : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200"
                   }`}
                 >
                   {t.replace("-", " ")}
@@ -219,7 +224,7 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
             </div>
 
             {/* Viewport Selector */}
-            <div className="hidden items-center gap-1 rounded-lg border border-neutral-800 bg-black p-1 sm:flex">
+            <div className="hidden items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-100 p-1 dark:border-neutral-800 dark:bg-black sm:flex">
               {[
                 { id: "desktop", icon: <Monitor className="h-3.5 w-3.5" /> },
                 { id: "tablet",  icon: <Tablet className="h-3.5 w-3.5" /> },
@@ -229,7 +234,9 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                   key={v.id}
                   onClick={() => setViewport(v.id as any)}
                   className={`flex h-6 w-7 items-center justify-center rounded transition-all ${
-                    viewport === v.id ? "bg-neutral-800 text-white" : "text-neutral-500 hover:text-neutral-300"
+                    viewport === v.id
+                      ? "bg-neutral-900 text-white dark:bg-neutral-800 dark:text-white shadow-xs"
+                      : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-neutral-300"
                   }`}
                 >
                   {v.icon}
@@ -244,10 +251,10 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
 
         {/* ─── COL 1: Component Catalog (3 cols) ─────────────────────────────── */}
-        <div className="flex flex-col gap-3 rounded-xl border border-neutral-800 bg-neutral-950 p-4 lg:col-span-3">
-          <div className="flex items-center justify-between border-b border-neutral-800 pb-2.5">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-400">Catalog</span>
-            <span className="font-mono text-[9px] text-neutral-500">{filteredCatalog.length} Items</span>
+        <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950 lg:col-span-3">
+          <div className="flex items-center justify-between border-b border-neutral-200 pb-2.5 dark:border-neutral-800">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Catalog</span>
+            <span className="font-mono text-[9px] text-neutral-400 dark:text-neutral-500">{filteredCatalog.length} Items</span>
           </div>
 
           {/* Category Chips */}
@@ -258,8 +265,8 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                 onClick={() => setActiveCategory(cat)}
                 className={`rounded px-2 py-0.5 font-mono text-[9px] font-semibold transition-all ${
                   activeCategory === cat
-                    ? "bg-neutral-100 text-black font-bold"
-                    : "bg-black text-neutral-500 hover:text-neutral-300 border border-neutral-800"
+                    ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black font-bold"
+                    : "bg-neutral-100 text-neutral-600 border border-neutral-200 dark:bg-black dark:text-neutral-400 dark:border-neutral-800 hover:border-neutral-400"
                 }`}
               >
                 {cat}
@@ -275,15 +282,15 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                 onClick={() => setSelectedId(item.id)}
                 className={`flex items-center justify-between rounded-lg border p-2.5 text-left font-mono transition-all ${
                   selectedId === item.id
-                    ? "border-neutral-200 bg-neutral-900 text-white shadow-sm"
-                    : "border-neutral-800/80 bg-black text-neutral-400 hover:border-neutral-700 hover:text-neutral-200"
+                    ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-900 dark:text-white shadow-xs"
+                    : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:bg-neutral-100 dark:border-neutral-800/80 dark:bg-black dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-neutral-200"
                 }`}
               >
                 <div className="flex flex-col">
                   <span className="text-[11px] font-bold">{item.name}</span>
-                  <span className="text-[9px] text-neutral-500">{item.category}</span>
+                  <span className="text-[9px] opacity-60">{item.category}</span>
                 </div>
-                <ChevronRight className={`h-3 w-3 ${selectedId === item.id ? "text-neutral-200" : "text-neutral-700"}`} />
+                <ChevronRight className={`h-3 w-3 ${selectedId === item.id ? "text-white" : "text-neutral-400"}`} />
               </button>
             ))}
           </div>
@@ -293,7 +300,7 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
         <div className="flex flex-col gap-3 lg:col-span-6">
 
           {/* Canvas View Switcher */}
-          <div className="flex items-center justify-between rounded-lg border border-neutral-800 bg-black p-1 font-mono text-xs">
+          <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-100 p-1 font-mono text-xs dark:border-neutral-800 dark:bg-black">
             <div className="flex gap-1">
               {[
                 { id: "canvas", icon: <Eye className="h-3.5 w-3.5" />, label: "Canvas" },
@@ -304,7 +311,9 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                   key={tab.id}
                   onClick={() => setActiveView(tab.id as any)}
                   className={`flex items-center gap-1.5 rounded px-3 py-1 text-[11px] font-semibold transition-all ${
-                    activeView === tab.id ? "bg-neutral-800 text-white" : "text-neutral-500 hover:text-neutral-300"
+                    activeView === tab.id
+                      ? "bg-neutral-900 text-white dark:bg-neutral-800 dark:text-white shadow-xs"
+                      : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-neutral-300"
                   }`}
                 >
                   {tab.icon} {tab.label}
@@ -316,7 +325,9 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
             <button
               onClick={() => setShowGrid(!showGrid)}
               className={`flex items-center gap-1 rounded px-2 py-1 text-[10px] font-mono transition-all ${
-                showGrid ? "text-neutral-300 bg-neutral-900 border border-neutral-800" : "text-neutral-600"
+                showGrid
+                  ? "text-neutral-900 bg-white border border-neutral-300 dark:text-neutral-300 dark:bg-neutral-900 dark:border-neutral-800"
+                  : "text-neutral-500"
               }`}
             >
               <Grid className="h-3 w-3" />
@@ -459,8 +470,8 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
 
           {/* View 2: Code Output */}
           {activeView === "code" && (
-            <div className="flex flex-1 flex-col overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950">
-              <div className="flex items-center justify-between border-b border-neutral-800 px-4 py-2.5 font-mono text-xs">
+            <div className="flex flex-1 flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
+              <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 px-4 py-2.5 font-mono text-xs">
                 {/* Format Switcher */}
                 <div className="flex gap-1 text-[10px]">
                   {(["tsx", "jsx", "html", "tailwind"] as const).map((fmt) => (
@@ -468,7 +479,9 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                       key={fmt}
                       onClick={() => setExportFormat(fmt)}
                       className={`rounded px-2 py-0.5 uppercase font-bold transition-all ${
-                        exportFormat === fmt ? "bg-neutral-100 text-black" : "text-neutral-500 hover:text-neutral-300"
+                        exportFormat === fmt
+                          ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black"
+                          : "text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300"
                       }`}
                     >
                       {fmt}
@@ -478,14 +491,14 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
 
                 <button
                   onClick={handleCopyCode}
-                  className="flex items-center gap-1.5 rounded border border-neutral-700 bg-neutral-900 px-2.5 py-1 text-[11px] text-neutral-200 hover:bg-neutral-800 transition-all"
+                  className="flex items-center gap-1.5 rounded border border-neutral-300 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900 px-2.5 py-1 text-[11px] text-neutral-800 dark:text-neutral-200 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-all"
                 >
-                  {copiedCode ? <Check className="h-3.5 w-3.5 text-neutral-100" /> : <Copy className="h-3.5 w-3.5" />}
+                  {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
                   <span>{copiedCode ? "Copied!" : "Copy Code"}</span>
                 </button>
               </div>
 
-              <pre className="overflow-x-auto p-4 font-mono text-[11px] leading-relaxed text-neutral-300">
+              <pre className="overflow-x-auto p-4 font-mono text-[11px] leading-relaxed text-neutral-800 dark:text-neutral-300">
                 <code>{generateCode()}</code>
               </pre>
             </div>
@@ -493,18 +506,18 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
 
           {/* View 3: Tokens */}
           {activeView === "tokens" && (
-            <div className="flex flex-1 flex-col overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 p-4 font-mono text-xs">
-              <h4 className="mb-3 font-bold uppercase tracking-wider text-neutral-300">Monochrome Tokens Inspection</h4>
+            <div className="flex flex-1 flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950 p-4 font-mono text-xs">
+              <h4 className="mb-3 font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-300">Monochrome Tokens Inspection</h4>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-[11px]">
                   <thead>
-                    <tr className="border-b border-neutral-800 text-neutral-500 uppercase">
+                    <tr className="border-b border-neutral-200 dark:border-neutral-800 text-neutral-500 uppercase">
                       <th className="pb-2">Token</th>
                       <th className="pb-2">Variable</th>
                       <th className="pb-2">Value</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-neutral-900 text-neutral-300">
+                  <tbody className="divide-y divide-neutral-200 dark:divide-neutral-900 text-neutral-800 dark:text-neutral-300">
                     <tr>
                       <td className="py-2 font-bold">Border Radius</td>
                       <td><code>--radius</code></td>
@@ -534,17 +547,17 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
         </div>
 
         {/* ─── COL 3: Inspector Panel (3 cols) ───────────────────────────────── */}
-        <div className="flex flex-col gap-4 rounded-xl border border-neutral-800 bg-neutral-950 p-4 lg:col-span-3 font-mono text-xs">
-          <div className="flex items-center justify-between border-b border-neutral-800 pb-2.5">
-            <span className="font-bold uppercase tracking-wider text-neutral-400">Inspector</span>
+        <div className="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950 p-4 lg:col-span-3 font-mono text-xs">
+          <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-2.5">
+            <span className="font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Inspector</span>
             <SlidersHorizontal className="h-3.5 w-3.5 text-neutral-500" />
           </div>
 
           {/* Radius Slider */}
           <div>
-            <div className="mb-1 flex justify-between text-[10px] font-bold uppercase text-neutral-400">
+            <div className="mb-1 flex justify-between text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">
               <span>Radius</span>
-              <span className="text-neutral-200">{borderRadius}px</span>
+              <span className="text-neutral-900 dark:text-neutral-200">{borderRadius}px</span>
             </div>
             <input
               type="range"
@@ -552,15 +565,15 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
               max={24}
               value={borderRadius}
               onChange={(e) => setBorderRadius(Number(e.target.value))}
-              className="w-full accent-neutral-200"
+              className="w-full accent-neutral-800 dark:accent-neutral-200"
             />
           </div>
 
           {/* Border Width */}
           <div>
-            <div className="mb-1 flex justify-between text-[10px] font-bold uppercase text-neutral-400">
+            <div className="mb-1 flex justify-between text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">
               <span>Border Width</span>
-              <span className="text-neutral-200">{borderWidth}px</span>
+              <span className="text-neutral-900 dark:text-neutral-200">{borderWidth}px</span>
             </div>
             <div className="grid grid-cols-3 gap-1">
               {[1, 2, 3].map((bw) => (
@@ -568,7 +581,9 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                   key={bw}
                   onClick={() => setBorderWidth(bw)}
                   className={`rounded border py-1 text-[10px] font-bold transition-all ${
-                    borderWidth === bw ? "border-neutral-200 bg-neutral-800 text-white" : "border-neutral-800 bg-black text-neutral-500"
+                    borderWidth === bw
+                      ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
+                      : "border-neutral-200 bg-neutral-100 text-neutral-600 dark:border-neutral-800 dark:bg-black dark:text-neutral-500"
                   }`}
                 >
                   {bw}px
@@ -579,14 +594,16 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
 
           {/* Size Scale */}
           <div>
-            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-400">Size Scale</label>
+            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">Size Scale</label>
             <div className="grid grid-cols-3 gap-1">
               {(["sm", "md", "lg"] as const).map((s) => (
                 <button
                   key={s}
                   onClick={() => setSize(s)}
                   className={`rounded border py-1 text-[10px] font-bold uppercase transition-all ${
-                    size === s ? "border-neutral-200 bg-neutral-800 text-white" : "border-neutral-800 bg-black text-neutral-500"
+                    size === s
+                      ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
+                      : "border-neutral-200 bg-neutral-100 text-neutral-600 dark:border-neutral-800 dark:bg-black dark:text-neutral-500"
                   }`}
                 >
                   {s}
@@ -597,14 +614,16 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
 
           {/* Component State */}
           <div>
-            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-400">State Simulation</label>
+            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">State Simulation</label>
             <div className="grid grid-cols-2 gap-1">
               {(["default", "loading", "disabled"] as const).map((st) => (
                 <button
                   key={st}
                   onClick={() => setCompState(st)}
                   className={`rounded border py-1 text-[10px] font-bold capitalize transition-all ${
-                    compState === st ? "border-neutral-200 bg-neutral-800 text-white" : "border-neutral-800 bg-black text-neutral-500"
+                    compState === st
+                      ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
+                      : "border-neutral-200 bg-neutral-100 text-neutral-600 dark:border-neutral-800 dark:bg-black dark:text-neutral-500"
                   }`}
                 >
                   {st}
@@ -614,30 +633,30 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
           </div>
 
           {/* Content Editors */}
-          <div className="border-t border-neutral-800 pt-3">
-            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-400">Title / Label</label>
+          <div className="border-t border-neutral-200 dark:border-neutral-800 pt-3">
+            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">Title / Label</label>
             <input
               type="text"
               value={customText}
               onChange={(e) => setCustomText(e.target.value)}
-              className="w-full rounded border border-neutral-800 bg-black px-2.5 py-1 text-[11px] text-neutral-200 outline-none focus:border-neutral-400"
+              className="w-full rounded border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-black px-2.5 py-1 text-[11px] text-neutral-900 dark:text-neutral-200 outline-none focus:border-neutral-500"
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-400">Subtext / Desc</label>
+            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">Subtext / Desc</label>
             <input
               type="text"
               value={customSubtext}
               onChange={(e) => setCustomSubtext(e.target.value)}
-              className="w-full rounded border border-neutral-800 bg-black px-2.5 py-1 text-[11px] text-neutral-200 outline-none focus:border-neutral-400"
+              className="w-full rounded border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-black px-2.5 py-1 text-[11px] text-neutral-900 dark:text-neutral-200 outline-none focus:border-neutral-500"
             />
           </div>
 
           {/* Copy Button */}
           <button
             onClick={handleCopyCode}
-            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-neutral-100 bg-neutral-100 py-2 text-xs font-bold text-black hover:bg-neutral-200 transition-all"
+            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-neutral-900 bg-neutral-900 py-2 text-xs font-bold text-white dark:border-neutral-100 dark:bg-neutral-100 dark:text-black hover:opacity-90 transition-all shadow-xs"
           >
             {copiedCode ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
             <span>{copiedCode ? "Copied!" : "Copy TSX Code"}</span>
