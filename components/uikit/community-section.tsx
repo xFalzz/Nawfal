@@ -18,6 +18,50 @@ import {
 } from "firebase/firestore";
 
 /**
+ * 🕒 Formats timestamps into dynamic relative time
+ * (e.g. "Just now", "15s ago", "2m ago", "3h ago", "Yesterday", "Aug 7, 10:39 AM")
+ */
+function formatRelativeTime(secondsOrDate: any): string {
+  if (!secondsOrDate) return "Just now";
+
+  let date: Date;
+  if (typeof secondsOrDate === "object" && secondsOrDate.seconds) {
+    date = new Date(secondsOrDate.seconds * 1000);
+  } else if (secondsOrDate instanceof Date) {
+    date = secondsOrDate;
+  } else if (typeof secondsOrDate === "number") {
+    date = new Date(secondsOrDate);
+  } else {
+    date = new Date(secondsOrDate);
+  }
+
+  if (isNaN(date.getTime())) return "Just now";
+
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+  if (diffInSeconds < 20) return "Just now";
+  if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
+
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24) return `${diffInHours}h ago`;
+
+  const diffInDays = Math.floor(diffInHours / 24);
+  if (diffInDays === 1) return "Yesterday";
+  if (diffInDays < 7) return `${diffInDays}d ago`;
+
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+/**
  * 🧹 Normalizes text by mapping leetspeak symbols, stripping punctuation/spaces,
  * and collapsing consecutive repeated letters (e.g. "s-l-o-t" -> "slot", "k.n.t.l" -> "kntl")
  */
@@ -85,7 +129,7 @@ const PROFANITY_PATTERNS = [
 ];
 
 /**
- * Smart Check for Gambling Content (detects raw text AND normalized/abbreviated text)
+ * Smart Check for Gambling Content
  */
 function isSmartGambling(text: string): boolean {
   const rawLower = text.toLowerCase();
@@ -97,7 +141,7 @@ function isSmartGambling(text: string): boolean {
 }
 
 /**
- * Smart Profanity Sensor (censors raw words, shorthands, spaced letters, and leetspeak)
+ * Smart Profanity Sensor
  */
 function smartSanitizeProfanity(text: string): { sanitizedText: string; hasProfanity: boolean } {
   let sanitizedText = text;
@@ -126,6 +170,7 @@ export function CommunitySection() {
   const [role, setRole] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [, setTick] = useState(0);
 
   const GITHUB_COMPONENTS_URL = "https://github.com/xFalzz/Nawfal/tree/main/components";
 
@@ -134,40 +179,48 @@ export function CommunitySection() {
       name: "Rian Hidayat",
       role: "Fullstack Engineer",
       text: "The AI RAG Vector Search and Hardware Keypress Tracker are total game changers! 100% complete source code snippets work flawlessly in production.",
-      date: "Just now",
+      rawDate: new Date(Date.now() - 5 * 60 * 1000),
       avatar: "RH",
     },
     {
       name: "Alex Rivera",
       role: "Frontend Specialist @ Vercel Ecosystem",
       text: "Love the 48 component collection. The unclipped viewports and full TSX previews make it incredibly developer-friendly. The spring physics are buttery smooth.",
-      date: "Today",
+      rawDate: new Date(Date.now() - 2 * 60 * 60 * 1000),
       avatar: "AR",
     },
     {
       name: "Devi Permata",
       role: "UI/UX Architect",
       text: "The Spotify Music suite and AI Vision inspector add incredible personality without feeling AI-generated. The monochromatic design system is genuinely elegant.",
-      date: "Yesterday",
+      rawDate: new Date(Date.now() - 24 * 60 * 60 * 1000),
       avatar: "DP",
     },
     {
       name: "Marcus Chen",
       role: "CTO @ TechStartup",
       text: "Migrated our entire dashboard to Nawfal UI. Source-owned components mean zero npm dependency conflicts. The CLI installation is seamless.",
-      date: "2 days ago",
+      rawDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
       avatar: "MC",
     },
     {
       name: "Sari Nurhayati",
       role: "Senior React Engineer",
       text: "The WCAG AAA compliance out of the box is impressive. We passed our accessibility audit with flying colors using Nawfal UI components.",
-      date: "3 days ago",
+      rawDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
       avatar: "SN",
     },
   ];
 
-  const [feedbacks, setFeedbacks] = useState(defaultFeedbacks);
+  const [feedbacks, setFeedbacks] = useState<any[]>(defaultFeedbacks);
+
+  // Live timestamp ticker: Updates relative timestamps ("Just now", "2m ago", etc.) every 30 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTick((t) => t + 1);
+    }, 30000);
+    return () => clearInterval(timer);
+  }, []);
 
   // 🌐 Real-time Firebase Firestore Global Synchronization
   useEffect(() => {
@@ -189,12 +242,7 @@ export function CommunitySection() {
               name: data.name || "Community Member",
               role: data.role || "Developer",
               text: data.text || "",
-              date: data.createdAt
-                ? new Date(data.createdAt.seconds * 1000).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  })
-                : "Just now",
+              rawDate: data.createdAt ? data.createdAt : new Date(),
               avatar: data.avatar || "CU",
             });
           });
@@ -297,11 +345,11 @@ export function CommunitySection() {
       name: finalName,
       role: finalRole,
       text: finalMessage,
-      date: "Just now",
+      rawDate: new Date(),
       avatar: avatarLetters,
     };
 
-    // 🌐 Write to Firebase Cloud Firestore for Global Multi-User Sync
+    // 🌐 Write to Firebase Cloud Firestore with automatic serverTimestamp
     try {
       await addDoc(collection(db, "community_feedbacks"), {
         name: finalName,
@@ -384,7 +432,7 @@ export function CommunitySection() {
             </span>
             <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-semibold">
               <ShieldCheck className="h-3.5 w-3.5" />
-              Live Cloud Multi-User Sync Active
+              Auto Timestamps & Live Cloud Active
             </span>
           </div>
 
@@ -410,7 +458,7 @@ export function CommunitySection() {
                   </div>
                   <span className="font-mono text-[10px] text-neutral-400 shrink-0 flex items-center gap-1">
                     <Cloud className="h-3 w-3 text-emerald-500" />
-                    {f.date}
+                    {formatRelativeTime(f.rawDate)}
                   </span>
                 </div>
                 <p className="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed font-mono">
@@ -432,7 +480,7 @@ export function CommunitySection() {
                 <span>Share Public Feedback</span>
               </span>
               <span className="text-[9px] text-emerald-500 flex items-center gap-0.5 font-bold">
-                <ShieldCheck className="h-3 w-3" /> Cloud Sync
+                <ShieldCheck className="h-3 w-3" /> Auto Timestamp
               </span>
             </div>
 
@@ -483,7 +531,7 @@ export function CommunitySection() {
               </button>
               <div className="flex items-center gap-1 text-[9px] text-neutral-400">
                 <ShieldAlert className="h-3 w-3 text-amber-500 shrink-0" />
-                <span>Syncs live to ALL visitors globally. Auto-censors profanity & slot/gambling terms.</span>
+                <span>Timestamps auto-generate & update live (e.g. Just now, 2m ago).</span>
               </div>
             </form>
           </div>
