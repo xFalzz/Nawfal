@@ -1,7 +1,10 @@
 {
-  "name": "nawfal.com",
-  "version": "0.1.0",
+  "name": "nawfal-ui",
+  "version": "5.2.0",
   "private": true,
+  "bin": {
+    "nawfal-ui": "./bin/cli.js"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

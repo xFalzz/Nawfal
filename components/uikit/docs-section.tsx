@@ -36,11 +36,12 @@ export function DocsSection() {
           <span>Design Philosophy & Specs</span>
         </div>
         <h2 className="mt-2 text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-          Monochromatic Minimalism v4.4
+          Monochromatic Enterprise Specs v5.2.0
         </h2>
         <p className="mt-2 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400">
           The Nawfal UI system is rooted in extreme clarity, structural contrast, and fluid micro-motion. 
-          With 42 components categorized across AI Web Engines, Spotify Music Suite, Out-Of-The-Box Innovations, Motion Primitives, and Telemetry Badges.
+          Featuring 48 components categorized across AI RAG Engines, NextGen Innovations, Spotify Music Suite, Motion Primitives, and Telemetry Badges.
+          Now with instant CLI installation via <code className="rounded bg-neutral-100 dark:bg-neutral-900 px-1.5 py-0.5 font-mono text-[11px]">npx nawfal-ui@latest init</code>.
         </p>
 
         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">

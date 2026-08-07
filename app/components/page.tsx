@@ -86,6 +86,16 @@ import {
   LiveFpsPerformanceMonitor,
 } from "@/components/uikit/imaginative-components";
 
+// Suite 6: NextGen Cutting-Edge Innovations
+import {
+  AINeuralVoiceSpectrum,
+  QuantumParticleMatrix,
+  CyberParallaxHUDCard,
+  MultiStepPipelineWizard,
+  AIPromptTokenCalculator,
+  FloatingCommandPalette,
+} from "@/components/uikit/nextgen-components";
+
 export default function ComponentsHubPage() {
   const [activeTab, setActiveTab] = useState<"components" | "documents" | "tools" | "learn" | "community">("components");
   const [selectedCategory, setSelectedCategory] = useState<string>("All System Components");
@@ -137,6 +147,150 @@ export default function ComponentsHubPage() {
 
   const uikitComponents = [
     // ─── 1. AI RAG & Intelligence Engines ───────────────────────────────────────
+    {
+      id: "ai-neural-voice-spectrum",
+      name: "AI Neural Voice Spectrum",
+      category: "AI RAG & Intelligence Engines",
+      description: "Interactive voice frequency visualizer with real-time AI agent status & volume controls.",
+      component: <AINeuralVoiceSpectrum />,
+      codeSnippet: `import { useState, useEffect } from "react";
+import { Mic, MicOff, Radio } from "lucide-react";
+import { motion } from "framer-motion";
+
+export function AINeuralVoiceSpectrum() {
+  const [isListening, setIsListening] = useState(true);
+  const [agentState, setAgentState] = useState("speaking");
+  const [bars, setBars] = useState([35, 65, 90, 45, 80, 100, 70, 40, 85, 60]);
+
+  return (
+    <div className="flex w-full max-w-[280px] flex-col gap-2 rounded-xl border border-neutral-800 bg-neutral-950 p-3 font-mono text-[10px] text-white">
+      <div className="flex justify-between items-center">
+        <span className="font-bold uppercase tracking-wide">Neural Voice AI</span>
+        <span className="flex items-center gap-1 rounded bg-neutral-900 border border-neutral-800 px-1.5 py-0.5 text-[8px] text-emerald-400 font-bold"><Radio className="h-2.5 w-2.5 animate-pulse" /> {agentState}</span>
+      </div>
+      <div className="flex h-10 w-full items-end justify-between gap-1 rounded bg-neutral-900 p-1.5">
+        {bars.map((h, i) => (
+          <motion.div key={i} animate={{ height: isListening ? \`\${h}%\` : "15%" }} className="w-full bg-white rounded-full" />
+        ))}
+      </div>
+    </div>
+  );
+}`,
+    },
+    {
+      id: "ai-prompt-token-calculator",
+      name: "AI Token & Cost Estimator",
+      category: "AI RAG & Intelligence Engines",
+      description: "Live LLM token pricing calculator comparing GPT-4o, Claude 3.5 Sonnet & Gemini Pro.",
+      component: <AIPromptTokenCalculator />,
+      codeSnippet: `import { useState } from "react";
+import { Calculator } from "lucide-react";
+
+export function AIPromptTokenCalculator() {
+  const [tokens, setTokens] = useState(150000);
+  const [model, setModel] = useState("gpt4o");
+  const rates = { gpt4o: 2.5, claude: 3.0, gemini: 1.25 };
+  const totalCost = ((tokens / 1000000) * rates[model]).toFixed(4);
+
+  return (
+    <div className="flex w-full max-w-[280px] flex-col gap-2 rounded-xl border border-neutral-800 bg-neutral-950 p-3 font-mono text-[10px] text-white">
+      <div className="flex justify-between items-center border-b border-neutral-800 pb-1">
+        <span className="font-bold flex items-center gap-1"><Calculator className="h-3.5 w-3.5 text-indigo-400" /> Token Estimator</span>
+        <span className="font-bold text-emerald-400">\${totalCost} USD</span>
+      </div>
+      <input type="range" min={10000} max={1000000} step={10000} value={tokens} onChange={(e) => setTokens(Number(e.target.value))} className="w-full h-1.5 bg-neutral-800 rounded appearance-none cursor-pointer accent-white" />
+    </div>
+  );
+}`,
+    },
+    {
+      id: "quantum-particle-matrix",
+      name: "Quantum Particle Mesh Node",
+      category: "Kinetic Motion & Physics",
+      description: "Interactive HTML5 canvas particle matrix with proximity node connection lines.",
+      component: <QuantumParticleMatrix />,
+      codeSnippet: `import { useRef, useEffect } from "react";
+import { Sparkles } from "lucide-react";
+
+export function QuantumParticleMatrix() {
+  const canvasRef = useRef(null);
+  return (
+    <div className="flex w-full max-w-[280px] flex-col gap-2 rounded-xl border border-neutral-800 bg-black p-3 font-mono text-[10px] text-white">
+      <div className="flex justify-between border-b border-neutral-800 pb-1">
+        <span className="flex items-center gap-1 font-bold"><Sparkles className="h-3.5 w-3.5 text-sky-400" /> Quantum Mesh Node</span>
+      </div>
+      <canvas ref={canvasRef} className="block w-full h-[90px] rounded border border-neutral-800 bg-neutral-950" />
+    </div>
+  );
+}`,
+    },
+    {
+      id: "cyber-parallax-hud-card",
+      name: "Cybernetic 3D Parallax HUD Card",
+      category: "Structural Containers & Surfaces",
+      description: "Futuristic sci-fi 3D mouse parallax tilt container with telemetry gauges.",
+      component: <CyberParallaxHUDCard />,
+      codeSnippet: `import { useState } from "react";
+import { Cpu } from "lucide-react";
+import { motion } from "framer-motion";
+
+export function CyberParallaxHUDCard() {
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+
+  return (
+    <motion.div animate={{ rotateX, rotateY }} className="w-full max-w-[280px] rounded-xl border border-neutral-800 bg-black p-3 font-mono text-[10px] text-white shadow-xl">
+      <div className="flex justify-between border-b border-neutral-800 pb-1">
+        <span className="font-bold flex items-center gap-1"><Cpu className="h-3.5 w-3.5 text-emerald-400" /> SYSTECH_HUD_v4</span>
+      </div>
+    </motion.div>
+  );
+}`,
+    },
+    {
+      id: "multi-step-pipeline-wizard",
+      name: "Interactive Pipeline Stepper",
+      category: "Interactive Inputs & Controls",
+      description: "Animated multi-step workflow stepper with active progress indicator & status badges.",
+      component: <MultiStepPipelineWizard />,
+      codeSnippet: `import { useState } from "react";
+import { ShieldCheck, ArrowRight, ArrowLeft } from "lucide-react";
+
+export function MultiStepPipelineWizard() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const steps = ["Lint", "Build", "Scan", "Deploy"];
+
+  return (
+    <div className="flex w-full max-w-[280px] flex-col gap-3 rounded-xl border border-neutral-800 bg-neutral-950 p-3 font-mono text-[10px] text-white">
+      <div className="flex justify-between font-bold"><span>Pipeline Stepper</span><span>Step {currentStep + 1} of 4</span></div>
+      <div className="flex justify-between">{steps.map((s, i) => <span key={i} className={i <= currentStep ? "text-white font-bold" : "text-neutral-600"}>{s}</span>)}</div>
+    </div>
+  );
+}`,
+    },
+    {
+      id: "floating-command-palette",
+      name: "Bespoke Spotlight Command Palette",
+      category: "Bespoke Widgets & Utilities",
+      description: "Spotlight-style floating command search modal with instant search & hotkey badges.",
+      component: <FloatingCommandPalette />,
+      codeSnippet: `import { useState } from "react";
+import { Search, Command } from "lucide-react";
+
+export function FloatingCommandPalette() {
+  const [search, setSearch] = useState("");
+
+  return (
+    <div className="flex w-full max-w-[280px] flex-col gap-2 rounded-xl border border-neutral-800 bg-neutral-950 p-3 font-mono text-[10px] text-white">
+      <div className="flex items-center rounded border border-neutral-800 bg-neutral-900 px-2 py-1">
+        <Search className="h-3 w-3 text-neutral-400" />
+        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Type a command..." className="ml-2 w-full bg-transparent text-[10px] outline-none" />
+        <kbd className="rounded border border-neutral-700 bg-neutral-800 px-1 text-[8px]">⌘K</kbd>
+      </div>
+    </div>
+  );
+}`,
+    },
     {
       id: "ai-generative-semantic-search",
       name: "AI Semantic Vector Search",
@@ -1262,10 +1416,10 @@ export function GitBranchTreeGraph() {
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded border border-neutral-700 bg-neutral-800 px-2 py-0.5 font-mono text-[9px] uppercase text-neutral-300 sm:text-[10px]">
-                v5.0.0 Established Enterprise Edition
+                v5.2.0 NextGen CLI Edition
               </span>
               <span className="flex items-center gap-1 font-mono text-[9px] text-emerald-400 sm:text-[10px]">
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 animate-pulse" /> 42 Components Verified
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 animate-pulse" /> 48 Components Verified
               </span>
             </div>
             <h1 className="mt-2 text-xl font-extrabold tracking-tight sm:text-2xl md:text-3xl">
