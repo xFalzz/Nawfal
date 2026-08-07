@@ -166,27 +166,40 @@ function detectLanguageInfo(prompt: string): LanguageInfo {
 }
 
 /**
- * 🚀 Real-time Auto-Introspection Engine
+ * 🚀 Real-time Autonomous Workspace & Web Introspection Engine
+ * Automatically scans workspace files, package manifest, App Router routes,
+ * and UI component primitives dynamically on EVERY request so the AI
+ * continuously self-adapts without any manual training or code updates.
  */
-function getRuntimeWebsiteIntrospection() {
+function getAutonomousRealtimeContext() {
   try {
     const cwd = process.cwd();
+
+    // 1. Read package manifest dynamically
+    let pkgInfo: any = {};
+    const pkgPath = path.join(cwd, "package.json");
+    if (fs.existsSync(pkgPath)) {
+      pkgInfo = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
+    }
+
+    // 2. Discover App Router pages recursively
     const appDir = path.join(cwd, "app");
     let detectedRoutes: string[] = ["/"];
     if (fs.existsSync(appDir)) {
-      const items = fs.readdirSync(appDir, { withFileTypes: true });
-      const routes = items
-        .filter(
-          (i) =>
-            i.isDirectory() &&
-            !i.name.startsWith("(") &&
-            !i.name.startsWith("_") &&
-            !i.name.startsWith("api")
-        )
-        .map((i) => `/${i.name}`);
-      detectedRoutes = ["/", ...routes];
+      const scanRoutes = (dir: string, prefix = "") => {
+        const items = fs.readdirSync(dir, { withFileTypes: true });
+        for (const item of items) {
+          if (item.isDirectory() && !item.name.startsWith("(") && !item.name.startsWith("_") && !item.name.startsWith("api")) {
+            const routePath = `${prefix}/${item.name}`;
+            detectedRoutes.push(routePath);
+            scanRoutes(path.join(dir, item.name), routePath);
+          }
+        }
+      };
+      scanRoutes(appDir);
     }
 
+    // 3. Discover UI Kit components dynamically
     const uikitDir = path.join(cwd, "components", "uikit");
     let detectedComponents: string[] = [];
     if (fs.existsSync(uikitDir)) {
@@ -197,12 +210,16 @@ function getRuntimeWebsiteIntrospection() {
     }
 
     return {
-      routes: detectedRoutes,
+      version: pkgInfo.version || "5.2.0",
+      dependenciesCount: Object.keys(pkgInfo.dependencies || {}).length,
+      routes: Array.from(new Set(detectedRoutes)),
       componentsCount: Math.max(48, detectedComponents.length),
       uikitModules: detectedComponents,
     };
   } catch (err) {
     return {
+      version: "5.2.0",
+      dependenciesCount: 30,
       routes: ["/", "/about", "/projects", "/components", "/certificate", "/photography"],
       componentsCount: 48,
       uikitModules: ["custom-components", "innovative-components", "nextgen-components", "out-of-the-box", "spotify-components", "imaginative-components"],
@@ -212,7 +229,7 @@ function getRuntimeWebsiteIntrospection() {
 
 function getDynamicSystemPrompt(userPrompt: string) {
   const langInfo = detectLanguageInfo(userPrompt);
-  const introspection = getRuntimeWebsiteIntrospection();
+  const autoCtx = getAutonomousRealtimeContext();
   const kbJson = JSON.stringify(KNOWLEDGE_BASE, null, 2);
   const now = new Date().toLocaleString("id-ID", {
     timeZone: "Asia/Jakarta",
@@ -220,7 +237,7 @@ function getDynamicSystemPrompt(userPrompt: string) {
     timeStyle: "short",
   });
 
-  return `You are "Nawfal AI Assistant", an executive-grade, hyper-intelligent, and professional AI Intelligence Engine powered by Google Gemini 3.1 Flash Lite. You are embedded in Nawfal Irfan Ramadhan's personal website & Nawfal UI Ecosystem (nawfal.vercel.app / nawfal-ui).
+  return `You are "Nawfal AI Assistant", an executive-grade, hyper-intelligent, and autonomous AI Intelligence Engine powered by Google Gemini 3.1 Flash Lite. You are embedded in Nawfal Irfan Ramadhan's personal website & Nawfal UI Ecosystem (nawfal.vercel.app / nawfal-ui).
 
 ********************************************************************************
 UNIVERSAL GLOBAL LANGUAGE MASTER DIRECTIVE:
@@ -231,17 +248,18 @@ CRITICAL MANDATORY INSTRUCTION: You MUST formulate 100% of your response in ${la
 - Every single sentence, bullet point, and header MUST be strictly in ${langInfo.name}.
 ********************************************************************************
 
-CURRENT SERVER TIME (Jakarta/WIB): ${now}
-ECOSYSTEM VERSION: v5.2.0
+CURRENT AUTONOMOUS SERVER STATE (Real-time WIB): ${now}
+ECOSYSTEM VERSION (Auto-detected from package.json): v${autoCtx.version}
+ACTIVE DEPENDENCIES COUNT: ${autoCtx.dependenciesCount}
 AI ENGINE CORE: Google Gemini 3.1 Flash Lite
 PRIMARY OWNER / CREATOR: Nawfal Irfan Ramadhan (Nickname: Nawfal, Handles: xFalzz, xFalzs)
 GITHUB REPOSITORY SOURCE: https://github.com/xFalzz/Nawfal/tree/main/components
 
-REAL-TIME AUTOMATICALLY INTROSPECTED WEBSITE ROUTES:
-${introspection.routes.join(", ")}
+REAL-TIME AUTONOMOUSLY INTROSPECTED WEBSITE ROUTES:
+${autoCtx.routes.join(", ")}
 
-REAL-TIME DISCOVERED UI KIT COMPONENT FILES (${introspection.componentsCount} total):
-${introspection.uikitModules.join(", ")}
+REAL-TIME AUTONOMOUSLY DISCOVERED UI KIT COMPONENT FILES (${autoCtx.componentsCount} total primitives):
+${autoCtx.uikitModules.join(", ")}
 
 GROUND TRUTH KNOWLEDGE BASE (Automatically Synced at Runtime):
 ${kbJson}
@@ -261,7 +279,7 @@ EXECUTIVE PROFESSIONAL TONE & STRICT BOUNDARIES:
 
 function generateSmartLocalResponse(prompt: string): string {
   const p = prompt.toLowerCase();
-  const introspection = getRuntimeWebsiteIntrospection();
+  const autoCtx = getAutonomousRealtimeContext();
   const lang = detectLanguageInfo(prompt).code;
 
   // Profile / Nawfal / Biodata queries
@@ -298,7 +316,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **学歴**: ビナ・サラナ・インフォルマティカ大学（UBSI）情報システム学科 3期生（GPA **3.78 / 4.00**）
 - 🛠️ **主要スキル**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run
 - 🏆 **資格**: Google Cloud, IBM, Coursera, RevoU, Dicoding, HackerRank等から**48以上の公式認定資格**を取得
-- 🚀 **主要プロジェクト**: **Nawfal UI Kit** (${introspection.componentsCount}のUIコンポーネント), **Hijara** (AI環境プラットフォーム), **KURA** (ゲーム探索プラットフォーム)`;
+- 🚀 **主要プロジェクト**: **Nawfal UI Kit** (${autoCtx.componentsCount}のUIコンポーネント), **Hijara** (AI環境プラットフォーム), **KURA** (ゲーム探索プラットフォーム)`;
 
       case "zh":
         return `**Nawfal Irfan Ramadhan**（简称 **Nawfal**）是一名位于印度尼西亚日惹的**全栈软件工程师与 UI/UX 设计师**。
@@ -306,7 +324,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **教育背景**: Bina Sarana Informatika 大学（UBSI）信息系统专业大二学生，GPA **3.78 / 4.00**
 - 🛠️ **核心技术栈**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run
 - 🏆 **专业认证**: 拥有 Google Cloud、IBM、Coursera、RevoU、Dicoding 和 HackerRank 颁发的 **48+ 官方认证**
-- 🚀 **代表作品**: **Nawfal UI Kit** (${introspection.componentsCount}个单色UI组件)、**Hijara** (AI可持续发展平台) 与 **KURA** (游戏探索平台)`;
+- 🚀 **代表作品**: **Nawfal UI Kit** (${autoCtx.componentsCount}个单色UI组件)、**Hijara** (AI可持续发展平台) 与 **KURA** (游戏探索平台)`;
 
       case "ar":
         return `**نوفل عرفان رمضان** (Nawfal Irfan Ramadhan) هو **مهندس برمجيات متكامل (Fullstack) ومصمم UI/UX** مقيم في يوجياكارتا، إندونيسيا.
@@ -314,7 +332,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **التعليم**: طالب نظم معلومات في جامعة بينا سارانا إنفورماتيكا (UBSI) - المعدل التراكمي **3.78 / 4.00**.
 - 🛠️ **التقنيات الأساسية**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **الشهادات**: يحمل أكثر من **48 شهادة احترافية معتمدة** من Google Cloud و IBM و Coursera و HackerRank.
-- 🚀 **المشاريع البارزة**: **Nawfal UI Kit** (${introspection.componentsCount} مكون برمجي) و **Hijara** (منصة الاستدامة بالذكاء الاصطناعي) و **KURA** (منصة ألعاب).`;
+- 🚀 **المشاريع البارزة**: **Nawfal UI Kit** (${autoCtx.componentsCount} مكون برمجي) و **Hijara** (منصة الاستدامة بالذكاء الاصطناعي) و **KURA** (منصة ألعاب).`;
 
       case "ko":
         return `**나우팔 이르판 라마단** (Nawfal Irfan Ramadhan)은 인도네시아 족자카르타에 기반을 둔 **풀스택 소프트웨어 엔지니어 & UI/UX 디자이너**입니다.
@@ -322,7 +340,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **학력**: UBSI 대학교 정보시스템학과 3학기 재학 중 (GPA **3.78 / 4.00**)
 - 🛠️ **핵심 기술**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run
 - 🏆 **자격증**: Google Cloud, IBM, Coursera, HackerRank 등 **48개 이상의 공식 자격증** 보유
-- 🚀 **주요 프로젝트**: **Nawfal UI Kit** (${introspection.componentsCount}개 컴포넌트), **Hijara** (AI 지속가능성 플랫폼), **KURA** (게임 디스커버리)`;
+- 🚀 **주요 프로젝트**: **Nawfal UI Kit** (${autoCtx.componentsCount}개 컴포넌트), **Hijara** (AI 지속가능성 플랫폼), **KURA** (게임 디스커버리)`;
 
       case "ru":
         return `**Науфал Ирфан Рамадан** (Nawfal Irfan Ramadhan) — **Fullstack-разработчик и UI/UX-дизайнер** из Джокьякарты, Индонезия.
@@ -330,7 +348,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Образование**: Студент специальности «Информационные системы» в Университете UBSI (3-й семестр, средний балл **3.78 / 4.00**).
 - 🛠️ **Основной стек**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Сертификаты**: Более **48 официальных сертификатов** от Google Cloud, IBM, Coursera, Dicoding и HackerRank.
-- 🚀 **Главные проекты**: **Nawfal UI Kit** (${introspection.componentsCount} UI-компонентов), **Hijara** (ИИ-платформа устойчивого развития) и **KURA** (платформа поиска игр).`;
+- 🚀 **Главные проекты**: **Nawfal UI Kit** (${autoCtx.componentsCount} UI-компонентов), **Hijara** (ИИ-платформа устойчивого развития) и **KURA** (платформа поиска игр).`;
 
       case "hi":
         return `**नौफल इरफान रमजान** (Nawfal Irfan Ramadhan) योग्याकार्ता, इंडोनेशिया में स्थित एक **फुलस्टैक सॉफ्टवेयर इंजीनियर और UI/UX डिजाइनर** हैं।
@@ -338,7 +356,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **शिक्षा**: UBSI विश्वविद्यालय में सूचना प्रणाली के छात्र (3री तिमाही, GPA **3.78 / 4.00**)।
 - 🛠️ **मुख्य कौशल**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run।
 - 🏆 **प्रमाणपत्र**: Google Cloud, IBM, Coursera, और HackerRank से **48+ आधिकारिक प्रमाणपत्र**।
-- 🚀 **प्रमुख परियोजनाएं**: **Nawfal UI Kit** (${introspection.componentsCount} घटकों), **Hijara** (AI प्लेटफ़ॉर्म), और **KURA**।`;
+- 🚀 **प्रमुख परियोजनाएं**: **Nawfal UI Kit** (${autoCtx.componentsCount} घटकों), **Hijara** (AI प्लेटफ़ॉर्म), और **KURA**।`;
 
       case "es":
         return `**Nawfal Irfan Ramadhan** (conocido simplemente como **Nawfal**) es un **Ingeniero de Software Fullstack y Diseñador UI/UX** ubicado en Yogyakarta, Indonesia.
@@ -346,7 +364,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Educación**: Estudiante de Sistemas de Información en la Universidad UBSI, 3er Semestre con un promedio (GPA) de **3.78 / 4.00**.
 - 🛠️ **Stack Principal**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Certificaciones**: Cuenta con más de **48 certificaciones oficiales** de Google Cloud, IBM, Coursera, RevoU, Dicoding y HackerRank.
-- 🚀 **Proyectos Destacados**: Creador de **Nawfal UI Kit** (${introspection.componentsCount} componentes monochrome), **Hijara** (AI Sustainability) y **KURA** (Game Discovery).`;
+- 🚀 **Proyectos Destacados**: Creador de **Nawfal UI Kit** (${autoCtx.componentsCount} componentes monochrome), **Hijara** (AI Sustainability) y **KURA** (Game Discovery).`;
 
       case "fr":
         return `**Nawfal Irfan Ramadhan** (connu sous le nom de **Nawfal**) est un **Ingénieur Logiciel Fullstack et Designer UI/UX** basé à Yogyakarta, Indonésie.
@@ -354,7 +372,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Éducation**: Étudiant en Systèmes d'Information à l'Université UBSI, 3ème semestre avec une moyenne de **3.78 / 4.00**.
 - 🛠️ **Technologies Clés**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Certifications**: Titulaire de plus de **48 certifications officielles** de Google Cloud, IBM, Coursera, Dicoding et HackerRank.
-- 🚀 **Projets Phares**: Créateur de **Nawfal UI Kit** (${introspection.componentsCount} composants UI), **Hijara** (IA Durabilité) et **KURA** (Plateforme de jeux).`;
+- 🚀 **Projets Phares**: Créateur de **Nawfal UI Kit** (${autoCtx.componentsCount} composants UI), **Hijara** (IA Durabilité) et **KURA** (Plateforme de jeux).`;
 
       case "de":
         return `**Nawfal Irfan Ramadhan** (bekannt als **Nawfal**) ist ein **Fullstack Software Engineer & UI/UX Designer** mit Sitz in Yogyakarta, Indonesien.
@@ -362,7 +380,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Ausbildung**: Wirtschaftsinformatik-Student an der UBSI Universität (3. Semester, Notendurchschnitt **3.78 / 4.00**).
 - 🛠️ **Haupt-Tech-Stack**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Zertifizierungen**: Über **48 offizielle Zertifizierungen** von Google Cloud, IBM, Coursera, Dicoding und HackerRank.
-- 🚀 **Hauptprojekte**: Schöpfer von **Nawfal UI Kit** (${introspection.componentsCount} Komponenten), **Hijara** (KI-Nachhaltigkeit) und **KURA** (Game Discovery).`;
+- 🚀 **Hauptprojekte**: Schöpfer von **Nawfal UI Kit** (${autoCtx.componentsCount} Komponenten), **Hijara** (KI-Nachhaltigkeit) und **KURA** (Game Discovery).`;
 
       case "it":
         return `**Nawfal Irfan Ramadhan** (noto come **Nawfal**) è uno **Sviluppatore Software Fullstack & UI/UX Designer** con sede a Yogyakarta, Indonesia.
@@ -370,7 +388,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Formazione**: Studente di Sistemi Informativi presso l'Università UBSI (GPA **3.78 / 4.00**).
 - 🛠️ **Tech Stack**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Certificazioni**: Oltre **48 certificazioni ufficiali** da Google Cloud, IBM, Coursera e HackerRank.
-- 🚀 **Progetti Principali**: **Nawfal UI Kit** (${introspection.componentsCount} componenti UI), **Hijara** e **KURA**.`;
+- 🚀 **Progetti Principali**: **Nawfal UI Kit** (${autoCtx.componentsCount} componenti UI), **Hijara** e **KURA**.`;
 
       case "pt":
         return `**Nawfal Irfan Ramadhan** (conhecido como **Nawfal**) é um **Engenheiro de Software Fullstack & UI/UX Designer** baseado em Yogyakarta, Indonésia.
@@ -378,7 +396,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Educação**: Estudante de Sistemas de Informação na Universidade UBSI (GPA **3.78 / 4.00**).
 - 🛠️ **Stack Principal**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Certificações**: Possui mais de **48 certificações oficiais** do Google Cloud, IBM, Coursera e HackerRank.
-- 🚀 **Projetos em Destaque**: **Nawfal UI Kit** (${introspection.componentsCount} componentes), **Hijara** e **KURA**.`;
+- 🚀 **Projetos em Destaque**: **Nawfal UI Kit** (${autoCtx.componentsCount} componentes), **Hijara** e **KURA**.`;
 
       case "nl":
         return `**Nawfal Irfan Ramadhan** (bekend als **Nawfal**) is een **Fullstack Software Engineer & UI/UX Designer** gevestigd in Yogyakarta, Indonesië.
@@ -386,7 +404,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Opleiding**: Student Informatiesystemen aan de UBSI Universiteit (GPA **3.78 / 4.00**).
 - 🛠️ **Tech Stack**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Certificeringen**: Meer dan **48 officiële certificaten** van Google Cloud, IBM, Coursera en HackerRank.
-- 🚀 **Belangrijkste Projecten**: **Nawfal UI Kit** (${introspection.componentsCount} onderdelen), **Hijara** en **KURA**.`;
+- 🚀 **Belangrijkste Projecten**: **Nawfal UI Kit** (${autoCtx.componentsCount} onderdelen), **Hijara** en **KURA**.`;
 
       case "tr":
         return `**Nawfal Irfan Ramadhan** (bilinen adıyla **Nawfal**), Yogyakarta, Endonezya merkezli bir **Fullstack Yazılım Mühendisi ve UI/UX Tasarımcısıdır**.
@@ -394,7 +412,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Eğitim**: UBSI Üniversitesi Bilişim Sistemleri 3. Dönem Öğrencisi (GNO **3.78 / 4.00**).
 - 🛠️ **Temel Teknolojiler**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Sertifikalar**: Google Cloud, IBM, Coursera ve HackerRank'ten **48'den fazla resmi sertifika**.
-- 🚀 **Öne Çıkan Projeler**: **Nawfal UI Kit** (${introspection.componentsCount} UI bileşeni), **Hijara** ve **KURA**.`;
+- 🚀 **Öne Çıkan Projeler**: **Nawfal UI Kit** (${autoCtx.componentsCount} UI bileşeni), **Hijara** ve **KURA**.`;
 
       case "vi":
         return `**Nawfal Irfan Ramadhan** (thường gọi là **Nawfal**) là một **Kỹ sư Phần mềm Fullstack & UI/UX Designer** sống tại Yogyakarta, Indonesia.
@@ -402,7 +420,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Học vấn**: Sinh viên Hệ thống Thông tin tại Đại học UBSI (GPA **3.78 / 4.00**).
 - 🛠️ **Công nghệ chính**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Chứng chỉ**: Hơn **48 chứng chỉ chính thức** từ Google Cloud, IBM, Coursera và HackerRank.
-- 🚀 **Dự án nổi bật**: **Nawfal UI Kit** (${introspection.componentsCount} thành phần UI), **Hijara** và **KURA**.`;
+- 🚀 **Dự án nổi bật**: **Nawfal UI Kit** (${autoCtx.componentsCount} thành phần UI), **Hijara** và **KURA**.`;
 
       case "jv":
         return `**Nawfal Irfan Ramadhan** (biyasane dipanggil **Nawfal**) yaiku **Fullstack Software Engineer & UI/UX Designer** ing Ngayogyakarta, Indonesia.
@@ -410,7 +428,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Pendidikan**: Mahasiswa Sistem Informasi ing Universitas Bina Sarana Informatika (UBSI) IPK **3.78 / 4.00**.
 - 🛠️ **Keahlian Utama**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Sertifikasi**: Nduweni **48+ sertifikasi resmi** saka Google Cloud, IBM, Coursera, Dicoding, lan HackerRank.
-- 🚀 **Karya Utama**: Pangripta **Nawfal UI Kit** (${introspection.componentsCount} komponen UI), **Hijara**, lan **KURA**.`;
+- 🚀 **Karya Utama**: Pangripta **Nawfal UI Kit** (${autoCtx.componentsCount} komponen UI), **Hijara**, lan **KURA**.`;
 
       case "su":
         return `**Nawfal Irfan Ramadhan** (biasa dipanggil **Nawfal**) nyaéta **Fullstack Software Engineer & UI/UX Designer** anu beralamat di Yogyakarta, Indonesia.
@@ -418,7 +436,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Pendidikan**: Mahasiswa Sistem Informasi di Universitas Bina Sarana Informatika (UBSI) IPK **3.78 / 4.00**.
 - 🛠️ **Keahlian Utama**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Sertifikasi**: Gaduh **48+ sertifikasi resmi** ti Google Cloud, IBM, Coursera, Dicoding, sareng HackerRank.
-- 🚀 **Karya Utama**: Pencipta **Nawfal UI Kit** (${introspection.componentsCount} komponen UI), **Hijara**, sareng **KURA**.`;
+- 🚀 **Karya Utama**: Pencipta **Nawfal UI Kit** (${autoCtx.componentsCount} komponen UI), **Hijara**, sareng **KURA**.`;
 
       case "en":
         return `**Nawfal Irfan Ramadhan** (commonly known as **Nawfal**) is a **Fullstack Software Engineer & UI/UX Designer** based in Yogyakarta, Indonesia.
@@ -426,7 +444,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Education**: Information Systems student at Universitas Bina Sarana Informatika (UBSI), 3rd Semester with a GPA of **3.78 / 4.00**.
 - 🛠️ **Core Tech Stack**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Certifications**: Holds **48+ official certifications** from Google Cloud, IBM, Coursera, RevoU, Dicoding, and HackerRank.
-- 🚀 **Featured Works**: Creator of **Nawfal UI Kit** (${introspection.componentsCount} enterprise monochrome components) and platforms such as **Hijara** (AI Sustainability) & **KURA** (Game Discovery platform with 897,000+ games).`;
+- 🚀 **Featured Works**: Creator of **Nawfal UI Kit** (${autoCtx.componentsCount} enterprise monochrome components) and platforms such as **Hijara** (AI Sustainability) & **KURA** (Game Discovery platform with 897,000+ games).`;
 
       default:
         return `**Nawfal Irfan Ramadhan** (biasa dipanggil **Nawfal**) adalah seorang **Fullstack Software Engineer & UI/UX Designer** berlokasi di Yogyakarta, Indonesia.
@@ -434,7 +452,7 @@ function generateSmartLocalResponse(prompt: string): string {
 - 🎓 **Pendidikan**: Mahasiswa Sistem Informasi di Universitas Bina Sarana Informatika (UBSI) semester 3 dengan IPK **3.78 / 4.00**.
 - 🛠️ **Keahlian Utama**: Next.js 14, React 18, TypeScript, Tailwind CSS, Node.js, Python, Firebase, Google Cloud Run.
 - 🏆 **Sertifikasi**: Memiliki **48+ sertifikasi resmi** dari Google Cloud, IBM, Coursera, RevoU, Dicoding, dan HackerRank.
-- 🚀 **Karya Utama**: Kreator **Nawfal UI Kit** (${introspection.componentsCount} komponen enterprise monokromatik) dan platform populer seperti **Hijara** (AI Sustainability) & **KURA** (Game Discovery 897,000+ games).`;
+- 🚀 **Karya Utama**: Kreator **Nawfal UI Kit** (${autoCtx.componentsCount} komponen enterprise monokromatik) dan platform populer seperti **Hijara** (AI Sustainability) & **KURA** (Game Discovery 897,000+ games).`;
     }
   }
 
@@ -463,8 +481,8 @@ function generateSmartLocalResponse(prompt: string): string {
    - Integrates Gemini Vision for waste classification & recycling tracking. Serverless on Google Cloud Run.
 2. 🎮 **KURA – Game Discovery Platform**:
    - Game discovery platform with 897,000+ games built with Next.js, TypeScript, Firebase, & RAWG API.
-3. 📦 **Nawfal UI Kit Ecosystem (v5.2.0)**:
-   - Monochrome design system with ${introspection.componentsCount} primitives, interactive Design Studio, and NextGen CLI (\`npx nawfal-ui@latest init\`).
+3. 📦 **Nawfal UI Kit Ecosystem (v${autoCtx.version})**:
+   - Monochrome design system with ${autoCtx.componentsCount} primitives, interactive Design Studio, and NextGen CLI (\`npx nawfal-ui@latest init\`).
 4. 🖥️ **macOS Sequoia Web Clone**:
    - Interactive web-based replica of macOS Sequoia using React & Framer Motion.
 5. 🏠 **Kost Afifa Management System**:
@@ -477,8 +495,8 @@ function generateSmartLocalResponse(prompt: string): string {
    - Mengintegrasikan Gemini Vision untuk klasifikasi sampah & pelacakan daur ulang. Serverless di Google Cloud Run.
 2. 🎮 **KURA – Game Discovery Platform**:
    - Platform eksplorasi 897,000+ game menggunakan Next.js, TypeScript, Firebase, & RAWG API.
-3. 📦 **Nawfal UI Kit Ecosystem (v5.2.0)**:
-   - Design system ${introspection.componentsCount} komponen monokromatik, Design Studio interaktif, dan NextGen CLI (\`npx nawfal-ui@latest init\`).
+3. 📦 **Nawfal UI Kit Ecosystem (v${autoCtx.version})**:
+   - Design system ${autoCtx.componentsCount} komponen monokromatik, Design Studio interaktif, dan NextGen CLI (\`npx nawfal-ui@latest init\`).
 4. 🖥️ **macOS Sequoia Web Clone**:
    - Replika sistem operasi macOS Sequoia interaktif di web menggunakan React & Framer Motion.
 5. 🏠 **Kost Afifa Management System**:
