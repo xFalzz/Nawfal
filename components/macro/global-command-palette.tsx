@@ -15,11 +15,11 @@ export function GlobalCommandPalette() {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
 
-  // Listen for ⌘K, ⌘F, or ⌘M globally
+  // Listen for ⌘K or ⌘M globally (⌘K for Command Palette, ⌘F is separate for Find)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
-      if ((e.metaKey || e.ctrlKey) && (key === "k" || key === "f")) {
+      if ((e.metaKey || e.ctrlKey) && key === "k") {
         e.preventDefault();
         setIsOpen((prev) => !prev);
       } else if ((e.metaKey || e.ctrlKey) && key === "m") {
