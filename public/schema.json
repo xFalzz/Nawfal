@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Nawfal UI Configuration Schema",
+  "description": "Official JSON Schema for Nawfal UI Kit configuration file (nawfal-ui.json). Provides live IntelliSense autocompletion & validation in IDEs.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "URL link to the Nawfal UI JSON schema definition."
+    },
+    "version": {
+      "type": "string",
+      "default": "5.2.0",
+      "description": "Version of Nawfal UI Kit CLI."
+    },
+    "style": {
+      "type": "string",
+      "enum": ["monochrome", "monochrome-enterprise"],
+      "default": "monochrome",
+      "description": "The design system style preset."
+    },
+    "rsc": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable React Server Components (RSC) compatibility."
+    },
+    "tsx": {
+      "type": "boolean",
+      "default": true,
+      "description": "Use TypeScript (.tsx) for installed components."
+    },
+    "tailwind": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "string",
+          "default": "tailwind.config.ts",
+          "description": "Path to your Tailwind CSS configuration file."
+        },
+        "css": {
+          "type": "string",
+          "default": "app/globals.css",
+          "description": "Path to your global CSS stylesheet."
+        },
+        "baseColor": {
+          "type": "string",
+          "default": "neutral",
+          "description": "Base greyscale color token scale."
+        }
+      },
+      "required": ["config", "css"]
+    },
+    "aliases": {
+      "type": "object",
+      "properties": {
+        "components": {
+          "type": "string",
+          "default": "@/components/uikit",
+          "description": "Import alias path for UI Kit components."
+        },
+        "utils": {
+          "type": "string",
+          "default": "@/lib/utils",
+          "description": "Import alias path for helper utility functions."
+        }
+      },
+      "required": ["components", "utils"]
+    }
+  },
+  "required": ["style", "tsx", "tailwind", "aliases"]
+}
