@@ -102,7 +102,7 @@ export function PlaygroundSection() {
     switch (selectedComp.id) {
       case "btn-action":
         if (exportFormat === "html") {
-          return `<button style="border-radius: ${r}; border-width: ${bw};" class="btn-action">\n  <span>${customText}</span>\n  <svg class="w-4 h-4"...></svg>\n</button>`;
+          return `<button style="border-radius: ${r}; border-width: ${bw};" class="btn-action">\n  <span>${customText}</span>\n</button>`;
         }
         return `// Nawfal UI — Action Motion Button
 import { ArrowUpRight, Loader2 } from "lucide-react";
@@ -307,7 +307,7 @@ export function MetricCounterPill() {
       style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
       className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-3 py-1 font-mono text-xs font-bold text-neutral-800 dark:text-neutral-200"
     >
-      <span className="rounded bg-neutral-900 dark:bg-white px-1.5 py-0.5 text-[9px] text-white dark:text-black font-extrabold">48</span>
+      <span className="rounded bg-black text-white dark:bg-white dark:text-black px-1.5 py-0.5 text-[9px] font-extrabold">48</span>
       <span>${customText}</span>
     </div>
   );
@@ -427,14 +427,14 @@ export function Component() {
               <Box className="h-3.5 w-3.5 text-neutral-700 dark:text-neutral-300" />
               <span>DESIGN STUDIO WORKBENCH</span>
               <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-neutral-700 dark:border-neutral-800 dark:bg-black dark:text-neutral-300 font-semibold">
-                16/16 COMPONENTS READY
+                WIDE CANVAS MODE
               </span>
             </div>
             <h3 className="mt-1.5 text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
               Interactive Component Studio
             </h3>
             <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400 max-w-xl">
-              Select any component from the catalog, customize parameters, simulate states, and copy production-ready monochrome TSX/HTML snippets.
+              Inspect, customize parameters, test states, and copy production-ready monochrome TSX/HTML snippets.
             </p>
           </div>
 
@@ -480,10 +480,10 @@ export function Component() {
         </div>
       </section>
 
-      {/* ─── Studio Grid Layout (3 Columns) ─────────────────────────────────── */}
+      {/* ─── Sleek 2-Column Wide Studio Layout ──────────────────────────────── */}
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
 
-        {/* ─── COL 1: Component Catalog (3 cols) ─────────────────────────────── */}
+        {/* ─── COL 1: Catalog Browser Sidebar (3 cols) ───────────────────────── */}
         <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950 lg:col-span-3">
           <div className="flex items-center justify-between border-b border-neutral-200 pb-2.5 dark:border-neutral-800">
             <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Catalog</span>
@@ -520,7 +520,7 @@ export function Component() {
           </div>
 
           {/* Component Item List */}
-          <div className="flex flex-col gap-1.5 overflow-y-auto max-h-[460px] pr-1">
+          <div className="flex flex-col gap-1.5 overflow-y-auto max-h-[580px] pr-1">
             {filteredCatalog.map((item) => (
               <button
                 key={item.id}
@@ -546,21 +546,21 @@ export function Component() {
           </div>
         </div>
 
-        {/* ─── COL 2: Studio Canvas & Code View (6 cols) ─────────────────────── */}
-        <div className="flex flex-col gap-3 lg:col-span-6">
+        {/* ─── COL 2: Spacious Canvas & Horizontal Inspector Workbench (9 cols) ── */}
+        <div className="flex flex-col gap-4 lg:col-span-9">
 
-          {/* Canvas View Switcher */}
+          {/* View Switcher Top Toolbar */}
           <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-100 p-1 font-mono text-xs dark:border-neutral-800 dark:bg-black">
             <div className="flex gap-1">
               {[
-                { id: "canvas", icon: <Eye className="h-3.5 w-3.5" />, label: "Canvas" },
-                { id: "code",   icon: <Code2 className="h-3.5 w-3.5" />, label: "Code" },
+                { id: "canvas", icon: <Eye className="h-3.5 w-3.5" />, label: "Wide Canvas" },
+                { id: "code",   icon: <Code2 className="h-3.5 w-3.5" />, label: "Code Exporter" },
                 { id: "tokens", icon: <Terminal className="h-3.5 w-3.5" />, label: "Tokens" },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveView(tab.id as any)}
-                  className={`flex items-center gap-1.5 rounded px-3 py-1 text-[11px] font-semibold transition-all ${
+                  className={`flex items-center gap-1.5 rounded px-3.5 py-1 text-[11px] font-semibold transition-all ${
                     activeView === tab.id
                       ? "bg-neutral-900 text-white dark:bg-neutral-800 dark:text-white shadow-xs"
                       : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-neutral-300"
@@ -574,7 +574,7 @@ export function Component() {
             {/* Grid Overlay Toggle */}
             <button
               onClick={() => setShowGrid(!showGrid)}
-              className={`flex items-center gap-1 rounded px-2 py-1 text-[10px] font-mono transition-all ${
+              className={`flex items-center gap-1 rounded px-2.5 py-1 text-[10px] font-mono transition-all ${
                 showGrid
                   ? "text-neutral-900 bg-white border border-neutral-300 dark:text-neutral-300 dark:bg-neutral-900 dark:border-neutral-800"
                   : "text-neutral-500"
@@ -585,10 +585,10 @@ export function Component() {
             </button>
           </div>
 
-          {/* View 1: Canvas */}
+          {/* View 1: Wide Canvas */}
           {activeView === "canvas" && (
             <div
-              className={`relative flex min-h-[440px] flex-col justify-between overflow-hidden rounded-xl border transition-colors ${
+              className={`relative flex min-h-[380px] flex-col justify-between overflow-hidden rounded-xl border transition-colors ${
                 themeCanvas === "pure-light"
                   ? "border-neutral-300 bg-white text-black"
                   : themeCanvas === "graphite"
@@ -606,19 +606,19 @@ export function Component() {
             >
               {/* Header Telemetry */}
               <div className={`flex items-center justify-between border-b pb-3 font-mono text-[10px] ${isLight ? "border-neutral-200 text-neutral-500" : "border-neutral-800 text-neutral-500"}`}>
-                <span className="font-bold uppercase tracking-wider">{selectedComp.name} · CANVAS</span>
+                <span className="font-bold uppercase tracking-wider">{selectedComp.name} · WIDE CANVAS</span>
                 <span>W: {viewport === "desktop" ? "100%" : viewport === "tablet" ? "480px" : "320px"}</span>
               </div>
 
               {/* Render Area for ALL 16 COMPONENTS */}
-              <div className="my-10 flex items-center justify-center">
+              <div className="my-12 flex items-center justify-center">
                 <div
                   className="flex justify-center transition-all duration-300"
                   style={{ width: viewport === "desktop" ? "100%" : viewport === "tablet" ? "480px" : "320px" }}
                 >
                   <motion.div
                     key={selectedId + borderRadius + borderWidth + size + compState + customText + customSubtext + themeCanvas + segmentedActive + toggleActive + pinCode.join("")}
-                    initial={{ opacity: 0, scale: 0.97 }}
+                    initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.15 }}
                     className="flex justify-center w-full"
@@ -715,7 +715,7 @@ export function Component() {
                           </span>
                           <span className="text-[9px] text-emerald-400 animate-pulse">● LIVE</span>
                         </div>
-                        <p className="text-[10px] text-neutral-400 leading-relaxed">{customSubtext}</p>
+                        <p className="text-[10px] text-neutral-400 leading-relaxed">${customSubtext}</p>
                       </div>
                     )}
 
@@ -982,123 +982,134 @@ export function Component() {
             </div>
           )}
 
-        </div>
-
-        {/* ─── COL 3: Inspector Panel (3 cols) ───────────────────────────────── */}
-        <div className="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950 p-4 lg:col-span-3 font-mono text-xs">
-          <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-2.5">
-            <span className="font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Inspector</span>
-            <SlidersHorizontal className="h-3.5 w-3.5 text-neutral-500" />
-          </div>
-
-          {/* Radius Slider */}
-          <div>
-            <div className="mb-1 flex justify-between text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">
-              <span>Radius</span>
-              <span className="text-neutral-900 dark:text-neutral-200">{borderRadius}px</span>
+          {/* ─── HORIZONTAL INSPECTOR WORKBENCH PANEL (Below Canvas) ──────────── */}
+          <div className="flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950 p-4 font-mono text-xs shadow-xs">
+            <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-2.5">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="h-3.5 w-3.5 text-neutral-500" />
+                <span className="font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200">
+                  Studio Inspector Controls
+                </span>
+              </div>
+              <span className="text-[10px] text-neutral-400">Live Parameters</span>
             </div>
-            <input
-              type="range"
-              min={0}
-              max={24}
-              value={borderRadius}
-              onChange={(e) => setBorderRadius(Number(e.target.value))}
-              className="w-full accent-neutral-800 dark:accent-neutral-200"
-            />
-          </div>
 
-          {/* Border Width */}
-          <div>
-            <div className="mb-1 flex justify-between text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">
-              <span>Border Width</span>
-              <span className="text-neutral-900 dark:text-neutral-200">{borderWidth}px</span>
+            {/* Row 1: Geometry & Simulation Parameters */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+              {/* Radius Slider */}
+              <div className="flex flex-col gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-2.5 dark:border-neutral-800/80 dark:bg-black">
+                <div className="flex justify-between text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">
+                  <span>Border Radius</span>
+                  <span className="text-neutral-900 dark:text-neutral-200">{borderRadius}px</span>
+                </div>
+                <input
+                  type="range"
+                  min={0}
+                  max={24}
+                  value={borderRadius}
+                  onChange={(e) => setBorderRadius(Number(e.target.value))}
+                  className="w-full accent-neutral-800 dark:accent-neutral-200 mt-1"
+                />
+              </div>
+
+              {/* Border Width */}
+              <div className="flex flex-col gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-2.5 dark:border-neutral-800/80 dark:bg-black">
+                <span className="text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">Border Width</span>
+                <div className="grid grid-cols-3 gap-1 mt-0.5">
+                  {[1, 2, 3].map((bw) => (
+                    <button
+                      key={bw}
+                      onClick={() => setBorderWidth(bw)}
+                      className={`rounded border py-1 text-[10px] font-bold transition-all ${
+                        borderWidth === bw
+                          ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
+                          : "border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-500"
+                      }`}
+                    >
+                      {bw}px
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Size Scale */}
+              <div className="flex flex-col gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-2.5 dark:border-neutral-800/80 dark:bg-black">
+                <span className="text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">Size Scale</span>
+                <div className="grid grid-cols-3 gap-1 mt-0.5">
+                  {(["sm", "md", "lg"] as const).map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => setSize(s)}
+                      className={`rounded border py-1 text-[10px] font-bold uppercase transition-all ${
+                        size === s
+                          ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
+                          : "border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-500"
+                      }`}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Component State */}
+              <div className="flex flex-col gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-2.5 dark:border-neutral-800/80 dark:bg-black">
+                <span className="text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">State Simulation</span>
+                <div className="grid grid-cols-3 gap-1 mt-0.5">
+                  {(["default", "loading", "disabled"] as const).map((st) => (
+                    <button
+                      key={st}
+                      onClick={() => setCompState(st)}
+                      className={`rounded border py-1 text-[10px] font-bold capitalize transition-all ${
+                        compState === st
+                          ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
+                          : "border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-500"
+                      }`}
+                    >
+                      {st}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
             </div>
-            <div className="grid grid-cols-3 gap-1">
-              {[1, 2, 3].map((bw) => (
+
+            {/* Row 2: Content Text Inputs & Action */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-12 items-end border-t border-neutral-200 dark:border-neutral-800 pt-3">
+              <div className="sm:col-span-4 flex flex-col gap-1">
+                <label className="text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">Title / Label Text</label>
+                <input
+                  type="text"
+                  value={customText}
+                  onChange={(e) => setCustomText(e.target.value)}
+                  className="w-full rounded border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-black px-3 py-1.5 text-[11px] text-neutral-900 dark:text-neutral-200 outline-none focus:border-neutral-500"
+                />
+              </div>
+
+              <div className="sm:col-span-5 flex flex-col gap-1">
+                <label className="text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">Subtext / Description</label>
+                <input
+                  type="text"
+                  value={customSubtext}
+                  onChange={(e) => setCustomSubtext(e.target.value)}
+                  className="w-full rounded border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-black px-3 py-1.5 text-[11px] text-neutral-900 dark:text-neutral-200 outline-none focus:border-neutral-500"
+                />
+              </div>
+
+              <div className="sm:col-span-3">
                 <button
-                  key={bw}
-                  onClick={() => setBorderWidth(bw)}
-                  className={`rounded border py-1 text-[10px] font-bold transition-all ${
-                    borderWidth === bw
-                      ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
-                      : "border-neutral-200 bg-neutral-100 text-neutral-600 dark:border-neutral-800 dark:bg-black dark:text-neutral-500"
-                  }`}
+                  onClick={handleCopyCode}
+                  className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-neutral-900 bg-neutral-900 py-2 text-xs font-bold text-white dark:border-neutral-100 dark:bg-neutral-100 dark:text-black hover:opacity-90 transition-all shadow-xs"
                 >
-                  {bw}px
+                  {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                  <span>{copiedCode ? "Copied!" : "Copy TSX Code"}</span>
                 </button>
-              ))}
+              </div>
             </div>
+
           </div>
 
-          {/* Size Scale */}
-          <div>
-            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">Size Scale</label>
-            <div className="grid grid-cols-3 gap-1">
-              {(["sm", "md", "lg"] as const).map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setSize(s)}
-                  className={`rounded border py-1 text-[10px] font-bold uppercase transition-all ${
-                    size === s
-                      ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
-                      : "border-neutral-200 bg-neutral-100 text-neutral-600 dark:border-neutral-800 dark:bg-black dark:text-neutral-500"
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Component State */}
-          <div>
-            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">State Simulation</label>
-            <div className="grid grid-cols-3 gap-1">
-              {(["default", "loading", "disabled"] as const).map((st) => (
-                <button
-                  key={st}
-                  onClick={() => setCompState(st)}
-                  className={`rounded border py-1 text-[10px] font-bold capitalize transition-all ${
-                    compState === st
-                      ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-200 dark:bg-neutral-800 dark:text-white"
-                      : "border-neutral-200 bg-neutral-100 text-neutral-600 dark:border-neutral-800 dark:bg-black dark:text-neutral-500"
-                  }`}
-                >
-                  {st}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Content Editors */}
-          <div className="border-t border-neutral-200 dark:border-neutral-800 pt-3">
-            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">Title / Label</label>
-            <input
-              type="text"
-              value={customText}
-              onChange={(e) => setCustomText(e.target.value)}
-              className="w-full rounded border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-black px-2.5 py-1 text-[11px] text-neutral-900 dark:text-neutral-200 outline-none focus:border-neutral-500"
-            />
-          </div>
-
-          <div>
-            <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">Subtext / Desc</label>
-            <input
-              type="text"
-              value={customSubtext}
-              onChange={(e) => setCustomSubtext(e.target.value)}
-              className="w-full rounded border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-black px-2.5 py-1 text-[11px] text-neutral-900 dark:text-neutral-200 outline-none focus:border-neutral-500"
-            />
-          </div>
-
-          {/* Copy Button */}
-          <button
-            onClick={handleCopyCode}
-            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-neutral-900 bg-neutral-900 py-2 text-xs font-bold text-white dark:border-neutral-100 dark:bg-neutral-100 dark:text-black hover:opacity-90 transition-all shadow-xs"
-          >
-            {copiedCode ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-            <span>{copiedCode ? "Copied!" : "Copy TSX Code"}</span>
-          </button>
         </div>
 
       </div>
