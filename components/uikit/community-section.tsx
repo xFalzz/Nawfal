@@ -436,7 +436,7 @@ export function CommunitySection() {
             </span>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 max-h-[580px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-800">
             {feedbacks.map((f, idx) => (
               <div
                 key={idx}
