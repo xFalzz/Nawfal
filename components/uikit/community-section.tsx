@@ -25,7 +25,9 @@ function formatRelativeTime(secondsOrDate: any): string {
   if (!secondsOrDate) return "Just now";
 
   let date: Date;
-  if (typeof secondsOrDate === "object" && secondsOrDate.seconds) {
+  if (typeof secondsOrDate === "object" && typeof secondsOrDate.toDate === "function") {
+    date = secondsOrDate.toDate();
+  } else if (typeof secondsOrDate === "object" && secondsOrDate.seconds) {
     date = new Date(secondsOrDate.seconds * 1000);
   } else if (secondsOrDate instanceof Date) {
     date = secondsOrDate;
@@ -40,7 +42,8 @@ function formatRelativeTime(secondsOrDate: any): string {
   const now = new Date();
   const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-  if (diffInSeconds < 20) return "Just now";
+  // If timestamp is slightly in the future (due to server clock skew), show "Just now"
+  if (diffInSeconds < 15) return "Just now";
   if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
 
   const diffInMinutes = Math.floor(diffInSeconds / 60);
@@ -179,46 +182,46 @@ export function CommunitySection() {
       name: "Rian Hidayat",
       role: "Fullstack Engineer",
       text: "The AI RAG Vector Search and Hardware Keypress Tracker are total game changers! 100% complete source code snippets work flawlessly in production.",
-      rawDate: new Date(Date.now() - 5 * 60 * 1000),
+      rawDate: new Date(Date.now() - 15 * 60 * 1000), // 15 mins ago
       avatar: "RH",
     },
     {
       name: "Alex Rivera",
       role: "Frontend Specialist @ Vercel Ecosystem",
       text: "Love the 48 component collection. The unclipped viewports and full TSX previews make it incredibly developer-friendly. The spring physics are buttery smooth.",
-      rawDate: new Date(Date.now() - 2 * 60 * 60 * 1000),
+      rawDate: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
       avatar: "AR",
     },
     {
       name: "Devi Permata",
       role: "UI/UX Architect",
       text: "The Spotify Music suite and AI Vision inspector add incredible personality without feeling AI-generated. The monochromatic design system is genuinely elegant.",
-      rawDate: new Date(Date.now() - 24 * 60 * 60 * 1000),
+      rawDate: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago (Yesterday)
       avatar: "DP",
     },
     {
       name: "Marcus Chen",
       role: "CTO @ TechStartup",
       text: "Migrated our entire dashboard to Nawfal UI. Source-owned components mean zero npm dependency conflicts. The CLI installation is seamless.",
-      rawDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      rawDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
       avatar: "MC",
     },
     {
       name: "Sari Nurhayati",
       role: "Senior React Engineer",
       text: "The WCAG AAA compliance out of the box is impressive. We passed our accessibility audit with flying colors using Nawfal UI components.",
-      rawDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      rawDate: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000), // 4 days ago
       avatar: "SN",
     },
   ];
 
   const [feedbacks, setFeedbacks] = useState<any[]>(defaultFeedbacks);
 
-  // Live timestamp ticker: Updates relative timestamps ("Just now", "2m ago", etc.) every 30 seconds
+  // Live timestamp ticker: Updates relative timestamps ("Just now", "2m ago", etc.) every 15 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setTick((t) => t + 1);
-    }, 30000);
+    }, 15000);
     return () => clearInterval(timer);
   }, []);
 
@@ -235,14 +238,22 @@ export function CommunitySection() {
         q,
         (snapshot) => {
           const liveItems: any[] = [];
-          snapshot.forEach((doc) => {
+          snapshot.docs.forEach((doc, idx) => {
             const data = doc.data();
+            
+            // Extract accurate timestamp or calculate realistic past date if serverTimestamp is pending
+            let dateObj: any = data.timestampMs 
+              ? new Date(data.timestampMs) 
+              : data.createdAt 
+              ? data.createdAt 
+              : new Date(Date.now() - (idx + 1) * 3 * 60 * 1000);
+
             liveItems.push({
               id: doc.id,
               name: data.name || "Community Member",
               role: data.role || "Developer",
               text: data.text || "",
-              rawDate: data.createdAt ? data.createdAt : new Date(),
+              rawDate: dateObj,
               avatar: data.avatar || "CU",
             });
           });
@@ -340,22 +351,24 @@ export function CommunitySection() {
     }
 
     const avatarLetters = finalName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase() || "CU";
+    const nowMs = Date.now();
 
     const newFeedbackItem = {
       name: finalName,
       role: finalRole,
       text: finalMessage,
-      rawDate: new Date(),
+      rawDate: new Date(nowMs),
       avatar: avatarLetters,
     };
 
-    // 🌐 Write to Firebase Cloud Firestore with automatic serverTimestamp
+    // 🌐 Write to Firebase Cloud Firestore with explicit numeric timestamp & serverTimestamp
     try {
       await addDoc(collection(db, "community_feedbacks"), {
         name: finalName,
         role: finalRole,
         text: finalMessage,
         avatar: avatarLetters,
+        timestampMs: nowMs,
         createdAt: serverTimestamp(),
       });
     } catch (err) {
@@ -531,7 +544,7 @@ export function CommunitySection() {
               </button>
               <div className="flex items-center gap-1 text-[9px] text-neutral-400">
                 <ShieldAlert className="h-3 w-3 text-amber-500 shrink-0" />
-                <span>Timestamps auto-generate & update live (e.g. Just now, 2m ago).</span>
+                <span>Timestamps auto-generate & update live (e.g. 15m ago, 3h ago, Yesterday).</span>
               </div>
             </form>
           </div>
