@@ -407,22 +407,218 @@ requestAnimationFrame(() => {
 - Total Blocking Time: < 200ms
 - JS bundle per route: < 150KB gzipped`,
     },
+    {
+      id: "vanilla-html-guide",
+      title: "Using Nawfal UI in Vanilla HTML/CSS/JS Projects",
+      category: "Multi-Framework",
+      readTime: "6 min read",
+      summary: "Complete guide to using Nawfal UI components in plain HTML without React, Vue, or any build tools — just a browser.",
+      content: `Nawfal UI components can be used in **any project** — even pure HTML files with zero build tools. Every component card has an **HTML tab** that generates a standalone file you can open directly in a browser.
+
+### Prerequisites
+- A text editor (VS Code, Sublime, etc.)
+- A modern web browser
+- That's it — no Node.js, no npm, no bundler required
+
+### Step 1: Copy the HTML Version
+1. Open the Components Hub at \`/components\`
+2. Click the **Code** tab on any component card
+3. Switch to the **HTML** format tab
+4. Click **Copy** to copy the entire standalone HTML file
+
+### Step 2: Save & Open
+\`\`\`bash
+# Save the copied code as an HTML file
+# Open it directly in your browser
+open my-component.html
+\`\`\`
+
+### How It Works
+The HTML version uses **Tailwind CSS via CDN** — no local installation needed:
+\`\`\`html
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"><\/script>
+\`\`\`
+
+### Adding Interactivity
+Replace React state logic with vanilla JavaScript:
+\`\`\`js
+// React: const [active, setActive] = useState(false);
+// Vanilla equivalent:
+let active = false;
+const button = document.getElementById("toggle-btn");
+button.addEventListener("click", () => {
+  active = !active;
+  button.textContent = active ? "ON" : "OFF";
+  button.classList.toggle("bg-emerald-500", active);
+});
+\`\`\`
+
+### Replacing Framer Motion Animations
+Use CSS transitions and \`@keyframes\` instead:
+\`\`\`css
+.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+\`\`\`
+
+### Replacing Lucide Icons
+Use Lucide's SVG sprite or CDN instead of the React package:
+\`\`\`html
+<script src="https://unpkg.com/lucide@latest"><\/script>
+<script>lucide.createIcons();</script>
+
+<!-- Then use: -->
+<i data-lucide="zap"></i>
+\`\`\`
+
+### Tips
+- Use \`data-*\` attributes for component state
+- Use CSS custom properties for theming
+- Use \`IntersectionObserver\` for scroll-triggered animations
+- All Tailwind classes from the React version work identically in HTML`,
+    },
+    {
+      id: "vue3-integration-guide",
+      title: "Integrating Nawfal UI Components with Vue 3",
+      category: "Multi-Framework",
+      readTime: "7 min read",
+      summary: "Step-by-step guide to converting and using Nawfal UI components in Vue 3 projects with Composition API and <script setup>.",
+      content: `Nawfal UI components are available as **Vue 3 Single File Components** (.vue) using the modern Composition API with \`<script setup>\`.
+
+### Prerequisites
+\`\`\`bash
+# Create a Vue 3 project (if you don't have one)
+npm create vue@latest my-app
+cd my-app
+npm install
+
+# Install required dependencies
+npm install tailwindcss @tailwindcss/vite lucide-vue-next
+\`\`\`
+
+### Configure Tailwind CSS
+\`\`\`js
+// vite.config.js
+import tailwindcss from '@tailwindcss/vite'
+
+export default {
+  plugins: [tailwindcss()],
+}
+\`\`\`
+
+\`\`\`css
+/* src/assets/main.css */
+@import "tailwindcss";
+\`\`\`
+
+### Step 1: Copy the Vue SFC
+1. Open the Components Hub at \`/components\`
+2. Click **Code** tab → switch to **Vue** format
+3. Copy the \`.vue\` SFC code
+4. Save as \`src/components/ComponentName.vue\`
+
+### Step 2: Use in Your App
+\`\`\`vue
+<template>
+  <div class="min-h-screen bg-neutral-950 flex items-center justify-center">
+    <HolographicBadge title="Elite Member" />
+  </div>
+</template>
+
+<script setup>
+import HolographicBadge from "./components/HolographicBadge.vue";
+</script>
+\`\`\`
+
+### Converting React Patterns to Vue
+
+#### State Management
+\`\`\`js
+// React: const [count, setCount] = useState(0)
+// Vue 3:
+import { ref } from "vue"
+const count = ref(0)
+// Access: count.value (in script), {{ count }} (in template)
+\`\`\`
+
+#### Event Handling
+\`\`\`html
+<!-- React: onClick={() => setActive(!active)} -->
+<!-- Vue 3: -->
+<button @click="active = !active">Toggle</button>
+\`\`\`
+
+#### Conditional Rendering
+\`\`\`html
+<!-- React: {isOpen && <Modal />} -->
+<!-- Vue 3: -->
+<Modal v-if="isOpen" />
+\`\`\`
+
+#### Animations (Replacing Framer Motion)
+\`\`\`vue
+<template>
+  <Transition name="fade">
+    <div v-if="show" class="rounded-lg bg-neutral-900 p-4">
+      Content
+    </div>
+  </Transition>
+</template>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+</style>
+\`\`\`
+
+#### Using Lucide Icons in Vue
+\`\`\`vue
+<template>
+  <Zap class="h-4 w-4 text-emerald-400" />
+</template>
+
+<script setup>
+import { Zap } from "lucide-vue-next"
+</script>
+\`\`\`
+
+### Nuxt 3 Compatibility
+Nawfal UI Vue components work with Nuxt 3 out of the box:
+\`\`\`bash
+# Place .vue files in ~/components/
+# Nuxt auto-imports them — no import statement needed
+\`\`\`
+
+### Tips
+- Use \`ref()\` for primitives, \`reactive()\` for objects
+- Vue's \`<Transition>\` component replaces most Framer Motion animations
+- Use \`computed()\` for derived state instead of \`useMemo\`
+- Use \`watchEffect()\` instead of \`useEffect\``,
+    },
   ];
 
   return (
     <div className="flex w-full flex-col gap-6">
       {/* Header Banner */}
-      <section className="rounded-xl border border-neutral-200 bg-white/60 p-5 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/60">
+      <section className="rounded-xl border border-neutral-200 bg-white/60 p-6 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/60">
         <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-neutral-500">
           <BookOpen className="h-4 w-4" />
-          <span>Documentation & Learning Center ({guides.length} Guides)</span>
+          <span>Learn & FAQ</span>
         </div>
-        <h2 className="mt-1 text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-          Nawfal UI Knowledge Base
-        </h2>
+        <h3 className="mt-1 text-lg font-bold text-neutral-900 dark:text-neutral-100">
+          Comprehensive Engineering Guides & Frequently Asked Questions
+        </h3>
         <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
-          Comprehensive documentation covering installation, design system philosophy, component architecture, 
-          AI interfaces, animation engineering, accessibility standards, and performance optimization.
+          Everything you need to know about Nawfal UI Kit — design philosophy, multi-framework installation, AI interfaces, accessibility standards, performance optimization, and common questions.
         </p>
       </section>
 
@@ -473,6 +669,59 @@ requestAnimationFrame(() => {
           </div>
         </div>
       </div>
+
+      {/* ─── Interactive FAQ Accordion Section ─── */}
+      <section className="mt-8 rounded-xl border border-neutral-200 bg-white/60 p-6 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/60">
+        <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-neutral-500">
+          <Zap className="h-4 w-4" />
+          <span>Frequently Asked Questions</span>
+        </div>
+        <h3 className="mt-1 text-lg font-bold text-neutral-900 dark:text-neutral-100">
+          Pertanyaan Yang Sering Diajukan (FAQ)
+        </h3>
+        <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400 mb-6">
+          Jawaban langsung untuk pertanyaan umum mengenai penggunaan, lisensi, dan arsitektur Nawfal UI Kit.
+        </p>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {[
+            {
+              q: "Apa fungsi utama dari UI Kit Nawfal ini?",
+              a: "Nawfal UI Kit adalah pustaka komponen UI tingkat enterprise yang dirancang untuk mempercepat pembuatan antarmuka aplikasi web modern (Next.js, React, Vue, HTML/CSS) dengan estetika monokromik yang elegan, animasi berbasis fisika, dan aksesibilitas tinggi (WCAG AAA)."
+            },
+            {
+              q: "Bisakah komponen ini digunakan tanpa React / TypeScript?",
+              a: "Sangat bisa! Setiap komponen di Nawfal UI Kit mendukung 4 format kode: React TSX, React JSX, Vanilla HTML/CSS/JS (dengan CDN Tailwind), dan Vue 3 SFC (Composition API). Anda cukup beralih tab format kode dan meng-copy kodenya."
+            },
+            {
+              q: "Apakah Nawfal UI Kit ini gratis untuk digunakan?",
+              a: "Ya, 100% Gratis dan Open-Source di bawah lisensi MIT. Anda bebas menggunakannya untuk proyek pribadi, komersial, maupun proyek klien tanpa batasan royalti."
+            },
+            {
+              q: "Mengapa menggunakan metode Copy-Paste ketimbang npm package?",
+              a: "Dengan copy-paste (source-owned architecture), Anda memiliki 100% kontrol atas kode sumber. Tidak ada risiko breaking changes saat update package, dan Anda bebas menyesuaikan komponen sesuai kebutuhan proyek."
+            },
+            {
+              q: "Bagaimana cara kerja CLI `npx nawfal-ui@latest init`?",
+              a: "CLI memudahkan inisialisasi konfigurasi `nawfal-ui.json` dan secara otomatis mengunduh kode komponen TSX langsung ke direktori `components/uikit/` proyek Anda."
+            },
+            {
+              q: "Apakah semua komponen responsif untuk HP?",
+              a: "Ya! Semua 48 komponen telah diuji dan dioptimalkan secara ketat agar tampil rapi di layar smartphone, tablet, maupun monitor desktop resolusi tinggi."
+            }
+          ].map((faq, i) => (
+            <div key={i} className="flex flex-col gap-1.5 rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900/50">
+              <h4 className="text-xs font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800 text-[10px] font-mono text-neutral-800 dark:text-neutral-200">Q{i+1}</span>
+                {faq.q}
+              </h4>
+              <p className="text-[11px] leading-relaxed text-neutral-600 dark:text-neutral-400 pl-7">
+                {faq.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

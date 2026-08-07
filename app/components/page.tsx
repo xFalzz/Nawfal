@@ -14,13 +14,17 @@ import {
   Copy,
   Zap,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  LayoutGrid,
+  Sparkles
 } from "lucide-react";
 
 // Hub Sections
 import { ComponentCard } from "@/components/uikit/component-card";
 import { DocsSection } from "@/components/uikit/docs-section";
 import { ToolsSection } from "@/components/uikit/tools-section";
+import { TemplatesSection } from "@/components/uikit/templates-section";
+import { PlaygroundSection } from "@/components/uikit/playground-section";
 import { LearnSection } from "@/components/uikit/learn-section";
 import { CommunitySection } from "@/components/uikit/community-section";
 
@@ -97,7 +101,7 @@ import {
 } from "@/components/uikit/nextgen-components";
 
 export default function ComponentsHubPage() {
-  const [activeTab, setActiveTab] = useState<"components" | "documents" | "tools" | "learn" | "community">("components");
+  const [activeTab, setActiveTab] = useState<"components" | "documents" | "tools" | "templates" | "playground" | "learn" | "community">("components");
   const [selectedCategory, setSelectedCategory] = useState<string>("All System Components");
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedCli, setCopiedCli] = useState(false);
@@ -210,14 +214,14 @@ export function AIPromptTokenCalculator() {
       description: "Interactive HTML5 canvas particle matrix with proximity node connection lines.",
       component: <QuantumParticleMatrix />,
       codeSnippet: `import { useRef, useEffect } from "react";
-import { Sparkles } from "lucide-react";
+import { Atom } from "lucide-react";
 
 export function QuantumParticleMatrix() {
   const canvasRef = useRef(null);
   return (
     <div className="flex w-full max-w-[280px] flex-col gap-2 rounded-xl border border-neutral-800 bg-black p-3 font-mono text-[10px] text-white">
       <div className="flex justify-between border-b border-neutral-800 pb-1">
-        <span className="flex items-center gap-1 font-bold"><Sparkles className="h-3.5 w-3.5 text-sky-400" /> Quantum Mesh Node</span>
+        <span className="flex items-center gap-1 font-bold"><Atom className="h-3.5 w-3.5 text-sky-400" /> Quantum Mesh Node</span>
       </div>
       <canvas ref={canvasRef} className="block w-full h-[90px] rounded border border-neutral-800 bg-neutral-950" />
     </div>
@@ -1484,6 +1488,30 @@ export function GitBranchTreeGraph() {
           </button>
 
           <button
+            onClick={() => setActiveTab("templates")}
+            className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
+              activeTab === "templates"
+                ? "bg-neutral-900 text-white dark:bg-white dark:text-black"
+                : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+            }`}
+          >
+            <LayoutGrid className="h-3.5 w-3.5" />
+            <span>Templates</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("playground")}
+            className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
+              activeTab === "playground"
+                ? "bg-neutral-900 text-white dark:bg-white dark:text-black"
+                : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+            }`}
+          >
+            <Sparkles className="h-3.5 w-3.5 text-sky-400" />
+            <span>Playground</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab("learn")}
             className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-all ${
               activeTab === "learn"
@@ -1492,7 +1520,7 @@ export function GitBranchTreeGraph() {
             }`}
           >
             <BookOpen className="h-3.5 w-3.5" />
-            <span>Learn About</span>
+            <span>Learn & FAQ</span>
           </button>
 
           <button
@@ -1644,14 +1672,28 @@ export function GitBranchTreeGraph() {
           </motion.div>
         )}
 
-        {/* Tab 4: Learn */}
+        {/* Tab 4: Templates */}
+        {activeTab === "templates" && (
+          <motion.div key="tab-templates" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
+            <TemplatesSection />
+          </motion.div>
+        )}
+
+        {/* Tab 5: Playground */}
+        {activeTab === "playground" && (
+          <motion.div key="tab-playground" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
+            <PlaygroundSection />
+          </motion.div>
+        )}
+
+        {/* Tab 6: Learn & FAQ */}
         {activeTab === "learn" && (
           <motion.div key="tab-learn" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
             <LearnSection />
           </motion.div>
         )}
 
-        {/* Tab 5: Community */}
+        {/* Tab 7: Community */}
         {activeTab === "community" && (
           <motion.div key="tab-community" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
             <CommunitySection />

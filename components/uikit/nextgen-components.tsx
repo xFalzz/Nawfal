@@ -6,6 +6,7 @@ import {
   Mic, 
   MicOff, 
   Sparkles, 
+  Atom,
   Activity, 
   Layers, 
   Cpu, 
@@ -179,7 +180,7 @@ export function QuantumParticleMatrix() {
     <div className="flex w-full max-w-[290px] flex-col gap-2 rounded-xl border border-neutral-800 bg-black p-3 font-mono text-[10px] text-white">
       <div className="flex items-center justify-between border-b border-neutral-800 pb-1.5">
         <span className="flex items-center gap-1.5 font-bold">
-          <Sparkles className="h-3.5 w-3.5 text-sky-400" /> Quantum Mesh Node
+          <Atom className="h-3.5 w-3.5 text-sky-400" /> Quantum Mesh Node
         </span>
         <span className="rounded bg-neutral-900 border border-neutral-700 px-1.5 py-0.5 text-[8px] text-sky-400">
           {particleCount} NODES

@@ -323,6 +323,70 @@ export function DocsSection() {
           ))}
         </div>
       </section>
+
+      {/* ─── 9. Multi-Framework Support ──────────────────────── */}
+      <section className="rounded-xl border border-neutral-200 bg-white/60 p-6 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/60">
+        <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-neutral-500">
+          <Code2 className="h-4 w-4" />
+          <span>Multi-Framework Support</span>
+        </div>
+        <h3 className="mt-1 text-lg font-bold text-neutral-900 dark:text-neutral-100">
+          Use Nawfal UI Everywhere — 4 Formats
+        </h3>
+        <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+          Every component is available in <strong>4 code formats</strong>. Switch between them using the format tab on any component card.
+        </p>
+
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {[
+            {
+              format: "TSX",
+              label: "React + TypeScript",
+              badge: "DEFAULT",
+              badgeColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
+              desc: "Full type-safe React components with TypeScript interfaces, generics, and strict mode support.",
+              usage: `import { HolographicBadge } from "@/components/uikit/holographic-badge";\n\nexport default function Page() {\n  return <HolographicBadge title="Elite" />;\n}`,
+            },
+            {
+              format: "JSX",
+              label: "React + JavaScript",
+              badge: "UNIVERSAL",
+              badgeColor: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+              desc: "Same React components with all TypeScript annotations removed. Drop into any Create React App or Vite JS project.",
+              usage: `import { HolographicBadge } from "./components/uikit/holographic-badge";\n\nexport default function Page() {\n  return <HolographicBadge title="Elite" />;\n}`,
+            },
+            {
+              format: "HTML",
+              label: "Vanilla HTML/CSS/JS",
+              badge: "ZERO DEPS",
+              badgeColor: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+              desc: "Standalone HTML files with Tailwind CDN. No build tools, no npm, no frameworks — just open in a browser.",
+              usage: `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"><\/script>\n</head>\n<body>\n  <div class="rounded-xl border border-neutral-800 bg-neutral-950 p-4 text-white">\n    <!-- Your component here -->\n  </div>\n</body>\n</html>`,
+            },
+            {
+              format: "Vue",
+              label: "Vue 3 SFC",
+              badge: "COMPOSITION API",
+              badgeColor: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+              desc: "Vue 3 Single File Components using Composition API with <script setup>. Compatible with Nuxt 3 and Vite + Vue.",
+              usage: `<template>\n  <HolographicBadge title="Elite" />\n</template>\n\n<script setup>\nimport HolographicBadge from "./HolographicBadge.vue";\n</script>`,
+            },
+          ].map((item, i) => (
+            <div key={i} className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-neutral-50 p-3.5 dark:border-neutral-800 dark:bg-neutral-900/50">
+              <div className="flex items-center justify-between">
+                <h4 className="text-xs font-bold text-neutral-900 dark:text-neutral-100">{item.format} — {item.label}</h4>
+                <span className={`rounded px-1.5 py-0.5 font-mono text-[7px] font-bold uppercase ${item.badgeColor}`}>{item.badge}</span>
+              </div>
+              <p className="text-[10px] text-neutral-500">{item.desc}</p>
+              <div className="rounded border border-neutral-200 bg-neutral-100 p-2 dark:border-neutral-800 dark:bg-neutral-900">
+                <pre className="overflow-x-auto whitespace-pre-wrap font-mono text-[9px] leading-relaxed text-neutral-700 dark:text-neutral-300">
+                  {item.usage}
+                </pre>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
