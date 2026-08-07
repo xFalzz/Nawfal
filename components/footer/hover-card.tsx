@@ -27,7 +27,7 @@ interface HoverLinksProps {
 
 const HoverTitle: FC<ComponentsProps> = ({ children }) => {
   return (
-    <p className="anim text-center text-sm font-semibold uppercase text-foreground opacity-0 group-hover:opacity-0 md:opacity-100">
+    <p className="anim text-center text-sm font-semibold uppercase text-foreground opacity-100 group-hover:opacity-100 md:group-hover:opacity-0 transition-opacity">
       {children}
     </p>
   );
@@ -35,9 +35,9 @@ const HoverTitle: FC<ComponentsProps> = ({ children }) => {
 
 const HoverItem: FC<HoverItemProps> = ({ children, header }) => {
   return (
-    <div className="anim absolute flex h-fit w-full flex-wrap items-center justify-center gap-x-8 gap-y-4 bg-transparent px-6 delay-100 md:h-full md:translate-y-[110%] md:bg-popover md:group-hover:translate-y-0">
+    <div className="anim relative flex h-auto w-full flex-wrap items-center justify-center gap-x-6 gap-y-3 bg-transparent px-4 py-3 md:absolute md:h-full md:py-0 md:translate-y-[110%] md:bg-popover md:group-hover:translate-y-0 transition-all">
       {header && (
-        <p className="text-sm font-semibold text-foreground">{header}</p>
+        <p className="hidden text-sm font-semibold text-foreground md:block">{header}</p>
       )}
       {children}
     </div>
@@ -45,7 +45,7 @@ const HoverItem: FC<HoverItemProps> = ({ children, header }) => {
 };
 
 const HoverItems: FC<HoverItemsProps> = ({ children }) => {
-  return <>{children}</>;
+  return <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">{children}</div>;
 };
 
 const HoverLinks: FC<HoverLinksProps> = ({ children, href, target }) => {
@@ -61,7 +61,7 @@ const HoverLinks: FC<HoverLinksProps> = ({ children, href, target }) => {
 const HoverCard: FC<HoverCardProps> = ({ children, className }) => {
   return (
     <div
-      className={`group relative flex items-center justify-center overflow-hidden px-4 py-6 md:py-8 ${className}`}
+      className={`group relative flex flex-col items-center justify-center overflow-hidden px-4 py-4 md:flex-row md:py-8 ${className}`}
     >
       {children}
     </div>

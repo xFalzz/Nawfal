@@ -56,21 +56,43 @@ export function Command() {
 
   return (
     <>
-      <code className="justify-end gap-x-2 text-xs text-muted-foreground">
+      <code
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        title="Toggle Theme (⌘M)"
+        className="cursor-pointer justify-end gap-x-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+      >
         Theme{" "}
         <kbd className="pointer-events-none inline-flex h-fit select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
           <span className="text-xs">⌘</span>M
         </kbd>
       </code>
       <code
+        onClick={() => setOpen(true)}
+        title="Quick Search (⌘F)"
+        className="cursor-pointer justify-end gap-x-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+      >
+        Search{" "}
+        <kbd className="pointer-events-none inline-flex h-fit select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+          <span className="text-xs">⌘</span>F
+        </kbd>
+      </code>
+      <code
         onClick={() => {
-          setOpen(true);
+          window.dispatchEvent(
+            new KeyboardEvent("keydown", {
+              key: "k",
+              metaKey: true,
+              ctrlKey: true,
+              bubbles: true,
+            })
+          );
         }}
-        className="cursor-pointer justify-end gap-x-2 text-xs text-muted-foreground"
+        title="Open Command Palette (⌘K)"
+        className="cursor-pointer justify-end gap-x-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
       >
         Command{" "}
         <kbd className="pointer-events-none inline-flex h-fit select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-          <span className="text-xs">⌘</span>F
+          <span className="text-xs">⌘</span>K
         </kbd>
       </code>
       <CommandDialog open={open} onOpenChange={setOpen}>
