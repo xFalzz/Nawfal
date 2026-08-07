@@ -50,7 +50,7 @@ function detectLanguageInfo(prompt: string): LanguageInfo {
   const p = prompt.toLowerCase();
 
   // 1. Japanese (Hiragana / Katakana / Kanji context)
-  if (/[\u3040-\u30ff]/.test(prompt) || ([\u3400-\u4dbf\u4e00-\u9fff].test(prompt) && (p.includes("は") || p.includes("の") || p.includes("です") || p.includes("か") || p.includes("誰") || p.includes("何")))) {
+  if (/[\u3040-\u30ff]/.test(prompt) || (/[\u3400-\u4dbf\u4e00-\u9fff]/.test(prompt) && (p.includes("は") || p.includes("の") || p.includes("です") || p.includes("か") || p.includes("誰") || p.includes("何")))) {
     return { code: "ja", name: "Japanese (日本語)" };
   }
 
