@@ -43,7 +43,7 @@ export function DocsSection() {
   ];
 
   const configSnippet = `{
-  "$schema": "https://nawfal-ui.com/schema.json",
+  "$schema": "https://nawfal.vercel.app/schema.json",
   "style": "monochrome",
   "rsc": true,
   "tsx": true,
