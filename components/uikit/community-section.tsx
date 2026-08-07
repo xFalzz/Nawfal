@@ -89,14 +89,14 @@ export function CommunitySection() {
   return (
     <div className="flex w-full flex-col gap-6">
       {/* GitHub Ecosystem Banner */}
-      <section className="flex flex-col items-start justify-between gap-4 rounded-xl border border-neutral-200 bg-neutral-900 p-5 text-white dark:border-neutral-800 dark:bg-black sm:flex-row sm:items-center">
+      <section className="flex flex-col items-start justify-between gap-4 rounded-xl border border-neutral-200 bg-white p-5 text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-white shadow-xs sm:flex-row sm:items-center">
         <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-neutral-400">
-            <Github className="h-4 w-4" />
+          <div className="flex items-center gap-2 font-mono text-xs text-neutral-500 dark:text-neutral-400">
+            <Github className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
             <span>Open Source Ecosystem • v5.2.0 • MIT License</span>
           </div>
-          <h2 className="mt-1 text-xl font-bold tracking-tight">Nawfal UI Community Hub</h2>
-          <p className="mt-1 text-xs text-neutral-400">
+          <h2 className="mt-1 text-xl font-bold tracking-tight text-neutral-900 dark:text-white">Nawfal UI Community Hub</h2>
+          <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
             Join the growing community of developers building premium React applications with Nawfal UI&apos;s 48 enterprise-grade components.
           </p>
         </div>

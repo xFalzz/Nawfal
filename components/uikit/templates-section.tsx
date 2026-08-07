@@ -819,17 +819,19 @@ export function MotionButtonShowcase() {
     <div className="flex w-full flex-col gap-6">
 
       {/* ─── Header ───────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden rounded-xl border border-neutral-800 bg-black p-6">
+      <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-black text-neutral-900 dark:text-white shadow-xs">
         <div className="pointer-events-none absolute inset-0 opacity-5"
-          style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+          style={{ backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="relative">
-          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-500">
-            <LayoutGrid className="h-3.5 w-3.5 text-sky-400" />
+          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400">
+            <LayoutGrid className="h-3.5 w-3.5 text-sky-500 dark:text-sky-400" />
             <span>Page Templates & Assembly Blocks</span>
-            <span className="rounded-full border border-neutral-800 bg-neutral-900 px-2 py-0.5 text-neutral-400">{templates.length} templates</span>
+            <span className="rounded-full border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 font-semibold">
+              {templates.length} templates
+            </span>
           </div>
-          <h3 className="mt-2 text-xl font-extrabold tracking-tight text-white">Pre-Assembled Component Layouts</h3>
-          <p className="mt-1 max-w-xl text-xs leading-relaxed text-neutral-400">
+          <h3 className="mt-2 text-xl font-extrabold tracking-tight text-neutral-900 dark:text-white">Pre-Assembled Component Layouts</h3>
+          <p className="mt-1 max-w-xl text-xs leading-relaxed text-neutral-600 dark:text-neutral-400">
             Production-ready page section blocks built by composing multiple Nawfal UI components. Filter by category, copy the full assembly code, and drop it straight into your project.
           </p>
         </div>
