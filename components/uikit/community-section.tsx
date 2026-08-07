@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import {
   Users, Send, Star, GitFork, MessageSquare, Check, Github, Zap,
   ArrowUpRight, Heart, TrendingUp, Globe, Download, Code2, Sparkles,
-  ShieldCheck, Terminal, ShieldAlert, CheckCircle2, CloudCheck
+  ShieldCheck, Terminal, ShieldAlert, CheckCircle2, Cloud
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { db } from "@/lib/firebase";
@@ -409,7 +409,7 @@ export function CommunitySection() {
                     </div>
                   </div>
                   <span className="font-mono text-[10px] text-neutral-400 shrink-0 flex items-center gap-1">
-                    <CloudCheck className="h-3 w-3 text-emerald-500" />
+                    <Cloud className="h-3 w-3 text-emerald-500" />
                     {f.date}
                   </span>
                 </div>
