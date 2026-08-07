@@ -6,7 +6,8 @@ import {
   Tablet, Smartphone, RotateCcw, Box, ArrowUpRight, CheckCircle2,
   Square, Shield, Layers, Command, Grid, SlidersHorizontal,
   ChevronRight, Sparkles, Download, RefreshCw, Lock, Search,
-  Music, Cpu, Radio, Activity, Zap, Play, Loader2
+  Music, Cpu, Radio, Activity, Zap, Play, Loader2, ArrowRight,
+  TrendingUp, Bell, Key, Hash, LayoutGrid, ToggleLeft, ToggleRight
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
@@ -22,42 +23,44 @@ interface ComponentConfig {
   name: string;
   category: "Buttons" | "Cards" | "Inputs" | "Badges" | "Controls" | "Navigation";
   description: string;
+  icon: React.ReactNode;
 }
 
 const CATALOG: ComponentConfig[] = [
   // Buttons
-  { id: "btn-action", name: "Action Button", category: "Buttons", description: "Monochrome interactive button with hover spring motion." },
-  { id: "btn-beam", name: "Shimmer Beam", category: "Buttons", description: "High-contrast rotating border beam button." },
-  { id: "btn-icon", name: "Icon Command", category: "Buttons", description: "Compact icon button with keyboard shortcut badge." },
+  { id: "btn-action", name: "Action Motion Button", category: "Buttons", description: "Monochrome interactive action button with arrow icon & motion physics.", icon: <Zap className="h-3.5 w-3.5" /> },
+  { id: "btn-beam", name: "Shimmer Border Beam", category: "Buttons", description: "Rotating conic-gradient animated border beam button.", icon: <Sparkles className="h-3.5 w-3.5" /> },
+  { id: "btn-icon", name: "Icon Shortcut Command", category: "Buttons", description: "Compact icon action button with keyboard shortcut badge.", icon: <Command className="h-3.5 w-3.5" /> },
   
   // Cards
-  { id: "card-surface", name: "Surface Card", category: "Cards", description: "Monochrome structured container with header telemetry." },
-  { id: "card-metric", name: "Metric Stat Card", category: "Cards", description: "KPI indicator card with trend percentage and status badge." },
-  { id: "card-hud", name: "Parallax HUD Card", category: "Cards", description: "Corner-bracketed HUD card with scanning lines." },
+  { id: "card-surface", name: "Surface Telemetry Card", category: "Cards", description: "Structured content surface container with status indicator.", icon: <Square className="h-3.5 w-3.5" /> },
+  { id: "card-metric", name: "KPI Metric Analytics", category: "Cards", description: "Analytics stat card with growth trend badge and live metric.", icon: <TrendingUp className="h-3.5 w-3.5" /> },
+  { id: "card-hud", name: "Cyber Parallax HUD", category: "Cards", description: "Corner-bracketed HUD card with animated scanning reticle.", icon: <Cpu className="h-3.5 w-3.5" /> },
 
   // Inputs
-  { id: "input-field", name: "Text Input Field", category: "Inputs", description: "Clean form input with focus ring and clear button." },
-  { id: "input-pin", name: "OTP PIN Code", category: "Inputs", description: "4-box verification PIN entry layout." },
-  { id: "input-search", name: "Command Search Bar", category: "Inputs", description: "Instant search field with shortcut trigger." },
+  { id: "input-field", name: "Text Input Field", category: "Inputs", description: "Clean form input with focus state and customizable subtext.", icon: <Search className="h-3.5 w-3.5" /> },
+  { id: "input-pin", name: "OTP Security PIN Code", category: "Inputs", description: "4-box verification PIN entry layout.", icon: <Key className="h-3.5 w-3.5" /> },
+  { id: "input-search", name: "Command Search Input", category: "Inputs", description: "Instant search field with shortcut trigger pill.", icon: <Command className="h-3.5 w-3.5" /> },
 
   // Badges
-  { id: "badge-pulse", name: "Pulse Status Badge", category: "Badges", description: "Indicator badge with animated pulse dot." },
-  { id: "badge-radar", name: "Radar Sweep Badge", category: "Badges", description: "Circular radar scanning status badge." },
-  { id: "badge-counter", name: "Metric Counter Pill", category: "Badges", description: "Monochrome numeric count indicator pill." },
+  { id: "badge-pulse", name: "Pulse Status Badge", category: "Badges", description: "Indicator badge with animated glowing pulse dot.", icon: <Activity className="h-3.5 w-3.5" /> },
+  { id: "badge-radar", name: "Radar Sweep Scanner", category: "Badges", description: "Circular radar scanning status badge.", icon: <Radio className="h-3.5 w-3.5" /> },
+  { id: "badge-counter", name: "Metric Counter Pill", category: "Badges", description: "Monochrome numeric count indicator pill.", icon: <Hash className="h-3.5 w-3.5" /> },
 
   // Controls
-  { id: "ctrl-segmented", name: "Segmented Switch", category: "Controls", description: "Multi-option toggle switch with sliding background." },
-  { id: "ctrl-toggle", name: "Compact Switch", category: "Controls", description: "Minimalist binary on/off toggle switch." },
+  { id: "ctrl-segmented", name: "Segmented Control Switch", category: "Controls", description: "Multi-option toggle switch with sliding active tab.", icon: <SlidersHorizontal className="h-3.5 w-3.5" /> },
+  { id: "ctrl-toggle", name: "Compact Toggle Switch", category: "Controls", description: "Minimalist binary on/off toggle switch.", icon: <ToggleRight className="h-3.5 w-3.5" /> },
 
   // Navigation
-  { id: "nav-dock", name: "Interactive Dock", category: "Navigation", description: "Magnifying icon dock container." },
-  { id: "nav-palette", name: "Command Palette", category: "Navigation", description: "Fuzzy search command navigation menu." },
+  { id: "nav-dock", name: "Interactive Icon Dock", category: "Navigation", description: "Animated macOS-inspired magnifying icon dock.", icon: <LayoutGrid className="h-3.5 w-3.5" /> },
+  { id: "nav-palette", name: "Command Search Palette", category: "Navigation", description: "Fuzzy search command navigation bar.", icon: <Terminal className="h-3.5 w-3.5" /> },
 ];
 
 export function PlaygroundSection() {
   const { toast } = useToast();
   const [selectedId, setSelectedId] = useState<string>("btn-action");
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   
   // Customization State
   const [themeCanvas, setThemeCanvas] = useState<ThemeCanvas>("obsidian");
@@ -69,6 +72,11 @@ export function PlaygroundSection() {
   const [borderWidth, setBorderWidth] = useState<number>(1);
   const [customText, setCustomText] = useState<string>("EXECUTE ACTION");
   const [customSubtext, setCustomSubtext] = useState<string>("System telemetry online.");
+
+  // Interactivity State for controls
+  const [segmentedActive, setSegmentedActive] = useState<number>(0);
+  const [toggleActive, setToggleActive] = useState<boolean>(true);
+  const [pinCode, setPinCode] = useState<string[]>(["8", "4", "2", "0"]);
 
   // View state
   const [activeView, setActiveView] = useState<"canvas" | "code" | "tokens">("canvas");
@@ -86,7 +94,7 @@ export function PlaygroundSection() {
 
   const isLight = themeCanvas === "pure-light";
 
-  // Code Generator
+  // Code Generator for ALL 16 components
   const generateCode = () => {
     const r = `${borderRadius}px`;
     const bw = `${borderWidth}px`;
@@ -94,14 +102,16 @@ export function PlaygroundSection() {
     switch (selectedComp.id) {
       case "btn-action":
         if (exportFormat === "html") {
-          return `<button style="border-radius: ${r}; border-width: ${bw};" class="btn-action">\n  <span>${customText}</span>\n</button>`;
+          return `<button style="border-radius: ${r}; border-width: ${bw};" class="btn-action">\n  <span>${customText}</span>\n  <svg class="w-4 h-4"...></svg>\n</button>`;
         }
-        return `// Nawfal UI — Action Button (Monochrome)
+        return `// Nawfal UI — Action Motion Button
+import { ArrowUpRight, Loader2 } from "lucide-react";
+
 export function ActionButton() {
   return (
     <button
       style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
-      className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-900 text-white dark:bg-white dark:text-black ${sizeMap[size]} font-mono font-semibold transition-all hover:opacity-90 disabled:opacity-50"
+      className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-900 text-white dark:bg-white dark:text-black ${sizeMap[size]} font-mono font-semibold transition-all hover:opacity-90 disabled:opacity-40"
       ${compState === "disabled" ? "disabled" : ""}
     >
       ${compState === "loading" ? `<Loader2 className="h-3.5 w-3.5 animate-spin" />` : ""}
@@ -111,8 +121,44 @@ export function ActionButton() {
   );
 }`;
 
+      case "btn-beam":
+        return `// Nawfal UI — Shimmer Border Beam Button
+import { Zap } from "lucide-react";
+
+export function ShimmerBeamButton() {
+  return (
+    <button
+      style={{ borderRadius: "${r}" }}
+      className="group relative inline-flex items-center justify-center overflow-hidden p-[1px] font-mono text-xs font-semibold"
+    >
+      <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#000_0%,#fff_50%,#000_100%)]" />
+      <span style={{ borderRadius: "calc(${r} - 1px)" }} className="inline-flex items-center gap-2 bg-neutral-950 px-5 py-2.5 text-white dark:bg-black">
+        <Zap className="h-3.5 w-3.5 text-neutral-300" />
+        <span>${customText}</span>
+      </span>
+    </button>
+  );
+}`;
+
+      case "btn-icon":
+        return `// Nawfal UI — Icon Shortcut Command Button
+import { Command } from "lucide-react";
+
+export function IconShortcutButton() {
+  return (
+    <button
+      style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
+      className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-3.5 py-2 font-mono text-xs font-semibold text-neutral-900 dark:text-white"
+    >
+      <Command className="h-3.5 w-3.5" />
+      <span>${customText}</span>
+      <kbd className="rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-1.5 py-0.5 text-[9px]">⌘K</kbd>
+    </button>
+  );
+}`;
+
       case "card-surface":
-        return `// Nawfal UI — Surface Card (Monochrome)
+        return `// Nawfal UI — Surface Telemetry Card
 export function SurfaceCard() {
   return (
     <div
@@ -128,22 +174,49 @@ export function SurfaceCard() {
   );
 }`;
 
-      case "badge-pulse":
-        return `// Nawfal UI — Pulse Status Badge (Monochrome)
-export function PulseStatusBadge() {
+      case "card-metric":
+        return `// Nawfal UI — KPI Metric Analytics Card
+import { TrendingUp } from "lucide-react";
+
+export function KPIMetricCard() {
   return (
     <div
       style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
-      className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-3 py-1 font-mono text-xs font-medium text-neutral-800 dark:text-neutral-200"
+      className="flex w-full max-w-xs flex-col gap-2 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-4 font-mono text-xs"
     >
-      <span className="h-1.5 w-1.5 rounded-full bg-neutral-900 dark:bg-neutral-100 animate-pulse" />
-      <span>${customText}</span>
+      <div className="flex items-center justify-between text-neutral-500">
+        <span className="text-[10px] uppercase font-bold tracking-wider">${customText}</span>
+        <TrendingUp className="h-3.5 w-3.5 text-neutral-400" />
+      </div>
+      <div className="text-2xl font-extrabold text-neutral-900 dark:text-white">99.98%</div>
+      <span className="text-[10px] text-neutral-500">${customSubtext}</span>
+    </div>
+  );
+}`;
+
+      case "card-hud":
+        return `// Nawfal UI — Cyber Parallax HUD Card
+import { Cpu } from "lucide-react";
+
+export function CyberHUDCard() {
+  return (
+    <div
+      style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
+      className="relative flex w-full max-w-xs flex-col gap-3 overflow-hidden border border-neutral-800 bg-black p-4 font-mono text-xs text-white"
+    >
+      <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
+        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase text-neutral-300">
+          <Cpu className="h-3.5 w-3.5" /> ${customText}
+        </span>
+        <span className="text-[9px] text-emerald-400 animate-pulse">● LIVE</span>
+      </div>
+      <p className="text-[10px] text-neutral-400 leading-relaxed">${customSubtext}</p>
     </div>
   );
 }`;
 
       case "input-field":
-        return `// Nawfal UI — Form Input (Monochrome)
+        return `// Nawfal UI — Text Input Field
 export function TextInputField() {
   return (
     <div className="flex w-full max-w-xs flex-col gap-1.5 font-mono text-xs">
@@ -158,11 +231,168 @@ export function TextInputField() {
   );
 }`;
 
-      default:
-        return `// Nawfal UI — ${selectedComp.name}
-export function ${selectedComp.name.replace(/\s+/g, "")}() {
+      case "input-pin":
+        return `// Nawfal UI — OTP Security PIN Code Input
+export function OTPPinInput() {
   return (
-    <div style={{ borderRadius: "${r}" }} className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-4 font-mono text-xs text-neutral-900 dark:text-white">
+    <div className="flex flex-col items-center gap-2 font-mono text-xs">
+      <span className="text-[10px] font-bold uppercase text-neutral-400">${customText}</span>
+      <div className="flex gap-2">
+        {["8","4","2","0"].map((v, i) => (
+          <div
+            key={i}
+            style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
+            className="flex h-10 w-10 items-center justify-center border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-950 font-mono text-sm font-bold text-neutral-900 dark:text-white"
+          >
+            {v}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}`;
+
+      case "input-search":
+        return `// Nawfal UI — Command Search Input Bar
+import { Search, Command } from "lucide-react";
+
+export function CommandSearchInput() {
+  return (
+    <div
+      style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
+      className="flex w-full max-w-sm items-center gap-2 border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-black px-3 py-2 font-mono text-xs text-neutral-900 dark:text-white"
+    >
+      <Search className="h-3.5 w-3.5 text-neutral-400" />
+      <input type="text" placeholder="${customSubtext}" className="w-full bg-transparent outline-none" />
+      <kbd className="rounded border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-1.5 py-0.5 text-[9px]">⌘K</kbd>
+    </div>
+  );
+}`;
+
+      case "badge-pulse":
+        return `// Nawfal UI — Pulse Status Badge
+export function PulseStatusBadge() {
+  return (
+    <div
+      style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
+      className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-3 py-1 font-mono text-xs font-medium text-neutral-800 dark:text-neutral-200"
+    >
+      <span className="h-1.5 w-1.5 rounded-full bg-neutral-900 dark:bg-neutral-100 animate-pulse" />
+      <span>${customText}</span>
+    </div>
+  );
+}`;
+
+      case "badge-radar":
+        return `// Nawfal UI — Radar Sweep Scanner Badge
+import { Radio } from "lucide-react";
+
+export function RadarSweepBadge() {
+  return (
+    <div
+      style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
+      className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 px-3 py-1 font-mono text-xs text-neutral-800 dark:text-neutral-200"
+    >
+      <Radio className="h-3.5 w-3.5 animate-spin text-neutral-500" />
+      <span>${customText}</span>
+    </div>
+  );
+}`;
+
+      case "badge-counter":
+        return `// Nawfal UI — Metric Counter Pill
+export function MetricCounterPill() {
+  return (
+    <div
+      style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
+      className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-3 py-1 font-mono text-xs font-bold text-neutral-800 dark:text-neutral-200"
+    >
+      <span className="rounded bg-neutral-900 dark:bg-white px-1.5 py-0.5 text-[9px] text-white dark:text-black font-extrabold">48</span>
+      <span>${customText}</span>
+    </div>
+  );
+}`;
+
+      case "ctrl-segmented":
+        return `// Nawfal UI — Segmented Control Switch
+export function SegmentedControl() {
+  return (
+    <div
+      style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
+      className="flex border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-black p-1 font-mono text-xs"
+    >
+      {["Overview", "Telemetry", "Logs"].map((item, i) => (
+        <button
+          key={item}
+          style={{ borderRadius: "calc(${r} - 2px)" }}
+          className={\`px-3 py-1 font-semibold transition-all \${i === 0 ? "bg-neutral-900 text-white dark:bg-white dark:text-black" : "text-neutral-500"}\`}
+        >
+          {item}
+        </button>
+      ))}
+    </div>
+  );
+}`;
+
+      case "ctrl-toggle":
+        return `// Nawfal UI — Compact Toggle Switch
+export function CompactToggle() {
+  return (
+    <div className="flex items-center gap-2 font-mono text-xs">
+      <span className="text-[10px] uppercase font-bold text-neutral-400">${customText}</span>
+      <button
+        style={{ borderRadius: "${r}" }}
+        className="flex h-6 w-11 items-center rounded-full border border-neutral-300 dark:border-neutral-800 bg-neutral-900 dark:bg-neutral-100 p-0.5 justify-end"
+      >
+        <span className="h-4.5 w-4.5 rounded-full bg-white dark:bg-black" />
+      </button>
+    </div>
+  );
+}`;
+
+      case "nav-dock":
+        return `// Nawfal UI — Interactive Icon Dock
+import { Command, Terminal, Search, Zap, Layers } from "lucide-react";
+
+export function InteractiveDock() {
+  return (
+    <div
+      style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
+      className="flex gap-2 border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-2 shadow-md"
+    >
+      {[Command, Terminal, Search, Zap, Layers].map((Icon, i) => (
+        <button key={i} className="flex h-8 w-8 items-center justify-center rounded border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 hover:scale-110 transition-all">
+          <Icon className="h-4 w-4 text-neutral-800 dark:text-neutral-200" />
+        </button>
+      ))}
+    </div>
+  );
+}`;
+
+      case "nav-palette":
+        return `// Nawfal UI — Command Search Palette Bar
+import { Terminal, Command } from "lucide-react";
+
+export function CommandPaletteBar() {
+  return (
+    <div
+      style={{ borderRadius: "${r}", borderWidth: "${bw}" }}
+      className="flex w-full max-w-sm items-center justify-between border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 px-3 py-2 font-mono text-xs text-neutral-800 dark:text-neutral-200"
+    >
+      <div className="flex items-center gap-2">
+        <Terminal className="h-3.5 w-3.5 text-neutral-400" />
+        <span>${customText}</span>
+      </div>
+      <kbd className="rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-1.5 py-0.5 text-[9px]">⌘K</kbd>
+    </div>
+  );
+}`;
+
+      default:
+        return `// Nawfal UI — Component Snippet
+export function Component() {
+  return (
+    <div style={{ borderRadius: "${r}" }} className="border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-4 font-mono text-xs">
       <span>${customText}</span>
     </div>
   );
@@ -179,29 +409,32 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
 
   const categories = ["All", "Buttons", "Cards", "Inputs", "Badges", "Controls", "Navigation"];
 
-  const filteredCatalog = activeCategory === "All"
-    ? CATALOG
-    : CATALOG.filter((c) => c.category === activeCategory);
+  const filteredCatalog = CATALOG.filter((c) => {
+    const matchCat = activeCategory === "All" || c.category === activeCategory;
+    const q = searchQuery.toLowerCase();
+    const matchQuery = !q || c.name.toLowerCase().includes(q) || c.category.toLowerCase().includes(q);
+    return matchCat && matchQuery;
+  });
 
   return (
     <div className="flex w-full flex-col gap-5 text-neutral-900 dark:text-neutral-100">
 
       {/* ─── Top Studio Bar ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-white/70 backdrop-blur-md p-5 dark:border-neutral-800 dark:bg-neutral-950/80">
+      <section className="relative overflow-hidden rounded-xl border border-neutral-200 bg-white/70 backdrop-blur-md p-5 dark:border-neutral-800 dark:bg-neutral-950/80 shadow-xs">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
               <Box className="h-3.5 w-3.5 text-neutral-700 dark:text-neutral-300" />
               <span>DESIGN STUDIO WORKBENCH</span>
               <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-neutral-700 dark:border-neutral-800 dark:bg-black dark:text-neutral-300 font-semibold">
-                THEME-ADAPTIVE
+                16/16 COMPONENTS READY
               </span>
             </div>
             <h3 className="mt-1.5 text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
               Interactive Component Studio
             </h3>
             <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400 max-w-xl">
-              Inspect, customize parameters, test states, and copy production-ready monochrome TSX/HTML snippets. Adaptable to both dark and light modes.
+              Select any component from the catalog, customize parameters, simulate states, and copy production-ready monochrome TSX/HTML snippets.
             </p>
           </div>
 
@@ -257,6 +490,18 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
             <span className="font-mono text-[9px] text-neutral-400 dark:text-neutral-500">{filteredCatalog.length} Items</span>
           </div>
 
+          {/* Search Box */}
+          <div className="relative">
+            <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-neutral-400" />
+            <input
+              type="text"
+              placeholder="Search catalog..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-lg border border-neutral-200 bg-neutral-50 pl-8 pr-3 py-1.5 font-mono text-[11px] text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-neutral-100 outline-none focus:border-neutral-400"
+            />
+          </div>
+
           {/* Category Chips */}
           <div className="flex flex-wrap gap-1">
             {categories.map((cat) => (
@@ -275,7 +520,7 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
           </div>
 
           {/* Component Item List */}
-          <div className="flex flex-col gap-1.5 overflow-y-auto max-h-[500px] pr-1">
+          <div className="flex flex-col gap-1.5 overflow-y-auto max-h-[460px] pr-1">
             {filteredCatalog.map((item) => (
               <button
                 key={item.id}
@@ -286,11 +531,16 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                     : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:bg-neutral-100 dark:border-neutral-800/80 dark:bg-black dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-neutral-200"
                 }`}
               >
-                <div className="flex flex-col">
-                  <span className="text-[11px] font-bold">{item.name}</span>
-                  <span className="text-[9px] opacity-60">{item.category}</span>
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className={`shrink-0 ${selectedId === item.id ? "text-white" : "text-neutral-400"}`}>
+                    {item.icon}
+                  </span>
+                  <div className="flex flex-col min-w-0">
+                    <span className="truncate text-[11px] font-bold">{item.name}</span>
+                    <span className="text-[9px] opacity-60">{item.category}</span>
+                  </div>
                 </div>
-                <ChevronRight className={`h-3 w-3 ${selectedId === item.id ? "text-white" : "text-neutral-400"}`} />
+                <ChevronRight className={`h-3 w-3 shrink-0 ${selectedId === item.id ? "text-white" : "text-neutral-400"}`} />
               </button>
             ))}
           </div>
@@ -360,19 +610,20 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                 <span>W: {viewport === "desktop" ? "100%" : viewport === "tablet" ? "480px" : "320px"}</span>
               </div>
 
-              {/* Render Area */}
+              {/* Render Area for ALL 16 COMPONENTS */}
               <div className="my-10 flex items-center justify-center">
                 <div
                   className="flex justify-center transition-all duration-300"
                   style={{ width: viewport === "desktop" ? "100%" : viewport === "tablet" ? "480px" : "320px" }}
                 >
                   <motion.div
-                    key={selectedId + borderRadius + borderWidth + size + compState + customText + customSubtext + themeCanvas}
+                    key={selectedId + borderRadius + borderWidth + size + compState + customText + customSubtext + themeCanvas + segmentedActive + toggleActive + pinCode.join("")}
                     initial={{ opacity: 0, scale: 0.97 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.15 }}
+                    className="flex justify-center w-full"
                   >
-                    {/* Component Previews */}
+                    {/* 1. Action Button */}
                     {selectedComp.id === "btn-action" && (
                       <button
                         style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
@@ -391,19 +642,35 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                       </button>
                     )}
 
+                    {/* 2. Shimmer Beam */}
                     {selectedComp.id === "btn-beam" && (
                       <button
                         style={{ borderRadius: `${borderRadius}px` }}
                         className="group relative inline-flex items-center justify-center overflow-hidden p-[1px] font-mono text-xs font-semibold"
                       >
                         <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#000_0%,#fff_50%,#000_100%)]" />
-                        <span style={{ borderRadius: `${Math.max(2, borderRadius - 1)}px` }} className="inline-flex items-center gap-2 bg-black px-4 py-2 text-white">
-                          <Zap className="h-3 w-3 text-neutral-300" />
-                          {customText}
+                        <span style={{ borderRadius: `${Math.max(2, borderRadius - 1)}px` }} className="inline-flex items-center gap-2 bg-black px-5 py-2.5 text-white">
+                          <Zap className="h-3.5 w-3.5 text-neutral-300" />
+                          <span>{customText}</span>
                         </span>
                       </button>
                     )}
 
+                    {/* 3. Icon Command Button */}
+                    {selectedComp.id === "btn-icon" && (
+                      <button
+                        style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
+                        className={`inline-flex items-center gap-2 border px-4 py-2 font-mono text-xs font-semibold ${
+                          isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-neutral-900 text-white"
+                        }`}
+                      >
+                        <Command className="h-3.5 w-3.5" />
+                        <span>{customText}</span>
+                        <kbd className="rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-1.5 py-0.5 text-[9px]">⌘K</kbd>
+                      </button>
+                    )}
+
+                    {/* 4. Surface Telemetry Card */}
                     {selectedComp.id === "card-surface" && (
                       <div
                         style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
@@ -419,16 +686,40 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                       </div>
                     )}
 
-                    {selectedComp.id === "badge-pulse" && (
+                    {/* 5. KPI Metric Card */}
+                    {selectedComp.id === "card-metric" && (
                       <div
                         style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
-                        className="inline-flex items-center gap-2 border border-neutral-800 bg-neutral-900 px-3 py-1 font-mono text-xs text-neutral-200"
+                        className={`flex w-full max-w-xs flex-col gap-2 border p-4 font-mono text-xs ${
+                          isLight ? "border-neutral-300 bg-neutral-50 text-black" : "border-neutral-800 bg-neutral-950 text-white"
+                        }`}
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-neutral-100 animate-pulse" />
-                        <span>{customText}</span>
+                        <div className="flex items-center justify-between opacity-60">
+                          <span className="text-[10px] uppercase font-bold tracking-wider">{customText}</span>
+                          <TrendingUp className="h-3.5 w-3.5" />
+                        </div>
+                        <div className="text-2xl font-extrabold">99.98%</div>
+                        <span className="text-[10px] opacity-70">{customSubtext}</span>
                       </div>
                     )}
 
+                    {/* 6. Parallax HUD Card */}
+                    {selectedComp.id === "card-hud" && (
+                      <div
+                        style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
+                        className="relative flex w-full max-w-xs flex-col gap-3 overflow-hidden border border-neutral-800 bg-black p-4 font-mono text-xs text-white"
+                      >
+                        <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
+                          <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase text-neutral-300">
+                            <Cpu className="h-3.5 w-3.5" /> {customText}
+                          </span>
+                          <span className="text-[9px] text-emerald-400 animate-pulse">● LIVE</span>
+                        </div>
+                        <p className="text-[10px] text-neutral-400 leading-relaxed">{customSubtext}</p>
+                      </div>
+                    )}
+
+                    {/* 7. Text Input Field */}
                     {selectedComp.id === "input-field" && (
                       <div className="flex w-full max-w-xs flex-col gap-1.5 font-mono text-xs">
                         <label className="text-[10px] font-bold uppercase opacity-60">{customText}</label>
@@ -445,15 +736,162 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
                       </div>
                     )}
 
-                    {!["btn-action", "btn-beam", "card-surface", "badge-pulse", "input-field"].includes(selectedComp.id) && (
+                    {/* 8. OTP PIN Input */}
+                    {selectedComp.id === "input-pin" && (
+                      <div className="flex flex-col items-center gap-2 font-mono text-xs">
+                        <span className="text-[10px] font-bold uppercase opacity-60">{customText}</span>
+                        <div className="flex gap-2">
+                          {pinCode.map((val, idx) => (
+                            <input
+                              key={idx}
+                              type="text"
+                              maxLength={1}
+                              value={val}
+                              onChange={(e) => {
+                                const newPin = [...pinCode];
+                                newPin[idx] = e.target.value;
+                                setPinCode(newPin);
+                              }}
+                              style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
+                              className={`flex h-10 w-10 text-center font-bold text-sm border outline-none ${
+                                isLight
+                                  ? "border-neutral-300 bg-white text-black"
+                                  : "border-neutral-800 bg-neutral-950 text-white"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 9. Command Search Input */}
+                    {selectedComp.id === "input-search" && (
                       <div
                         style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
-                        className={`border p-4 font-mono text-xs ${
+                        className={`flex w-full max-w-sm items-center gap-2 border px-3 py-2 font-mono text-xs ${
+                          isLight ? "border-neutral-300 bg-white text-black" : "border-neutral-800 bg-black text-white"
+                        }`}
+                      >
+                        <Search className="h-3.5 w-3.5 opacity-50" />
+                        <input type="text" placeholder={customSubtext} className="w-full bg-transparent outline-none" />
+                        <kbd className="rounded border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-1.5 py-0.5 text-[9px]">⌘K</kbd>
+                      </div>
+                    )}
+
+                    {/* 10. Pulse Status Badge */}
+                    {selectedComp.id === "badge-pulse" && (
+                      <div
+                        style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
+                        className={`inline-flex items-center gap-2 border px-3 py-1 font-mono text-xs font-medium ${
+                          isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-neutral-900 text-neutral-200"
+                        }`}
+                      >
+                        <span className="h-1.5 w-1.5 rounded-full bg-neutral-900 dark:bg-neutral-100 animate-pulse" />
+                        <span>{customText}</span>
+                      </div>
+                    )}
+
+                    {/* 11. Radar Sweep Badge */}
+                    {selectedComp.id === "badge-radar" && (
+                      <div
+                        style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
+                        className={`inline-flex items-center gap-2 border px-3 py-1 font-mono text-xs ${
+                          isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-neutral-950 text-neutral-200"
+                        }`}
+                      >
+                        <Radio className="h-3.5 w-3.5 animate-spin opacity-70" />
+                        <span>{customText}</span>
+                      </div>
+                    )}
+
+                    {/* 12. Metric Counter Pill */}
+                    {selectedComp.id === "badge-counter" && (
+                      <div
+                        style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
+                        className={`inline-flex items-center gap-2 border px-3 py-1 font-mono text-xs font-bold ${
+                          isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-neutral-900 text-neutral-200"
+                        }`}
+                      >
+                        <span className="rounded bg-black text-white dark:bg-white dark:text-black px-1.5 py-0.5 text-[9px] font-extrabold">48</span>
+                        <span>{customText}</span>
+                      </div>
+                    )}
+
+                    {/* 13. Segmented Switch */}
+                    {selectedComp.id === "ctrl-segmented" && (
+                      <div
+                        style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
+                        className={`flex border p-1 font-mono text-xs ${
+                          isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-black text-white"
+                        }`}
+                      >
+                        {["Overview", "Telemetry", "Logs"].map((item, i) => (
+                          <button
+                            key={item}
+                            onClick={() => setSegmentedActive(i)}
+                            style={{ borderRadius: `calc(${borderRadius}px - 2px)` }}
+                            className={`px-3 py-1 font-semibold transition-all ${
+                              segmentedActive === i
+                                ? "bg-neutral-900 text-white dark:bg-white dark:text-black shadow-xs"
+                                : "opacity-60 hover:opacity-100"
+                            }`}
+                          >
+                            {item}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* 14. Compact Toggle */}
+                    {selectedComp.id === "ctrl-toggle" && (
+                      <div className="flex items-center gap-3 font-mono text-xs">
+                        <span className="text-[10px] uppercase font-bold opacity-60">{customText}</span>
+                        <button
+                          onClick={() => setToggleActive(!toggleActive)}
+                          style={{ borderRadius: `${borderRadius}px` }}
+                          className={`flex h-6 w-11 items-center rounded-full border p-0.5 transition-all ${
+                            toggleActive
+                              ? "border-neutral-800 bg-neutral-900 dark:bg-neutral-100 justify-end"
+                              : "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-900 justify-start"
+                          }`}
+                        >
+                          <span className={`h-4.5 w-4.5 rounded-full ${toggleActive ? "bg-white dark:bg-black" : "bg-neutral-500"}`} />
+                        </button>
+                      </div>
+                    )}
+
+                    {/* 15. Interactive Dock */}
+                    {selectedComp.id === "nav-dock" && (
+                      <div
+                        style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
+                        className={`flex gap-2 border p-2 shadow-md ${
+                          isLight ? "border-neutral-300 bg-white" : "border-neutral-800 bg-neutral-950"
+                        }`}
+                      >
+                        {[Command, Terminal, Search, Zap, Layers].map((IconComp, i) => (
+                          <button
+                            key={i}
+                            className="flex h-9 w-9 items-center justify-center rounded border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 hover:scale-110 transition-all"
+                          >
+                            <IconComp className="h-4 w-4 opacity-80" />
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* 16. Command Palette Bar */}
+                    {selectedComp.id === "nav-palette" && (
+                      <div
+                        style={{ borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }}
+                        className={`flex w-full max-w-sm items-center justify-between border px-3 py-2 font-mono text-xs ${
                           isLight ? "border-neutral-300 bg-neutral-100 text-black" : "border-neutral-800 bg-neutral-950 text-white"
                         }`}
                       >
-                        <span className="font-bold">{selectedComp.name}</span>
-                        <p className="mt-1 text-[11px] opacity-70">{customText}</p>
+                        <div className="flex items-center gap-2">
+                          <Terminal className="h-3.5 w-3.5 opacity-50" />
+                          <span>{customText}</span>
+                        </div>
+                        <kbd className="rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-1.5 py-0.5 text-[9px]">⌘K</kbd>
                       </div>
                     )}
                   </motion.div>
@@ -615,7 +1053,7 @@ export function ${selectedComp.name.replace(/\s+/g, "")}() {
           {/* Component State */}
           <div>
             <label className="mb-1 block text-[10px] font-bold uppercase text-neutral-500 dark:text-neutral-400">State Simulation</label>
-            <div className="grid grid-cols-2 gap-1">
+            <div className="grid grid-cols-3 gap-1">
               {(["default", "loading", "disabled"] as const).map((st) => (
                 <button
                   key={st}
