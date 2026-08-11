@@ -35,11 +35,11 @@ export const metadata: Metadata = {
 const Projects = [
   {
     name: "Hijara - AI Sustainability Platform",
-    url: "#",
+    url: "https://hijara.vercel.app/",
     image: HijaraImage,
     type: "Google #JuaraVibeCoding Project",
     stack: ["Gemini Vision", "Cloud Run", "Next 15"],
-    price: "Locked",
+    price: "Live",
     category: "AI & Cloud",
   },
   {

@@ -114,9 +114,9 @@ export const KNOWLEDGE_BASE = {
       name: "Hijara - AI Sustainability Platform",
       type: "Competition Project (Google #JuaraVibeCoding 2025)",
       stack: ["Next.js 15", "TypeScript", "Supabase", "Google Cloud Run", "Gemini AI"],
-      description: "AI-Powered Sustainability Intelligence Platform built for Google #JuaraVibeCoding. Integrates Google Gemini Vision for waste classification, energy monitoring, and recycling tracking. Runs fully serverless on Google Cloud Run. Currently locked/coming soon.",
-      status: "Coming Soon",
-      url: "https://lnkd.in/gcBVhMc5"
+      description: "AI-Powered Sustainability Intelligence Platform built for Google #JuaraVibeCoding. Integrates Google Gemini Vision for waste classification, energy monitoring, and recycling tracking. Runs fully serverless on Google Cloud Run.",
+      status: "Live",
+      url: "https://hijara.vercel.app/"
     },
     {
       name: "KURA - Game Discovery Platform",

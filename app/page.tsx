@@ -76,14 +76,19 @@ export default function Page() {
                       variant="secondary"
                       className="relative flex w-fit items-center gap-x-2 rounded-full"
                     >
-                      <div className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-                      Coming Soon
+                      <div className="h-1.5 w-1.5 animate-ping rounded-full bg-green-500" />
+                      <div className="absolute left-2.5 h-1.5 w-1.5 rounded-full bg-green-500" />
+                      Live
                     </Badge>
-                    <span className="rounded-sm border bg-popover/50 px-2 py-0.5 text-muted-foreground cursor-not-allowed">
+                    <Link
+                      href="https://hijara.vercel.app/"
+                      target="_blank"
+                      className="rounded-sm border bg-popover px-2 text-popover-foreground"
+                    >
                       <code className="text-xs font-medium md:text-sm">
-                        Locked
+                        Visit Project
                       </code>
-                    </span>
+                    </Link>
                   </div>
                 </AccordionContent>
               </AccordionItem>
