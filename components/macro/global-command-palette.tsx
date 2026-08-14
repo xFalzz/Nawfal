@@ -218,7 +218,7 @@ export function GlobalCommandPalette() {
               <span className="flex items-center gap-1.5">
                 <Command className="h-3 w-3 text-neutral-400" /> Use <kbd className="px-1 border rounded bg-neutral-200 dark:bg-neutral-800 dark:border-neutral-700 text-[9px]">↑</kbd> <kbd className="px-1 border rounded bg-neutral-200 dark:bg-neutral-800 dark:border-neutral-700 text-[9px]">↓</kbd> to navigate, <kbd className="px-1 border rounded bg-neutral-200 dark:bg-neutral-800 dark:border-neutral-700 text-[9px]">↵</kbd> to select
               </span>
-              <span className="font-semibold text-neutral-600 dark:text-neutral-400">v5.2.0 Enterprise</span>
+              <span className="font-semibold text-neutral-600 dark:text-neutral-400">v5.3.1 Enterprise</span>
             </div>
           </motion.div>
         </div>

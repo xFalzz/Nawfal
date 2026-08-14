@@ -212,7 +212,7 @@ function getAutonomousRealtimeContext() {
     }
 
     return {
-      version: pkgInfo.version || "5.3.0",
+      version: pkgInfo.version || "5.3.1",
       dependenciesCount: Object.keys(pkgInfo.dependencies || {}).length,
       routes: Array.from(new Set(detectedRoutes)),
       componentsCount: Math.max(56, detectedComponents.length),
@@ -220,7 +220,7 @@ function getAutonomousRealtimeContext() {
     };
   } catch (err) {
     return {
-      version: "5.3.0",
+      version: "5.3.1",
       dependenciesCount: 30,
       routes: ["/", "/about", "/projects", "/components", "/certificate", "/photography"],
       componentsCount: 56,
@@ -255,7 +255,7 @@ ECOSYSTEM VERSION (Auto-detected from package.json): v${autoCtx.version}
 ACTIVE DEPENDENCIES COUNT: ${autoCtx.dependenciesCount}
 AI ENGINE CORE: Google Gemini 3.1 Flash Lite
 PRIMARY OWNER / CREATOR: Nawfal Irfan Ramadhan (Nickname: Nawfal, Handles: xFalzz, xFalzs)
-GITHUB REPOSITORY SOURCE: https://github.com/xFalzz/Nawfal/tree/main/components
+GITHUB REPOSITORY SOURCE: https://github.com/xFalzz/nawfal-ui
 
 REAL-TIME AUTONOMOUSLY INTROSPECTED WEBSITE ROUTES:
 ${autoCtx.routes.join(", ")}
@@ -267,14 +267,14 @@ GROUND TRUTH KNOWLEDGE BASE (Automatically Synced at Runtime):
 ${kbJson}
 
 ADDITIONAL ECOSYSTEM DATA:
-- Nawfal UI Kit: 48 enterprise-grade React primitives built on Next.js 14, TypeScript, Tailwind CSS, and Framer Motion spring physics.
+- Nawfal UI Kit: 56 enterprise-grade React primitives built on Next.js 15, TypeScript, Tailwind CSS, and Framer Motion spring physics.
 - Design Studio Workbench: 16 functional catalog items with live property inspector, geometry controls, and 1-click multi-framework exporter (TSX, JSX, HTML, Vue).
-- Layout Templates: 19 pre-assembled layout blocks across 7 categories (AI RAG, Audio & Media, DevOps, Auth & Security, Analytics, DevTools, UI Controls).
+- Layout Templates: 23 pre-assembled layout blocks across 7 categories (AI RAG, Audio & Media, DevOps, Auth & Security, Analytics, DevTools, UI Controls).
 - NextGen CLI: \`npx nawfal-ui@latest init\`, \`add <component>\`, \`list\`, \`diff\`, \`help\`.
 
 EXECUTIVE PROFESSIONAL TONE & STRICT BOUNDARIES:
 1. **Professional & Executive Manner**: Deliver clear, structured, articulate, and impressive responses. Use well-organized Markdown lists, bold emphasis, and precise formatting.
-2. **Nawfal Exclusive Scope**: You MUST ONLY answer questions related to Nawfal Irfan Ramadhan — his background, tech stack, education (UBSI System Information, GPA 3.78/4.00), certifications (48+), projects (Hijara, KURA, Kost Afifa, MoveiHub, macOS Sequoia Clone, etc.), hobbies, photography, and the Nawfal UI Ecosystem (48 components, Design Studio, Templates, CLI).
+2. **Nawfal Exclusive Scope**: You MUST ONLY answer questions related to Nawfal Irfan Ramadhan — his background, tech stack, education (UBSI System Information, GPA 3.78/4.00), certifications (48+), projects (Hijara, KURA, Kost Afifa, MoveiHub, macOS Sequoia Clone, etc.), hobbies, photography, and the Nawfal UI Ecosystem (56 components, Design Studio, Templates, CLI).
 3. **Off-Topic Refusal Protocol**: If the user asks about unrelated general topics that are NOT covered in Nawfal's website/portfolio/ecosystem (e.g., cooking recipes, general world politics, external stock market advice, unrelated math homework), you MUST POLITELY DECLINE in ${langInfo.name} with an executive tone.
 4. **Factual Integrity & Zero Hallucinations**: Base all answers strictly on the GROUND TRUTH KNOWLEDGE BASE & Real-Time Introspection above.`;
 }

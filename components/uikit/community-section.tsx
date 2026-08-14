@@ -180,7 +180,7 @@ const DEFAULT_FEEDBACKS = [
   {
     name: "Alex Rivera",
     role: "Frontend Specialist @ Vercel Ecosystem",
-    text: "Love the 48 component collection. The unclipped viewports and full TSX previews make it incredibly developer-friendly. The spring physics are buttery smooth.",
+    text: "Love the 56 component collection. The unclipped viewports and full TSX previews make it incredibly developer-friendly. The spring physics are buttery smooth.",
     rawDate: "2026-08-07T05:00:00Z", // 5 hours ago
     avatar: "AR",
   },
@@ -424,13 +424,13 @@ export function CommunitySection() {
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-neutral-500 dark:text-neutral-400">
             <Github className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
-            <span>Open Source Ecosystem • v5.2.0 • MIT License</span>
+            <span>Open Source Ecosystem • v5.3.1 • MIT License</span>
           </div>
           <h2 className="mt-1 text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
             Nawfal UI Community Hub
           </h2>
           <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400 max-w-xl">
-            Join the growing community of developers building premium React applications with Nawfal UI&apos;s 48 enterprise-grade components.
+            Join the growing community of developers building premium React applications with Nawfal UI&apos;s 56 enterprise-grade components.
           </p>
         </div>
 
@@ -585,7 +585,7 @@ export function CommunitySection() {
           <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-neutral-200 pb-2.5 dark:border-neutral-800 font-bold uppercase tracking-wider text-neutral-500">
               <span className="flex items-center gap-1.5"><Terminal className="h-3.5 w-3.5" /> Release Changelog</span>
-              <span className="text-[9px] opacity-60">v5.2.0</span>
+              <span className="text-[9px] opacity-60">v5.3.1</span>
             </div>
 
             <div className="flex flex-col gap-2.5">

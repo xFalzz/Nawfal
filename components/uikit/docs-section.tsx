@@ -47,7 +47,7 @@ export function DocsSection() {
 
   const simulatedTerminalOutputs: Record<string, string> = {
     "npx nawfal-ui@latest init": `==================================================
- 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.3.0
+ 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.3.1
 ==================================================
 [1/3] ⚙️ Initializing Nawfal UI Kit configuration...
   ✓ Created nawfal-ui.json configuration
@@ -61,7 +61,7 @@ export function DocsSection() {
 Run 'npx nawfal-ui add <component>' to install components.`,
 
     "npx nawfal-ui@latest add ai-reasoning-accordion": `==================================================
- 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.3.0
+ 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.3.1
 ==================================================
 [+] Installing component: ai-reasoning-accordion...
   ✓ Downloaded standalone TSX source
@@ -91,7 +91,7 @@ import { AIReasoningAccordion } from "@/components/uikit/ai-reasoning-accordion"
     "npx nawfal-ui@latest diff": `==================================================
  🔍 Nawfal UI Local Source Diff Checker
 ==================================================
-  • components/uikit/ai-reasoning-accordion.tsx: Up to date (v5.3.0)
+  • components/uikit/ai-reasoning-accordion.tsx: Up to date (v5.3.1)
   • components/uikit/custom-components.tsx: Custom local edits detected (100% owned)
 No upstream breaking conflicts found.`,
 
@@ -164,7 +164,7 @@ export const springPresets = {
               <BookOpen className="h-3.5 w-3.5 text-neutral-700 dark:text-neutral-300" />
               <span>TECHNICAL DOCUMENTATION SUITE</span>
               <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-neutral-700 dark:border-neutral-800 dark:bg-black dark:text-neutral-300 font-semibold">
-                v5.2.0 SPEC
+                v5.3.1 SPEC
               </span>
             </div>
             <h2 className="mt-1.5 text-2xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
