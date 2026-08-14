@@ -15,7 +15,7 @@ const args = process.argv.slice(2);
 const command = args[0] || "init";
 
 console.log("\x1b[36m%s\x1b[0m", "==================================================");
-console.log("\x1b[1m\x1b[35m%s\x1b[0m", " 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.3.0");
+console.log("\x1b[1m\x1b[35m%s\x1b[0m", " 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.3.1");
 console.log("\x1b[36m%s\x1b[0m", "==================================================");
 
 if (command === "help" || command === "--help" || command === "-h") {

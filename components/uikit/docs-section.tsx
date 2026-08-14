@@ -107,7 +107,7 @@ Usage:
 
   const configSnippet = `{
   "$schema": "https://nawfal.vercel.app/schema.json",
-  "version": "5.3.0",
+  "version": "5.3.1",
   "style": "monochrome-enterprise",
   "rsc": true,
   "tsx": true,
