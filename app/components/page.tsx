@@ -100,6 +100,18 @@ import {
   FloatingCommandPalette,
 } from "@/components/uikit/nextgen-components";
 
+// Suite 7: Advanced Enterprise Innovations
+import {
+  AIReasoningAccordion,
+  VoiceOrbVisualizer,
+  SpotlightBentoGrid,
+  BorderBeamCard,
+  MacOSFloatingDock,
+  ServerLatencyMatrix,
+  GitCommitFlowGraph,
+  VinylDiscPlayer,
+} from "@/components/uikit/advanced-components";
+
 export default function ComponentsHubPage() {
   const [activeTab, setActiveTab] = useState<"components" | "documents" | "tools" | "templates" | "playground" | "learn" | "community">("components");
   const [selectedCategory, setSelectedCategory] = useState<string>("All System Components");
@@ -1419,6 +1431,201 @@ export function GitBranchTreeGraph() {
             <span className="font-bold">{c.hash}</span><span className="text-neutral-500 truncate">{c.msg}</span>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}`,
+    },
+
+    // ─── 7. Advanced Enterprise Innovations ──────────────────────────────────
+    {
+      id: "ai-reasoning-accordion",
+      name: "AI Reasoning & Thought Accordion",
+      category: "AI RAG & Intelligence Engines",
+      description: "Collapsible thought process container with live step breakdown and token time indicator.",
+      component: <AIReasoningAccordion />,
+      codeSnippet: `import { useState } from "react";
+import { Brain, ChevronDown, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+export function AIReasoningAccordion() {
+  const [isOpen, setIsOpen] = useState(true);
+
+  return (
+    <div className="flex w-full max-w-[320px] flex-col overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 p-3.5 font-mono text-[11px] text-white">
+      <button onClick={() => setIsOpen(!isOpen)} className="flex w-full items-center justify-between rounded-lg bg-neutral-900 px-2.5 py-1.5 border border-neutral-800">
+        <div className="flex items-center gap-2">
+          <Brain className="h-3.5 w-3.5 text-violet-400" />
+          <span>Reasoning Process</span>
+        </div>
+        <ChevronDown className={\`h-3.5 w-3.5 \${isOpen ? "rotate-180" : ""}\`} />
+      </button>
+      {isOpen && (
+        <div className="mt-2.5 border-l-2 border-violet-500/40 pl-3 text-[10px] text-neutral-400">
+          <p>1. Parsing semantic prompt intent...</p>
+          <p>2. Comparing vector embeddings...</p>
+        </div>
+      )}
+    </div>
+  );
+}`,
+    },
+    {
+      id: "voice-orb-visualizer",
+      name: "Voice Orb Audio Wave Visualizer",
+      category: "Audio Architecture & Media",
+      description: "Fluid multi-layered kinetic plasma ring reacting to microphone audio state.",
+      component: <VoiceOrbVisualizer />,
+      codeSnippet: `import { useState } from "react";
+import { motion } from "framer-motion";
+import { Mic, Radio } from "lucide-react";
+
+export function VoiceOrbVisualizer() {
+  const [isSpeaking, setIsSpeaking] = useState(true);
+
+  return (
+    <div className="flex w-full max-w-[320px] flex-col items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-950 p-4 font-mono text-[11px] text-white">
+      <div onClick={() => setIsSpeaking(!isSpeaking)} className="relative flex h-24 w-24 cursor-pointer items-center justify-center">
+        <motion.div animate={{ rotate: 360, scale: isSpeaking ? [1, 1.2, 1] : 1 }} transition={{ duration: 4, repeat: Infinity }} className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500/30 via-indigo-500/30 to-fuchsia-500/30 blur-md" />
+        <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full bg-neutral-950 border border-white/20">
+          <Mic className="h-6 w-6 text-cyan-300 animate-pulse" />
+        </div>
+      </div>
+    </div>
+  );
+}`,
+    },
+    {
+      id: "spotlight-bento-grid",
+      name: "Spotlight Cursor Bento Card",
+      category: "Kinetic Motion & Physics",
+      description: "Interactive hardware-accelerated radial spotlight beam tracking cursor coordinates.",
+      component: <SpotlightBentoGrid />,
+      codeSnippet: `import { useRef, useState } from "react";
+import { Zap } from "lucide-react";
+
+export function SpotlightBentoGrid() {
+  const cardRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div ref={cardRef} onMouseMove={(e) => { const rect = cardRef.current.getBoundingClientRect(); setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top }); }} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className="relative w-full max-w-[320px] overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 p-4 text-white">
+      <div className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300" style={{ opacity: isHovered ? 1 : 0, background: \`radial-gradient(220px circle at \${mousePos.x}px \${mousePos.y}px, rgba(99, 102, 241, 0.18), transparent 80%)\` }} />
+      <span className="font-bold flex items-center gap-1.5 text-indigo-400"><Zap className="h-3.5 w-3.5" /> Spotlight Bento</span>
+    </div>
+  );
+}`,
+    },
+    {
+      id: "border-beam-card",
+      name: "Animated Border Beam Card",
+      category: "Structural Containers & Surfaces",
+      description: "Conic gradient light beam continuously tracing component border perimeter.",
+      component: <BorderBeamCard />,
+      codeSnippet: `import { motion } from "framer-motion";
+
+export function BorderBeamCard() {
+  return (
+    <div className="relative w-full max-w-[320px] overflow-hidden rounded-xl bg-neutral-950 p-[1.5px] font-mono text-[11px] text-white">
+      <motion.div animate={{ rotate: 360 }} transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }} className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_280deg,#38bdf8_320deg,#a855f7_360deg)]" />
+      <div className="relative z-10 flex flex-col gap-2 rounded-[10px] bg-neutral-950 p-4">
+        <span className="font-bold text-sky-400">BORDER_BEAM_v2</span>
+        <p className="text-[10px] text-neutral-300">Conic-gradient continuous perimeter tracing.</p>
+      </div>
+    </div>
+  );
+}`,
+    },
+    {
+      id: "macos-floating-dock",
+      name: "macOS Spring Physics Dock",
+      category: "Interactive Inputs & Controls",
+      description: "Magnified floating desktop dock with spring physics distance scaling.",
+      component: <MacOSFloatingDock />,
+      codeSnippet: `import { useState } from "react";
+import { motion } from "framer-motion";
+import { FolderGit2, Activity, Server, Globe2 } from "lucide-react";
+
+export function MacOSFloatingDock() {
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+  const items = [FolderGit2, Activity, Server, Globe2];
+
+  return (
+    <div className="flex items-center gap-2 rounded-2xl border border-white/15 bg-neutral-900/80 p-2 backdrop-blur-xl">
+      {items.map((Icon, idx) => {
+        const isHovered = hoveredIdx === idx;
+        const scale = isHovered ? 1.4 : hoveredIdx !== null && Math.abs(hoveredIdx - idx) === 1 ? 1.15 : 1;
+        return (
+          <motion.div key={idx} onMouseEnter={() => setHoveredIdx(idx)} onMouseLeave={() => setHoveredIdx(null)} animate={{ scale, y: isHovered ? -6 : 0 }} className="flex h-8 w-8 items-center justify-center rounded-xl bg-neutral-800 border border-neutral-700">
+            <Icon className="h-4 w-4 text-white" />
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}`,
+    },
+    {
+      id: "server-latency-matrix",
+      name: "Server Latency & Uptime Matrix",
+      category: "Telemetry & System Signals",
+      description: "Real-time edge fleet health monitor with live ping fluctuations across global regions.",
+      component: <ServerLatencyMatrix />,
+      codeSnippet: `import { useState, useEffect } from "react";
+import { Server } from "lucide-react";
+
+export function ServerLatencyMatrix() {
+  const [nodes, setNodes] = useState([
+    { region: "Singapore (sin1)", ping: 18 },
+    { region: "Tokyo (nrt1)", ping: 42 },
+    { region: "US-East (iad1)", ping: 148 },
+  ]);
+
+  return (
+    <div className="flex w-full max-w-[320px] flex-col gap-2 rounded-xl border border-neutral-800 bg-neutral-950 p-3.5 font-mono text-[10px] text-white">
+      <div className="flex items-center justify-between border-b border-neutral-800 pb-1.5"><span className="flex items-center gap-1.5 font-bold text-emerald-400"><Server className="h-3.5 w-3.5" /> Fleet Telemetry</span></div>
+      {nodes.map(n => <div key={n.region} className="flex justify-between bg-neutral-900/60 p-1.5 rounded"><span>{n.region}</span><span className="font-bold">{n.ping}ms</span></div>)}
+    </div>
+  );
+}`,
+    },
+    {
+      id: "git-commit-flow-graph",
+      name: "Git Commit Flow DAG Graph",
+      category: "Telemetry & System Signals",
+      description: "Interactive git DAG branch tree graph visualizer with commit status rings.",
+      component: <GitCommitFlowGraph />,
+      codeSnippet: `import { GitBranch } from "lucide-react";
+
+export function GitCommitFlowGraph() {
+  return (
+    <div className="flex w-full max-w-[320px] flex-col gap-2 rounded-xl border border-neutral-800 bg-neutral-950 p-3.5 font-mono text-[10px] text-white">
+      <div className="flex items-center justify-between border-b border-neutral-800 pb-1.5"><span className="font-bold text-purple-400 flex items-center gap-1.5"><GitBranch className="h-3.5 w-3.5" /> DAG Branch Tree</span></div>
+      <div className="space-y-1.5"><div className="flex items-center gap-2"><div className="h-3 w-3 rounded-full bg-purple-500 ring-4 ring-purple-500/20" /><span className="font-bold text-purple-300">b428746</span><span className="text-neutral-400 truncate">fix(pdf): dynamic CDN canvas</span></div></div>
+    </div>
+  );
+}`,
+    },
+    {
+      id: "vinyl-disc-player",
+      name: "Vinyl Record Disc Player",
+      category: "Audio Architecture & Media",
+      description: "Interactive album sleeve with sliding, spinning vinyl record disc and playback state.",
+      component: <VinylDiscPlayer />,
+      codeSnippet: `import { useState } from "react";
+import { motion } from "framer-motion";
+import { Disc3, Play, Pause } from "lucide-react";
+
+export function VinylDiscPlayer() {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  return (
+    <div className="flex w-full max-w-[320px] flex-col gap-3 rounded-xl border border-neutral-800 bg-neutral-950 p-4 font-mono text-[11px] text-white">
+      <div className="relative flex items-center justify-between">
+        <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-600 border border-white/20"><Disc3 className="h-8 w-8 text-white" /></div>
+        <motion.div animate={{ x: isPlaying ? 24 : 0, rotate: isPlaying ? 360 : 0 }} transition={{ rotate: { duration: 3, repeat: Infinity, ease: "linear" } }} className="absolute left-6 h-14 w-14 rounded-full bg-neutral-900 border-2 border-neutral-700 flex items-center justify-center" />
+        <button onClick={() => setIsPlaying(!isPlaying)} className="relative z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white text-black">{isPlaying ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current ml-0.5" />}</button>
       </div>
     </div>
   );

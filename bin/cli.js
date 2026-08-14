@@ -15,7 +15,7 @@ const args = process.argv.slice(2);
 const command = args[0] || "init";
 
 console.log("\x1b[36m%s\x1b[0m", "==================================================");
-console.log("\x1b[1m\x1b[35m%s\x1b[0m", " 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.2.0");
+console.log("\x1b[1m\x1b[35m%s\x1b[0m", " 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.3.0");
 console.log("\x1b[36m%s\x1b[0m", "==================================================");
 
 if (command === "help" || command === "--help" || command === "-h") {
@@ -23,7 +23,7 @@ if (command === "help" || command === "--help" || command === "-h") {
 Usage:
   npx nawfal-ui@latest init         Initialize Nawfal UI Kit in current directory
   npx nawfal-ui@latest add <name>   Add specific UI Kit component
-  npx nawfal-ui@latest list         List all 48+ available components
+  npx nawfal-ui@latest list         List all 56+ available components
   npx nawfal-ui@latest help         Show CLI help menu
 
 Options:
@@ -34,8 +34,10 @@ Options:
 }
 
 if (command === "list") {
-  console.log("\n\x1b[33m📦 Available Enterprise Components (48 Total):\x1b[0m\n");
+  console.log("\n\x1b[33m📦 Available Enterprise Components (56 Total):\x1b[0m\n");
   const componentsList = [
+    "ai-reasoning-accordion", "voice-orb-visualizer", "spotlight-bento-grid", "border-beam-card",
+    "macos-floating-dock", "server-latency-matrix", "git-commit-flow-graph", "vinyl-disc-player",
     "ai-neural-voice-spectrum", "ai-prompt-token-calculator", "quantum-particle-matrix",
     "cyber-parallax-hud-card", "multi-step-pipeline-wizard", "floating-command-palette",
     "ai-generative-semantic-search", "ai-vision-prompt-inspector", "interactive-code-diff-viewer",
