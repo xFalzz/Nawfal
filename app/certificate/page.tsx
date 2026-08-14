@@ -6,16 +6,24 @@ import { TbExternalLink } from "react-icons/tb";
 import CertificateGrid from "@/components/doc/certificate/certificate-grid";
 
 export const metadata: Metadata = {
-  title: "Certificates | Nawfal Irfan Ramadhan",
+  title: "Professional Licenses & 48+ Certifications — Nawfal Irfan Ramadhan",
   description:
-    "Licenses and certifications earned by Nawfal Irfan Ramadhan across Microsoft, Google, AWS, Dicoding, Udemy, and more.",
+    "Explore 48+ verified technical licenses and professional credentials earned by Nawfal Irfan Ramadhan across Microsoft Elevate AI, Google Cloud, AWS, Dicoding, and Udemy in Fullstack Development, Cloud Architecture, and AI Engineering.",
+  keywords: [
+    "Nawfal Irfan Ramadhan Certifications",
+    "Microsoft Elevate Nawfal Irfan Ramadhan",
+    "Google Cloud Nawfal Irfan",
+    "Dicoding Certificates Nawfal",
+    "Nawfal Irfan Credentials",
+    "Fullstack Certifications"
+  ],
   alternates: {
     canonical: "/certificate",
   },
   openGraph: {
-    title: "Certificates | Nawfal Irfan Ramadhan",
+    title: "Professional Licenses & 48+ Certifications — Nawfal Irfan Ramadhan",
     description:
-      "View all certifications earned by Nawfal in AI, Cloud, Web Development, and Cybersecurity.",
+      "Explore 48+ verified technical credentials earned by Nawfal Irfan Ramadhan from Microsoft, Google Cloud, AWS, and Dicoding.",
     url: "https://nawfal.vercel.app/certificate",
   },
 };

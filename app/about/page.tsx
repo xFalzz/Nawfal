@@ -16,14 +16,24 @@ import { Button } from "@/components/ui/button";
 import { Inspiration } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Learn more about Nawfal, a Software Engineer focused on Web Development and AI-driven applications based in Yogyakarta. Building modern fullstack web applications with Next.js, TypeScript, and Firebase.",
+  title: "About Nawfal Irfan Ramadhan — Fullstack Software Engineer",
+  description:
+    "Learn more about Nawfal Irfan Ramadhan, a Fullstack Software Engineer and AI Systems Architect based in Yogyakarta, Indonesia. Information Systems student at Universitas Bina Sarana Informatika, certified in Microsoft AI, Google Cloud, and Creator of Nawfal UI Kit.",
+  keywords: [
+    "About Nawfal Irfan Ramadhan",
+    "Nawfal Irfan Ramadhan Biography",
+    "Nawfal Fullstack Developer",
+    "Nawfal Irfan Background",
+    "Universitas Bina Sarana Informatika Nawfal",
+    "BTKP DIY Nawfal"
+  ],
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Nawfal | Software Engineer",
-    description: "Software Engineer focused on Web Development, AI-driven applications, and scalable systems using Next.js, TypeScript, and Firebase.",
+    title: "About Nawfal Irfan Ramadhan — Fullstack Software Engineer",
+    description:
+      "Fullstack Software Engineer and AI Systems Architect based in Yogyakarta. Information Systems student at UBSI, certified in Microsoft AI and Google Cloud.",
     url: "https://nawfal.vercel.app/about",
   },
 };

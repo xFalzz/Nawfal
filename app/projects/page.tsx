@@ -18,16 +18,25 @@ import KelasMM2Image from "@/public/images/projects/xiimm2.png";
 import SnakesImage from "@/public/images/projects/snakess.png";
 
 export const metadata: Metadata = {
-  title: "My Projects | Nawfal Irfan Ramadhan",
+  title: "Engineering Projects & Architecture — Nawfal Irfan Ramadhan",
   description:
-    "Explore Nawfal's portfolio of featured software engineering and AI projects including Hijara, KURA, nexus-vision, MoveiHub, and Particle Flow Squash.",
+    "Explore fullstack software engineering and AI projects built by Nawfal Irfan Ramadhan, including Nawfal UI Kit, Hijara Store (E-Commerce), macOS Sequoia Clone, KURA AI, and MoveiHub.",
+  keywords: [
+    "Nawfal Irfan Ramadhan Projects",
+    "Nawfal Portfolio Projects",
+    "Hijara Store E-Commerce",
+    "macOS Clone Next.js",
+    "KURA AI",
+    "Nawfal UI Kit",
+    "Fullstack React Projects"
+  ],
   alternates: {
     canonical: "/projects",
   },
   openGraph: {
-    title: "My Projects | Nawfal Irfan Ramadhan",
+    title: "Engineering Projects & Architecture — Nawfal Irfan Ramadhan",
     description:
-      "Explore my portfolio of featured open-source and freelance projects built with Next.js, TypeScript, Python, AI, and modern web technologies.",
+      "Explore production-grade fullstack software applications, AI models, and open-source systems engineered by Nawfal Irfan Ramadhan.",
     url: "https://nawfal.vercel.app/projects",
   },
 };

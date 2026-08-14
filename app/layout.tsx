@@ -13,14 +13,35 @@ import ClientLayout from "./client-layout";
 export const metadata: Metadata = {
   metadataBase: new URL('https://nawfal.vercel.app'),
   title: {
-    default: "Nawfal | Fullstack Developer & UI/UX Designer",
-    template: "%s | Nawfal"
+    default: "Nawfal Irfan Ramadhan — Fullstack Software Engineer & AI Systems Architect",
+    template: "%s | Nawfal Irfan Ramadhan"
   },
   description:
-    "This is Nawfal's (me!) personal website & UI Kit ecosystem. Fullstack Software Engineer and UI/UX Designer crafting intuitive, highly functional digital products.",
-  keywords: ["Nawfal", "Nawfal Irfan", "xFalzz", "Fullstack Developer", "Software Engineer", "UI/UX Designer", "Nawfal UI Kit", "Next.js", "React", "TypeScript", "Tailwind CSS"],
+    "Official portfolio and ecosystem of Nawfal Irfan Ramadhan (xFalzz). Fullstack Software Engineer, AI Systems Architect, and Creator of Nawfal UI Kit. Explore production-grade web applications, 48+ verified certifications, and UI architecture.",
+  keywords: [
+    "Nawfal",
+    "Nawfal Irfan Ramadhan",
+    "Nawfal Irfan",
+    "Nawfal Ramadhan",
+    "xFalzz",
+    "Fullstack Developer",
+    "Fullstack Software Engineer",
+    "Fullstack Engineer Indonesia",
+    "Software Engineer Yogyakarta",
+    "AI Systems Architect",
+    "Nawfal UI Kit",
+    "nawfal-ui",
+    "nawfal.vercel.app",
+    "Informatika Universitas Bina Sarana Informatika",
+    "Next.js 15",
+    "React 19",
+    "TypeScript",
+    "Python AI",
+    "UI/UX Designer"
+  ],
   authors: [{ name: "Nawfal Irfan Ramadhan", url: "https://nawfal.vercel.app" }],
   creator: "Nawfal Irfan Ramadhan",
+  publisher: "Nawfal Irfan Ramadhan",
   alternates: {
     canonical: "/",
   },
@@ -28,25 +49,26 @@ export const metadata: Metadata = {
     google: "google8cbfb42f0970a6b2",
   },
   openGraph: {
-    type: "website",
-    locale: "en_US",
+    type: "profile",
+    locale: "id_ID",
+    alternateLocale: ["en_US"],
     url: "https://nawfal.vercel.app",
-    title: "Nawfal | Fullstack Developer & UI/UX Designer",
-    description: "Fullstack Developer & AI Enthusiast creating intuitive, visually stunning and highly functional web experiences.",
-    siteName: "Nawfal Portfolio",
+    title: "Nawfal Irfan Ramadhan — Fullstack Software Engineer & AI Systems Architect",
+    description: "Official portfolio of Nawfal Irfan Ramadhan (xFalzz). Fullstack Software Engineer, AI Systems Architect, and Creator of Nawfal UI Kit.",
+    siteName: "Nawfal Irfan Ramadhan Portfolio",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Nawfal | Fullstack Developer"
+        alt: "Nawfal Irfan Ramadhan — Fullstack Software Engineer"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nawfal | Fullstack Developer & UI/UX Designer",
-    description: "Fullstack Developer & AI Enthusiast creating intuitive, visually stunning and highly functional web experiences.",
+    title: "Nawfal Irfan Ramadhan — Fullstack Software Engineer",
+    description: "Fullstack Software Engineer & AI Systems Architect crafting intuitive, deterministic, and highly functional web applications.",
     images: ["/opengraph-image"],
   },
   robots: {
@@ -69,23 +91,58 @@ const globalJsonLd = {
       "@type": "Person",
       "@id": "https://nawfal.vercel.app/#person",
       name: "Nawfal Irfan Ramadhan",
-      alternateName: ["Nawfal", "xFalzz"],
-      jobTitle: "Fullstack Software Engineer & UI/UX Designer",
+      givenName: "Nawfal Irfan",
+      familyName: "Ramadhan",
+      alternateName: ["Nawfal", "Nawfal Irfan", "xFalzz"],
+      jobTitle: "Fullstack Software Engineer & AI Systems Architect",
+      worksFor: {
+        "@type": "Organization",
+        name: "Freelance & Independent Open Source Developer"
+      },
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "Universitas Bina Sarana Informatika"
+      },
       url: "https://nawfal.vercel.app",
       image: "https://nawfal.vercel.app/images/falz.jpg",
+      gender: "Male",
+      nationality: "Indonesian",
+      knowsAbout: [
+        "Fullstack Software Engineering",
+        "Artificial Intelligence",
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Python",
+        "Tailwind CSS",
+        "UI/UX Design Systems"
+      ],
       sameAs: [
         "https://github.com/xFalzz",
-        "https://linkedin.com/in/nawfal-irfan",
-        "https://instagram.com/nawfaljr__"
+        "https://www.linkedin.com/in/nawfal-irfan",
+        "https://www.instagram.com/nawfaljr__",
+        "https://www.npmjs.com/package/nawfal-ui"
       ],
-      description: "Software Engineer and Information Systems student focused on Web Development, AI-driven applications, and scalable systems."
+      description: "Nawfal Irfan Ramadhan is a Fullstack Software Engineer, AI Enthusiast, and Information Systems student at Universitas Bina Sarana Informatika. Creator of Nawfal UI Kit."
     },
     {
       "@type": "WebSite",
       "@id": "https://nawfal.vercel.app/#website",
       url: "https://nawfal.vercel.app",
-      name: "Nawfal Portfolio & UI Kit Ecosystem",
+      name: "Nawfal Irfan Ramadhan — Official Portfolio & UI Kit Ecosystem",
+      description: "Explore projects, certifications, interactive UI components, and software engineering articles by Nawfal Irfan Ramadhan.",
       publisher: {
+        "@id": "https://nawfal.vercel.app/#person"
+      },
+      inLanguage: ["en-US", "id-ID"]
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://nawfal.vercel.app/#profilepage",
+      url: "https://nawfal.vercel.app",
+      name: "Nawfal Irfan Ramadhan Profile",
+      mainEntity: {
         "@id": "https://nawfal.vercel.app/#person"
       }
     }
