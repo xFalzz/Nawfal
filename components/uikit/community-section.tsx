@@ -167,6 +167,45 @@ function smartSanitizeProfanity(text: string): { sanitizedText: string; hasProfa
   return { sanitizedText, hasProfanity };
 }
 
+// Static reference dates so default items always display consistent past relative times
+const DEFAULT_FEEDBACKS = [
+  {
+    name: "Rian Hidayat",
+    role: "Fullstack Engineer",
+    text: "The AI RAG Vector Search and Hardware Keypress Tracker are total game changers! 100% complete source code snippets work flawlessly in production.",
+    rawDate: "2026-08-07T08:30:00Z", // 2 hours ago
+    avatar: "RH",
+  },
+  {
+    name: "Alex Rivera",
+    role: "Frontend Specialist @ Vercel Ecosystem",
+    text: "Love the 48 component collection. The unclipped viewports and full TSX previews make it incredibly developer-friendly. The spring physics are buttery smooth.",
+    rawDate: "2026-08-07T05:00:00Z", // 5 hours ago
+    avatar: "AR",
+  },
+  {
+    name: "Devi Permata",
+    role: "UI/UX Architect",
+    text: "The Spotify Music suite and AI Vision inspector add incredible personality without feeling AI-generated. The monochromatic design system is genuinely elegant.",
+    rawDate: "2026-08-06T14:00:00Z", // Yesterday
+    avatar: "DP",
+  },
+  {
+    name: "Marcus Chen",
+    role: "CTO @ TechStartup",
+    text: "Migrated our entire dashboard to Nawfal UI. Source-owned components mean zero npm dependency conflicts. The CLI installation is seamless.",
+    rawDate: "2026-08-05T10:00:00Z", // 2 days ago
+    avatar: "MC",
+  },
+  {
+    name: "Sari Nurhayati",
+    role: "Senior React Engineer",
+    text: "The WCAG AAA compliance out of the box is impressive. We passed our accessibility audit with flying colors using Nawfal UI components.",
+    rawDate: "2026-08-04T09:00:00Z", // 3 days ago
+    avatar: "SN",
+  },
+];
+
 export function CommunitySection() {
   const { toast } = useToast();
   const [name, setName] = useState("");
@@ -183,11 +222,11 @@ export function CommunitySection() {
     components: "48 Components",
   });
 
-  const GITHUB_COMPONENTS_URL = "https://github.com/xFalzz/Nawfal/tree/main/components";
+  const GITHUB_COMPONENTS_URL = "https://github.com/xFalzz/nawfal-ui";
 
   // Fetch real GitHub Repository stats from API
   useEffect(() => {
-    fetch("https://api.github.com/repos/xFalzz/Nawfal")
+    fetch("https://api.github.com/repos/xFalzz/nawfal-ui")
       .then((res) => res.json())
       .then((data) => {
         if (data && typeof data.stargazers_count === "number") {
@@ -204,46 +243,7 @@ export function CommunitySection() {
       });
   }, []);
 
-  // Static reference dates so default items always display consistent past relative times
-  const defaultFeedbacks = [
-    {
-      name: "Rian Hidayat",
-      role: "Fullstack Engineer",
-      text: "The AI RAG Vector Search and Hardware Keypress Tracker are total game changers! 100% complete source code snippets work flawlessly in production.",
-      rawDate: "2026-08-07T08:30:00Z", // 2 hours ago
-      avatar: "RH",
-    },
-    {
-      name: "Alex Rivera",
-      role: "Frontend Specialist @ Vercel Ecosystem",
-      text: "Love the 48 component collection. The unclipped viewports and full TSX previews make it incredibly developer-friendly. The spring physics are buttery smooth.",
-      rawDate: "2026-08-07T05:00:00Z", // 5 hours ago
-      avatar: "AR",
-    },
-    {
-      name: "Devi Permata",
-      role: "UI/UX Architect",
-      text: "The Spotify Music suite and AI Vision inspector add incredible personality without feeling AI-generated. The monochromatic design system is genuinely elegant.",
-      rawDate: "2026-08-06T14:00:00Z", // Yesterday
-      avatar: "DP",
-    },
-    {
-      name: "Marcus Chen",
-      role: "CTO @ TechStartup",
-      text: "Migrated our entire dashboard to Nawfal UI. Source-owned components mean zero npm dependency conflicts. The CLI installation is seamless.",
-      rawDate: "2026-08-05T10:00:00Z", // 2 days ago
-      avatar: "MC",
-    },
-    {
-      name: "Sari Nurhayati",
-      role: "Senior React Engineer",
-      text: "The WCAG AAA compliance out of the box is impressive. We passed our accessibility audit with flying colors using Nawfal UI components.",
-      rawDate: "2026-08-04T09:00:00Z", // 3 days ago
-      avatar: "SN",
-    },
-  ];
-
-  const [feedbacks, setFeedbacks] = useState<any[]>(defaultFeedbacks);
+  const [feedbacks, setFeedbacks] = useState<any[]>(DEFAULT_FEEDBACKS);
 
   // Live timestamp ticker: Updates relative timestamps every 15 seconds
   useEffect(() => {
@@ -293,7 +293,7 @@ export function CommunitySection() {
           });
 
           if (liveItems.length > 0) {
-            setFeedbacks([...liveItems, ...defaultFeedbacks]);
+            setFeedbacks([...liveItems, ...DEFAULT_FEEDBACKS]);
           }
         },
         (err) => {

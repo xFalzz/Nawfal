@@ -140,6 +140,14 @@ export const KNOWLEDGE_BASE = {
       url: "https://moveihub.vercel.app/"
     },
     {
+      name: "Nawfal UI Kit & Enterprise CLI",
+      type: "Open Source Component Library & CLI Engine",
+      stack: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Node CLI"],
+      description: "Enterprise UI component registry and copy-paste CLI engine (npx nawfal-ui@latest) featuring 48+ interactive components, live playground, and Tailwind design studio.",
+      url: "https://nawfal.vercel.app/components",
+      github: "https://github.com/xFalzz/nawfal-ui"
+    },
+    {
       name: "macOS Sequoia Clone",
       type: "Personal Project",
       stack: ["Next.js", "TypeScript", "Tailwind CSS"],
