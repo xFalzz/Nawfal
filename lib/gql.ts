@@ -101,8 +101,8 @@ const getProject = async ({ slug }: { slug: string }) => {
 
 const getPostsCategory = async ({ category }: { category: string }) => {
   const query = gql`
-    query FetchCategories {
-      postsConnection(where: { category_contains_some: ${category} }) {
+    query FetchCategories($category: [String!]) {
+      postsConnection(where: { category_contains_some: $category }) {
         edges {
           node {
             id
@@ -129,7 +129,7 @@ const getPostsCategory = async ({ category }: { category: string }) => {
     }
   `;
 
-  const response = await graphQLClient.request(query);
+  const response = await graphQLClient.request(query, { category: [category] });
 
   return response as FetchPostResponse;
 };

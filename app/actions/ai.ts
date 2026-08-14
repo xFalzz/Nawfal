@@ -2,7 +2,9 @@
 
 import fs from "fs";
 import path from "path";
+import { headers } from "next/headers";
 import { KNOWLEDGE_BASE } from "@/lib/knowledge";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 type Role = "user" | "model";
 
@@ -594,15 +596,44 @@ export async function getAiResponseAction(
   prompt: string,
   history: HistoryEntry[] = []
 ): Promise<string> {
+  // 1. Input Sanitization & Safeguards
+  const cleanPrompt = (prompt || "").trim();
+  if (!cleanPrompt) {
+    return "Silakan ketik pertanyaan seputar portofolio Nawfal / Please enter a valid question.";
+  }
+
+  // Cap maximum prompt length to prevent token overflow attack
+  const sanitizedPrompt = cleanPrompt.length > 600 ? cleanPrompt.slice(0, 600) : cleanPrompt;
+
+  // 2. Sliding Window Rate Limiter (Max 12 requests / min per IP)
+  try {
+    const headersList = headers();
+    const forwardedFor = headersList.get("x-forwarded-for");
+    const realIp = headersList.get("x-real-ip");
+    const clientIp = forwardedFor?.split(",")[0]?.trim() || realIp || "anonymous-client";
+
+    const rateResult = checkRateLimit(clientIp, { limit: 12, windowMs: 60 * 1000 });
+    if (!rateResult.success) {
+      const langInfo = detectLanguageInfo(sanitizedPrompt);
+      if (langInfo.code === "en") {
+        return `⚠️ **Rate limit exceeded.** You have sent too many AI requests. Please wait ${rateResult.resetInSeconds} seconds before sending another message.`;
+      }
+      return `⚠️ **Batas permintaan terlampaui.** Anda mengirim terlalu banyak pertanyaan AI dalam waktu singkat. Silakan tunggu ${rateResult.resetInSeconds} detik sebelum bertanya kembali.`;
+    }
+  } catch (err) {
+    // Non-blocking fallback if headers() fails
+  }
+
+  // 3. Process Gemini or Local Fallback
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (apiKey) {
     try {
-      return await callGeminiApiWithFallback(apiKey, prompt, history);
+      return await callGeminiApiWithFallback(apiKey, sanitizedPrompt, history);
     } catch (err) {
       console.warn("[NawfalAI] Google Gemini API call failed or unconfigured, seamlessly serving via smart local knowledge engine.");
     }
   }
 
-  return generateSmartLocalResponse(prompt);
+  return generateSmartLocalResponse(sanitizedPrompt);
 }

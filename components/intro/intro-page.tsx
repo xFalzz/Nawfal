@@ -158,22 +158,25 @@ export default function IntroPage({ onComplete }: IntroPageProps) {
   useEffect(() => {
     if (!shouldShowIntro) return;
 
-    const handleSkip = () => {
-      if (currentPhase < 3) {
-        setCurrentPhase(3);
-        setLoadingProgress(100);
-      }
+    const handleImmediateSkip = () => {
+      setIsExiting(true);
+      setTimeout(() => onComplete(), 150);
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" || e.keyCode === 27) {
+        e.preventDefault();
+        handleImmediateSkip();
+        return;
+      }
       if ([32, 13].includes(e.keyCode)) {
         // Space, Enter
         e.preventDefault();
-        handleSkip();
+        handleImmediateSkip();
       }
     };
 
-    const handleClick = () => handleSkip();
+    const handleClick = () => handleImmediateSkip();
 
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("click", handleClick);
@@ -182,7 +185,7 @@ export default function IntroPage({ onComplete }: IntroPageProps) {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("click", handleClick);
     };
-  }, [currentPhase, shouldShowIntro]);
+  }, [currentPhase, onComplete, shouldShowIntro]);
 
   // Don't render anything if intro shouldn't be shown
   if (!shouldShowIntro) {
@@ -192,10 +195,23 @@ export default function IntroPage({ onComplete }: IntroPageProps) {
   return (
     <div
       ref={introRef}
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-white transition-all duration-1000 ${
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-white transition-all duration-700 ${
         isExiting ? "scale-105 opacity-0" : "scale-100 opacity-100"
       }`}
     >
+      {/* Explicit Skip Action in Top Right */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsExiting(true);
+          setTimeout(() => onComplete(), 150);
+        }}
+        className="absolute top-5 right-5 z-30 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/60 px-3 py-1.5 text-[11px] font-medium tracking-wider text-white/80 backdrop-blur-md transition-all hover:border-white/40 hover:bg-white/10 hover:text-white"
+        title="Skip Intro"
+      >
+        <span>SKIP</span>
+        <kbd className="rounded bg-white/15 px-1 py-0.5 text-[9px] text-white/90">ESC</kbd>
+      </button>
       {/* Subtle grain texture */}
       <div
         className="pointer-events-none absolute inset-0 opacity-5"

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
 // Fonts
@@ -8,27 +7,20 @@ import { GeistSans } from "geist/font/sans";
 // Assets
 import "./globals.css";
 
-// Pages
-import NotFound from "./not-found";
-
 // Components
 import ClientLayout from "./client-layout";
-import Navbar from "@/components/navbar/nav-bar";
-import Footer from "@/components/footer/foo-bar";
-import { Toaster } from "@/components/ui/toaster";
-import { ThemeProvider } from "@/components/ui/theme-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://nawfal.vercel.app'),
   title: {
-    default: "Nawfal | Fullstack Developer",
+    default: "Nawfal | Fullstack Developer & UI/UX Designer",
     template: "%s | Nawfal"
   },
   description:
-    "This is Nawfal's (me!) personal website. I write about tech, programming, and other things I find interesting. I also share my projects and experiences.",
-  keywords: ["Nawfal", "Fullstack Developer", "Software Engineer", "Web Developer", "Portfolio", "Next.js", "React", "TypeScript", "Tailwind CSS"],
-  authors: [{ name: "Nawfal Irfan", url: "https://nawfal.vercel.app" }],
-  creator: "Nawfal Irfan",
+    "This is Nawfal's (me!) personal website & UI Kit ecosystem. Fullstack Software Engineer and UI/UX Designer crafting intuitive, highly functional digital products.",
+  keywords: ["Nawfal", "Nawfal Irfan", "xFalzz", "Fullstack Developer", "Software Engineer", "UI/UX Designer", "Nawfal UI Kit", "Next.js", "React", "TypeScript", "Tailwind CSS"],
+  authors: [{ name: "Nawfal Irfan Ramadhan", url: "https://nawfal.vercel.app" }],
+  creator: "Nawfal Irfan Ramadhan",
   alternates: {
     canonical: "/",
   },
@@ -39,7 +31,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://nawfal.vercel.app",
-    title: "Nawfal | Fullstack Developer",
+    title: "Nawfal | Fullstack Developer & UI/UX Designer",
     description: "Fullstack Developer & AI Enthusiast creating intuitive, visually stunning and highly functional web experiences.",
     siteName: "Nawfal Portfolio",
     images: [
@@ -53,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nawfal | Fullstack Developer",
+    title: "Nawfal | Fullstack Developer & UI/UX Designer",
     description: "Fullstack Developer & AI Enthusiast creating intuitive, visually stunning and highly functional web experiences.",
     images: ["/opengraph-image"],
   },
@@ -70,6 +62,37 @@ export const metadata: Metadata = {
   },
 };
 
+const globalJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://nawfal.vercel.app/#person",
+      name: "Nawfal Irfan Ramadhan",
+      alternateName: ["Nawfal", "xFalzz", "xFalzs"],
+      jobTitle: "Fullstack Software Engineer & UI/UX Designer",
+      url: "https://nawfal.vercel.app",
+      image: "https://nawfal.vercel.app/images/sinopsisp.jpg",
+      sameAs: [
+        "https://github.com/xFalzz",
+        "https://linkedin.com/in/nawfalirfan",
+        "https://instagram.com/nawfalirfann",
+        "https://twitter.com/xFalzz"
+      ],
+      description: "Software Engineer and Information Systems student focused on Web Development, AI-driven applications, and scalable systems."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nawfal.vercel.app/#website",
+      url: "https://nawfal.vercel.app",
+      name: "Nawfal Portfolio & UI Kit Ecosystem",
+      publisher: {
+        "@id": "https://nawfal.vercel.app/#person"
+      }
+    }
+  ]
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -77,6 +100,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalJsonLd) }}
+        />
+      </head>
       <body className={GeistSans.className}>
         <ClientLayout>{children}</ClientLayout>
         <Analytics />
