@@ -87,7 +87,13 @@ export default function CertificateGrid({
                   className="group flex flex-col overflow-hidden rounded-lg border bg-popover transition-all duration-200 hover:border-foreground/30 hover:shadow-md text-left"
                 >
                   {/* PDF Thumbnail */}
-                  <CertificateThumbnail file={cert.file} name={cert.name} />
+                  <CertificateThumbnail
+                    file={cert.file}
+                    name={cert.name}
+                    category={cert.category}
+                    issuer={cert.issuer}
+                    color={cert.color}
+                  />
 
                   {/* Card Info */}
                   <div className="flex items-start gap-x-2 p-3">

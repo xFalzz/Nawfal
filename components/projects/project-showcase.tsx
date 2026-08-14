@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Sparkles, Code2, Layers, Cpu, Briefcase } from "lucide-react";
+import { Search, Cloud, Code2, Layers, Cpu, Briefcase } from "lucide-react";
 import TemplateCard from "@/components/macro/template-card";
 import { StaticImageData } from "next/image";
 
@@ -22,7 +22,7 @@ interface ProjectShowcaseProps {
 
 const CATEGORIES = [
   { id: "All", label: "All Projects", icon: Layers },
-  { id: "AI & Cloud", label: "AI & Cloud", icon: Sparkles },
+  { id: "AI & Cloud", label: "AI & Cloud", icon: Cloud },
   { id: "Web Application", label: "Web Apps", icon: Code2 },
   { id: "AI & 3D Graphics", label: "3D & Vision", icon: Cpu },
   { id: "Client Project", label: "Client Work", icon: Briefcase },
