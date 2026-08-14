@@ -77,8 +77,8 @@ npx nawfal-ui add spotlight-bento-grid --html
 - 🌐 **Portfolio Website**: [nawfal.vercel.app](https://nawfal.vercel.app)
 - 📧 **Direct Email**: [nawfalirfan005@gmail.com](mailto:nawfalirfan005@gmail.com)
 - 💼 **LinkedIn Profile**: [Nawfal Irfan Ramadhan](https://www.linkedin.com/in/nawfal-irfan/)
-- 🐦 **X (Twitter)**: [@xFalzs](https://x.com/xFalzs)
-- 📷 **Instagram**: [@xFalzz](https://instagram.com/xFalzz)
+- 📷 **Instagram**: [@nawfaljr__](https://instagram.com/nawfaljr__)
+- 🐙 **GitHub Profile**: [@xFalzz](https://github.com/xFalzz)
 
 <br />
 <div align="center">

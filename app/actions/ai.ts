@@ -254,7 +254,7 @@ CURRENT AUTONOMOUS SERVER STATE (Real-time WIB): ${now}
 ECOSYSTEM VERSION (Auto-detected from package.json): v${autoCtx.version}
 ACTIVE DEPENDENCIES COUNT: ${autoCtx.dependenciesCount}
 AI ENGINE CORE: Google Gemini 3.1 Flash Lite
-PRIMARY OWNER / CREATOR: Nawfal Irfan Ramadhan (Nickname: Nawfal, Handles: xFalzz, xFalzs)
+PRIMARY OWNER / CREATOR: Nawfal Irfan Ramadhan (Nickname: Nawfal, GitHub: xFalzz, Instagram: @nawfaljr__)
 GITHUB REPOSITORY SOURCE: https://github.com/xFalzz/nawfal-ui
 
 REAL-TIME AUTONOMOUSLY INTROSPECTED WEBSITE ROUTES:

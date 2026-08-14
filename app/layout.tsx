@@ -69,15 +69,14 @@ const globalJsonLd = {
       "@type": "Person",
       "@id": "https://nawfal.vercel.app/#person",
       name: "Nawfal Irfan Ramadhan",
-      alternateName: ["Nawfal", "xFalzz", "xFalzs"],
+      alternateName: ["Nawfal", "xFalzz"],
       jobTitle: "Fullstack Software Engineer & UI/UX Designer",
       url: "https://nawfal.vercel.app",
-      image: "https://nawfal.vercel.app/images/sinopsisp.jpg",
+      image: "https://nawfal.vercel.app/images/falz.jpg",
       sameAs: [
         "https://github.com/xFalzz",
-        "https://linkedin.com/in/nawfalirfan",
-        "https://instagram.com/nawfalirfann",
-        "https://twitter.com/xFalzz"
+        "https://linkedin.com/in/nawfal-irfan",
+        "https://instagram.com/nawfaljr__"
       ],
       description: "Software Engineer and Information Systems student focused on Web Development, AI-driven applications, and scalable systems."
     },
