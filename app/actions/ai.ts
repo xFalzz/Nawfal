@@ -212,7 +212,7 @@ function getAutonomousRealtimeContext() {
     }
 
     return {
-      version: pkgInfo.version || "5.3.1",
+      version: pkgInfo.version || "5.3.2",
       dependenciesCount: Object.keys(pkgInfo.dependencies || {}).length,
       routes: Array.from(new Set(detectedRoutes)),
       componentsCount: Math.max(56, detectedComponents.length),
@@ -220,7 +220,7 @@ function getAutonomousRealtimeContext() {
     };
   } catch (err) {
     return {
-      version: "5.3.1",
+      version: "5.3.2",
       dependenciesCount: 30,
       routes: ["/", "/about", "/projects", "/components", "/certificate", "/photography"],
       componentsCount: 56,

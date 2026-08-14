@@ -10,7 +10,7 @@
     },
     "version": {
       "type": "string",
-      "default": "5.3.1",
+      "default": "5.3.2",
       "description": "Version of Nawfal UI Kit CLI."
     },
     "style": {

@@ -337,6 +337,7 @@ export function CommunitySection() {
   ];
 
   const changelog = [
+    { version: "v5.3.2", date: "Aug 2026", changes: "Synchronized dedicated enterprise package documentation for NPM, multi-framework installation guides, and full monochromatic tokens" },
     { version: "v5.3.0", date: "Aug 2026", changes: "Added 8 Enterprise Innovations: AI Reasoning Accordion, Voice Orb Visualizer, Spotlight Bento, Border Beam, macOS Spring Dock, Edge Latency Matrix, Git DAG Graph, and Vinyl Record Player" },
     { version: "v5.2.0", date: "Aug 2026", changes: "Added NextGen CLI installer (npx nawfal-ui@latest), Design Studio Workbench, 16 interactive studio items, and theme-adaptive design system" },
     { version: "v5.1.0", date: "Jul 2026", changes: "AI Vision Inspector, Neural Voice AI spectrum component, dark/light mode contrast refinements" },
@@ -424,7 +425,7 @@ export function CommunitySection() {
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-neutral-500 dark:text-neutral-400">
             <Github className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
-            <span>Open Source Ecosystem • v5.3.1 • MIT License</span>
+            <span>Open Source Ecosystem • v5.3.2 • MIT License</span>
           </div>
           <h2 className="mt-1 text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
             Nawfal UI Community Hub
@@ -585,7 +586,7 @@ export function CommunitySection() {
           <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-neutral-200 pb-2.5 dark:border-neutral-800 font-bold uppercase tracking-wider text-neutral-500">
               <span className="flex items-center gap-1.5"><Terminal className="h-3.5 w-3.5" /> Release Changelog</span>
-              <span className="text-[9px] opacity-60">v5.3.1</span>
+              <span className="text-[9px] opacity-60">v5.3.2</span>
             </div>
 
             <div className="flex flex-col gap-2.5">

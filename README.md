@@ -1,86 +1,102 @@
 <div align="center">
-  <img src="public/images/falz.jpg" width="120" height="120" style="border-radius: 50%; object-fit: cover; border: 2px solid #333;" />
-  <br />
-  <h1>Nawfal Irfan Ramadhan</h1>
-  <p><b>Fullstack Developer • AI Systems Enthusiast • UI/UX Architect</b></p>
-  <p><i>Building high-performance monochromatic web experiences, enterprise UI kits, and intelligent AI applications.</i></p>
+  <h1>🚀 Nawfal UI Kit</h1>
+  <p><b>Enterprise Monochromatic UI Library & Multi-Framework CLI Engine</b></p>
+  <p><i>56+ source-owned, production-ready primitives for Next.js 15, React 19, Vue 3, HTML5, and modern web applications.</i></p>
 
   <p>
-    <a href="https://nawfal.vercel.app"><img src="https://img.shields.io/badge/Live_Website-nawfal.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Website" /></a>
-    <a href="https://github.com/xFalzz/nawfal-ui"><img src="https://img.shields.io/badge/NPM_Package-nawfal--ui-CB3837?style=for-the-badge&logo=npm&logoColor=white" alt="NPM Package" /></a>
-    <a href="https://www.linkedin.com/in/nawfal-irfan/"><img src="https://img.shields.io/badge/LinkedIn-Nawfal--Irfan-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-    <a href="https://github.com/xFalzz"><img src="https://img.shields.io/github/followers/xFalzz?label=Followers&style=for-the-badge&logo=github&color=181717" alt="GitHub Followers" /></a>
+    <a href="https://www.npmjs.com/package/nawfal-ui"><img src="https://img.shields.io/npm/v/nawfal-ui?style=for-the-badge&color=000000&label=NPM%20Version" alt="npm version" /></a>
+    <a href="https://nawfal.vercel.app/components"><img src="https://img.shields.io/badge/Live_Playground-nawfal.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Playground" /></a>
+    <a href="https://github.com/xFalzz/nawfal-ui/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-000000?style=for-the-badge" alt="license" /></a>
+    <a href="https://github.com/xFalzz/nawfal-ui"><img src="https://img.shields.io/badge/Components-56%20Verified-000000?style=for-the-badge" alt="components" /></a>
   </p>
 </div>
 
 ---
 
-### 🚀 About Me
+### ✨ Why Nawfal UI?
 
-Halo! I'm **Nawfal Irfan Ramadhan**, a Fullstack Developer and UI/UX Architect based in Yogyakarta, Indonesia. I specialize in building deterministic, high-throughput web applications with strict monochromatic aesthetics, smooth spring physics, and autonomous AI integrations.
+Unlike traditional component libraries that lock you into compiled npm wrappers, **Nawfal UI** delivers **source-owned code** directly into your repository. You retain 100% control over every animation, styling token, and prop.
 
-- 🎓 **Undergraduate Informatics / Information Systems** @ Universitas Bina Sarana Informatika (GPA 3.78 / 4.00)
-- 🏢 **Former Intern** @ Balai Teknologi Komunikasi Pendidikan DIY (BTKP DIY)
-- 📦 **Creator of Nawfal UI Kit**: An enterprise open-source UI ecosystem featuring 56+ verified primitives and multi-framework support (TSX, JSX, Vue, HTML).
-- 🏆 **48+ Professional Certifications** across Fullstack Development, Cloud Architecture, AI Prompt Engineering, and UI/UX Design.
-
----
-
-### 🛠️ Core Tech Stack & Languages
-
-<div align="center">
-  <img src="https://img.shields.io/badge/Next.js_15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
-  <img src="https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/Vue.js_3-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white" alt="Vue.js" />
-  <img src="https://img.shields.io/badge/Python_3-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
-  <img src="https://img.shields.io/badge/Rust_WASM-000000?style=for-the-badge&logo=rust&logoColor=white" alt="Rust" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" />
-  <img src="https://img.shields.io/badge/Firebase_&_Supabase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase" />
-</div>
+- 🖤 **Strict Monochromatic Precision**: Crafted on an obsidian, carbon, and zinc palette with mathematically enforced contrast (WCAG AAA compliant).
+- ⚛️ **Multi-Framework & Multi-Language**: Available in **React TypeScript (`.tsx`)**, **React JavaScript (`.jsx`)**, **Vue 3 SFC (`.vue`)**, and **Vanilla HTML5 (`.html`)**.
+- 🧠 **AI & Telemetry Specialization**: Pre-built AI reasoning accordions, voice orb visualizers, vector similarity matrices, edge latency monitors, and DAG commit flow trees.
+- ⚡ **Spring Physics Engine**: Built with Framer Motion spring dynamics for buttery-smooth micro-interactions.
 
 ---
 
-### 💼 Featured Flagship Projects
+### 📦 Quick Start (CLI Installation)
 
-| Project | Description | Tech Stack | Link |
-| :--- | :--- | :--- | :--- |
-| **Nawfal UI Kit** | Enterprise monochromatic UI library & CLI with 56 components and multi-framework export. | `Next.js 15` `Framer Motion` `Tailwind` `CLI` | [Live Hub](https://nawfal.vercel.app/components) • [NPM](https://www.npmjs.com/package/nawfal-ui) |
-| **Hijara Store** | High-performance clothing brand e-commerce platform with automated cart and payment flow. | `Next.js` `TypeScript` `Tailwind` `Prisma` | [Live Site](https://hijara.my.id/) |
-| **macOS Sequoia Clone** | Pixel-perfect web desktop operating system with interactive dock, windows, and apps. | `Next.js` `Tailwind CSS` `Framer Motion` | [Live Demo](https://macos-clone-snowy.vercel.app/) |
-| **KURA AI** | Intelligent AI workspace featuring real-time prompt token calculations and RAG search. | `Gemini 3.1` `React` `Tailwind` `TypeScript` | [Explore](https://nawfal.vercel.app/projects) |
-| **Kost Afifa** | Comprehensive boarding house management & tenant billing ecosystem. | `Next.js` `Firebase` `Tailwind CSS` | [Explore](https://nawfal.vercel.app/projects) |
+Initialize Nawfal UI Kit in your project with a single command:
 
----
-
-### 📦 Quick Start with Nawfal UI Kit CLI
-
-Install the official UI Kit CLI engine in any project:
-
+#### 1. Inisialisasi Project
 ```bash
-# Initialize Nawfal UI in TypeScript or JavaScript
+# Untuk project TypeScript (default)
 npx nawfal-ui@latest init
-npx nawfal-ui@latest init --js
 
-# Add components in your preferred framework
+# Untuk project JavaScript murni
+npx nawfal-ui@latest init --js
+```
+
+#### 2. Menambahkan Komponen Sesuai Bahasa / Framework
+```bash
+# React TypeScript (.tsx)
 npx nawfal-ui add ai-reasoning-accordion
+
+# React JavaScript (.jsx)
+npx nawfal-ui add ai-reasoning-accordion --js
+
+# Vue 3 Single File Component (.vue)
 npx nawfal-ui add voice-orb-visualizer --vue
+
+# Vanilla HTML5 + Tailwind (.html)
 npx nawfal-ui add spotlight-bento-grid --html
+```
+
+#### 3. Melihat Seluruh 56 Komponen yang Tersedia
+```bash
+npx nawfal-ui@latest list
 ```
 
 ---
 
-### 📬 Connect with Me
+### 🗂️ Component Categories (56 Primitives)
 
-- 🌐 **Portfolio Website**: [nawfal.vercel.app](https://nawfal.vercel.app)
-- 📧 **Direct Email**: [nawfalirfan005@gmail.com](mailto:nawfalirfan005@gmail.com)
-- 💼 **LinkedIn Profile**: [Nawfal Irfan Ramadhan](https://www.linkedin.com/in/nawfal-irfan/)
+| Category | Highlights | Supported Formats |
+| :--- | :--- | :--- |
+| **AI & Neural Suite** | `ai-reasoning-accordion`, `voice-orb-visualizer`, `ai-neural-voice-spectrum`, `ai-generative-semantic-search`, `ai-vision-prompt-inspector` | TSX, JSX, Vue, HTML |
+| **DevOps & Telemetry** | `server-latency-matrix`, `git-commit-flow-graph`, `system-telemetry-monitor`, `interactive-code-diff-viewer`, `matrix-digital-stream` | TSX, JSX, Vue, HTML |
+| **Kinetic Bento & Cards**| `spotlight-bento-grid`, `border-beam-card`, `cyber-parallax-hud-card`, `quantum-particle-matrix`, `holographic-scanline-card` | TSX, JSX, Vue, HTML |
+| **Audio & Media** | `vinyl-disc-player`, `spotify-mini-player`, `audio-waveform-visualizer`, `synthesizer-sound-pad` | TSX, JSX, Vue, HTML |
+| **Navigation & Docks** | `macos-floating-dock`, `floating-command-palette`, `multi-step-pipeline-wizard`, `interactive-dock` | TSX, JSX, Vue, HTML |
+| **Auth & Security** | `pin-code-otp-input`, `glass-input`, `cyber-border-card`, `monochrome-glow-card` | TSX, JSX, Vue, HTML |
+| **Micro-Controls** | `magnetic-button`, `shimmer-beam-button`, `particle-ripple-button`, `radar-sweep-badge`, `minimal-pulse-badge` | TSX, JSX, Vue, HTML |
+
+---
+
+### 🎨 Live Interactive Workbench & Studio
+
+Explore live previews, test geometry controls, switch theme canvases (*Obsidian, Graphite, Pure-Light*), and copy assembly blocks directly:
+
+👉 **[nawfal.vercel.app/components](https://nawfal.vercel.app/components)**
+
+---
+
+### 📬 Author & Connect
+
+- 👤 **Creator**: **Nawfal Irfan Ramadhan** (Kasihan, Yogyakarta, Indonesia)
+- 🌐 **Website**: [nawfal.vercel.app](https://nawfal.vercel.app)
+- 📧 **Email**: [nawfalirfan005@gmail.com](mailto:nawfalirfan005@gmail.com)
+- 💼 **LinkedIn**: [Nawfal Irfan Ramadhan](https://www.linkedin.com/in/nawfal-irfan/)
 - 📷 **Instagram**: [@nawfaljr__](https://instagram.com/nawfaljr__)
-- 🐙 **GitHub Profile**: [@xFalzz](https://github.com/xFalzz)
+- 🐙 **GitHub**: [@xFalzz](https://github.com/xFalzz)
+
+---
+
+### 📄 License
+
+Nawfal UI Kit is open-source software licensed under the **[MIT License](LICENSE)**. Free for personal, commercial, and enterprise usage.
 
 <br />
 <div align="center">
-  <sub>© 2026 Nawfal Irfan Ramadhan. Released under the MIT License. Designed with strict monochromatic precision.</sub>
+  <sub>Maintained by <b><a href="https://github.com/xFalzz">Nawfal Irfan Ramadhan</a></b>. Crafted with strict monochromatic precision.</sub>
 </div>

@@ -177,7 +177,7 @@ export function LearnSection() {
               <BookOpen className="h-3.5 w-3.5 text-neutral-700 dark:text-neutral-300" />
               <span>LEARN & FAQ ACADEMY</span>
               <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-neutral-700 dark:border-neutral-800 dark:bg-black dark:text-neutral-300 font-semibold">
-                v5.3.1 EDITION
+                v5.3.2 EDITION
               </span>
             </div>
             <h2 className="mt-1.5 text-2xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
