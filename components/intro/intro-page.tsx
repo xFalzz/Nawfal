@@ -206,11 +206,10 @@ export default function IntroPage({ onComplete }: IntroPageProps) {
           setIsExiting(true);
           setTimeout(() => onComplete(), 150);
         }}
-        className="absolute top-5 right-5 z-30 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/60 px-3 py-1.5 text-[11px] font-medium tracking-wider text-white/80 backdrop-blur-md transition-all hover:border-white/40 hover:bg-white/10 hover:text-white"
+        className="absolute top-5 right-5 z-30 flex items-center rounded-full border border-white/20 bg-black/60 px-3 py-1.5 text-[11px] font-medium tracking-wider text-white/80 backdrop-blur-md transition-all hover:border-white/40 hover:bg-white/10 hover:text-white"
         title="Skip Intro"
       >
         <span>SKIP</span>
-        <kbd className="rounded bg-white/15 px-1 py-0.5 text-[9px] text-white/90">ESC</kbd>
       </button>
       {/* Subtle grain texture */}
       <div
