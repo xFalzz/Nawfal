@@ -1,13 +1,13 @@
 {
   "name": "nawfal-ui",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "description": "Enterprise UI Kit & CLI Engine for modern Next.js and Tailwind applications",
   "author": "Nawfal Irfan Ramadhan <nawfalirfan005@gmail.com> (https://nawfal.vercel.app)",
   "license": "MIT",
   "homepage": "https://nawfal.vercel.app/components",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xFalzz/Nawfal.git"
+    "url": "git+https://github.com/xFalzz/nawfal-ui.git"
   },
   "keywords": [
     "react",
