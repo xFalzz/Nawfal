@@ -1,0 +1,23 @@
+# GitHub Linguist Language Balancing Configuration for Nawfal Portfolio & Ecosystem
+components/uikit/community-section.tsx linguist-vendored
+components/uikit/docs-section.tsx linguist-vendored
+components/uikit/learn-section.tsx linguist-vendored
+components/uikit/playground-section.tsx linguist-vendored
+components/uikit/templates-section.tsx linguist-vendored
+components/uikit/tools-section.tsx linguist-vendored
+components/uikit/custom-components.tsx linguist-vendored
+components/uikit/innovative-components.tsx linguist-vendored
+components/uikit/imaginative-components.tsx linguist-vendored
+components/uikit/nextgen-components.tsx linguist-vendored
+components/uikit/out-of-the-box.tsx linguist-vendored
+components/uikit/spotify-components.tsx linguist-vendored
+public/schema.json linguist-vendored
+package-lock.json linguist-vendored
+
+# Multi-language definitions
+templates/vue/* linguist-language=Vue
+templates/html/* linguist-language=HTML
+templates/js/* linguist-language=JavaScript
+templates/css/* linguist-language=CSS
+scripts/* linguist-language=JavaScript
+bin/* linguist-language=JavaScript

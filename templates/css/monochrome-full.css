@@ -1,0 +1,31 @@
+/**
+ * Nawfal UI Kit - Full Monochromatic System Stylesheet
+ */
+@layer base {
+  :root {
+    --nawfal-obsidian: #0a0a0a;
+    --nawfal-carbon: #171717;
+    --nawfal-border: #262626;
+    --nawfal-border-subtle: #404040;
+    --nawfal-white: #ffffff;
+    --nawfal-silver: #a3a3a3;
+  }
+}
+
+.nawfal-glass-obsidian {
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.nawfal-border-beam-active {
+  position: relative;
+  overflow: hidden;
+}
+
+.nawfal-spotlight-radial {
+  pointer-events: none;
+  position: absolute;
+  inset: -1px;
+}
