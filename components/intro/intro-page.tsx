@@ -199,18 +199,6 @@ export default function IntroPage({ onComplete }: IntroPageProps) {
         isExiting ? "scale-105 opacity-0" : "scale-100 opacity-100"
       }`}
     >
-      {/* Explicit Skip Action in Top Right */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsExiting(true);
-          setTimeout(() => onComplete(), 150);
-        }}
-        className="absolute top-5 right-5 z-30 flex items-center rounded-full border border-white/20 bg-black/60 px-3 py-1.5 text-[11px] font-medium tracking-wider text-white/80 backdrop-blur-md transition-all hover:border-white/40 hover:bg-white/10 hover:text-white"
-        title="Skip Intro"
-      >
-        <span>SKIP</span>
-      </button>
       {/* Subtle grain texture */}
       <div
         className="pointer-events-none absolute inset-0 opacity-5"
