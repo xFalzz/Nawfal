@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 // Components
-import TemplateCard from "@/components/macro/template-card";
+import { ProjectShowcase } from "@/components/projects/project-showcase";
 import TechStack from "@/components/macro/tech-stack";
 
 // Assets
@@ -153,11 +153,7 @@ const Page = () => {
         </p>
       </div>
       <div className="h-[1px] w-full bg-border" />
-      <div className="pad-x flex h-full min-h-fit w-full grow flex-col gap-x-4 gap-y-4 md:grid md:grid-cols-2 md:gap-x-5 md:gap-y-5 lg:gap-x-6 lg:gap-y-6 xl:grid-cols-3 xl:gap-x-8 xl:gap-y-8">
-        {Projects.map((project, index) => (
-          <TemplateCard key={index} {...project} />
-        ))}
-      </div>
+      <ProjectShowcase projects={Projects} />
       <TechStack />
     </section>
   );

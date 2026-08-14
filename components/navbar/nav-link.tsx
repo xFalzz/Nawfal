@@ -7,9 +7,10 @@ import Link from "next/link";
 interface NavLinkProps {
   href?: string;
   name?: string;
+  isLive?: boolean;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ href = "/", name = "Link" }) => {
+const NavLink: React.FC<NavLinkProps> = ({ href = "/", name = "Link", isLive = false }) => {
   const letters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ,.!?@#$%^&*()_+-=<>{}[]|/\\";
   let interval: NodeJS.Timeout | null = null;
@@ -44,14 +45,20 @@ const NavLink: React.FC<NavLinkProps> = ({ href = "/", name = "Link" }) => {
   };
 
   return (
-    <Link href={href}>
+    <Link href={href} className="inline-flex items-center gap-1.5 group">
       <p
         data-value={name}
         onMouseOver={handleMouseOver}
-        className="font-medium text-sm uppercase font-mono text-muted-foreground hover:text-foreground"
+        className="font-medium text-sm uppercase font-mono text-muted-foreground hover:text-foreground transition-colors"
       >
         {name}
       </p>
+      {isLive && (
+        <span className="relative flex h-1.5 w-1.5 items-center justify-center">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+        </span>
+      )}
     </Link>
   );
 };

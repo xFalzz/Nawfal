@@ -25,7 +25,28 @@ const NavItems = [
   },
 ];
 
-const Experience: { title: string; company: string; date: string }[] = [];
+const Experience = [
+  {
+    title: "Freelance Web Developer",
+    company: "Fiverr",
+    date: "Nov 2025 - Present",
+  },
+  {
+    title: "AI Training Apprentice",
+    company: "Microsoft Elevate Training Center",
+    date: "Oct 2025 - Mar 2026",
+  },
+  {
+    title: "Multimedia Intern",
+    company: "BTKP DIY",
+    date: "Mar 2024 - Aug 2024",
+  },
+  {
+    title: "Video Editor & Cameraman",
+    company: "Kopvie Film Community",
+    date: "Sep 2023 - Jun 2024",
+  },
+];
 
 const Inspiration = [
   {
