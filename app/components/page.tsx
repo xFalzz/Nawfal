@@ -1654,10 +1654,10 @@ export function VinylDiscPlayer() {
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-[9px] uppercase text-neutral-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 sm:text-[10px]">
-                v5.2.0 NextGen CLI Edition
+                v5.3.0 Enterprise Edition
               </span>
               <span className="flex items-center gap-1 font-mono text-[9px] text-emerald-600 dark:text-emerald-400 sm:text-[10px]">
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" /> 48 Components Verified
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" /> {uikitComponents.length} Components Verified
               </span>
             </div>
             <h1 className="mt-2 text-xl font-extrabold tracking-tight text-neutral-900 dark:text-white sm:text-2xl md:text-3xl">

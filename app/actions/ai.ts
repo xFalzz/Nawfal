@@ -212,19 +212,19 @@ function getAutonomousRealtimeContext() {
     }
 
     return {
-      version: pkgInfo.version || "5.2.0",
+      version: pkgInfo.version || "5.3.0",
       dependenciesCount: Object.keys(pkgInfo.dependencies || {}).length,
       routes: Array.from(new Set(detectedRoutes)),
-      componentsCount: Math.max(48, detectedComponents.length),
+      componentsCount: Math.max(56, detectedComponents.length),
       uikitModules: detectedComponents,
     };
   } catch (err) {
     return {
-      version: "5.2.0",
+      version: "5.3.0",
       dependenciesCount: 30,
       routes: ["/", "/about", "/projects", "/components", "/certificate", "/photography"],
-      componentsCount: 48,
-      uikitModules: ["custom-components", "innovative-components", "nextgen-components", "out-of-the-box", "spotify-components", "imaginative-components"],
+      componentsCount: 56,
+      uikitModules: ["advanced-components", "custom-components", "innovative-components", "nextgen-components", "out-of-the-box", "spotify-components", "imaginative-components"],
     };
   }
 }

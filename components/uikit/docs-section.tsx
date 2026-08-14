@@ -30,24 +30,24 @@ export function DocsSection() {
   ];
 
   const typographyTokens = [
-    { name: "Display XL", class: "text-3xl font-extrabold tracking-tight", sample: "Nawfal UI Kit v5.2" },
+    { name: "Display XL", class: "text-3xl font-extrabold tracking-tight", sample: "Nawfal UI Kit v5.3" },
     { name: "Heading", class: "text-xl font-bold tracking-tight", sample: "Enterprise Component Architecture" },
     { name: "Subheading", class: "text-xs font-semibold uppercase tracking-wider", sample: "DESIGN SYSTEM SPECIFICATIONS" },
     { name: "Body", class: "text-xs leading-relaxed", sample: "High-contrast monochromatic component primitives engineered for Next.js 14 and React 18." },
-    { name: "Caption Mono", class: "font-mono text-[10px] font-medium", sample: "npx nawfal-ui@latest init · 48 components · MIT License" },
+    { name: "Caption Mono", class: "font-mono text-[10px] font-medium", sample: "npx nawfal-ui@latest init · 56 components · MIT License" },
   ];
 
   const cliCommands = [
     { cmd: "npx nawfal-ui@latest init", desc: "Initialize project configuration (nawfal-ui.json), create components/uikit/ directory, and generate helper utilities." },
-    { cmd: "npx nawfal-ui@latest add ai-neural-voice-spectrum", desc: "Download and install a specific standalone TSX component directly into your codebase." },
-    { cmd: "npx nawfal-ui@latest list", desc: "Display all 48 available enterprise components categorized by AI, Audio, Motion, and Telemetry." },
+    { cmd: "npx nawfal-ui@latest add ai-reasoning-accordion", desc: "Download and install a specific standalone TSX component directly into your codebase." },
+    { cmd: "npx nawfal-ui@latest list", desc: "Display all 56 available enterprise components categorized by AI, Audio, Motion, and Telemetry." },
     { cmd: "npx nawfal-ui@latest diff", desc: "Compare local component modifications with upstream Nawfal UI releases." },
     { cmd: "npx nawfal-ui@latest help", desc: "Show full CLI command reference and usage options." },
   ];
 
   const simulatedTerminalOutputs: Record<string, string> = {
     "npx nawfal-ui@latest init": `==================================================
- 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.2.0
+ 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.3.0
 ==================================================
 [1/3] ⚙️ Initializing Nawfal UI Kit configuration...
   ✓ Created nawfal-ui.json configuration
@@ -60,37 +60,38 @@ export function DocsSection() {
 [3/3] 🎉 Nawfal UI Kit successfully initialized!
 Run 'npx nawfal-ui add <component>' to install components.`,
 
-    "npx nawfal-ui@latest add ai-neural-voice-spectrum": `==================================================
- 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.2.0
+    "npx nawfal-ui@latest add ai-reasoning-accordion": `==================================================
+ 🚀 NAWFAL UI KIT ENTERPRISE CLI — v5.3.0
 ==================================================
-[+] Installing component: ai-neural-voice-spectrum...
+[+] Installing component: ai-reasoning-accordion...
   ✓ Downloaded standalone TSX source
   ✓ Verified TypeScript types (0 errors)
-  ✓ Saved to: components/uikit/ai-neural-voice-spectrum.tsx
+  ✓ Saved to: components/uikit/ai-reasoning-accordion.tsx
 
 Success! Import via:
-import { AINeuralVoiceSpectrum } from "@/components/uikit/ai-neural-voice-spectrum";`,
+import { AIReasoningAccordion } from "@/components/uikit/ai-reasoning-accordion";`,
 
     "npx nawfal-ui@latest list": `==================================================
- 📦 Available Enterprise Components (48 Total):
+ 📦 Available Enterprise Components (56 Total):
 ==================================================
+  • ai-reasoning-accordion
+  • voice-orb-visualizer
+  • spotlight-bento-grid
+  • border-beam-card
+  • macos-floating-dock
+  • server-latency-matrix
+  • git-commit-flow-graph
+  • vinyl-disc-player
   • ai-neural-voice-spectrum
   • ai-prompt-token-calculator
   • quantum-particle-matrix
   • cyber-parallax-hud-card
-  • multi-step-pipeline-wizard
-  • floating-command-palette
-  • ai-generative-semantic-search
-  • ai-vision-prompt-inspector
-  • audio-waveform-visualizer
-  • spotify-mini-player
-  • system-telemetry-monitor
-  ... and 37 more primitives.`,
+  ... and 44 more primitives.`,
 
     "npx nawfal-ui@latest diff": `==================================================
  🔍 Nawfal UI Local Source Diff Checker
 ==================================================
-  • components/uikit/ai-neural-voice-spectrum.tsx: Up to date (v5.2.0)
+  • components/uikit/ai-reasoning-accordion.tsx: Up to date (v5.3.0)
   • components/uikit/custom-components.tsx: Custom local edits detected (100% owned)
 No upstream breaking conflicts found.`,
 
@@ -100,13 +101,13 @@ No upstream breaking conflicts found.`,
 Usage:
   npx nawfal-ui@latest init         Initialize Nawfal UI in project
   npx nawfal-ui@latest add <name>   Install component source file
-  npx nawfal-ui@latest list         List all 48 components
+  npx nawfal-ui@latest list         List all 56 components
   npx nawfal-ui@latest help         Show CLI help menu`,
   };
 
   const configSnippet = `{
   "$schema": "https://nawfal.vercel.app/schema.json",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "style": "monochrome-enterprise",
   "rsc": true,
   "tsx": true,

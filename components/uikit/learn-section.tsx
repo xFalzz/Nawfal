@@ -82,7 +82,7 @@ npx nawfal-ui@latest add ai-semantic-search
 npx nawfal-ui@latest add audio-waveform
 npx nawfal-ui@latest add interactive-dock
 
-# 3. List all 48 components with status
+# 3. List all 56 components with status
 npx nawfal-ui@latest list
 \`\`\`
 
