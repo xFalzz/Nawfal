@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { Award, CheckCircle2, ShieldCheck, FileText } from "lucide-react";
+import { Award, CheckCircle2, ShieldCheck } from "lucide-react";
 
 interface CertificateThumbnailProps {
   file: string;
@@ -16,12 +16,44 @@ function isImage(file: string) {
   return /\.(png|jpg|jpeg|webp|svg)$/i.test(file);
 }
 
+// Client-side dynamic PDF.js script loader without webpack canvas bundle dependencies
+function getPdfJs(): Promise<any> {
+  if (typeof window === "undefined") return Promise.reject("SSR");
+  if ((window as any).pdfjsLib) {
+    return Promise.resolve((window as any).pdfjsLib);
+  }
+
+  return new Promise((resolve, reject) => {
+    const existing = document.getElementById("pdfjs-cdn-script");
+    if (existing) {
+      existing.addEventListener("load", () => resolve((window as any).pdfjsLib));
+      existing.addEventListener("error", reject);
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.id = "pdfjs-cdn-script";
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    script.onload = () => {
+      const pdfjs = (window as any).pdfjsLib;
+      if (pdfjs) {
+        pdfjs.GlobalWorkerOptions.workerSrc =
+          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+        resolve(pdfjs);
+      } else {
+        reject(new Error("pdfjsLib not available"));
+      }
+    };
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
 export default function CertificateThumbnail({
   file,
   name,
   category = "Certificate",
   issuer = "",
-  color = "from-blue-500 to-indigo-600",
 }: CertificateThumbnailProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -54,7 +86,7 @@ export default function CertificateThumbnail({
     return () => observer.disconnect();
   }, [image]);
 
-  // Render PDF using PDF.js to canvas
+  // Render PDF using PDF.js onto HTML5 canvas
   useEffect(() => {
     if (image || !inView || rendered || hasError) return;
 
@@ -62,15 +94,12 @@ export default function CertificateThumbnail({
 
     async function renderPdf() {
       try {
-        const pdfjsLib = await import("pdfjs-dist");
-        // Use CDN worker for reliable cross-bundle compatibility
-        if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
-          pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version || "3.11.174"}/pdf.worker.min.js`;
-        }
+        const pdfjsLib = await getPdfJs();
+        if (!isMounted) return;
 
         const loadingTask = pdfjsLib.getDocument({
           url: file,
-          cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version || "3.11.174"}/cmaps/`,
+          cMapUrl: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/",
           cMapPacked: true,
         });
 
@@ -84,7 +113,6 @@ export default function CertificateThumbnail({
         if (!canvas) return;
 
         const baseViewport = page.getViewport({ scale: 1 });
-        // Target high-res width (400px width on 2x retina)
         const scale = 400 / baseViewport.width;
         const viewport = page.getViewport({ scale });
 
@@ -104,7 +132,6 @@ export default function CertificateThumbnail({
           setRendered(true);
         }
       } catch (err) {
-        console.warn(`PDF render fallback for ${file}:`, err);
         if (isMounted) {
           setHasError(true);
         }
@@ -144,7 +171,7 @@ export default function CertificateThumbnail({
             }`}
           />
 
-          {/* 3. Fallback / Branded Certificate Card Placeholder (shown while loading or on fallback) */}
+          {/* 3. Branded Certificate Card Placeholder (shown while loading or on fallback) */}
           {!rendered && (
             <div className="absolute inset-0 flex flex-col justify-between p-3 bg-gradient-to-br from-card via-card/90 to-muted/80 border-b border-border/40 select-none">
               {/* Card Header: Category & Seal */}
