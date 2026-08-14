@@ -1,23 +1,25 @@
-# GitHub Linguist Language Balancing Configuration for Nawfal Portfolio & Ecosystem
-components/uikit/community-section.tsx linguist-vendored
-components/uikit/docs-section.tsx linguist-vendored
-components/uikit/learn-section.tsx linguist-vendored
-components/uikit/playground-section.tsx linguist-vendored
-components/uikit/templates-section.tsx linguist-vendored
-components/uikit/tools-section.tsx linguist-vendored
-components/uikit/custom-components.tsx linguist-vendored
-components/uikit/innovative-components.tsx linguist-vendored
-components/uikit/imaginative-components.tsx linguist-vendored
-components/uikit/nextgen-components.tsx linguist-vendored
-components/uikit/out-of-the-box.tsx linguist-vendored
-components/uikit/spotify-components.tsx linguist-vendored
+# GitHub Linguist Multi-Language Balancing Configuration
+# Vendors internal repetitive structures so all core languages are balanced evenly
+
+components/uikit/** linguist-vendored
+app/components/** linguist-vendored
+app/projects/** linguist-vendored
+app/certificate/** linguist-vendored
+app/photography/** linguist-vendored
+components/ui/** linguist-vendored
+components/modal/** linguist-vendored
+lib/** linguist-vendored
 public/schema.json linguist-vendored
 package-lock.json linguist-vendored
+bun.lockb linguist-vendored
 
-# Multi-language definitions
+# Multi-Language Explicit Mapping
 templates/vue/* linguist-language=Vue
 templates/html/* linguist-language=HTML
 templates/js/* linguist-language=JavaScript
 templates/css/* linguist-language=CSS
-scripts/* linguist-language=JavaScript
+scripts/*.py linguist-language=Python
+scripts/*.sh linguist-language=Shell
+scripts/*.rs linguist-language=Rust
+scripts/*.js linguist-language=JavaScript
 bin/* linguist-language=JavaScript
