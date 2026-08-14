@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Brain,
   ChevronDown,
-  Sparkles,
   Play,
   Pause,
   Disc3,
@@ -79,7 +78,7 @@ export function AIReasoningAccordion() {
       {/* Synthesized Response Box */}
       <div className="mt-3 rounded-lg border border-neutral-800/60 bg-neutral-900/40 p-2.5 text-[10px] text-neutral-300">
         <div className="flex items-center gap-1.5 text-violet-400 font-bold mb-1">
-          <Sparkles className="h-3 w-3" /> Answer Generated
+          <CheckCircle2 className="h-3 w-3" /> Answer Generated
         </div>
         Optimal system throughput achieved at 14,200 req/s with 99.98% cache hit ratio.
       </div>

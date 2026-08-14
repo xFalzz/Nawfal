@@ -1445,7 +1445,7 @@ export function GitBranchTreeGraph() {
       description: "Collapsible thought process container with live step breakdown and token time indicator.",
       component: <AIReasoningAccordion />,
       codeSnippet: `import { useState } from "react";
-import { Brain, ChevronDown, Sparkles } from "lucide-react";
+import { Brain, ChevronDown, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function AIReasoningAccordion() {
