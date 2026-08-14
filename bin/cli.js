@@ -26,7 +26,13 @@ Usage:
   npx nawfal-ui@latest list         List all 56+ available components
   npx nawfal-ui@latest help         Show CLI help menu
 
-Options:
+Language & Framework Options:
+  --js, --jsx                       Generate pure JavaScript (.jsx / .js) instead of TypeScript
+  --ts, --tsx                       Generate TypeScript (.tsx / .ts) (default)
+  --vue                             Generate Vue 3 Single File Component (.vue)
+  --html                            Generate Vanilla HTML + Tailwind component (.html)
+
+General Options:
   --yes, -y                         Skip prompts and use defaults
   --path <dir>                      Specify components target folder (default: components/uikit)
 `);
@@ -45,22 +51,25 @@ if (command === "list") {
     "particle-mesh-node", "terminal-code-window", "glass-input", "radar-sweep-badge"
   ];
   componentsList.forEach((c) => console.log(`  • \x1b[32m${c}\x1b[0m`));
-  console.log("\nRun \x1b[36mnpx nawfal-ui add <component-name>\x1b[0m to install.\n");
+  console.log("\nRun \x1b[36mnpx nawfal-ui add <component-name> [--js|--ts|--vue|--html]\x1b[0m to install.\n");
   process.exit(0);
 }
 
 if (command === "init") {
-  console.log("\n\x1b[32m[1/3]\x1b[0m ⚙️  Initializing Nawfal UI Kit configuration...");
+  const isJs = args.includes("--js") || args.includes("--jsx");
+  console.log(`\n\x1b[32m[1/3]\x1b[0m ⚙️  Initializing Nawfal UI Kit configuration (${isJs ? "JavaScript" : "TypeScript"})...`);
 
   const cwd = process.cwd();
   const configPath = path.join(cwd, "nawfal-ui.json");
 
   const defaultConfig = {
     $schema: "https://nawfal.vercel.app/schema.json",
-    version: "5.2.0",
+    version: "5.3.1",
     style: "monochrome-enterprise",
+    language: isJs ? "javascript" : "typescript",
+    tsx: !isJs,
     tailwind: {
-      config: "tailwind.config.ts",
+      config: isJs ? "tailwind.config.js" : "tailwind.config.ts",
       css: "app/globals.css",
       baseColor: "zinc",
     },
@@ -86,9 +95,18 @@ if (command === "init") {
     fs.mkdirSync(libDir, { recursive: true });
   }
 
-  const utilsPath = path.join(libDir, "utils.ts");
+  const utilsExt = isJs ? "js" : "ts";
+  const utilsPath = path.join(libDir, `utils.${utilsExt}`);
   if (!fs.existsSync(utilsPath)) {
-    const utilsCode = `import { clsx, type ClassValue } from "clsx";
+    const utilsCode = isJs
+      ? `import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
+`
+      : `import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -96,7 +114,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 `;
     fs.writeFileSync(utilsPath, utilsCode, "utf8");
-    console.log("  \x1b[34m✓ Created lib/utils.ts (cn utility)\x1b[0m");
+    console.log(`  \x1b[34m✓ Created lib/utils.${utilsExt} (cn utility)\x1b[0m`);
   }
 
   console.log("\n\x1b[32m[2/3]\x1b[0m 📦 Checking required peer dependencies...");
@@ -106,45 +124,83 @@ export function cn(...inputs: ClassValue[]) {
   console.log("\n\x1b[32m[3/3]\x1b[0m 🎉 Nawfal UI Kit successfully initialized!");
   console.log("\x1b[36m%s\x1b[0m", "==================================================");
   console.log("\nNext Steps:");
-  console.log("  1. Add a component: \x1b[33mnpx nawfal-ui add ai-neural-voice-spectrum\x1b[0m");
+  console.log(`  1. Add a component: \x1b[33mnpx nawfal-ui add ai-reasoning-accordion${isJs ? " --js" : ""}\x1b[0m`);
   console.log("  2. Explore components online: \x1b[33mhttps://nawfal.vercel.app/components\x1b[0m\n");
   process.exit(0);
 }
 
 if (command === "add") {
   const componentName = args[1];
-  if (!componentName) {
+  if (!componentName || componentName.startsWith("--")) {
     console.log("\x1b[31m[Error]\x1b[0m Please specify a component name.");
-    console.log("Example: \x1b[36mnpx nawfal-ui add ai-neural-voice-spectrum\x1b[0m");
+    console.log("Example: \x1b[36mnpx nawfal-ui add ai-reasoning-accordion [--js|--ts|--vue|--html]\x1b[0m");
     process.exit(1);
   }
 
-  console.log(`\n\x1b[32m[+] Installing component:\x1b[0m \x1b[33m${componentName}\x1b[0m...`);
+  const isVue = args.includes("--vue");
+  const isHtml = args.includes("--html");
+  const isJs = args.includes("--js") || args.includes("--jsx");
+
+  const ext = isVue ? "vue" : isHtml ? "html" : isJs ? "jsx" : "tsx";
+  const langLabel = isVue ? "Vue 3 SFC" : isHtml ? "Vanilla HTML" : isJs ? "JavaScript (JSX)" : "TypeScript (TSX)";
+
+  console.log(`\n\x1b[32m[+] Installing ${langLabel} component:\x1b[0m \x1b[33m${componentName}\x1b[0m...`);
   const cwd = process.cwd();
-  const targetPath = path.join(cwd, "components", "uikit", `${componentName}.tsx`);
+  const targetPath = path.join(cwd, "components", "uikit", `${componentName}.${ext}`);
   
   if (!fs.existsSync(path.dirname(targetPath))) {
     fs.mkdirSync(path.dirname(targetPath), { recursive: true });
   }
 
-  const sampleTemplate = `"use client";
+  const compPascal = componentName.split("-").map(s => s.charAt(0).toUpperCase() + s.slice(1)).join("");
+
+  let sampleTemplate = "";
+  if (isVue) {
+    sampleTemplate = `<template>
+  <div class="flex w-full max-w-sm flex-col gap-2 rounded-xl border border-neutral-800 bg-neutral-950 p-4 text-white font-mono text-xs shadow-lg">
+    <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+      <span class="font-bold uppercase tracking-wider">${componentName}</span>
+      <span class="rounded bg-emerald-500/10 px-2 py-0.5 text-[9px] text-emerald-400 font-semibold">VERIFIED</span>
+    </div>
+    <p class="text-neutral-400 text-[11px]">Nawfal UI Kit Vue 3 Component successfully installed via CLI.</p>
+  </div>
+</template>
+
+<script setup>
+// Component logic for ${compPascal}
+</script>
+`;
+  } else if (isHtml) {
+    sampleTemplate = `<!-- Nawfal UI Kit Component: ${componentName} -->
+<div class="flex w-full max-w-sm flex-col gap-2 rounded-xl border border-neutral-800 bg-neutral-950 p-4 text-white font-mono text-xs shadow-lg">
+  <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+    <span class="font-bold uppercase tracking-wider">${componentName}</span>
+    <span class="rounded bg-emerald-500/10 px-2 py-0.5 text-[9px] text-emerald-400 font-semibold">VERIFIED</span>
+  </div>
+  <p class="text-neutral-400 text-[11px]">Nawfal UI Kit Vanilla HTML + Tailwind component.</p>
+</div>
+`;
+  } else {
+    // React TSX or JSX
+    sampleTemplate = `"use client";
 import React from "react";
 
-export function ${componentName.split("-").map(s => s.charAt(0).toUpperCase() + s.slice(1)).join("")}() {
+export function ${compPascal}() {
   return (
     <div className="flex w-full max-w-sm flex-col gap-2 rounded-xl border border-neutral-800 bg-neutral-950 p-4 text-white font-mono text-xs shadow-lg">
       <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
         <span className="font-bold uppercase tracking-wider">${componentName}</span>
         <span className="rounded bg-emerald-500/10 px-2 py-0.5 text-[9px] text-emerald-400 font-semibold">VERIFIED</span>
       </div>
-      <p className="text-neutral-400 text-[11px]">Nawfal UI Kit Enterprise Component successfully installed via CLI.</p>
+      <p className="text-neutral-400 text-[11px]">Nawfal UI Kit ${langLabel} Component successfully installed via CLI.</p>
     </div>
   );
 }
 `;
+  }
 
   fs.writeFileSync(targetPath, sampleTemplate, "utf8");
-  console.log(`\x1b[32m✓ Component saved to:\x1b[0m ${targetPath}\n`);
+  console.log(`\x1b[32m✓ Component (${langLabel}) saved to:\x1b[0m ${targetPath}\n`);
   process.exit(0);
 }
 
