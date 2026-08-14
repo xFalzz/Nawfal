@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Users, Send, Star, GitFork, MessageSquare, Check, Github, Zap,
+  Users, Send, GitFork, MessageSquare, Check, Github, Zap,
   ArrowUpRight, Heart, TrendingUp, Globe, Download, Code2, Terminal,
   ShieldCheck, ShieldAlert, CheckCircle2, Cloud
 } from "lucide-react";
@@ -330,8 +330,8 @@ export function CommunitySection() {
 
   // 100% Real Factual GitHub Metrics
   const stats = [
-    { label: "Community Rating", value: "4.9 / 5.0", icon: Star },
-    { label: "GitHub Stars", value: realGithubStats.stars, icon: Star },
+    { label: "Community Rating", value: "4.9 / 5.0", icon: CheckCircle2 },
+    { label: "GitHub Stars", value: realGithubStats.stars, icon: TrendingUp },
     { label: "Components Total", value: realGithubStats.components, icon: Code2 },
     { label: "License & Access", value: realGithubStats.openSource, icon: Globe },
   ];

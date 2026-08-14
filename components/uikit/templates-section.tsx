@@ -29,6 +29,18 @@ import { GlassInput, PinCodeOTPInput, ShimmerBeamButton, CyberBorderCard, Monoch
 // ─── UI Controls Imports ──────────────────────────────────────────────────────
 import { MagneticButton, ParticleRippleButton, InteractiveDock, SegmentedControlSwitch, CompactToggleSwitch, NotificationToastBanner, AvatarGroupPile, MetricBadgeCard, CommandShortcutWidget, MinimalPulseBadge, RadarSweepBadge } from "@/components/uikit/custom-components";
 
+// ─── Advanced Innovations Imports ─────────────────────────────────────────────
+import {
+  AIReasoningAccordion,
+  VoiceOrbVisualizer,
+  SpotlightBentoGrid,
+  BorderBeamCard,
+  MacOSFloatingDock,
+  ServerLatencyMatrix,
+  GitCommitFlowGraph,
+  VinylDiscPlayer,
+} from "@/components/uikit/advanced-components";
+
 // ─── Category & Filter Config ─────────────────────────────────────────────────
 type Category = "All" | "AI & Intelligence" | "Media & Audio" | "DevOps & Systems" | "Auth & Security" | "Data & Analytics" | "Developer Tools" | "UI Controls";
 
@@ -786,6 +798,139 @@ export function MotionButtonShowcase() {
         <ShimmerBeamButton>Shimmer Beam</ShimmerBeamButton>
         <ParticleRippleButton />
       </div>
+    </div>
+  );
+}`
+    },
+    {
+      id: "ai-reasoning-voice-suite",
+      title: "AI Reasoning & Voice Command Suite",
+      category: "AI & Intelligence" as Category,
+      difficulty: "Advanced",
+      components: ["AIReasoningAccordion", "VoiceOrbVisualizer"],
+      description: "Next-generation LLM interface featuring live thinking process accordion and interactive voice frequency visualizer.",
+      preview: (
+        <div className="flex w-full flex-col gap-3 rounded-xl border border-neutral-800 bg-black p-4 font-mono text-xs text-white">
+          <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
+            <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-violet-400 text-[11px]">
+              <Brain className="h-3.5 w-3.5" /> REASONING & VOICE CORE
+            </span>
+            <span className="rounded border border-emerald-900 bg-emerald-950/60 px-2 py-0.5 text-[9px] text-emerald-400 font-bold">READY</span>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <AIReasoningAccordion />
+            <VoiceOrbVisualizer />
+          </div>
+        </div>
+      ),
+      code: `import { AIReasoningAccordion, VoiceOrbVisualizer } from "@/components/uikit/advanced-components";
+
+export function AIReasoningVoiceSuite() {
+  return (
+    <div className="flex flex-col gap-3 rounded-xl border border-neutral-800 bg-black p-4 font-mono text-xs text-white">
+      <div className="flex justify-between border-b border-neutral-800 pb-2">
+        <span className="font-bold text-violet-400">REASONING & VOICE CORE</span>
+      </div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <AIReasoningAccordion />
+        <VoiceOrbVisualizer />
+      </div>
+    </div>
+  );
+}`
+    },
+    {
+      id: "edge-telemetry-fleet-hub",
+      title: "Global Edge Fleet & DAG Hub",
+      category: "DevOps & Systems" as Category,
+      difficulty: "Intermediate",
+      components: ["ServerLatencyMatrix", "GitCommitFlowGraph"],
+      description: "Real-time edge server telemetry monitor paired with interactive DAG branch commit flow tree.",
+      preview: (
+        <div className="flex w-full flex-col gap-3 rounded-xl border border-neutral-800 bg-black p-4 font-mono text-xs text-white">
+          <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
+            <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-emerald-400 text-[11px]">
+              <Cpu className="h-3.5 w-3.5" /> EDGE FLEET & DAG TREE
+            </span>
+            <span className="rounded border border-emerald-900 bg-emerald-950/60 px-2 py-0.5 text-[9px] text-emerald-400 font-bold">100% HEALTHY</span>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <ServerLatencyMatrix />
+            <GitCommitFlowGraph />
+          </div>
+        </div>
+      ),
+      code: `import { ServerLatencyMatrix, GitCommitFlowGraph } from "@/components/uikit/advanced-components";
+
+export function EdgeTelemetryFleetHub() {
+  return (
+    <div className="flex flex-col gap-3 rounded-xl border border-neutral-800 bg-black p-4 font-mono text-xs text-white">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <ServerLatencyMatrix />
+        <GitCommitFlowGraph />
+      </div>
+    </div>
+  );
+}`
+    },
+    {
+      id: "kinetic-spotlight-bento-suite",
+      title: "Kinetic Spotlight Bento Suite",
+      category: "UI Controls" as Category,
+      difficulty: "Intermediate",
+      components: ["SpotlightBentoGrid", "BorderBeamCard"],
+      description: "Modern kinetic interaction container combining hardware-accelerated spotlight light follow and rotating border beam perimeter.",
+      preview: (
+        <div className="flex w-full flex-col gap-3 rounded-xl border border-neutral-800 bg-black p-4 font-mono text-xs text-white">
+          <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
+            <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-sky-400 text-[11px]">
+              <Layers className="h-3.5 w-3.5" /> KINETIC BENTO CONTAINERS
+            </span>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <SpotlightBentoGrid />
+            <BorderBeamCard />
+          </div>
+        </div>
+      ),
+      code: `import { SpotlightBentoGrid, BorderBeamCard } from "@/components/uikit/advanced-components";
+
+export function KineticSpotlightBentoSuite() {
+  return (
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <SpotlightBentoGrid />
+      <BorderBeamCard />
+    </div>
+  );
+}`
+    },
+    {
+      id: "audiophile-vinyl-dock-deck",
+      title: "Audiophile Vinyl & Dock Deck",
+      category: "Media & Audio" as Category,
+      difficulty: "Advanced",
+      components: ["VinylDiscPlayer", "MacOSFloatingDock"],
+      description: "Interactive media playback deck with spinning vinyl record disc and spring-physics floating application dock.",
+      preview: (
+        <div className="flex w-full flex-col gap-3 rounded-xl border border-neutral-800 bg-black p-4 font-mono text-xs text-white">
+          <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
+            <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-purple-400 text-[11px]">
+              <Music2 className="h-3.5 w-3.5" /> VINYL & DOCK SUITE
+            </span>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <VinylDiscPlayer />
+            <MacOSFloatingDock />
+          </div>
+        </div>
+      ),
+      code: `import { VinylDiscPlayer, MacOSFloatingDock } from "@/components/uikit/advanced-components";
+
+export function AudiophileVinylDockDeck() {
+  return (
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <VinylDiscPlayer />
+      <MacOSFloatingDock />
     </div>
   );
 }`

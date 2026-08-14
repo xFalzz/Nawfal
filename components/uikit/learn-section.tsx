@@ -13,7 +13,7 @@ import { useToast } from "@/components/ui/use-toast";
 const FAQS = [
   {
     q: "What is Nawfal UI and how is it different from Shadcn or MUI?",
-    a: "Nawfal UI is an enterprise-grade, monochromatic React component library shipping 48 production-ready components. Unlike traditional libraries that lock you into compiled npm packages, Nawfal UI provides source-owned TSX components that you copy directly into your project. It specializes in AI RAG search bars, physics-based motion primitives, audio visualizers, and system telemetry dashboards.",
+    a: "Nawfal UI is an enterprise-grade, monochromatic React component library shipping 56 production-ready components. Unlike traditional libraries that lock you into compiled npm packages, Nawfal UI provides source-owned TSX components that you copy directly into your project. It specializes in AI RAG search bars, physics-based motion primitives, audio visualizers, and system telemetry dashboards.",
     cat: "General",
   },
   {
@@ -27,13 +27,18 @@ const FAQS = [
     cat: "Setup",
   },
   {
+    q: "Why does Nawfal UI strictly adhere to a Monochromatic Color Philosophy?",
+    a: "A strict monochromatic palette (deep obsidian #0A0A0A, carbon #171717, zinc, and crisp white #FFFFFF) eliminates cognitive visual clutter, maximizes mathematical contrast ratios (exceeding WCAG AAA), and ensures seamless integration into any brand or product without color clashes.",
+    cat: "Design System",
+  },
+  {
     q: "Is Nawfal UI compliant with WCAG AAA accessibility standards?",
     a: "Yes. Nawfal UI's monochromatic luminance scale enforces an 18.5:1 contrast ratio between primary text and backgrounds, exceeding the WCAG AAA requirement of 7:1. Interactive components also include keyboard navigation (⌘K shortcut, focus rings, ARIA roles).",
     cat: "Design System",
   },
   {
-    q: "Does Nawfal UI support Next.js 14 App Router and Server Components (RSC)?",
-    a: "Yes. Components that contain interactive client state or Framer Motion animations feature the 'use client' directive at the top, while structural containers are fully compatible with Next.js App Router and React Server Components.",
+    q: "Does Nawfal UI support Next.js 15 App Router and React 19?",
+    a: "Yes. Components that contain interactive client state or Framer Motion animations feature the 'use client' directive at the top, while structural containers are fully compatible with Next.js 15 App Router and React 19 Server Components.",
     cat: "Compatibility",
   },
   {
@@ -115,6 +120,25 @@ npx nawfal-ui@latest list
 
 ### Spacing Scale (4px Grid)
 All padding, margin, and gaps adhere to a 4px base scale: 4px → 8px → 12px → 16px → 20px → 24px → 32px.`,
+  },
+  {
+    id: "ai-telemetry-suite",
+    title: "4. Next-Gen AI & Telemetry Primitives (v5.3)",
+    category: "AI & Systems",
+    readTime: "4 min read",
+    summary: "Integrate AI reasoning accordions, voice orb visualizers, and edge server latency matrices into your production dashboard.",
+    content: `Nawfal UI v5.3 introduces 8 cutting-edge enterprise primitives tailored for modern AI applications and DevOps dashboards.
+
+### Key Primitives
+- **AI Reasoning Accordion (\`ai-reasoning-accordion\`)**: Collapsible thinking container with step breakdown and token time.
+- **Voice Orb Visualizer (\`voice-orb-visualizer\`)**: Kinetic liquid plasma ring reacting to microphone audio streams.
+- **Server Latency Matrix (\`server-latency-matrix\`)**: Multi-region edge health monitor with real-time ping simulation.
+- **Spotlight Bento (\`spotlight-bento-grid\`)**: Radial cursor-follow beam calculated with hardware-accelerated math.
+
+### Installation Example
+\`\`\`bash
+npx nawfal-ui@latest add ai-reasoning-accordion
+\`\`\``,
   },
 ];
 
